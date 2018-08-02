@@ -2,5 +2,10 @@
 ## git ignore
 ##
 
+# composer
+composer.phar
+composer.bat
+/vendor/
+
 # git
 !.gitkeep
