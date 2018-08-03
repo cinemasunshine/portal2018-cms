@@ -5,11 +5,6 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Cinemasunshine\PortalAdmin\Controller\IndexController;
 
-$app->get('/', function (Request $request, Response $response) {
-    return $this->view->render($response, 'hello.html.twig', [
-        'name' => 'Slim',
-    ]);
-});
+$app->get('/', IndexController::class . ':index')->setName('homepage');

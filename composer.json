@@ -3,6 +3,11 @@
     "description": "Cinemasunshine Portal2018 Admin",
     "type": "project",
     "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Cinemasunshine\\PortalAdmin\\": "src/"
+        }
+    },
     "require": {
         "php": "~7.2",
         "slim/slim" : "^3.0",
