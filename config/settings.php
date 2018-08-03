@@ -18,4 +18,11 @@ return [
             'cache' => APP_ROOT . '/cache/view',
         ],
     ],
+    
+    'logger' => [
+        'name' => 'app',
+        'chrome_php' => [
+            'level' => \Monolog\Logger::DEBUG,
+        ],
+    ],
 ];

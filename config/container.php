@@ -25,3 +25,29 @@ $container['view'] = function ($container) {
 
     return $view;
 };
+
+/**
+ * logger
+ * 
+ * @todo 環境毎に設定を変える
+ * @return \Monolog\Logger
+ */
+$container['logger'] = function ($container) {
+    $settings = $container->get('settings')['logger'];
+    $logger = new Monolog\Logger($settings['name']);
+    
+    $logger->pushProcessor(new Monolog\Processor\PsrLogMessageProcessor());
+    $logger->pushProcessor(new Monolog\Processor\UidProcessor());
+    $logger->pushProcessor(new Monolog\Processor\IntrospectionProcessor());
+    $logger->pushProcessor(new Monolog\Processor\WebProcessor());
+    $logger->pushProcessor(new Monolog\Processor\MemoryUsageProcessor());
+    $logger->pushProcessor(new Monolog\Processor\MemoryPeakUsageProcessor());
+    
+    // chromePHP
+    $chromePhpSettings = $settings['chrome_php'];
+    $logger->pushHandler(new Monolog\Handler\ChromePHPHandler(
+        $chromePhpSettings['level']
+    ));
+    
+    return $logger;
+};
