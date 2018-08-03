@@ -4,6 +4,7 @@
 
 # application
 /cache
+.env
 
 # composer
 composer.phar
