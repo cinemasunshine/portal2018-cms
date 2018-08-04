@@ -51,3 +51,19 @@ $container['logger'] = function ($container) {
     
     return $logger;
 };
+
+/**
+ * Doctrine entity manager
+ * 
+ * @return \Doctrine\ORM\EntityManager
+ */
+$container['em'] = function ($container) {
+    $settings = $container->get('settings')['doctrine'];
+    
+    $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
+        $settings['metadata_dirs'],
+        $settings['dev_mode']
+    );
+    
+    return \Doctrine\ORM\EntityManager::create($settings['connection'], $config);
+};
