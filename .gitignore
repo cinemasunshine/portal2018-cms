@@ -4,6 +4,7 @@
 
 # application
 /cache
+/public/.htaccess
 .env
 
 # composer
