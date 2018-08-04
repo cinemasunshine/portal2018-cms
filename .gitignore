@@ -12,5 +12,9 @@ composer.phar
 composer.bat
 /vendor/
 
+# docker
+/docker/mysql/data
+/docker/phpmyadmin/sessions
+
 # git
 !.gitkeep

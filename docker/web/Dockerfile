@@ -22,6 +22,9 @@ RUN apt-get update \
         unzip \
     && apt-get clean
 
+# install PHP extensions
+RUN docker-php-ext-install pdo_mysql
+
 # composerインストール
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
