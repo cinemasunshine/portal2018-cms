@@ -60,9 +60,16 @@ $container['logger'] = function ($container) {
 $container['em'] = function ($container) {
     $settings = $container->get('settings')['doctrine'];
     
+    /**
+     * 第５引数について、他のアノテーションとの競合を避けるためSimpleAnnotationReaderは使用しない。
+     * @Entity => @ORM\Entity などとしておく。
+     */
     $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
         $settings['metadata_dirs'],
-        $settings['dev_mode']
+        $settings['dev_mode'],
+        null,
+        null,
+        false
     );
     
     return \Doctrine\ORM\EntityManager::create($settings['connection'], $config);
