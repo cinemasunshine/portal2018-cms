@@ -59,6 +59,7 @@ class Auth
      */
     public function logout()
     {
+        $this->user = null;
         unset($_SESSION['auth.user_id']);
     }
     
