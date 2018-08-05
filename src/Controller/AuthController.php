@@ -63,4 +63,20 @@ class AuthController extends BaseController
         
         $this->redirect($this->router->pathFor('homepage'));
     }
+    
+    /**
+     * logout action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return \Slim\Http\Response
+     */
+    public function executeLogout($request, $response, $args)
+    {
+        $auth = new Auth($this->container);
+        $auth->logout();
+        
+        $this->redirect($this->router->pathFor('login'));
+    }
 }

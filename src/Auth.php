@@ -53,6 +53,16 @@ class Auth
     }
     
     /**
+     * logout
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        unset($_SESSION['auth.user_id']);
+    }
+    
+    /**
      * is authenticated
      *
      * @return bool
