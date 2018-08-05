@@ -74,3 +74,12 @@ $container['em'] = function ($container) {
     
     return \Doctrine\ORM\EntityManager::create($settings['connection'], $config);
 };
+
+/**
+ * auth
+ * 
+ * @return \Cinemasunshine\PortalAdmin\Auth
+ */
+$container['auth'] = function ($container) {
+    return new Cinemasunshine\PortalAdmin\Auth($container);
+};

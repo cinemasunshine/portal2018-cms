@@ -7,7 +7,6 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
-use Cinemasunshine\PortalAdmin\Auth;
 use Cinemasunshine\PortalAdmin\Form\LoginForm;
 
 /**
@@ -50,8 +49,7 @@ class AuthController extends BaseController
         
         $cleanData = $form->getData();
         
-        $auth = new Auth($this->container);
-        $result = $auth->login($cleanData['name'], $cleanData['password']);
+        $result = $this->auth->login($cleanData['name'], $cleanData['password']);
         
         if (!$result) {
             $this->data->set('values', $request->getParams());
@@ -74,8 +72,7 @@ class AuthController extends BaseController
      */
     public function executeLogout($request, $response, $args)
     {
-        $auth = new Auth($this->container);
-        $auth->logout();
+        $this->auth->logout();
         
         $this->redirect($this->router->pathFor('login'));
     }

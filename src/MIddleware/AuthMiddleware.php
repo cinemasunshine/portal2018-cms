@@ -10,8 +10,6 @@ namespace Cinemasunshine\PortalAdmin\Middleware;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use Cinemasunshine\PortalAdmin\Auth;
-
 /**
  * Auth middleware class
  */
@@ -27,7 +25,7 @@ class AuthMiddleware extends AbstractMiddleware
      */
     public function __invoke(Request $request, Response $response, $next)
     {
-        $auth = new Auth($this->container);
+        $auth = $this->container->get('auth');
         
         if (!$auth->isAuthenticated()) {
             return $response->withRedirect(
