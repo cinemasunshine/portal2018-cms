@@ -14,15 +14,20 @@
                 <div class="card-body">
                     <h1>ログイン</h1>
                     <p class="text-muted">ユーザ名とパスワードでログイン</p>
-                    <form method="post" action="#">
+                    <form method="post" action="{{ path_for('auth') }}">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                 <i class="icon-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" name="name" placeholder="ユーザ名">
-                            <div class="invalid-feedback"></div>
+                            <input type="text" name="name" class="form-control{% if errors.name %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.name }}" placeholder="ユーザ名">
+                            <div class="invalid-feedback">
+                                {% for message in errors.name %}
+                                    {% if not loop.first %}<br />{% endif %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
                         </div>
                         <div class="input-group mb-4">
                             <div class="input-group-prepend">
@@ -30,8 +35,13 @@
                                 <i class="icon-lock"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="password" name="password" placeholder="パスワード">
-                            <div class="invalid-feedback"></div>
+                            <input type="password" name="password" class="form-control{% if errors.password %} is-invalid{% elseif is_validated %} is-valid{% endif %}" placeholder="パスワード">
+                            <div class="invalid-feedback">
+                                {% for message in errors.password %}
+                                    {% if not loop.first %}<br />{% endif %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
