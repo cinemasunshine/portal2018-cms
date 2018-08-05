@@ -51,4 +51,14 @@ class Auth
         
         return true;
     }
+    
+    /**
+     * is authenticated
+     *
+     * @return bool
+     */
+    public function isAuthenticated()
+    {
+        return isset($_SESSION['auth.user_id']);
+    }
 }

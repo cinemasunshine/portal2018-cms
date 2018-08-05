@@ -61,6 +61,6 @@ class AuthController extends BaseController
             return 'login';
         }
         
-        $this->redirect($this->container->get('router')->pathFor('homepage'));
+        $this->redirect($this->router->pathFor('homepage'));
     }
 }
