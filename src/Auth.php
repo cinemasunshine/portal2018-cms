@@ -71,4 +71,23 @@ class Auth
     {
         return isset($_SESSION['auth.user_id']);
     }
+    
+    /**
+     * get user
+     *
+     * @return AdminUser|null
+     */
+    public function getUser()
+    {
+        if (!$this->isAuthenticated()) {
+            return null;
+        }
+        
+        if (!$this->user) {
+            $repository = $this->em->getRepository(AdminUser::class);
+            $this->user = $repository->findOneById($_SESSION['auth.user_id']);
+        }
+        
+        return $this->user;
+    }
 }

@@ -17,6 +17,23 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
 class AdminUserRepository extends EntityRepository
 {
     /**
+     * find one by id
+     *
+     * @param int $id
+     * @return AdminUser|null
+     */
+    public function findOneById($id)
+    {
+        $qb = $this->createQueryBuilder('au');
+        $qb
+            ->where('au.id = :id')
+            ->andWhere('au.isDeleted = false')
+            ->setParameter('id', $id);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+    
+    /**
      * find one by name
      *
      * @param string $name

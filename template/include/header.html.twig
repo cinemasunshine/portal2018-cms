@@ -5,11 +5,11 @@
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                <img class="img-avatar" src="https://placehold.jp/20/20a8d8/ffffff/50x50.png?text=m" alt="mopix" />
+                <img class="img-avatar" src="https://placehold.jp/20/20a8d8/ffffff/50x50.png?text={{ user.getNameJa()|slice(0, 1) }}" alt="{{ user.getNameJa() }}" />
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header text-center">
-                    <strong>アカウント</strong>
+                    <strong>{{ user.getNameJa() }} さん</strong>
                 </div>
                 <a class="dropdown-item" href="{{ path_for('logout') }}">ログアウト</a>
             </div>

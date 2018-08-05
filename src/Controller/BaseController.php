@@ -60,6 +60,7 @@ abstract class BaseController extends AbstractController
      */
     protected function postExecute($request, $response) : void
     {
+        $this->data->set('user', $this->auth->getUser());
     }
     
     /**
