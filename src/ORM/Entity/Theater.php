@@ -1,24 +1,25 @@
 <?php
 /**
- * AdminUser.php
+ * Theater.php
  * 
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
- * AdminUser entity class
+ * Theater entity class
  * 
- * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\AdminUserRepository")
- * @ORM\Table(name="admin_user", options={"collate"="utf8mb4_general_ci"})
+ * @ORM\Entity
+ * @ORM\Table(name="theater", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class AdminUser extends AbstractEntity
+class Theater extends AbstractEntity
 {
     /**
      * id
@@ -47,29 +48,44 @@ class AdminUser extends AbstractEntity
     protected $nameJa;
     
     /**
-     * password
-     *
-     * @var string
-     * @ORM\Column(type="string", length=60, options={"fixed":true})
+     * area
+     * 
+     * @var int
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
-    protected $password;
+    protected $area;
     
     /**
-     * group
+     * master_version
      *
      * @var int
-     * @ORM\Column(type="smallint", name="`group`", options={"unsigned"=true})
+     * @ORM\Column(type="smallint", name="master_version")
      */
-    protected $group;
+    protected $masterVersion;
+
+    /**
+     * master_code
+     *
+     * @var string
+     * @ORM\Column(type="string", name="master_code", length=3, nullable=true, options={"fixed":true})
+     */
+    protected $masterCode;
     
     /**
-     * theater
+     * display_order
      *
-     * @var Theater
-     * @ORM\ManyToOne(targetEntity="Theater", inversedBy="adminUsers")
-     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
+     * @var int
+     * @ORM\Column(type="smallint", name="display_order")
      */
-    protected $theater;
+    protected $displayOrder;
+    
+    /**
+     * admin_users
+     * 
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AdminUser", mappedBy="theater")
+     */
+    protected $adminUsers;
     
     /**
      * is_deleted
@@ -94,6 +110,14 @@ class AdminUser extends AbstractEntity
      * @ORM\Column(type="datetime", name="updated_at")
      */
     protected $updatedAt;
+    
+    /**
+     * construct
+     */
+    public function __construct()
+    {
+        $this->adminUsers = new ArrayCollection();
+    }
     
     /**
      * get id
@@ -148,66 +172,76 @@ class AdminUser extends AbstractEntity
     }
     
     /**
-     * get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-    
-    /**
-     * set password
-     *
-     * @param string $password
-     * @return void
-     */
-    public function setPassword(string $password)
-    {
-        $this->password = password_hash($password, PASSWORD_BCRYPT);
-    }
-    
-    /**
-     * get group
+     * get area
      *
      * @return int
      */
-    public function getGroup()
+    public function getArea()
     {
-        return $this->group;
+        return $this->area;
     }
     
     /**
-     * set group
+     * set area
      *
-     * @param int $group
+     * @param int $area
      * @return void
      */
-    public function setGroup(int $group)
+    public function setArea($area)
     {
-        $this->group = $group;
+        $this->area = $area;
     }
     
     /**
-     * get theater
-     * 
-     * @return Theater
-     */
-    public function getTheater()
-    {
-        return $this->theater;
-    }
-    
-    /**
-     * set theater
+     * get master_version
      *
-     * @param Theater $theater
+     * @return int
+     */
+    public function getMasterVersion()
+    {
+        return $this->masterVersion;
+    }
+    
+    /**
+     * set master_version
+     *
+     * @param int $masterVersion
      * @return void
      */
-    public function setTheater(Theater $theater)
+    public function setMasterVersion($masterVersion)
     {
-        $this->theater = $theater;
+        $this->masterVersion = $masterVersion;
+    }
+    
+    /**
+     * get master_code
+     *
+     * @return string
+     */
+    public function getMasterCode()
+    {
+        return $this->masterCode;
+    }
+    
+    /**
+     * set master_code
+     *
+     * @param string $masterCode
+     * @return void
+     */
+    public function setMasterCode($masterCode)
+    {
+        $this->masterCode = $masterCode;
+    }
+    
+    /**
+     * get admin_users
+     *
+     * @return ArrayCollection
+     */
+    public function getAdminUsers()
+    {
+        return $this->adminUsers;
     }
     
     /**
