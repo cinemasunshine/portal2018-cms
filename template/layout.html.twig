@@ -6,6 +6,8 @@
     <title>{% block title %}{% endblock %} - CMS管理画面</title>
     
     <link rel="stylesheet" href="/css/vendor/coreui.min.css">
+    
+    {% block css %}{% endblock %}
 </head>
 <body class="app header-fixed sidebar-show">
     
@@ -29,5 +31,7 @@
     <script src="/js/vendor/popper.min.js"></script>
     <script src="/js/vendor/bootstrap.min.js"></script>
     <script src="/js/vendor/coreui.min.js"></script>
+    
+    {% block javascript %}{% endblock %}
 </body>
 </html>

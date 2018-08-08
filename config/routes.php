@@ -7,6 +7,7 @@
 
 use Cinemasunshine\PortalAdmin\Controller\AuthController;
 use Cinemasunshine\PortalAdmin\Controller\IndexController;
+use Cinemasunshine\PortalAdmin\Controller\TitleController;
 
 use Cinemasunshine\PortalAdmin\Middleware\AuthMiddleware;
 
@@ -16,4 +17,8 @@ $app->get('/logout', AuthController::class . ':logout')->setName('logout');
 
 $app->group('', function () {
     $this->get('/', IndexController::class . ':index')->setName('homepage');
+    
+    $this->group('/title', function() {
+        $this->get('/new', TitleController::class . ':new')->setName('title_new');
+    });
 })->add(new AuthMiddleware($container));

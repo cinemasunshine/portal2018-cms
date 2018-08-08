@@ -1,0 +1,186 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}新規追加 | 作品マスター{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/bootstrap-datepicker.min.js"></script>
+<script src="/js/vendor/bootstrap-datepicker.ja.min.js"></script>
+<script>
+$(function(){
+    var datepickerOption = {
+        format: 'yyyy/mm/dd',
+        language: 'ja'
+    };
+    
+    $('.datepicker').datepicker(datepickerOption);
+    
+    $('input[name="not_exist_publishing_expected_date"]').change(function(){
+        var $publishingExpectedDate = $('input[name="publishing_expected_date"]');
+        
+        if ($(this).is(':checked')) {
+            $publishingExpectedDate.prop('disabled', true);
+        } else {
+            $publishingExpectedDate.prop('disabled', false);
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">作品マスター</li>
+    <li class="breadcrumb-item active">新規追加</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form method="post" enctype="multipart/form-data" action="#">
+                <div class="card-header">
+                    新規作成
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">作品ID</label>
+                        <div class="col-md-9">
+                            <p class="form-control-static">&nbsp;</p>
+                            <span class="help-block">※自動でIDが付与されます。</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">作品名</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name" class="form-control" value="" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">作品名（かな）</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name_kana" class="form-control" value="" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">英名（原題）</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name_en" class="form-control" value="" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">画像</label>
+                        <div class="col-md-9">
+                            <input type="file" name="image" class="form-control" />
+                            <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">クレジット</label>
+                        <div class="col-md-9">
+                            <input type="text" name="credit" class="form-control" value="" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">キャッチコピー</label>
+                        <div class="col-md-9">
+                            <textarea id="textarea-input" name="catchcopy" rows="3" class="form-control"></textarea>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">紹介文</label>
+                        <div class="col-md-9">
+                            <textarea id="textarea-input" name="introduction" rows="6" class="form-control"></textarea>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">監督</label>
+                        <div class="col-md-9">
+                            <input type="text" name="director" class="form-control" value="" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">出演</label>
+                        <div class="col-md-9">
+                            <input type="text" name="cast" class="form-control" value="" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">公開予定日</label>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" name="publishing_expected_date" class="form-control datepicker">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-md-12 col-form-label">
+                                <div class="form-check form-check">
+                                    <input class="form-check-input" type="checkbox" id="not_exist_publishing_expected_date" name="not_exist_publishing_expected_date" value="1">
+                                    <label class="form-check-label" for="not_exist_publishing_expected_date">未定</label>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">公式サイト</label>
+                        <div class="col-md-9">
+                            <input type="text" name="website" class="form-control" value="" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">レイティング</label>
+                        <div class="col-md-9">
+                            <select name="rating" class="form-control col-md-2">
+                                <option value=""></option>
+                                <option value="1">R15+</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">ユニバーサル上映</label>
+                        <div class="col-md-9">
+                            <div class="col-md-9 col-form-label">
+                                <div class="form-check form-check-inline mr-1">
+                                    <input class="form-check-input" type="checkbox" id="universal-1" name="universal[]" value="1">
+                                    <label class="form-check-label" for="universal-1">音声上映</label>
+                                </div>
+                                <div class="form-check form-check-inline mr-1">
+                                    <input class="form-check-input" type="checkbox" id="universal-2" name="universal[]" value="2">
+                                    <label class="form-check-label" for="universal-2">字幕上映</label>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -4,6 +4,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path_for('homepage') }}">ダッシュボード</a>
             </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
+                    作品マスター
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path_for('title_new') }}">新規追加</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
 </div>
