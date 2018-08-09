@@ -12,13 +12,14 @@
         "php": "~7.2",
         "slim/slim" : "^3.0",
         "slim/twig-view": "^2.4",
+        "slim/flash": "^0.4.0",
         "monolog/monolog": "^1.23",
         "vlucas/phpdotenv": "^2.5",
         "doctrine/orm": "2.6.*",
         "zendframework/zend-validator": "^2.10",
         "zendframework/zend-form": "^2.12",
         "zendframework/zend-i18n": "^2.9",
-        "zendframework/zend-uri": "^2.6",
-        "slim/flash": "^0.4.0"
+        "zendframework/zend-i18n-resources": "^2.6",
+        "zendframework/zend-uri": "^2.6"
     }
 }
