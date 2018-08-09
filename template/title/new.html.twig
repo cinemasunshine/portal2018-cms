@@ -28,6 +28,12 @@ $(function(){
             $publishingExpectedDate.prop('disabled', false);
         }
     });
+    
+    function execute() {
+        $('input[name="not_exist_publishing_expected_date"]').change();
+    }
+    
+    execute();
 });
 </script>
 {% endblock %}
@@ -44,11 +50,17 @@ $(function(){
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form method="post" enctype="multipart/form-data" action="#">
+            <form method="post" enctype="multipart/form-data" action="{{ path_for('title_create') }}">
                 <div class="card-header">
-                    新規作成
+                    新規追加
                 </div>
                 <div class="card-body">
+                    {% if errors %}
+                    <div class="alert alert-danger" role="alert">
+                        入力エラーがあります。
+                    </div>
+                    {% endif %}
+                    
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">作品ID</label>
                         <div class="col-md-9">
@@ -59,120 +71,188 @@ $(function(){
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">作品名</label>
                         <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" value="" />
-                            <div class="invalid-feedback"></div>
+                            <input type="text" name="name" class="form-control{% if errors.name %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.name }}" />
+                            <div class="invalid-feedback">
+                                {% for message in errors.name %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">作品名（かな）</label>
                         <div class="col-md-9">
-                            <input type="text" name="name_kana" class="form-control" value="" />
-                            <div class="invalid-feedback"></div>
+                            <input type="text" name="name_kana" class="form-control{% if errors.name_kana %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.name_kana }}" />
+                            <div class="invalid-feedback">
+                                {% for message in errors.name_kana %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">英名（原題）</label>
                         <div class="col-md-9">
-                            <input type="text" name="name_en" class="form-control" value="" />
-                            <div class="invalid-feedback"></div>
+                            <input type="text" name="name_en" class="form-control{% if errors.name_en %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.name_en }}" />
+                            <div class="invalid-feedback">
+                                {% for message in errors.name_en %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    {# <div class="form-group row">
                         <label class="col-md-3 col-form-label">画像</label>
                         <div class="col-md-9">
                             <input type="file" name="image" class="form-control" />
                             <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
                             <div class="invalid-feedback"></div>
                         </div>
-                    </div>
+                    </div> #}
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">クレジット</label>
                         <div class="col-md-9">
-                            <input type="text" name="credit" class="form-control" value="" />
-                            <div class="invalid-feedback"></div>
+                            <input type="text" name="credit" class="form-control{% if errors.credit %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.credit }}" />
+                            <div class="invalid-feedback">
+                                {% for message in errors.credit %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">キャッチコピー</label>
                         <div class="col-md-9">
-                            <textarea id="textarea-input" name="catchcopy" rows="3" class="form-control"></textarea>
-                            <div class="invalid-feedback"></div>
+                            <textarea name="catchcopy" rows="3" class="form-control{% if errors.catchcopy %} is-invalid{% elseif is_validated %} is-valid{% endif %}">{{ values.catchcopy }}</textarea>
+                            <div class="invalid-feedback">
+                                {% for message in errors.catchcopy %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">紹介文</label>
+                        <label class="col-md-3 col-form-label">作品紹介</label>
                         <div class="col-md-9">
-                            <textarea id="textarea-input" name="introduction" rows="6" class="form-control"></textarea>
-                            <div class="invalid-feedback"></div>
+                            <textarea name="introduction" rows="6" class="form-control{% if errors.introduction %} is-invalid{% elseif is_validated %} is-valid{% endif %}">{{ values.introduction }}</textarea>
+                            <div class="invalid-feedback">
+                                {% for message in errors.introduction %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">監督</label>
                         <div class="col-md-9">
-                            <input type="text" name="director" class="form-control" value="" />
-                            <div class="invalid-feedback"></div>
+                            <input type="text" name="director" class="form-control{% if errors.director %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.director }}" />
+                            <div class="invalid-feedback">
+                                {% for message in errors.director %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">出演</label>
                         <div class="col-md-9">
-                            <input type="text" name="cast" class="form-control" value="" />
-                            <div class="invalid-feedback"></div>
+                            <input type="text" name="cast" class="form-control{% if errors.cast %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.cast }}" />
+                            <div class="invalid-feedback">
+                                {% for message in errors.cast %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">公開予定日</label>
                         <div class="col-md-3">
                             <div class="input-group">
-                                <input type="text" name="publishing_expected_date" class="form-control datepicker">
+                                <input type="text" name="publishing_expected_date" class="form-control datepicker{% if errors.publishing_expected_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.publishing_expected_date }}" />
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="icon-calendar"></i>
                                     </span>
+                                </div>
+                                <div class="invalid-feedback">
+                                    {% for message in errors.publishing_expected_date %}
+                                        {{ message }}
+                                        {% if not loop.last %}<br />{% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="col-md-12 col-form-label">
                                 <div class="form-check form-check">
-                                    <input class="form-check-input" type="checkbox" id="not_exist_publishing_expected_date" name="not_exist_publishing_expected_date" value="1">
+                                    <input class="form-check-input" type="checkbox" id="not_exist_publishing_expected_date" name="not_exist_publishing_expected_date" value="1" {{ '1' == values.not_exist_publishing_expected_date ? 'checked' : '' }}>
                                     <label class="form-check-label" for="not_exist_publishing_expected_date">未定</label>
                                 </div>
                             </div>
-                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">公式サイト</label>
                         <div class="col-md-9">
-                            <input type="text" name="website" class="form-control" value="" />
-                            <div class="invalid-feedback"></div>
+                            <input type="url" name="website" class="form-control{% if errors.website %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.website }}" />
+                            <div class="invalid-feedback">
+                                {% for message in errors.website %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">レイティング</label>
                         <div class="col-md-9">
-                            <select name="rating" class="form-control col-md-2">
+                            <select name="rating" class="form-control col-md-2{% if errors.rating %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
                                 <option value=""></option>
-                                <option value="1">R15+</option>
+                                {% for value, text in form.getRatingChoices() %}
+                                    <option value="{{ value }}" {{ value == values.rating ? 'selected' : '' }}>{{ text }}</text>
+                                {% endfor %}
                             </select>
-                            <div class="invalid-feedback"></div>
+                            <div class="invalid-feedback">
+                                {% for message in errors.rating %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">ユニバーサル上映</label>
                         <div class="col-md-9">
                             <div class="col-md-9 col-form-label">
+                                {% for value, text in form.getUniversalChoices() %}
                                 <div class="form-check form-check-inline mr-1">
-                                    <input class="form-check-input" type="checkbox" id="universal-1" name="universal[]" value="1">
-                                    <label class="form-check-label" for="universal-1">音声上映</label>
+                                    <input class="form-check-input{% if errors.universal %} is-invalid{% elseif is_validated %} is-valid{% endif %}" type="checkbox" id="universal-{{ value }}" name="universal[]" value="{{ value }}" {{ value in values.universal ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="universal-{{ value }}">{{ text }}</label>
                                 </div>
-                                <div class="form-check form-check-inline mr-1">
-                                    <input class="form-check-input" type="checkbox" id="universal-2" name="universal[]" value="2">
-                                    <label class="form-check-label" for="universal-2">字幕上映</label>
-                                </div>
+                                {% endfor %}
                             </div>
-                            <div class="invalid-feedback"></div>
+                            {##
+                             # インラインのマルチチェックボックスでエラーを表示するためのhidden
+                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                             # それをやると見た目が良くないので。
+                             #}
+                            <input type="hidden" class="form-control {% if errors.universal %} is-invalid{% endif %}" />
+                            <div class="invalid-feedback">
+                                {% for messages in errors.universal %}
+                                    {% for message in messages %}
+                                        {{ message }}
+                                        {% if not loop.last %}<br />{% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>

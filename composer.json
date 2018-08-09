@@ -17,6 +17,7 @@
         "doctrine/orm": "2.6.*",
         "zendframework/zend-validator": "^2.10",
         "zendframework/zend-form": "^2.12",
-        "zendframework/zend-i18n": "^2.9"
+        "zendframework/zend-i18n": "^2.9",
+        "zendframework/zend-uri": "^2.6"
     }
 }
