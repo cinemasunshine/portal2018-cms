@@ -360,7 +360,7 @@ class Title extends AbstractEntity
     /**
      * get publishing_expected_date
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getPublishingExpectedDate()
     {
