@@ -80,7 +80,7 @@ class TitleController extends BaseController
         $title->setPublishingExpectedDate($cleanData['publishing_expected_date']);
         $title->setWebsite($cleanData['website']);
         $title->setRating((int) $cleanData['rating']);
-        $title->setUniversal($cleanData['universal']);
+        $title->setUniversal($cleanData['universal'] ?? []);
         $title->setIsDeleted(false);
         
         $this->em->persist($title);
