@@ -88,8 +88,9 @@ class TitleController extends BaseController
         $this->em->persist($title);
         $this->em->flush();
         
-        echo '登録しました。';
-        exit;
+        $this->redirect(
+            $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
+            303);
     }
     
     /**
