@@ -76,6 +76,15 @@ $container['em'] = function ($container) {
 };
 
 /**
+ * flash
+ * 
+ * @return \Slim\Flash\Messages
+ */
+$container['flash'] = function () {
+    return new \Slim\Flash\Messages();
+};
+
+/**
  * auth
  * 
  * @return \Cinemasunshine\PortalAdmin\Auth
