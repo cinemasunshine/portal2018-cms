@@ -50,7 +50,7 @@ $(function(){
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form method="post" enctype="multipart/form-data" action="#">
+            <form method="post" enctype="multipart/form-data" action="{{ path_for('title_update', { 'id': title.getId() }) }}">
                 <input type="hidden" name="id" value="{{ values.id }}" />
                 <div class="card-header">
                     「{{ title.getName() }}」編集

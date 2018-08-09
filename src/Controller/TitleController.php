@@ -143,4 +143,59 @@ class TitleController extends BaseController
         
         $this->data->set('values', $values);
     }
+    
+    /**
+     * update action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeUpdate($request, $response, $args)
+    {
+        $title = $this->em->find(Title::class, $args['id']);
+        
+        if (is_null($title)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Title $title */
+        
+        $form = new TitleForm();
+        $form->setData($request->getParams());
+        
+        if (!$form->isValid()) {
+            $this->data->set('title', $title);
+            $this->data->set('form', $form);
+            $this->data->set('values', $request->getParams());
+            $this->data->set('errors', $form->getMessages());
+            $this->data->set('is_validated', true);
+            
+            return 'edit';
+        }
+        
+        $cleanData = $form->getData();
+        
+        $title->setName($cleanData['name']);
+        $title->setNameKana($cleanData['name_kana']);
+        $title->setNameEn($cleanData['name_en']);
+        $title->setCredit($cleanData['credit']);
+        $title->setCatchcopy($cleanData['catchcopy']);
+        $title->setIntroduction($cleanData['introduction']);
+        $title->setDirector($cleanData['director']);
+        $title->setCast($cleanData['cast']);
+        $title->setPublishingExpectedDate($cleanData['publishing_expected_date']);
+        $title->setWebsite($cleanData['website']);
+        $title->setRating((int) $cleanData['rating']);
+        $title->setUniversal($cleanData['universal'] ?? []);
+        $title->setIsDeleted(false);
+        
+        $this->em->persist($title);
+        $this->em->flush();
+        
+        $this->redirect(
+            $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
+            303);
+    }
 }

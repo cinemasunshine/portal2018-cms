@@ -23,5 +23,6 @@ $app->group('', function () {
         $this->get('/new', TitleController::class . ':new')->setName('title_new');
         $this->post('/create', TitleController::class . ':create')->setName('title_create');
         $this->get('/{id}/edit', TitleController::class . ':edit')->setName('title_edit');
+        $this->post('/{id}/update', TitleController::class . ':update')->setName('title_update');
     });
 })->add(new AuthMiddleware($container));
