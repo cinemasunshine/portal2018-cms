@@ -198,4 +198,32 @@ class TitleController extends BaseController
             $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
             303);
     }
+    
+    /**
+     * delete action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeDelete($request, $response, $args)
+    {
+        $title = $this->em->find(Title::class, $args['id']);
+        
+        if (is_null($title)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Title $title */
+        
+        $title->setIsDeleted(true);
+        
+        // 関連データの処理はイベントで対応する
+        
+        $this->em->persist($title);
+        $this->em->flush();
+        
+        return $this->redirect($this->router->pathFor('title_list'), 303);
+    }
 }

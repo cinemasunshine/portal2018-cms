@@ -24,5 +24,6 @@ $app->group('', function () {
         $this->post('/create', TitleController::class . ':create')->setName('title_create');
         $this->get('/{id}/edit', TitleController::class . ':edit')->setName('title_edit');
         $this->post('/{id}/update', TitleController::class . ':update')->setName('title_update');
+        $this->get('/{id}/delete', TitleController::class . ':delete')->setName('title_delete');
     });
 })->add(new AuthMiddleware($container));
