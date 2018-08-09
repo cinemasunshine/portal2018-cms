@@ -14,7 +14,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * Title entity class
  * 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\TitleRepository")
  * @ORM\Table(name="title", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
@@ -432,6 +432,26 @@ class Title extends AbstractEntity
     public function getUniversal()
     {
         return $this->universal;
+    }
+    
+    /**
+     * get univarsal label
+     *
+     * @return array
+     */
+    public function getUniversalLabel()
+    {
+        $univarsal = $this->getUniversal();
+        $types = self::getUniversalTypes();
+        $labels = [];
+        
+        foreach ($univarsal as $value) {
+            if (isset($types[$value])) {
+                $labels[] = $types[$value];
+            }
+        }
+        
+        return $labels;
     }
     
     /**

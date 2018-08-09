@@ -1,0 +1,64 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}一覧 | 作品マスター{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">作品マスター</li>
+    <li class="breadcrumb-item active">一覧</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>作品名</th>
+                            <th>公開日</th>
+                            <th>ユニバーサル上映</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for title in titles %}
+                        <tr>
+                            <th>{{ title.getId() }}</th>
+                            <th>{{ title.getName() }}</th>
+                            <th>
+                                {% if title.getPublishingExpectedDate() %}
+                                    {{ title.getPublishingExpectedDate().format('Y/m/d') }}
+                                {% else %}
+                                    未定
+                                {% endif %}
+                            </th>
+                            <th>
+                                {% for universal in title.getUniversalLabel() %}
+                                    {{ universal }}
+                                    {% if not loop.last %}、{% endif %}
+                                {% endfor %}
+                            </th>
+                            <th>
+                                <a href="#" class="btn btn-sm btn-success" role="button">編集</a>
+                                <a href="#" class="btn btn-sm btn-danger" role="button">削除</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                {{ theaters|length }} 件
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

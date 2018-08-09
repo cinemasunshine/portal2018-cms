@@ -19,6 +19,7 @@ $app->group('', function () {
     $this->get('/', IndexController::class . ':index')->setName('homepage');
     
     $this->group('/title', function() {
+        $this->get('/list', TitleController::class . ':list')->setName('title_list');
         $this->get('/new', TitleController::class . ':new')->setName('title_new');
         $this->post('/create', TitleController::class . ':create')->setName('title_create');
     });

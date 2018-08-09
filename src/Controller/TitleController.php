@@ -16,6 +16,21 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\Title;
 class TitleController extends BaseController
 {
     /**
+     * list action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeList($request, $response, $args)
+    {
+        /** @var Title[] $titles */
+        $titles = $this->em->getRepository(Title::class)->findByActive();
+        $this->data->set('titles', $titles);
+    }
+    
+    /**
      * new action
      * 
      * @param \Slim\Http\Request  $request
