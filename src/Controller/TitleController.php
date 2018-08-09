@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
+use Slim\Exception\NotFoundException;
+
 use Cinemasunshine\PortalAdmin\Form\TitleForm;
 use Cinemasunshine\PortalAdmin\ORM\Entity\Title;
 
@@ -88,5 +90,56 @@ class TitleController extends BaseController
         
         echo '登録しました。';
         exit;
+    }
+    
+    /**
+     * edit action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeEdit($request, $response, $args)
+    {
+        $title = $this->em->find(Title::class, $args['id']);
+        
+        if (is_null($title)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Title $title */
+        
+        $this->data->set('title', $title);
+        
+        $form = new TitleForm();
+        $this->data->set('form', $form);
+        
+        $values = [
+            'id'           => $title->getId(),
+            'name'         => $title->getName(),
+            'name_kana'    => $title->getNameKana(),
+            'name_en'      => $title->getNameEn(),
+            'credit'       => $title->getCredit(),
+            'catchcopy'    => $title->getCatchcopy(),
+            'introduction' => $title->getIntroduction(),
+            'director'     => $title->getDirector(),
+            'cast'         => $title->getCast(),
+            'website'      => $title->getWebsite(),
+            'rating'       => $title->getRating(),
+            'universal'    => $title->getUniversal(),
+        ];
+        
+        $publishingExpectedDate = $title->getPublishingExpectedDate();
+        
+        if ($publishingExpectedDate instanceof \DateTime) {
+            $values['publishing_expected_date'] = $publishingExpectedDate->format('Y/m/d');
+            $values['not_exist_publishing_expected_date'] = null;
+        } else {
+            $values['publishing_expected_date'] = null;
+            $values['not_exist_publishing_expected_date'] = '1';
+        }
+        
+        $this->data->set('values', $values);
     }
 }
