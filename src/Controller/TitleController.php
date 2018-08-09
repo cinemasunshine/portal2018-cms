@@ -88,6 +88,11 @@ class TitleController extends BaseController
         $this->em->persist($title);
         $this->em->flush();
         
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('作品「%s」を追加しました。', $title->getName()),
+        ]);
+        
         $this->redirect(
             $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
             303);
@@ -194,6 +199,11 @@ class TitleController extends BaseController
         $this->em->persist($title);
         $this->em->flush();
         
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('作品「%s」を編集しました。', $title->getName()),
+        ]);
+        
         $this->redirect(
             $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
             303);
@@ -223,6 +233,11 @@ class TitleController extends BaseController
         
         $this->em->persist($title);
         $this->em->flush();
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('作品「%s」を削除しました。', $title->getName()),
+        ]);
         
         return $this->redirect($this->router->pathFor('title_list'), 303);
     }

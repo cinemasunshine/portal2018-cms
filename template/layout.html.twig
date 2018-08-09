@@ -20,6 +20,14 @@
             {% block breadcrumb %}{% endblock %}
             
             <div class="container">
+                {% for alert in alerts %}
+                    {% if alert %}
+                    <div class="alert alert-{{ alert.type }}" role="alert">
+                        {{ alert.message }}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            
                 {% block container %}{% endblock %}
             </div>
         </main>
