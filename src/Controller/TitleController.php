@@ -103,7 +103,7 @@ class TitleController extends BaseController
      */
     public function executeEdit($request, $response, $args)
     {
-        $title = $this->em->find(Title::class, $args['id']);
+        $title = $this->em->getRepository(Title::class)->findOneById($args['id']);
         
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
@@ -154,7 +154,7 @@ class TitleController extends BaseController
      */
     public function executeUpdate($request, $response, $args)
     {
-        $title = $this->em->find(Title::class, $args['id']);
+        $title = $this->em->getRepository(Title::class)->findOneById($args['id']);
         
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
@@ -209,7 +209,7 @@ class TitleController extends BaseController
      */
     public function executeDelete($request, $response, $args)
     {
-        $title = $this->em->find(Title::class, $args['id']);
+        $title = $this->em->getRepository(Title::class)->findOneById($args['id']);
         
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
