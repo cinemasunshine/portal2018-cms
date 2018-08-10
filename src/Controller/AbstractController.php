@@ -16,6 +16,12 @@ use Cinemasunshine\PortalAdmin\Responder\AbstractResponder as Responder;
 
 /**
  * Abstract controller
+ * 
+ * @property \Cinemasunshine\PortalAdmin\Auth $auth
+ * @property \Doctrine\ORM\EntityManager $em
+ * @property \Slim\Flash\Messages $flash
+ * @property \Monolog\Logger $logger
+ * @property \Slim\Views\Twig $view
  */
 abstract class AbstractController
 {

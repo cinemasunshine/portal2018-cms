@@ -2,6 +2,9 @@
 /**
  * container.php
  * 
+ * AbstractControllerのphpdoc更新を推奨。
+ * 
+ * @see Cinemasunshine\PortalAdmin\Controller\AbstractController\__call()
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
