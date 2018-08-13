@@ -207,8 +207,17 @@ class TitleController extends BaseController
         
         /**@var Entity\Title $title */
         
+        // Zend_Formの都合で$_FILESを使用する
+        // $files = $request->getUploadedFiles();
+        $files = $_FILES;
+        
+        $params = array_merge_recursive(
+            $request->getParams(),
+            $files
+        );
+        
         $form = new TitleForm();
-        $form->setData($request->getParams());
+        $form->setData($params);
         
         if (!$form->isValid()) {
             $this->data->set('title', $title);
@@ -222,6 +231,46 @@ class TitleController extends BaseController
         
         $cleanData = $form->getData();
         
+        $image = $cleanData['image'];
+        $isDeleteImage = $cleanData['delete_image'] || $image['name'];
+        $oldImage = $title->getImage();
+        $file = null;
+        
+        if ($isDeleteImage && $oldImage) {
+            $this->em->remove($oldImage);
+            
+            // @todo postRemoveイベントへ
+            $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
+        }
+        
+        if ($image['name']) {
+            // rename
+            // @todo ファイル名生成をFileへ
+            $info = pathinfo($image['name']);
+            $newName = md5(uniqid('', true)) . '.' . $info['extension'];
+            
+            // @todo リサイズ
+            
+            // upload storage
+            // @todo storageと同期するような仕組みをFileへ
+            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options->setContentType($image['type']);
+            $this->bc->createBlockBlob(
+                Entity\File::getBlobContainer(),
+                $newName,
+                fopen($image['tmp_name'], 'r'),
+                $options);
+            
+            $file = new Entity\File();
+            $file->setName($newName);
+            $file->setOriginalName($image['name']);
+            $file->setMimeType($image['type']);
+            $file->setSize((int) $image['size']);
+            
+            $this->em->persist($file);
+        }
+        
+        $title->setImage($file);
         $title->setName($cleanData['name']);
         $title->setNameKana($cleanData['name_kana']);
         $title->setNameEn($cleanData['name_en']);
