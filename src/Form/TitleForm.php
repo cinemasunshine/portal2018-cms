@@ -129,13 +129,17 @@ class TitleForm extends BaseForm
                 [
                     'name' => Validator\File\Size::class,
                     'options' => [
-                        'max' => '100KB', // @todo 調整
+                        'max' => '200KB', // @todo 調整
                     ],
                 ],
                 [
                     'name' => Validator\File\MimeType::class,
                     'options' => [
-                        'mimeType' => 'image', // @todo 調整
+                        'mimeType' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                        ],
                     ],
                 ],
             ],

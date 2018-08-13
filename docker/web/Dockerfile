@@ -16,18 +16,29 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 #    - git        composerのため
 #    - zip、unzip composerのエラー解決
 #    - libicu-dev intl PHP extensionのため
+#    - libfreetype6-dev    GD PHP extensionのため
+#    - libjpeg62-turbo-dev GD PHP extensionのため
+#    - libpng-dev          GD PHP extensionのため
 RUN apt-get update \
     && apt-get install -y \
         git \
         zip \
         unzip \
         libicu-dev \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
     && apt-get clean
 
 # install PHP extensions
+RUN docker-php-ext-configure gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/
+        
 RUN docker-php-ext-install \
         pdo_mysql \
-        intl
+        intl \
+        -j$(nproc) gd
 
 # composerインストール
 RUN curl -sS https://getcomposer.org/installer | php

@@ -9,6 +9,8 @@ namespace Cinemasunshine\PortalAdmin\Controller;
 
 use Slim\Exception\NotFoundException;
 
+use Intervention\Image\ImageManager;
+
 use Cinemasunshine\PortalAdmin\Form\TitleForm;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
@@ -88,7 +90,16 @@ class TitleController extends BaseController
             $info = pathinfo($image['name']);
             $newName = md5(uniqid('', true)) . '.' . $info['extension'];
             
-            // @todo リサイズ
+            // resize
+            // @todo サイズ調整
+            $imageManager = new ImageManager();
+            $imageManager
+                ->make($image['tmp_name'])
+                ->resize(500, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->save();
             
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
@@ -249,7 +260,16 @@ class TitleController extends BaseController
             $info = pathinfo($image['name']);
             $newName = md5(uniqid('', true)) . '.' . $info['extension'];
             
-            // @todo リサイズ
+            // resize
+            // @todo サイズ調整
+            $imageManager = new ImageManager();
+            $imageManager
+                ->make($image['tmp_name'])
+                ->resize(500, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->save();
             
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
