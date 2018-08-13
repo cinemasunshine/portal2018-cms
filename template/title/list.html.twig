@@ -38,7 +38,7 @@
                                 {% else %}
                                 <img src="https://placehold.jp/100x50.png?text=No%20Image" alt="No Image" />
                                 {% endif %}
-                                {{ title.getName() }}
+                                <a href="{{ path_for('title_edit', { 'id': title.getId() }) }}" >{{ title.getName() }}</a>
                             </th>
                             <th>
                                 {% if title.getPublishingExpectedDate() %}
@@ -54,7 +54,6 @@
                                 {% endfor %}
                             </th>
                             <th>
-                                <a href="{{ path_for('title_edit', { 'id': title.getId() }) }}" class="btn btn-sm btn-success" role="button">編集</a>
                                 <a href="{{ path_for('title_delete', { 'id': title.getId() }) }}" class="btn btn-sm btn-danger" role="button">削除</a>
                             </th>
                         </tr>
