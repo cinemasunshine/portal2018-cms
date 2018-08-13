@@ -44,6 +44,12 @@ class TitleForm extends BaseForm
             'type' => 'File',
         ]);
         
+        // @todo 編集かつ画像があるとき
+        $this->add([
+            'name' => 'delete_image',
+            'type' => 'Checkbox',
+        ]);
+        
         $this->add([
             'name' => 'credit',
             'type' => 'Text',
@@ -133,6 +139,12 @@ class TitleForm extends BaseForm
                     ],
                 ],
             ],
+        ]);
+        
+        // @todo 編集かつ画像があるとき
+        $inputFilter->add([
+            'name' => 'delete_image',
+            'required' => false,
         ]);
         
         $inputFilter->add([

@@ -25,6 +25,9 @@ $container['view'] = function ($container) {
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $container->get('request')->getUri()->getBasePath()), '/');
     $view->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
+    
+    // add Extension
+    $view->addExtension(new \Cinemasunshine\PortalAdmin\Twig\Extension\AzureStorageExtension($container));
 
     return $view;
 };

@@ -95,7 +95,7 @@ class TitleController extends BaseController
             $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
             $options->setContentType($image['type']);
             $this->bc->createBlockBlob(
-                'file',
+                Entity\File::getBlobContainer(),
                 $newName,
                 fopen($image['tmp_name'], 'r'),
                 $options);

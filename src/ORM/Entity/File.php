@@ -89,6 +89,13 @@ class File extends AbstractEntity
     protected $updatedAt;
     
     /**
+     * blob container name
+     *
+     * @var string
+     */
+    protected static $blobContainer = 'file';
+    
+    /**
      * construct
      */
     public function __construct()
@@ -277,5 +284,15 @@ class File extends AbstractEntity
     public function preUpdate()
     {
         $this->setUpdatedAt('now');
+    }
+    
+    /**
+     * get blob container
+     *
+     * @return string
+     */
+    public static function getBlobContainer()
+    {
+        return self::$blobContainer;
     }
 }
