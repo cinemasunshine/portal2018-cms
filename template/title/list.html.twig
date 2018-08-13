@@ -32,7 +32,14 @@
                     {% for title in titles %}
                         <tr>
                             <th>{{ title.getId() }}</th>
-                            <th>{{ title.getName() }}</th>
+                            <th>
+                                {% if title.getImage() %}
+                                <img src="{{ blob_url(title.getImage().getBlobContainer(), title.getImage().getName()) }}" width="100" alt="画像" />
+                                {% else %}
+                                <img src="https://placehold.jp/100x50.png?text=No%20Image" alt="No Image" />
+                                {% endif %}
+                                {{ title.getName() }}
+                            </th>
                             <th>
                                 {% if title.getPublishingExpectedDate() %}
                                     {{ title.getPublishingExpectedDate().format('Y/m/d') }}
