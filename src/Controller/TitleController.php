@@ -80,26 +80,34 @@ class TitleController extends BaseController
         $cleanData = $form->getData();
         
         $image = $cleanData['image'];
+        $file = null;
         
-        // rename
-        // @todo ファイル名生成をFileへ
-        $info = pathinfo($image['name']);
-        $newName = md5(uniqid('', true)) . '.' . $info['extension'];
-        
-        // @todo リサイズ
-        
-        // upload storage
-        // @todo storageと同期するような仕組みをFileへ
-        $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
-        $options->setContentType($image['type']);
-        $this->bc->createBlockBlob('file', $newName, fopen($image['tmp_name'], 'r'), $options);
-        
-        $file = new Entity\File();
-        $file->setName($newName);
-        $file->setOriginalName($image['name']);
-        $file->setMimeType($image['type']);
-        $file->setSize((int) $image['size']);
-        $this->em->persist($file);
+        if ($image['name']) {
+            // rename
+            // @todo ファイル名生成をFileへ
+            $info = pathinfo($image['name']);
+            $newName = md5(uniqid('', true)) . '.' . $info['extension'];
+            
+            // @todo リサイズ
+            
+            // upload storage
+            // @todo storageと同期するような仕組みをFileへ
+            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options->setContentType($image['type']);
+            $this->bc->createBlockBlob(
+                'file',
+                $newName,
+                fopen($image['tmp_name'], 'r'),
+                $options);
+            
+            $file = new Entity\File();
+            $file->setName($newName);
+            $file->setOriginalName($image['name']);
+            $file->setMimeType($image['type']);
+            $file->setSize((int) $image['size']);
+            
+            $this->em->persist($file);
+        }
         
         $title = new Entity\Title();
         $title->setImage($file);
