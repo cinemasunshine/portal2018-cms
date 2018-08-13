@@ -68,7 +68,7 @@ class File extends AbstractEntity
      * size
      *
      * @var int
-     * @ORM\Column(type="smallint", options={"unsigned"=true})
+     * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     protected $size;
     
