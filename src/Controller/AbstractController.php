@@ -18,6 +18,7 @@ use Cinemasunshine\PortalAdmin\Responder\AbstractResponder as Responder;
  * Abstract controller
  * 
  * @property \Cinemasunshine\PortalAdmin\Auth $auth
+ * @property \MicrosoftAzure\Storage\Blob\BlobRestProxy $bc
  * @property \Doctrine\ORM\EntityManager $em
  * @property \Slim\Flash\Messages $flash
  * @property \Monolog\Logger $logger

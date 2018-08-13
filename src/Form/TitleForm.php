@@ -40,6 +40,11 @@ class TitleForm extends BaseForm
         ]);
         
         $this->add([
+            'name' => 'image',
+            'type' => 'File',
+        ]);
+        
+        $this->add([
             'name' => 'credit',
             'type' => 'Text',
         ]);
@@ -109,6 +114,25 @@ class TitleForm extends BaseForm
         $inputFilter->add([
             'name' => 'name_en',
             'required' => true,
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'image',
+            'required' => false,
+            'validators' => [
+                [
+                    'name' => Validator\File\Size::class,
+                    'options' => [
+                        'max' => '100KB', // @todo 調整
+                    ],
+                ],
+                [
+                    'name' => Validator\File\MimeType::class,
+                    'options' => [
+                        'mimeType' => 'image', // @todo 調整
+                    ],
+                ],
+            ],
         ]);
         
         $inputFilter->add([

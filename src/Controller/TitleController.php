@@ -10,7 +10,7 @@ namespace Cinemasunshine\PortalAdmin\Controller;
 use Slim\Exception\NotFoundException;
 
 use Cinemasunshine\PortalAdmin\Form\TitleForm;
-use Cinemasunshine\PortalAdmin\ORM\Entity\Title;
+use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
  * Title controller
@@ -27,8 +27,8 @@ class TitleController extends BaseController
      */
     public function executeList($request, $response, $args)
     {
-        /** @var Title[] $titles */
-        $titles = $this->em->getRepository(Title::class)->findByActive();
+        /** @var Entity\Title[] $titles */
+        $titles = $this->em->getRepository(Entity\Title::class)->findByActive();
         $this->data->set('titles', $titles);
     }
     
@@ -56,8 +56,17 @@ class TitleController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
+        // Zend_Formの都合で$_FILESを使用する
+        // $files = $request->getUploadedFiles();
+        $files = $_FILES;
+        
+        $params = array_merge_recursive(
+            $request->getParams(),
+            $files
+        );
+        
         $form = new TitleForm();
-        $form->setData($request->getParams());
+        $form->setData($params);
         
         if (!$form->isValid()) {
             $this->data->set('form', $form);
@@ -70,7 +79,30 @@ class TitleController extends BaseController
         
         $cleanData = $form->getData();
         
-        $title = new Title();
+        $image = $cleanData['image'];
+        
+        // rename
+        // @todo ファイル名生成をFileへ
+        $info = pathinfo($image['name']);
+        $newName = md5(uniqid('', true)) . '.' . $info['extension'];
+        
+        // @todo リサイズ
+        
+        // upload storage
+        // @todo storageと同期するような仕組みをFileへ
+        $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+        $options->setContentType($image['type']);
+        $this->bc->createBlockBlob('file', $newName, fopen($image['tmp_name'], 'r'), $options);
+        
+        $file = new Entity\File();
+        $file->setName($newName);
+        $file->setOriginalName($image['name']);
+        $file->setMimeType($image['type']);
+        $file->setSize((int) $image['size']);
+        $this->em->persist($file);
+        
+        $title = new Entity\Title();
+        $title->setImage($file);
         $title->setName($cleanData['name']);
         $title->setNameKana($cleanData['name_kana']);
         $title->setNameEn($cleanData['name_en']);
@@ -108,13 +140,13 @@ class TitleController extends BaseController
      */
     public function executeEdit($request, $response, $args)
     {
-        $title = $this->em->getRepository(Title::class)->findOneById($args['id']);
+        $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
         
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
         }
         
-        /**@var Title $title */
+        /**@var Entity\Title $title */
         
         $this->data->set('title', $title);
         
@@ -159,13 +191,13 @@ class TitleController extends BaseController
      */
     public function executeUpdate($request, $response, $args)
     {
-        $title = $this->em->getRepository(Title::class)->findOneById($args['id']);
+        $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
         
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
         }
         
-        /**@var Title $title */
+        /**@var Entity\Title $title */
         
         $form = new TitleForm();
         $form->setData($request->getParams());
@@ -219,13 +251,13 @@ class TitleController extends BaseController
      */
     public function executeDelete($request, $response, $args)
     {
-        $title = $this->em->getRepository(Title::class)->findOneById($args['id']);
+        $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
         
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
         }
         
-        /**@var Title $title */
+        /**@var Entity\Title $title */
         
         $title->setIsDeleted(true);
         

@@ -50,4 +50,13 @@ $settings['doctrine'] = [
     ],
 ];
 
+// storage
+$settings['storage'] = [
+    'secure'  => true,
+    'account' => [
+        'name' => getenv('STORAGE_NAME'),
+        'key'  => getenv('STORAGE_KEY'),
+    ],
+];
+
 return $settings;

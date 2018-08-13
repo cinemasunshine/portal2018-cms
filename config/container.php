@@ -95,3 +95,21 @@ $container['flash'] = function () {
 $container['auth'] = function ($container) {
     return new Cinemasunshine\PortalAdmin\Auth($container);
 };
+
+/**
+ * Azure Blob Storage Client
+ * 
+ * @link https://github.com/Azure/azure-storage-php/tree/master/azure-storage-blob
+ * @return \MicrosoftAzure\Storage\Blob\BlobRestProxy
+ */
+$container['bc'] = function ($container) {
+    $settings = $container->get('settings')['storage'];
+    $protocol = $settings['secure'] ? 'https' : 'http';
+    $connectionString = sprintf(
+        'DefaultEndpointsProtocol=%s;AccountName=%s;AccountKey=%s',
+        $protocol,
+        $settings['account']['name'],
+        $settings['account']['key']);
+    
+    return \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobService($connectionString);
+};

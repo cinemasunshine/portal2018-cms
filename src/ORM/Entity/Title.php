@@ -31,6 +31,15 @@ class Title extends AbstractEntity
     protected $id;
     
     /**
+     * image
+     *
+     * @var File
+     * @ORM\OneToOne(targetEntity="File", inversedBy="title")
+     * @ORM\JoinColumn(name="image_file_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
+     */
+    protected $image;
+    
+    /**
      * name
      * 
      * @var string
@@ -187,6 +196,27 @@ class Title extends AbstractEntity
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * get image
+     *
+     * @return File|null
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+    
+    /**
+     * set image
+     *
+     * @param File|null $image
+     * @return void
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
     
     /**
