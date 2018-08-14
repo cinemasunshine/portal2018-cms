@@ -21,16 +21,33 @@ class TitleRepository extends EntityRepository
     /**
      * find by active
      * 
-     * @param int $page
-     * @param int $maxPerPage
+     * @param array $params
+     * @param int   $page
+     * @param int   $maxPerPage
      * @return DoctrinePaginator
      */
-    public function findByActive(int $page, int $maxPerPage = 10)
+    public function findByActive(array $params, int $page, int $maxPerPage = 10)
     {
         $qb = $this->createQueryBuilder('t');
         $qb
             ->where('t.isDeleted = false')
             ->orderBy('t.createdAt', 'DESC');
+        
+        if (isset($params['id']) && !empty($params['id'])) {
+            $qb
+                ->andWhere('t.id = :id')
+                ->setParameter('id', $params['id']);
+        }
+        
+        if (isset($params['name']) && !empty($params['name'])) {
+            $qb
+                ->andWhere($qb->expr()->orX(
+                    $qb->expr()->like('t.name', ':name'),
+                    $qb->expr()->like('t.nameKana', ':name'),
+                    $qb->expr()->like('t.nameEn', ':name')
+                ))
+                ->setParameter('name', '%' . $params['name'] . '%');
+        }
         
         $query = $qb->getQuery();
         

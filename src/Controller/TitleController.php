@@ -11,7 +11,7 @@ use Slim\Exception\NotFoundException;
 
 use Intervention\Image\ImageManager;
 
-use Cinemasunshine\PortalAdmin\Form\TitleForm;
+use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
@@ -32,8 +32,23 @@ class TitleController extends BaseController
         $page = (int) $request->getParam('p', 1);
         $this->data->set('page', $page);
         
+        $form = new Form\TitleFindForm();
+        $form->setData($request->getParams());
+        $cleanValues = [];
+        
+        if ($form->isValid()) {
+            $cleanValues = $form->getData();
+            $values = $cleanValues;
+        } else {
+            $values = $request->getParams();
+            $this->data->set('errors', $form->getMessages());
+        }
+        
+        $this->data->set('values', $values);
+        $this->data->set('params', $cleanValues);
+        
         /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
-        $pagenater = $this->em->getRepository(Entity\Title::class)->findByActive($page);
+        $pagenater = $this->em->getRepository(Entity\Title::class)->findByActive($cleanValues, $page);
         
         $this->data->set('pagenater', $pagenater);
     }
@@ -48,7 +63,7 @@ class TitleController extends BaseController
      */
     public function executeNew($request, $response, $args)
     {
-        $form = new TitleForm();
+        $form = new Form\TitleForm();
         $this->data->set('form', $form);
     }
     
@@ -71,7 +86,7 @@ class TitleController extends BaseController
             $files
         );
         
-        $form = new TitleForm();
+        $form = new Form\TitleForm();
         $form->setData($params);
         
         if (!$form->isValid()) {
@@ -173,7 +188,7 @@ class TitleController extends BaseController
         
         $this->data->set('title', $title);
         
-        $form = new TitleForm();
+        $form = new Form\TitleForm();
         $this->data->set('form', $form);
         
         $values = [
@@ -231,7 +246,7 @@ class TitleController extends BaseController
             $files
         );
         
-        $form = new TitleForm();
+        $form = new Form\TitleForm();
         $form->setData($params);
         
         if (!$form->isValid()) {
