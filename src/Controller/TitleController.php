@@ -29,9 +29,13 @@ class TitleController extends BaseController
      */
     public function executeList($request, $response, $args)
     {
-        /** @var Entity\Title[] $titles */
-        $titles = $this->em->getRepository(Entity\Title::class)->findByActive();
-        $this->data->set('titles', $titles);
+        $page = (int) $request->getParam('p', 1);
+        $this->data->set('page', $page);
+        
+        /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
+        $pagenater = $this->em->getRepository(Entity\Title::class)->findByActive($page);
+        
+        $this->data->set('pagenater', $pagenater);
     }
     
     /**

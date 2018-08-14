@@ -29,7 +29,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for title in titles %}
+                    {% for title in pagenater.getResultsInPage() %}
                         <tr>
                             <th>{{ title.getId() }}</th>
                             <th>
@@ -60,9 +60,32 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                
+                <hr>
+                
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        
+                        <li class="page-item {% if pagenater.isFirstPage() %}disabled{% endif %}">
+                            <a class="page-link" href="{{ path_for('title_list', {}, { 'p': pagenater.getPreviousPage() }) }}">&laquo;</a>
+                        </li>
+                        
+                        {% for link in pagenater.getLinks() %}
+                            <li class="page-item {% if pagenater.getPage() == link %}active{% endif %}">
+                                <a class="page-link" href="{{ path_for('title_list', {}, { 'p': link }) }}">{{ link }}</a>
+                            </li>
+                        {% endfor %}
+                        
+                        <li class="page-item {% if pagenater.isLastPage() %}disabled{% endif %}">
+                            <a class="page-link" href="{{ path_for('title_list', {}, { 'p': pagenater.getNextPage() }) }}">&raquo;</a>
+                        </li>
+                        
+                    </ul>
+                </nav>
+                
             </div>
             <div class="card-footer">
-                {{ theaters|length }} 件
+                {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件
             </div>
         </div>
     </div>

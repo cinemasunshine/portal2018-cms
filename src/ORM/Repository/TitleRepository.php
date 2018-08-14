@@ -11,6 +11,7 @@ namespace Cinemasunshine\PortalAdmin\ORM\Repository;
 use Doctrine\ORM\EntityRepository;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\Title;
+use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
 
 /**
  * Title repository class
@@ -19,17 +20,21 @@ class TitleRepository extends EntityRepository
 {
     /**
      * find by active
-     *
-     * @return Title[]
+     * 
+     * @param int $page
+     * @param int $maxPerPage
+     * @return DoctrinePaginator
      */
-    public function findByActive()
+    public function findByActive(int $page, int $maxPerPage = 10)
     {
         $qb = $this->createQueryBuilder('t');
         $qb
             ->where('t.isDeleted = false')
             ->orderBy('t.createdAt', 'DESC');
         
-        return $qb->getQuery()->getResult();
+        $query = $qb->getQuery();
+        
+        return new DoctrinePaginator($query, $page, $maxPerPage);
     }
     
     /**
