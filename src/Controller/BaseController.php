@@ -7,8 +7,6 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
-use Slim\Collection;
-
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -19,27 +17,6 @@ use Cinemasunshine\PortalAdmin\Responder;
  */
 abstract class BaseController extends AbstractController
 {
-    /**
-     * data
-     * 
-     * 主にviewへ値を渡すために作成。
-     * 
-     * @var Collection
-     */
-    protected $data;
-    
-    /**
-     * construct
-     * 
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
-        
-        $this->data = new Collection();
-    }
-    
     /**
      * pre execute
      * 
