@@ -20,6 +20,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  */
 class AdminUser extends AbstractEntity
 {
+    use SoftDeleteTrait;
     use TimestampableTrait;
     
     /**
@@ -72,14 +73,6 @@ class AdminUser extends AbstractEntity
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $theater;
-    
-    /**
-     * is_deleted
-     *
-     * @var bool
-     * @ORM\Column(type="boolean", name="is_deleted")
-     */
-    protected $isDeleted;
     
     /**
      * get id
@@ -194,38 +187,5 @@ class AdminUser extends AbstractEntity
     public function setTheater(Theater $theater)
     {
         $this->theater = $theater;
-    }
-    
-    /**
-     * get is_deleted
-     *
-     * @return bool
-     */
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
-    }
-    
-    /**
-     * set is_deleted
-     *
-     * @param bool $isDeleted
-     * @return void
-     */
-    public function setIsDeleted(bool $isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
-    }
-    
-    /**
-     * is deleted
-     * 
-     * alias ::getIsDeleted()
-     *
-     * @return bool
-     */
-    public function isDeleted()
-    {
-        return $this->getIsDeleted();
     }
 }

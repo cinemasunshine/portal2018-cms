@@ -20,6 +20,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  */
 class Title extends AbstractEntity
 {
+    use SoftDeleteTrait;
     use TimestampableTrait;
     
     /**
@@ -136,14 +137,6 @@ class Title extends AbstractEntity
      * @ORM\Column(type="json_array")
      */
     protected $universal;
-    
-    /**
-     * is_deleted
-     *
-     * @var bool
-     * @ORM\Column(type="boolean", name="is_deleted")
-     */
-    protected $isDeleted;
     
     /**
      * レイティング区分
@@ -479,39 +472,6 @@ class Title extends AbstractEntity
     public function setUniversal(array $universal)
     {
         $this->universal = $universal;
-    }
-    
-    /**
-     * get is_deleted
-     *
-     * @return bool
-     */
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
-    }
-    
-    /**
-     * set is_deleted
-     *
-     * @param bool $isDeleted
-     * @return void
-     */
-    public function setIsDeleted(bool $isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
-    }
-    
-    /**
-     * is deleted
-     * 
-     * alias ::getIsDeleted()
-     *
-     * @return bool
-     */
-    public function isDeleted()
-    {
-        return $this->getIsDeleted();
     }
     
     /**

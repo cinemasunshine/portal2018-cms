@@ -153,7 +153,6 @@ class TitleController extends BaseController
         $title->setWebsite($cleanData['website']);
         $title->setRating((int) $cleanData['rating']);
         $title->setUniversal($cleanData['universal'] ?? []);
-        $title->setIsDeleted(false);
         
         $this->em->persist($title);
         $this->em->flush();

@@ -21,6 +21,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  */
 class Theater extends AbstractEntity
 {
+    use SoftDeleteTrait;
     use TimestampableTrait;
     
     /**
@@ -88,14 +89,6 @@ class Theater extends AbstractEntity
      * @ORM\OneToMany(targetEntity="AdminUser", mappedBy="theater")
      */
     protected $adminUsers;
-    
-    /**
-     * is_deleted
-     *
-     * @var bool
-     * @ORM\Column(type="boolean", name="is_deleted")
-     */
-    protected $isDeleted;
     
     /**
      * construct
@@ -228,38 +221,5 @@ class Theater extends AbstractEntity
     public function getAdminUsers()
     {
         return $this->adminUsers;
-    }
-    
-    /**
-     * get is_deleted
-     *
-     * @return bool
-     */
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
-    }
-    
-    /**
-     * set is_deleted
-     *
-     * @param bool $isDeleted
-     * @return void
-     */
-    public function setIsDeleted(bool $isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
-    }
-    
-    /**
-     * is deleted
-     * 
-     * alias ::getIsDeleted()
-     *
-     * @return bool
-     */
-    public function isDeleted()
-    {
-        return $this->getIsDeleted();
     }
 }
