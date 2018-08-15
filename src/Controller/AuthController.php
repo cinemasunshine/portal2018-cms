@@ -74,6 +74,11 @@ class AuthController extends BaseController
     {
         $this->auth->logout();
         
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => 'ログアウトしました。',
+        ]);
+        
         $this->redirect($this->router->pathFor('login'));
     }
 }

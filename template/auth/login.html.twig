@@ -10,21 +10,29 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
     
-        {% if errors.global %}
-        <div class="alert alert-danger" role="alert">
-            {% for message in errors.global %}
-                {% if not loop.first %}<br />{% endif %}
-                {{ message }}
-            {% endfor %}
-        </div>
-        {% endif %}
-        
+        {% for alert in alerts %}
+            {% if alert %}
+            <div class="alert alert-{{ alert.type }}" role="alert">
+                {{ alert.message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    
         <div class="card-group">
             <div class="card p-4">
                 <div class="card-body">
                     <h1>ログイン</h1>
                     <p class="text-muted">ユーザ名とパスワードでログイン</p>
                     <form method="post" action="{{ path_for('auth') }}">
+                        {% if errors.global %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in errors.global %}
+                                {% if not loop.first %}<br />{% endif %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -34,8 +42,8 @@
                             <input type="text" name="name" class="form-control{% if errors.name or errors.global %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.name }}" placeholder="ユーザ名">
                             <div class="invalid-feedback">
                                 {% for message in errors.name %}
-                                    {% if not loop.first %}<br />{% endif %}
                                     {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -48,8 +56,8 @@
                             <input type="password" name="password" class="form-control{% if errors.password or errors.global %} is-invalid{% elseif is_validated %} is-valid{% endif %}" placeholder="パスワード">
                             <div class="invalid-feedback">
                                 {% for message in errors.password %}
-                                    {% if not loop.first %}<br />{% endif %}
                                     {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
                                 {% endfor %}
                             </div>
                         </div>
