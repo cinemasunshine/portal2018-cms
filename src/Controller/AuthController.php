@@ -20,7 +20,7 @@ class AuthController extends BaseController
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
-     * @return \Slim\Http\Response
+     * @return string|void
      */
     public function executeLogin($request, $response, $args)
     {
@@ -32,7 +32,7 @@ class AuthController extends BaseController
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
-     * @return \Slim\Http\Response
+     * @return string|void
      */
     public function executeAuth($request, $response, $args)
     {
@@ -68,7 +68,7 @@ class AuthController extends BaseController
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
-     * @return \Slim\Http\Response
+     * @return string|void
      */
     public function executeLogout($request, $response, $args)
     {
