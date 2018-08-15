@@ -22,6 +22,8 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  */
 class File extends AbstractEntity
 {
+    use TimestampableTrait;
+    
     /**
      * id
      * 
@@ -71,22 +73,6 @@ class File extends AbstractEntity
      * @ORM\Column(type="integer", options={"unsigned"=true})
      */
     protected $size;
-    
-    /**
-     * crated_at
-     *
-     * @var \DateTime
-     * @ORM\Column(type="datetime", name="created_at")
-     */
-    protected $createdAt;
-    
-    /**
-     * updated_at
-     *
-     * @var \DateTime
-     * @ORM\Column(type="datetime", name="updated_at")
-     */
-    protected $updatedAt;
     
     /**
      * blob container name
@@ -215,75 +201,6 @@ class File extends AbstractEntity
     public function setSize(int $size)
     {
         $this->size = $size;
-    }
-    
-    /**
-     * get created_at
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-    
-    /**
-     * set created_at
-     *
-     * @param \DateTime|string $createdAt
-     * @return void
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = ($createdAt instanceof \Datetime)
-                        ? $createdAt
-                        : new \DateTime($createdAt);
-    }
-    
-    /**
-     * get updated_at
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-    
-    /**
-     * set updated_at
-     *
-     * @param \DateTime|string $updatedAt
-     * @return void
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = ($updatedAt instanceof \Datetime)
-                        ? $updatedAt
-                        : new \DateTime($updatedAt);
-    }
-    
-    /**
-     * pre persist
-     * 
-     * @ORM\PrePersist
-     * @return void
-     */
-    public function prePersist()
-    {
-        $this->setCreatedAt('now');
-        $this->setUpdatedAt('now');
-    }
-    
-    /**
-     * pre update
-     *
-     * @ORM\PreUpdate
-     * @return void
-     */
-    public function preUpdate()
-    {
-        $this->setUpdatedAt('now');
     }
     
     /**
