@@ -48,7 +48,7 @@ class TitleController extends BaseController
         $this->data->set('params', $cleanValues);
         
         /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
-        $pagenater = $this->em->getRepository(Entity\Title::class)->findByActive($cleanValues, $page);
+        $pagenater = $this->em->getRepository(Entity\Title::class)->findForList($cleanValues, $page);
         
         $this->data->set('pagenater', $pagenater);
     }

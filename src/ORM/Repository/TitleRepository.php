@@ -19,14 +19,14 @@ use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
 class TitleRepository extends EntityRepository
 {
     /**
-     * find by active
+     * find for list page
      * 
      * @param array $params
      * @param int   $page
      * @param int   $maxPerPage
      * @return DoctrinePaginator
      */
-    public function findByActive(array $params, int $page, int $maxPerPage = 10)
+    public function findForList(array $params, int $page, int $maxPerPage = 10)
     {
         $qb = $this->createQueryBuilder('t');
         $qb
