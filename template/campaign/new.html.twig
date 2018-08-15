@@ -1,0 +1,155 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}新規追加 | キャンペーン情報{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/bootstrap-datepicker.min.js"></script>
+<script src="/js/vendor/bootstrap-datepicker.ja.min.js"></script>
+<script>
+$(function(){
+    var datepickerOption = {
+        format: 'yyyy/mm/dd',
+        language: 'ja'
+    };
+    
+    $('.input-daterange').datepicker(datepickerOption);
+});
+</script>
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">キャンペーン情報</li>
+    <li class="breadcrumb-item active">新規追加</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form method="post" enctype="multipart/form-data" action="#">
+                <div class="card-header">
+                    新規追加
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">ID</label>
+                        <div class="col-md-9">
+                            <p class="form-control-static">&nbsp;</p>
+                            <span class="help-block">※自動でIDが付与されます。</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">キャンペーン名</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name" class="form-control" value="" />
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">該当作品</label>
+                        <div class="col-md-9">
+                            <input type="hidden" name="title_id" value="">
+                            <div class="row">
+                                <p class="col-md-10 form-control-static">選択されていません。</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-block btn-danger">選択解除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">実施期間</label>
+                        <div class="col-md-6">
+                            <div class="form-inline input-group input-daterange">
+                                <input type="text" name="start_dt" class="form-control" value="">
+                                <div class="input-group-addon">
+                                    <span class="input-group-text">～</span>
+                                </div>
+                                <input type="text" name="end_dt" class="form-control" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">リンクURL</label>
+                        <div class="col-md-9">
+                            <input type="url" name="url" class="form-control" value="" />
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">メイン画像</label>
+                        <div class="col-md-9">
+                            <input type="file" name="image" class="form-control" />
+                            <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="selectTitleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="h4 modal-title">作品選択</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label">作品名</label>
+                    <div class="col-md-9">
+                        <input type="text" name="name" class="form-control" />
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary">検索</button>
+                
+                <hr>
+                
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>作品名</th>
+                            <th>選択</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>11</th>
+                            <th>デッドプール２</th>
+                            <th><button type="button" class="btn btn-block btn-success">選択</button></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

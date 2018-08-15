@@ -6,6 +6,7 @@
  */
 
 use Cinemasunshine\PortalAdmin\Controller\AuthController;
+use Cinemasunshine\PortalAdmin\Controller\CampaignController;
 use Cinemasunshine\PortalAdmin\Controller\IndexController;
 use Cinemasunshine\PortalAdmin\Controller\TitleController;
 
@@ -25,5 +26,9 @@ $app->group('', function () {
         $this->get('/{id}/edit', TitleController::class . ':edit')->setName('title_edit');
         $this->post('/{id}/update', TitleController::class . ':update')->setName('title_update');
         $this->get('/{id}/delete', TitleController::class . ':delete')->setName('title_delete');
+    });
+    
+    $this->group('/campaign', function() {
+        $this->get('/new', CampaignController::class . ':new')->setName('campaign_new');
     });
 })->add(new AuthMiddleware($container));
