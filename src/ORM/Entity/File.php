@@ -35,14 +35,6 @@ class File extends AbstractEntity
     protected $id;
     
     /**
-     * title
-     *
-     * @var Title|null
-     * @ORM\OneToOne(targetEntity="Title", mappedBy="image")
-     */
-    protected $title;
-    
-    /**
      * name
      * 
      * @var string
@@ -96,27 +88,6 @@ class File extends AbstractEntity
     public function getId()
     {
         return $this->id;
-    }
-    
-    /**
-     * get title
-     *
-     * @return Title|null
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-    
-    /**
-     * set title
-     *
-     * @param Title|null $title
-     * @return void
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
     }
     
     /**

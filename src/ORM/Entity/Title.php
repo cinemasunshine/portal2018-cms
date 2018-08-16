@@ -37,7 +37,7 @@ class Title extends AbstractEntity
      * image
      *
      * @var File
-     * @ORM\OneToOne(targetEntity="File", inversedBy="title")
+     * @ORM\OneToOne(targetEntity="File")
      * @ORM\JoinColumn(name="image_file_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $image;
