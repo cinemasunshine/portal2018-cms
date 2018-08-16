@@ -55,6 +55,32 @@ class TitleRepository extends EntityRepository
     }
     
     /**
+     * find for list API
+     *
+     * @param string $name
+     * @return Title[]
+     */
+    public function findForListApi(string $name)
+    {
+        if (empty($name)) {
+           throw new \InvalidArgumentException('invalid "name".'); 
+        }
+        
+        $qb = $this->createQueryBuilder('t');
+        $qb
+            ->where('t.isDeleted = false')
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->like('t.name', ':name'),
+                $qb->expr()->like('t.nameKana', ':name'),
+                $qb->expr()->like('t.nameEn', ':name')
+            ))
+            ->orderBy('t.createdAt', 'DESC')
+            ->setParameter('name', '%' . $name . '%');
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    /**
      * find one by id
      *
      * @param int $id
