@@ -105,9 +105,7 @@ class TitleController extends BaseController
         
         if ($image['name']) {
             // rename
-            // @todo ファイル名生成をFileへ
-            $info = pathinfo($image['name']);
-            $newName = md5(uniqid('', true)) . '.' . $info['extension'];
+            $newName = Entity\File::createName($image['name']);
             
             // resize
             // @todo サイズ調整
@@ -274,9 +272,7 @@ class TitleController extends BaseController
         
         if ($image['name']) {
             // rename
-            // @todo ファイル名生成をFileへ
-            $info = pathinfo($image['name']);
-            $newName = md5(uniqid('', true)) . '.' . $info['extension'];
+            $newName = Entity\File::createName($image['name']);
             
             // resize
             // @todo サイズ調整

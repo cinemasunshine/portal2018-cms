@@ -183,4 +183,17 @@ class File extends AbstractEntity
     {
         return self::$blobContainer;
     }
+    
+    /**
+     * create name
+     *
+     * @param string $file original file
+     * @return string
+     */
+    public static function createName(string $file)
+    {
+        $info = pathinfo($file);
+        
+        return md5(uniqid('', true)) . '.' . $info['extension'];
+    }
 }
