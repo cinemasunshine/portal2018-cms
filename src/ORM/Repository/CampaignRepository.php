@@ -36,4 +36,21 @@ class CampaignRepository extends EntityRepository
         
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
+    
+    /**
+     * find one by id
+     *
+     * @param int $id
+     * @return Campaign|null
+     */
+    public function findOneById($id)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->where('c.id = :id')
+            ->andWhere('c.isDeleted = false')
+            ->setParameter('id', $id);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

@@ -141,4 +141,40 @@ class CampaignController extends BaseController
         // @todo redirect
         exit;
     }
+    
+    /**
+     * edit action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeEdit($request, $response, $args)
+    {
+        $campaign = $this->em->getRepository(Entity\Campaign::class)->findOneById($args['id']);
+        
+        if (is_null($campaign)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\Campaign $campaign */
+        
+        $this->data->set('campaign', $campaign);
+        
+        $values = [
+            'id'       => $campaign->getId(),
+            'title_id' => null,
+            'name'     => $campaign->getName(),
+            'start_dt' => $campaign->getStartDt()->format('Y/m/d H:i'),
+            'end_dt'   => $campaign->getEndDt()->format('Y/m/d H:i'),
+            'url'      => $campaign->getUrl(),
+        ];
+        
+        if ($campaign->getTitle()) {
+            $values['title_id'] = $campaign->getTitle()->getId();
+        }
+        
+        $this->data->set('values', $values);
+    }
 }

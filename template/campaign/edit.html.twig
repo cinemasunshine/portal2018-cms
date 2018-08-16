@@ -1,6 +1,6 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}新規追加 | キャンペーン情報{% endblock %}
+{% block title %}「{{ campaign.getName() }}」編集 | キャンペーン情報{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
@@ -19,7 +19,7 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item">ダッシュボード</li>
     <li class="breadcrumb-item">キャンペーン情報</li>
-    <li class="breadcrumb-item active">新規追加</li>
+    <li class="breadcrumb-item active">「{{ campaign.getName() }}」編集</li>
 </ol>
 {% endblock %}
 
@@ -27,9 +27,10 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="campaign" method="post" enctype="multipart/form-data" action="{{ path_for('campaign_create') }}">
+            <form name="campaign" method="post" enctype="multipart/form-data" action="#">
+                <input type="hidden" name="id" value="{{ values.id }}" />
                 <div class="card-header">
-                    新規追加
+                    「{{ campaign.getName() }}」編集
                 </div>
                 <div class="card-body">
                     {% if errors %}
@@ -63,7 +64,11 @@
                             <input type="hidden" name="title_id" value="{{ values.title_id }}">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="form-control-static title-name"></p>
+                                    <p class="form-control-static title-name">
+                                        {% if campaign.getTitle() %}
+                                            {{ campaign.getTitle().getName() }}
+                                        {% endif %}
+                                    </p>
                                 </div>
                                 <div class="col-md-12">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
@@ -120,13 +125,20 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">メイン画像</label>
                         <div class="col-md-9">
-                            <input type="file" name="image" class="form-control{% if errors.image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
-                            <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
-                            <div class="invalid-feedback">
-                                {% for message in errors.image %}
-                                    {{ message }}
-                                    {% if not loop.last %}<br />{% endif %}
-                                {% endfor %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img src="{{ blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()) }}" width="200">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="file" name="image" class="form-control{% if errors.image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
+                                    <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                                    <div class="invalid-feedback">
+                                        {% for message in errors.image %}
+                                            {{ message }}
+                                            {% if not loop.last %}<br />{% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

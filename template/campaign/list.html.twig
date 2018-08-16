@@ -34,7 +34,7 @@
                             <th>{{ campaign.getId() }}</th>
                             <th>
                                 <img src="{{ blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()) }}" width="100" alt="画像" />
-                                <a href="#">{{ campaign.getName() }}</a>
+                                <a href="{{ path_for('campaign_edit', { 'id': campaign.getId() }) }}">{{ campaign.getName() }}</a>
                             </th>
                             <th>
                                 {{ campaign.getStartDt().format('Y/m/d') }}

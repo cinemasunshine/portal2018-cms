@@ -1,0 +1,56 @@
+{## 
+ # 作品選択モーダル
+ # 
+ # javascriptを一緒に使用する。
+ # * /js/modal/select-title.js
+ #}
+<div class="modal" id="selectTitleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="h4 modal-title">作品選択</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">作品名</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-find">検索</button>
+                </form>
+                
+                <hr>
+                
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>作品名</th>
+                            <th>選択</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        <!-- add #selectTitleRowTmpl -->
+                    </tbody>
+                    <script id="selectTitleRowTmpl" type="text/x-jsrender">
+                    {% verbatim %}
+                        <tr class="title" data-id="{{:id}}" data-name="{{:name}}">
+                            <th>{{:id}}</th>
+                            <th>{{:name}}</th>
+                            <th><button type="button" class="btn btn-success btn-select">選択</button></th>
+                        </tr>
+                    {% endverbatim %}
+                    </script>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
