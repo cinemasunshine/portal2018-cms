@@ -3,39 +3,13 @@
 {% block title %}新規追加 | 作品マスター{% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="/css/vendor/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 {% endblock %}
 
 {% block javascript %}
-<script src="/js/vendor/bootstrap-datepicker.min.js"></script>
-<script src="/js/vendor/bootstrap-datepicker.ja.min.js"></script>
-<script>
-$(function(){
-    var datepickerOption = {
-        format: 'yyyy/mm/dd',
-        language: 'ja'
-    };
-    
-    $('.datepicker').datepicker(datepickerOption);
-    
-    $('input[name="not_exist_publishing_expected_date"]').change(function(){
-        var $publishingExpectedDate = $('input[name="publishing_expected_date"]');
-        
-        if ($(this).is(':checked')) {
-            $publishingExpectedDate.prop('disabled', true);
-        } else {
-            $publishingExpectedDate.prop('disabled', false);
-        }
-    });
-    
-    function execute() {
-        $('input[name="not_exist_publishing_expected_date"]').change();
-    }
-    
-    execute();
-});
-</script>
+<script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
+<script src="/js/title/form.js"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -181,7 +155,7 @@ $(function(){
                         <label class="col-md-3 col-form-label">公開予定日</label>
                         <div class="col-md-3">
                             <div class="input-group">
-                                <input type="text" name="publishing_expected_date" class="form-control datepicker{% if errors.publishing_expected_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.publishing_expected_date }}" />
+                                <input type="text" name="publishing_expected_date" class="form-control datetimepicker{% if errors.publishing_expected_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.publishing_expected_date }}" />
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="icon-calendar"></i>
