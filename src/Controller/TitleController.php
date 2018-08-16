@@ -260,14 +260,16 @@ class TitleController extends BaseController
         
         $image = $cleanData['image'];
         $isDeleteImage = $cleanData['delete_image'] || $image['name'];
-        $oldImage = $title->getImage();
-        $file = null;
         
-        if ($isDeleteImage && $oldImage) {
+        if ($isDeleteImage && $title->getImage()) {
+            // @todo preUpdateで出来ないか？ hasChangedField()
+            $oldImage = $title->getImage();
             $this->em->remove($oldImage);
             
             // @todo postRemoveイベントへ
             $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
+            
+            $title->setImage(null);
         }
         
         if ($image['name']) {
@@ -302,9 +304,10 @@ class TitleController extends BaseController
             $file->setSize((int) $image['size']);
             
             $this->em->persist($file);
+            
+            $title->setImage($file);
         }
         
-        $title->setImage($file);
         $title->setName($cleanData['name']);
         $title->setNameKana($cleanData['name_kana']);
         $title->setNameEn($cleanData['name_en']);
