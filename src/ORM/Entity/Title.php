@@ -109,7 +109,7 @@ class Title extends AbstractEntity
     /**
      * publishing_expected_date
      *
-     * @var \DateTime
+     * @var \DateTime|null
      * @ORM\Column(type="date", name="publishing_expected_date", nullable=true)
      */
     protected $publishingExpectedDate;

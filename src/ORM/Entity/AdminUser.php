@@ -68,7 +68,7 @@ class AdminUser extends AbstractEntity
     /**
      * theater
      *
-     * @var Theater
+     * @var Theater|null
      * @ORM\ManyToOne(targetEntity="Theater", inversedBy="adminUsers")
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
