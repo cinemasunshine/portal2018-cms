@@ -10,6 +10,8 @@
 {% block javascript %}
 <script src="/js/vendor/bootstrap-datepicker.min.js"></script>
 <script src="/js/vendor/bootstrap-datepicker.ja.min.js"></script>
+<script src="/js/vendor/jsrender.min.js"></script>
+<script src="/js/api.js"></script>
 <script>
 $(function(){
     var datepickerOption = {
@@ -18,6 +20,88 @@ $(function(){
     };
     
     $('.input-daterange').datepicker(datepickerOption);
+    
+    var $form = $('form[name="campaign"]');
+    var $titleField = $form.find('.form-group.title');
+    
+    $titleField.find('.btn-clear').click(function() {
+       clearTitle(); 
+    });
+    
+    var $selectTitleModal = $('#selectTitleModal');
+    var selectTitleRowTmpl = $.templates("#selectTitleRowTmpl");
+    
+    $selectTitleModal.on('selected.cs.title', function(event, id, name) {
+        setTitle(id, name);
+    });
+    
+    $selectTitleModal.on('click', '.btn-select', function() {
+        var $titleRow = $(this).parents('.title');
+        
+        $(this).trigger('selected.cs.title', [
+            $titleRow.data('id'),
+            $titleRow.data('name')
+        ]);
+        
+        $selectTitleModal.modal('hide');
+    });
+    
+    $selectTitleModal.find('.btn-find').click(function(){
+        var name = $selectTitleModal.find('input[name="name"]').val();
+        
+        if (!name) {
+            return;
+        }
+        
+        var $list = $selectTitleModal.find('tbody.list');
+        $list.empty();
+        
+        var jqXHR = api.title.find(name);
+        jqXHR
+            .done(function(data) {
+                $.each(data.data, function(i, title) {
+                    $list.append(
+                        selectTitleRowTmpl.render(title)
+                    );
+                });
+            })
+            .fail(function() {
+            });
+    });
+    
+    /**
+     * set title
+     * 
+     * @param {Integer} id
+     * @param {String}  name
+     */
+    function setTitle(id, name) {
+        $titleField.find('input[name="title_id"]').val(id);
+        $titleField.find('.title-name').text(name);
+        $titleField.find('.btn-clear').show();
+    }
+    
+    /**
+     * clear title
+     */
+    function clearTitle() {
+        $titleField.find('input[name="title_id"]').val('');
+        $titleField.find('.title-name').text('選択されていません。');
+        $titleField.find('.btn-clear').hide();
+    }
+    
+    /**
+     * execute
+     */
+    function execute() {
+        var id = $('input[name="title_id"]').val();
+        
+        if (!id) {
+            clearTitle();
+        }
+    }
+    
+    execute();
 });
 </script>
 {% endblock %}
@@ -34,7 +118,7 @@ $(function(){
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form method="post" enctype="multipart/form-data" action="#">
+            <form name="campaign" method="post" enctype="multipart/form-data" action="#">
                 <div class="card-header">
                     新規追加
                 </div>
@@ -54,19 +138,17 @@ $(function(){
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row title">
                         <label class="col-md-3 col-form-label">該当作品</label>
                         <div class="col-md-9">
                             <input type="hidden" name="title_id" value="">
                             <div class="row">
-                                <p class="col-md-10 form-control-static">選択されていません。</p>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
+                                <div class="col-md-12">
+                                    <p class="form-control-static title-name"></p>
                                 </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-block btn-danger">選択解除</button>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
+                                    <button type="button" class="btn btn-danger btn-clear">選択解除</button>
                                 </div>
                             </div>
                         </div>
@@ -119,13 +201,15 @@ $(function(){
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group row">
-                    <label class="col-md-3 col-form-label">作品名</label>
-                    <div class="col-md-9">
-                        <input type="text" name="name" class="form-control" />
+                <form>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">作品名</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name" class="form-control" />
+                        </div>
                     </div>
-                </div>
-                <button type="button" class="btn btn-primary">検索</button>
+                    <button type="button" class="btn btn-primary btn-find">検索</button>
+                </form>
                 
                 <hr>
                 
@@ -137,13 +221,18 @@ $(function(){
                             <th>選択</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th>11</th>
-                            <th>デッドプール２</th>
-                            <th><button type="button" class="btn btn-block btn-success">選択</button></th>
-                        </tr>
+                    <tbody class="list">
+                        <!-- add #selectTitleRowTmpl -->
                     </tbody>
+                    <script id="selectTitleRowTmpl" type="text/x-jsrender">
+                    {% verbatim %}
+                        <tr class="title" data-id="{{:id}}" data-name="{{:name}}">
+                            <th>{{:id}}</th>
+                            <th>{{:name}}</th>
+                            <th><button type="button" class="btn btn-success btn-select">選択</button></th>
+                        </tr>
+                    {% endverbatim %}
+                    </script>
                 </table>
             </div>
             <div class="modal-footer">
