@@ -62,7 +62,7 @@ class Theater extends AbstractEntity
      * master_version
      *
      * @var int
-     * @ORM\Column(type="smallint", name="master_version")
+     * @ORM\Column(type="smallint", name="master_version", options={"unsigned"=true})
      */
     protected $masterVersion;
 
