@@ -298,4 +298,37 @@ class CampaignController extends BaseController
             $this->router->pathFor('campaign_edit', [ 'id' => $campaign->getId() ]),
             303);
     }
+    
+    /**
+     * delete action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeDelete($request, $response, $args)
+    {
+        $campaign = $this->em->getRepository(Entity\Campaign::class)->findOneById($args['id']);
+        
+        if (is_null($campaign)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\Campaign $campaign */
+        
+        $campaign->setIsDeleted(true);
+        
+        // 関連データの処理はイベントで対応する
+        
+        $this->em->persist($campaign);
+        $this->em->flush();
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('キャンペーン情報「%s」を削除しました。', $campaign->getName()),
+        ]);
+        
+        return $this->redirect($this->router->pathFor('campaign_list'), 303);
+    }
 }
