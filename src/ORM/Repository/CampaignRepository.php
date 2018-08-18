@@ -38,6 +38,29 @@ class CampaignRepository extends EntityRepository
     }
     
     /**
+     * find for list API
+     *
+     * @param string $name
+     * @return Title[]
+     */
+    public function findForListApi(string $name)
+    {
+        if (empty($name)) {
+           throw new \InvalidArgumentException('invalid "name".'); 
+        }
+        
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->where('c.isDeleted = false')
+            ->andWhere('c.name LIKE :name')
+            ->andWhere('c.endDt > CURRENT_TIMESTAMP()')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setParameter('name', '%' . $name . '%');
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    /**
      * find one by id
      *
      * @param int $id

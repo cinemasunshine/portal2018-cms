@@ -9,6 +9,8 @@ use Cinemasunshine\PortalAdmin\Controller\AuthController;
 use Cinemasunshine\PortalAdmin\Controller\CampaignController;
 use Cinemasunshine\PortalAdmin\Controller\IndexController;
 use Cinemasunshine\PortalAdmin\Controller\TitleController;
+
+use Cinemasunshine\PortalAdmin\Controller\API\CampaignController as CampaignApiController;
 use Cinemasunshine\PortalAdmin\Controller\API\TitleController as TitleApiController;
 
 use Cinemasunshine\PortalAdmin\Middleware\AuthMiddleware;
@@ -41,6 +43,10 @@ $app->group('', function () {
     $this->group('/api', function() {
         $this->group('/title', function() {
             $this->get('/list', TitleApiController::class . ':list');
+        });
+        
+        $this->group('/campaign', function() {
+            $this->get('/list', CampaignApiController::class . ':list');
         });
     });
 })->add(new AuthMiddleware($container));
