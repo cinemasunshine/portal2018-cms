@@ -15,13 +15,33 @@ use Zend\Validator;
  */
 class CampaignForm extends BaseForm
 {
+    const TYPE_NEW = 1;
+    const TYPE_EDIT = 2;
+    
+    /** @var int */
+    protected $type;
+    
     /**
      * construct
+     * 
+     * @param int $type
      */
-    public function __construct()
+    public function __construct($type)
     {
+        $this->type = $type;
+        
         parent::__construct();
         
+        $this->setup();
+    }
+
+    /**
+     * setup
+     *
+     * @return void
+     */
+    protected function setup()
+    {
         $this->add([
             'name' => 'name',
             'type' => 'Text',
@@ -97,7 +117,7 @@ class CampaignForm extends BaseForm
         
         $inputFilter->add([
             'name' => 'image',
-            'required' => true,
+            'required' => ($this->type === self::TYPE_NEW),
             'validators' => [
                 [
                     'name' => Validator\File\Size::class,

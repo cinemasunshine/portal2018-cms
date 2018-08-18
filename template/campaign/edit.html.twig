@@ -27,7 +27,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="campaign" method="post" enctype="multipart/form-data" action="#">
+            <form name="campaign" method="post" enctype="multipart/form-data" action="{{ path_for('campaign_update', { 'id': campaign.getId() }) }}">
                 <input type="hidden" name="id" value="{{ values.id }}" />
                 <div class="card-header">
                     「{{ campaign.getName() }}」編集

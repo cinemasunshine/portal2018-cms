@@ -34,6 +34,7 @@ $app->group('', function () {
         $this->get('/new', CampaignController::class . ':new')->setName('campaign_new');
         $this->post('/create', CampaignController::class . ':create')->setName('campaign_create');
         $this->get('/{id}/edit', CampaignController::class . ':edit')->setName('campaign_edit');
+        $this->post('/{id}/update', CampaignController::class . ':update')->setName('campaign_update');
     });
     
     $this->group('/api', function() {
