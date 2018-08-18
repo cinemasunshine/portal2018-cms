@@ -138,8 +138,14 @@ class CampaignController extends BaseController
         $this->em->persist($campaign);
         $this->em->flush();
         
-        // @todo redirect
-        exit;
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('キャンペーン情報「%s」を追加しました。', $campaign->getName()),
+        ]);
+        
+        $this->redirect(
+            $this->router->pathFor('campaign_edit', [ 'id' => $campaign->getId() ]),
+            303);
     }
     
     /**
