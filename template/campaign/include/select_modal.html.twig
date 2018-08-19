@@ -1,0 +1,53 @@
+<div class="modal" id="selectCampaignModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="h4 modal-title">キャンペーン選択</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">キャンペーン名</label>
+                        <div class="col-md-8">
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-find">検索</button>
+                </form>
+                
+                <hr>
+                
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>選択</th>
+                            <th>ID</th>
+                            <th>キャンペーン</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        <!-- add #selectCampaignRowTmpl -->
+                    </tbody>
+                    <script id="selectCampaignRowTmpl" type="text/x-jsrender">
+                    {% verbatim %}
+                        <tr class="title">
+                            <th><input type="checkbox" name="campaign[]" value="{{:id}}"></th>
+                            <th>{{:id}}</th>
+                            <th>
+                                <img src="{{:image}}" width="100">
+                                {{:name}}
+                            </th>
+                        </tr>
+                    {% endverbatim %}
+                    </script>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-select">選択</button>
+            </div>
+        </div>
+    </div>
+</div>

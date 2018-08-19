@@ -21,4 +21,21 @@ $(function(){
             }
         });
     };
+    
+    api.campaign = {};
+    
+    /**
+     * find campaign
+     * 
+     * @param {String} name
+     * @returns {jqXHR}
+     */
+    api.campaign.find = function(name) {
+        return $.ajax({
+            url: '/api/campaign/list',
+            data: {
+                'name': name
+            }
+        });
+    };
 });

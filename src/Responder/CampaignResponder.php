@@ -51,4 +51,16 @@ class CampaignResponder extends BaseResponder
     {
         return $this->view->render($response, 'campaign/edit.html.twig', $data->all());
     }
+    
+    /**
+     * setting
+     *
+     * @param Response   $response
+     * @param Collection $data
+     * @return Response
+     */
+    public function setting(Response $response, Collection $data)
+    {
+        return $this->view->render($response, 'campaign/setting.html.twig', $data->all());
+    }
 }

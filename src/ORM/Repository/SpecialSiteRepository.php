@@ -17,4 +17,16 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\SpecialSite;
  */
 class SpecialSiteRepository extends EntityRepository
 {
+    /**
+     * find
+     * 
+     * @return SpecialSite[]
+     */
+    public function findActive()
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->where('s.isDeleted = false');
+        
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -38,6 +38,7 @@ $app->group('', function () {
         $this->get('/{id}/edit', CampaignController::class . ':edit')->setName('campaign_edit');
         $this->post('/{id}/update', CampaignController::class . ':update')->setName('campaign_update');
         $this->get('/{id}/delete', CampaignController::class . ':delete')->setName('campaign_delete');
+        $this->get('/setting', CampaignController::class . ':setting')->setName('campaign_setting');
     });
     
     $this->group('/api', function() {

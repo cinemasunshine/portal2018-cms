@@ -17,4 +17,16 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\Page;
  */
 class PageRepository extends EntityRepository
 {
+    /**
+     * find
+     * 
+     * @return Page[]
+     */
+    public function findActive()
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('p.isDeleted = false');
+        
+        return $qb->getQuery()->getResult();
+    }
 }

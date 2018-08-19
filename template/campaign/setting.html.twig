@@ -1,0 +1,95 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}表示順管理 | キャンペーン情報{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/Sortable.min.js"></script>
+<script src="/js/vendor/jsrender.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/modal/select-campaign.js"></script>
+<script src="/js/campaign/setting.js"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">キャンペーン情報</li>
+    <li class="breadcrumb-item active">表示順管理</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        {% for page in pages %}
+        <div class="card">
+            <div class="card-header">
+                {{ page.getName() }}
+            </div>
+            <div class="card-body">
+                <ul class="list-group sortable">
+                </ul>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+        {% endfor %}
+        
+        {% for theater in theaters %}
+        <div class="card">
+            <div class="card-header">
+                {{ theater.getNameJa() }}
+            </div>
+            <div class="card-body">
+                <ul class="list-group sortable">
+                </ul>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+        {% endfor %}
+        
+        {% for spesialSite in spesialSites %}
+        <div class="card">
+            <div class="card-header">
+                {{ spesialSite.getName() }}
+            </div>
+            <div class="card-body">
+                <ul class="list-group sortable">
+                </ul>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script id="campaignRowTmpl" type="text/x-jsrender">
+{% verbatim %}
+    <li class="list-group-item">
+        <input type="hidden" class="campaing-id" name="" value="{{:id}}">
+        <div class="media">
+            <img class="mr-3" src="{{:image}}" width="150">
+            <div class="media-body">
+                <h3 class="mt-0"><small>{{:name}}</small></h3>
+                URL: {{:url}}
+            </div>
+            <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
+        </div>
+    </li>
+{% endverbatim %}
+</script>
+
+{% include 'campaign/include/select_modal.html.twig' only %}
+{% endblock %}
