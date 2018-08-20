@@ -29,4 +29,21 @@ class SpecialSiteRepository extends EntityRepository
         
         return $qb->getQuery()->getResult();
     }
+    
+    /**
+     * find one by id
+     *
+     * @param int $id
+     * @return SpecialSite|null
+     */
+    public function findOneById(int $id)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb
+            ->where('s.id = :id')
+            ->andWhere('s.isDeleted = false')
+            ->setParameter('id', $id);
+            
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

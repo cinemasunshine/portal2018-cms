@@ -29,4 +29,21 @@ class PageRepository extends EntityRepository
         
         return $qb->getQuery()->getResult();
     }
+    
+    /**
+     * find one by id
+     *
+     * @param int $id
+     * @return Page|null
+     */
+    public function findOneById(int $id)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where('p.id = :id')
+            ->andWhere('p.isDeleted = false')
+            ->setParameter('id', $id);
+            
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

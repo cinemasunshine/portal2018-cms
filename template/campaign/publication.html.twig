@@ -27,49 +27,103 @@
     <div class="col-md-12">
         {% for page in pages %}
         <div class="card">
-            <div class="card-header">
-                {{ page.getNameJa() }}
-            </div>
-            <div class="card-body">
-                <ul class="list-group sortable">
-                </ul>
-            </div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
-                <button type="button" class="btn btn-primary">保存</button>
-            </div>
+            <form method="post" action="{{ path_for('campaign_publication_update') }}">
+                <input type="hidden" name="page_id" value="{{ page.getId() }}">
+                <div class="card-header">
+                    {{ page.getNameJa() }}
+                </div>
+                <div class="card-body">
+                    <ul class="list-group sortable">
+                        {% for publication in page.getCampaignPublications() %}
+                            {% set campaign = publication.getCampaign() %}
+                            <li class="list-group-item">
+                                <input type="hidden" name="campaigns[{{ loop.index }}][campaign_id]" value="{{ campaign.getId() }}">
+                                <input type="hidden" name="campaigns[{{ loop.index }}][display_order]" value="{{ publication.getDisplayOrder() }}">
+                                <div class="media">
+                                    <img class="mr-3" src="{{ blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()) }}" width="150">
+                                    <div class="media-body">
+                                        <h3 class="mt-0"><small>{{ campaign.getName() }}</small></h3>
+                                        URL: {{ campaign.getUrl() }}
+                                    </div>
+                                    <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
         </div>
         {% endfor %}
         
         {% for theater in theaters %}
         <div class="card">
-            <div class="card-header">
-                {{ theater.getNameJa() }}
-            </div>
-            <div class="card-body">
-                <ul class="list-group sortable">
-                </ul>
-            </div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
-                <button type="button" class="btn btn-primary">保存</button>
-            </div>
+            <form method="post" action="{{ path_for('campaign_publication_update') }}">
+                <input type="hidden" name="theater_id" value="{{ theater.getId() }}">
+                <div class="card-header">
+                    {{ theater.getNameJa() }}
+                </div>
+                <div class="card-body">
+                    <ul class="list-group sortable">
+                        {% for publication in theater.getCampaignPublications() %}
+                            {% set campaign = publication.getCampaign() %}
+                            <li class="list-group-item">
+                                <input type="hidden" name="campaigns[{{ loop.index }}][campaign_id]" value="{{ campaign.getId() }}">
+                                <input type="hidden" name="campaigns[{{ loop.index }}][display_order]" value="{{ publication.getDisplayOrder() }}">
+                                <div class="media">
+                                    <img class="mr-3" src="{{ blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()) }}" width="150">
+                                    <div class="media-body">
+                                        <h3 class="mt-0"><small>{{ campaign.getName() }}</small></h3>
+                                        URL: {{ campaign.getUrl() }}
+                                    </div>
+                                    <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
         </div>
         {% endfor %}
         
-        {% for spesialSite in spesialSites %}
+        {% for specialSite in specialSites %}
         <div class="card">
-            <div class="card-header">
-                {{ spesialSite.getNameJa() }}
-            </div>
-            <div class="card-body">
-                <ul class="list-group sortable">
-                </ul>
-            </div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
-                <button type="button" class="btn btn-primary">保存</button>
-            </div>
+            <form method="post" action="{{ path_for('campaign_publication_update') }}">
+                <input type="hidden" name="special_site_id" value="{{ specialSite.getId() }}">
+                <div class="card-header">
+                    {{ specialSite.getNameJa() }}
+                </div>
+                <div class="card-body">
+                    <ul class="list-group sortable">
+                        {% for publication in specialSite.getCampaignPublications() %}
+                            {% set campaign = publication.getCampaign() %}
+                            <li class="list-group-item">
+                                <input type="hidden" name="campaigns[{{ loop.index }}][campaign_id]" value="{{ campaign.getId() }}">
+                                <input type="hidden" name="campaigns[{{ loop.index }}][display_order]" value="{{ publication.getDisplayOrder() }}">
+                                <div class="media">
+                                    <img class="mr-3" src="{{ blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()) }}" width="150">
+                                    <div class="media-body">
+                                        <h3 class="mt-0"><small>{{ campaign.getName() }}</small></h3>
+                                        URL: {{ campaign.getUrl() }}
+                                    </div>
+                                    <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
         </div>
         {% endfor %}
     </div>
@@ -78,7 +132,8 @@
 <script id="campaignRowTmpl" type="text/x-jsrender">
 {% verbatim %}
     <li class="list-group-item">
-        <input type="hidden" class="campaing-id" name="" value="{{:id}}">
+        <input type="hidden" name="campaigns[{{:index}}][campaign_id]" value="{{:id}}">
+        <input type="hidden" name="campaigns[{{:index}}][display_order]" value="">
         <div class="media">
             <img class="mr-3" src="{{:image}}" width="150">
             <div class="media-body">

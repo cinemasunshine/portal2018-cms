@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
@@ -18,7 +20,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  * @ORM\Table(name="page", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class Page extends AbstractEntity
+class Page extends AbstractEntity implements CampaignPublicationsInterface
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
@@ -48,6 +50,23 @@ class Page extends AbstractEntity
      * @ORM\Column(type="string", name="name_ja")
      */
     protected $nameJa;
+    
+    /**
+     * campaign_publictions
+     *
+     * @var Collection
+     * @ORM\OnetoMany(targetEntity="CampaignPublication", mappedBy="page", orphanRemoval=true)
+     * @ORM\OrderBy({"displayOrder" = "ASC"})
+     */
+    protected $campaignPublictions;
+    
+    /**
+     * construct
+     */
+    public function __construct()
+    {
+        $this->campaignPublictions = new ArrayCollection();
+    }
     
     /**
      * get id
@@ -99,5 +118,15 @@ class Page extends AbstractEntity
     public function setNameJa(string $nameJa)
     {
         $this->nameJa = $nameJa;
+    }
+    
+    /**
+     * get campaign_publictions
+     *
+     * @return Collection
+     */
+    public function getCampaignPublications() : Collection
+    {
+        return $this->campaignPublictions;
     }
 }

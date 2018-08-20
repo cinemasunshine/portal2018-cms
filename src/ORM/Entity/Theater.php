@@ -8,6 +8,7 @@
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
@@ -19,7 +20,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  * @ORM\Table(name="theater", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class Theater extends AbstractEntity
+class Theater extends AbstractEntity implements CampaignPublicationsInterface
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
@@ -91,11 +92,21 @@ class Theater extends AbstractEntity
     protected $adminUsers;
     
     /**
+     * campaign_publictions
+     *
+     * @var Collection
+     * @ORM\OnetoMany(targetEntity="CampaignPublication", mappedBy="theater", orphanRemoval=true)
+     * @ORM\OrderBy({"displayOrder" = "ASC"})
+     */
+    protected $campaignPublictions;
+    
+    /**
      * construct
      */
     public function __construct()
     {
         $this->adminUsers = new ArrayCollection();
+        $this->campaignPublictions = new ArrayCollection();
     }
     
     /**
@@ -221,5 +232,15 @@ class Theater extends AbstractEntity
     public function getAdminUsers()
     {
         return $this->adminUsers;
+    }
+    
+    /**
+     * get campaign_publictions
+     *
+     * @return Collection
+     */
+    public function getCampaignPublications() : Collection
+    {
+        return $this->campaignPublictions;
     }
 }

@@ -353,7 +353,90 @@ class CampaignController extends BaseController
         $this->data->set('theaters', $theaters);
         
         /** @var Entity\SpecialSite[] */
-        $spesialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
-        $this->data->set('spesialSites', $spesialSites);
+        $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
+        $this->data->set('specialSites', $specialSites);
+    }
+    
+    /**
+     * publication update action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executePublicationUpdate($request, $response, $args)
+    {
+        $form = new Form\CampaignPublicationForm();
+        $form->setData($request->getParams());
+        
+        if (!$form->isValid()) {
+            throw new \LogicException('invalid parameters.');
+        }
+        
+        $cleanData = $form->getData();
+        $target = null;
+        
+        if ($cleanData['theater_id']) {
+            $target = $this->em
+                ->getRepository(Entity\Theater::class)
+                ->findOneById((int) $cleanData['theater_id']);
+        } else if ($cleanData['page_id']) {
+            $target = $this->em
+                ->getRepository(Entity\Page::class)
+                ->findOneById((int) $cleanData['page_id']);
+        } else if ($cleanData['special_site_id']) {
+            $target = $this->em
+                ->getRepository(Entity\SpecialSite::class)
+                ->findOneById((int) $cleanData['special_site_id']);
+        }
+        
+        $basePublication = new Entity\CampaignPublication();
+        
+        if ($target instanceof Entity\Theater) {
+            /** @var Entity\Theater $target */
+            $basePublication->setTheater($target);
+        } else if ($target instanceof Entity\Page) {
+            /** @var Entity\Page $target */
+            $basePublication->setPage($target);
+        } else if ($target instanceof Entity\SpecialSite) {
+            /** @var Entity\SpecialSite $target */
+            $basePublication->setSpecialSite($target);
+        } else {
+            // @todo formで検証したい
+            throw new \LogicException('invalid target.');
+        }
+        
+        // いったん削除する
+        $target->getCampaignPublications()->clear();
+        
+        foreach ($cleanData['campaigns'] as $campaignData) {
+            /** @var Entity\CampaignPublication $publication */
+            $publication = clone $basePublication;
+            
+            $campaign = $this->em
+                ->getRepository(Entity\Campaign::class)
+                ->findOneById((int) $campaignData['campaign_id']);
+            
+            if (!$campaign) {
+                // @todo formで検証したい
+                throw new \LogicException('invalid campaign.');
+            }
+            
+            $publication->setCampaign($campaign);
+            $publication->setDisplayOrder((int) $campaignData['display_order']);
+            
+            $this->em->persist($publication);
+        }
+        
+        $this->em->flush();
+        
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('%sの表示順を保存しました。', $target->getNameJa()),
+        ]);
+        
+        return $this->redirect($this->router->pathFor('campaign_publication'), 303);
     }
 }

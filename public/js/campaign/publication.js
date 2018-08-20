@@ -8,11 +8,12 @@ $(function() {
             var $item = $(event.item);
             
             if (Sortable.utils.is(event.target, '.btn-delete')) {
+                var $list = $item.parents('.list-group');
                 $item.remove();
-                resetDisplayOrder($item.parents('.list-group'));
+                resetDisplayOrder($list);
             }
         },
-        onUpdate: function() {
+        onUpdate: function(event) {
             var $item = $(event.item);
             resetDisplayOrder($item.parents('.list-group'));
         }
@@ -23,6 +24,7 @@ $(function() {
     });
     
     var $addTargetList;
+    var addIndex = 0;
     
     var campaignRowTmpl = $.templates("#campaignRowTmpl");
     var $selectCampaignModal = $('#selectCampaignModal');
@@ -35,7 +37,11 @@ $(function() {
     
     $selectCampaignModal.on('selected.cs.campaign', function(event, campaigns) {
         $.each(campaigns, function(i, campaign) {
-            $addTargetList.append(campaignRowTmpl.render(campaign));
+            var data = campaign;
+            data.index = 'add' + addIndex;
+            $addTargetList.append(campaignRowTmpl.render(data));
+            
+            addIndex++;
         });
         
         resetDisplayOrder($addTargetList);
@@ -47,11 +53,11 @@ $(function() {
      * @param {String} $list
      */
     function resetDisplayOrder($list) {
-        var $campaignId = $list.find('input.campaing-id');
+        var $inputDisplayOrder = $list.find('.list-group-item input[name*="display_order"]');
         var displayOrder = 1;
         
-        $campaignId.each(function() {
-            $(this).attr('name', 'campaign[' + displayOrder + ']');
+        $inputDisplayOrder.each(function() {
+            $(this).val(displayOrder);
             displayOrder++;
         });
     }

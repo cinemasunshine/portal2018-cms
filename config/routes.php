@@ -32,13 +32,14 @@ $app->group('', function () {
     });
     
     $this->group('/campaign', function() {
+        $this->get('/publication', CampaignController::class . ':publication')->setName('campaign_publication');
+        $this->post('/publication/update', CampaignController::class . ':publicationUpdate')->setName('campaign_publication_update');
         $this->get('/list', CampaignController::class . ':list')->setName('campaign_list');
         $this->get('/new', CampaignController::class . ':new')->setName('campaign_new');
         $this->post('/create', CampaignController::class . ':create')->setName('campaign_create');
         $this->get('/{id}/edit', CampaignController::class . ':edit')->setName('campaign_edit');
         $this->post('/{id}/update', CampaignController::class . ':update')->setName('campaign_update');
         $this->get('/{id}/delete', CampaignController::class . ':delete')->setName('campaign_delete');
-        $this->get('/publication', CampaignController::class . ':publication')->setName('campaign_publication');
     });
     
     $this->group('/api', function() {
