@@ -41,6 +41,14 @@ class Page extends AbstractEntity
      */
     protected $name;
     
+    /** 
+     * name_ja
+     * 
+     * @var string
+     * @ORM\Column(type="string", name="name_ja")
+     */
+    protected $nameJa;
+    
     /**
      * get id
      *
@@ -70,5 +78,26 @@ class Page extends AbstractEntity
     public function setName(string $name)
     {
         $this->name = $name;
+    }
+    
+    /**
+     * get name_ja
+     *
+     * @return string
+     */
+    public function getNameJa()
+    {
+        return $this->nameJa;
+    }
+    
+    /**
+     * set name_ja
+     *
+     * @param string $nameJa
+     * @return void
+     */
+    public function setNameJa(string $nameJa)
+    {
+        $this->nameJa = $nameJa;
     }
 }
