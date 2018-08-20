@@ -1,5 +1,5 @@
 /**
- * campaign/setting.js
+ * campaign/publication.js
  */
 $(function() {
     var sortableOptions = {

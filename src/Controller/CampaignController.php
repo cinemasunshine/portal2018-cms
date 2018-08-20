@@ -333,14 +333,14 @@ class CampaignController extends BaseController
     }
     
     /**
-     * setting action
+     * publication action
      * 
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
      * @return string|void
      */
-    public function executeSetting($request, $response, $args)
+    public function executePublication($request, $response, $args)
     {
         // @todo ユーザによって取得する情報を変更する
         

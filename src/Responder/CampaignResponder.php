@@ -53,14 +53,14 @@ class CampaignResponder extends BaseResponder
     }
     
     /**
-     * setting
+     * publication
      *
      * @param Response   $response
      * @param Collection $data
      * @return Response
      */
-    public function setting(Response $response, Collection $data)
+    public function publication(Response $response, Collection $data)
     {
-        return $this->view->render($response, 'campaign/setting.html.twig', $data->all());
+        return $this->view->render($response, 'campaign/publication.html.twig', $data->all());
     }
 }
