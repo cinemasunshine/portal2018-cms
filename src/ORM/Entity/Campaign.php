@@ -47,7 +47,7 @@ class Campaign extends AbstractEntity
      *
      * @var File
      * @ORM\OneToOne(targetEntity="File")
-     * @ORM\JoinColumn(name="image_file_id", referencedColumnName="id", onDelete="RESTRICT")
+     * @ORM\JoinColumn(name="image_file_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $image;
     
