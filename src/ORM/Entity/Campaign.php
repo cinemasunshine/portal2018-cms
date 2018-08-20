@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
@@ -84,10 +86,50 @@ class Campaign extends AbstractEntity
     protected $url;
     
     /**
+     * publication pages
+     * 
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Page")
+     * @ORM\JoinTable(name="campaign_publication",
+     *      joinColumns={@ORM\JoinColumn(name="campaign_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")}
+     * )
+     */
+    protected $publicationPages;
+    
+    /**
+     * publication theaters
+     *
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Theater")
+     * @ORM\JoinTable(name="campaign_publication",
+     *      joinColumns={@ORM\JoinColumn(name="campaign_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="theater_id", referencedColumnName="id")}
+     * )
+     * @ORM\OrderBy({"displayOrder" = "ASC"})
+     */
+    protected $publicationTheaters;
+    
+    /**
+     * publication special sites
+     *
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="SpecialSite")
+     * @ORM\JoinTable(name="campaign_publication",
+     *      joinColumns={@ORM\JoinColumn(name="campaign_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="special_site_id", referencedColumnName="id")}
+     * )
+     */
+    protected $publicationSpecialSites;
+    
+    /**
      * construct
      */
     public function __construct()
     {
+        $this->publicationPages = new ArrayCollection();
+        $this->publicationTheaters = new ArrayCollection();
+        $this->publicationSpecialSites = new ArrayCollection();
     }
     
     /**
@@ -232,5 +274,59 @@ class Campaign extends AbstractEntity
     public function setUrl(string $url)
     {
         $this->url = $url;
+    }
+    
+    /**
+     * get publication pages
+     *
+     * @return Collection
+     */
+    public function getPublicationPages() : Collection
+    {
+        return $this->publicationPages;
+    }
+    
+    /**
+     * get publication theaters
+     *
+     * @return Collection
+     */
+    public function getPublicationTheaters() : Collection
+    {
+        return $this->publicationTheaters;
+    }
+    
+    /**
+     * get publication special site
+     *
+     * @return Collection
+     */
+    public function getPublicationSpecialSite() : Collection
+    {
+        return $this->publicationSpecialSites;
+    }
+    
+    /**
+     * get publications
+     *
+     * @return ArrayCollection
+     */
+    public function getPublications()
+    {
+        $publications = new ArrayCollection();
+        
+        foreach ($this->getPublicationPages() as $page) {
+            $publications->add($page);
+        }
+        
+        foreach ($this->getPublicationTheaters() as $theater) {
+            $publications->add($theater);
+        }
+        
+        foreach ($this->getPublicationSpecialSite() as $specialSite) {
+            $publications->add($specialSite);
+        }
+        
+        return $publications;
     }
 }
