@@ -29,6 +29,7 @@ $(function(){
      */
     function setTitle(title) {
         $titleField.find('input[name="title_id"]').val(title.id);
+        $titleField.find('input[name="title_name"]').val(title.name);
         $titleField.find('.title-name').text(title.name);
         $titleField.find('.btn-clear').show();
     }
@@ -38,6 +39,7 @@ $(function(){
      */
     function clearTitle() {
         $titleField.find('input[name="title_id"]').val('');
+        $titleField.find('input[name="title_name"]').val('');
         $titleField.find('.title-name').text('選択されていません。');
         $titleField.find('.btn-clear').hide();
     }

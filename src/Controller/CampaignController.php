@@ -182,16 +182,18 @@ class CampaignController extends BaseController
         $this->data->set('campaign', $campaign);
         
         $values = [
-            'id'       => $campaign->getId(),
-            'title_id' => null,
-            'name'     => $campaign->getName(),
-            'start_dt' => $campaign->getStartDt()->format('Y/m/d H:i'),
-            'end_dt'   => $campaign->getEndDt()->format('Y/m/d H:i'),
-            'url'      => $campaign->getUrl(),
+            'id'         => $campaign->getId(),
+            'title_id'   => null,
+            'title_name' => null,
+            'name'       => $campaign->getName(),
+            'start_dt'   => $campaign->getStartDt()->format('Y/m/d H:i'),
+            'end_dt'     => $campaign->getEndDt()->format('Y/m/d H:i'),
+            'url'        => $campaign->getUrl(),
         ];
         
         if ($campaign->getTitle()) {
-            $values['title_id'] = $campaign->getTitle()->getId();
+            $values['title_id']   = $campaign->getTitle()->getId();
+            $values['title_name'] = $campaign->getTitle()->getName();
         }
         
         $this->data->set('values', $values);

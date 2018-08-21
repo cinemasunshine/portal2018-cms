@@ -52,6 +52,12 @@ class CampaignForm extends BaseForm
             'type' => 'Hidden',
         ]);
         
+        // 作品名を表示するため
+        $this->add([
+            'name' => 'title_name',
+            'type' => 'Hidden',
+        ]);
+        
         $this->add([
             'name' => 'start_dt',
             'type' => 'Text', // Datepickerを入れるのでtextにする
@@ -81,6 +87,11 @@ class CampaignForm extends BaseForm
         
         $inputFilter->add([
             'name' => 'title_id',
+            'required' => false,
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'title_name',
             'required' => false,
         ]);
         

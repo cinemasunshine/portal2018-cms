@@ -61,9 +61,10 @@
                         <label class="col-md-3 col-form-label">該当作品</label>
                         <div class="col-md-9">
                             <input type="hidden" name="title_id" value="{{ values.title_id }}">
+                            <input type="hidden" name="title_name" value="{{ values.title_name }}">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="form-control-static title-name"></p>
+                                    <p class="form-control-static title-name">{{ values.title_name }}</p>
                                 </div>
                                 <div class="col-md-12">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
