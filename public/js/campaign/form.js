@@ -18,19 +18,18 @@ $(function(){
     
     var $selectTitleModal = $('#selectTitleModal');
     
-    $selectTitleModal.on('selected.cs.title', function(event, id, name) {
-        setTitle(id, name);
+    $selectTitleModal.on('selected.cs.title', function(event, title) {
+        setTitle(title);
     });
     
     /**
      * set title
      * 
-     * @param {Integer} id
-     * @param {String}  name
+     * @param {Object} title
      */
-    function setTitle(id, name) {
-        $titleField.find('input[name="title_id"]').val(id);
-        $titleField.find('.title-name').text(name);
+    function setTitle(title) {
+        $titleField.find('input[name="title_id"]').val(title.id);
+        $titleField.find('.title-name').text(title.name);
         $titleField.find('.btn-clear').show();
     }
     

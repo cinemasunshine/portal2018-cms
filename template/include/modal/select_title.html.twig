@@ -39,10 +39,10 @@
                     </tbody>
                     <script id="selectTitleRowTmpl" type="text/x-jsrender">
                     {% verbatim %}
-                        <tr class="title" data-id="{{:id}}" data-name="{{:name}}">
+                        <tr>
                             <th>{{:id}}</th>
                             <th>{{:name}}</th>
-                            <th><button type="button" class="btn btn-success btn-select">選択</button></th>
+                            <th><button type="button" class="btn btn-success btn-select" data-id="{{:id}}">選択</button></th>
                         </tr>
                     {% endverbatim %}
                     </script>
