@@ -83,7 +83,7 @@ $(function(){
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="news" method="post" enctype="multipart/form-data" action="#">
+            <form name="news" method="post" enctype="multipart/form-data" action="{{ path_for('news_create') }}">
                 <div class="card-header">
                     新規追加
                 </div>
@@ -98,24 +98,34 @@ $(function(){
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">投稿カテゴリ</label>
                         <div class="col-md-9 col-form-label">
+                        {% for value, text in form.getCategoryChoices() %}
                             <div class="form-check form-check-inline mr-1">
-                                <input class="form-check-input" type="radio" id="category-radio1" value="1" name="category">
-                                <label class="form-check-label" for="category-radio1">NEWS</label>
+                                <input type="radio" class="form-check-input{% if errors.category %} is-invalid{% elseif is_validated %} is-valid{% endif %}" id="category-{{ value }}" name="category" value="{{ value }}"  {{ value == values.category ? 'checked' : '' }}>
+                                <label class="form-check-label" for="category-{{ value }}">{{ text }}</label>
                             </div>
-                            <div class="form-check form-check-inline mr-1">
-                                <input class="form-check-input" type="radio" id="category-radio2" value="2" name="category">
-                                <label class="form-check-label" for="category-radio2">インフォメーション</label>
+                        {% endfor %}
+                            {##
+                             # インラインの項目でエラーを表示するためのhidden
+                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                             # それをやると見た目が良くないので。
+                             #}
+                            <input type="hidden" class="form-control {% if errors.category %} is-invalid{% endif %}" />
+                            <div class="invalid-feedback">
+                                {% for message in errors.category %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                     <div class="form-group row title">
                         <label class="col-md-3 col-form-label">該当作品</label>
                         <div class="col-md-9">
-                            <input type="hidden" name="title_id" value="">
-                            <input type="hidden" name="title_name" value="">
+                            <input type="hidden" name="title_id" value="{{ values.title_id }}">
+                            <input type="hidden" name="title_name" value="{{ values.title_name }}">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="form-control-static title-name"></p>
+                                    <p class="form-control-static title-name">{{ values.title_name }}</p>
                                 </div>
                                 <div class="col-md-12">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
@@ -128,36 +138,69 @@ $(function(){
                         <label class="col-md-3 col-form-label">提出期間</label>
                         <div class="col-md-6">
                             <div class="form-inline input-group">
-                                <input type="text" name="start_dt" class="form-control datetimepicker" value="">
+                                <input type="text" name="start_dt" class="form-control datetimepicker{% if errors.start_dt %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.start_dt }}">
                                 <div class="input-group-addon">
                                     <span class="input-group-text">～</span>
                                 </div>
-                                <input type="text" name="end_dt" class="form-control datetimepicker" value="">
+                                <input type="text" name="end_dt" class="form-control datetimepicker{% if errors.end_dt %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.end_dt }}">
+                            </div>
+                            {# mergeだと同じキーは上書きされるが、同じメッセージは表示されないのでこれで良い #}
+                            {% set termErrors = [] %}
+                            {% if errors.start_dt %}
+                                {% set termErrors = termErrors|merge(errors.start_dt) %}
+                            {% endif %}
+                            {% if errors.end_dt %}
+                                {% set termErrors = termErrors|merge(errors.end_dt) %}
+                            {% endif %}
+                            
+                            {##
+                             # エラーを表示するためのhidden
+                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                             # それをやると見た目が良くないので。
+                             #}
+                            <input type="hidden" class="form-control {% if termErrors %} is-invalid{% endif %}">
+                            <div class="invalid-feedback">
+                                {% for message in termErrors %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">タイトル</label>
                         <div class="col-md-9">
-                            <input type="text" name="headline" class="form-control" value="" />
+                            <input type="text" name="headline" class="form-control{% if errors.headline %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.headline }}">
                             <div class="invalid-feedback">
+                                {% for message in errors.headline %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">本文</label>
                         <div class="col-md-9">
-                            <textarea name="body" rows="6" class="form-control"></textarea>
+                            <textarea name="body" rows="6" class="form-control{% if errors.body %} is-invalid{% elseif is_validated %} is-valid{% endif %}">{{ values.body }}</textarea>
                             <div class="invalid-feedback">
+                                {% for message in errors.body %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">画像</label>
                         <div class="col-md-9">
-                            <input type="file" name="image" class="form-control">
+                            <input type="file" name="image" class="form-control{% if errors.image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
                             <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
                             <div class="invalid-feedback">
+                                {% for message in errors.image %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
