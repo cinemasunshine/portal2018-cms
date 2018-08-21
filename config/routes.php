@@ -8,6 +8,7 @@
 use Cinemasunshine\PortalAdmin\Controller\AuthController;
 use Cinemasunshine\PortalAdmin\Controller\CampaignController;
 use Cinemasunshine\PortalAdmin\Controller\IndexController;
+use Cinemasunshine\PortalAdmin\Controller\NewsController;
 use Cinemasunshine\PortalAdmin\Controller\TitleController;
 
 use Cinemasunshine\PortalAdmin\Controller\API\CampaignController as CampaignApiController;
@@ -40,6 +41,10 @@ $app->group('', function () {
         $this->get('/{id}/edit', CampaignController::class . ':edit')->setName('campaign_edit');
         $this->post('/{id}/update', CampaignController::class . ':update')->setName('campaign_update');
         $this->get('/{id}/delete', CampaignController::class . ':delete')->setName('campaign_delete');
+    });
+    
+    $this->group('/news', function() {
+        $this->get('/new', NewsController::class . ':new')->setName('news_new');
     });
     
     $this->group('/api', function() {
