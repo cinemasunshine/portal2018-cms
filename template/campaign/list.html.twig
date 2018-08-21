@@ -14,6 +14,99 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <form method="get" action="{{ path_for('campaign_list') }}">
+                <div class="card-header">
+                    検索
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">ステータス</label>
+                        <div class="col-md-9 col-form-label">
+                            {% for value, text in form.getStatusChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input{% if errors.status %} is-invalid{% endif %}" type="checkbox" id="status-{{ value }}" name="status[]" value="{{ value }}" {{ value in values.status ? 'checked' : '' }} />
+                                <label class="form-check-label" for="status-{{ value }}">{{ text }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" class="form-control {% if errors.status %} is-invalid{% endif %}" />
+                        <div class="invalid-feedback">
+                            {% for messages in errors.status %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出場所：ページ</label>
+                        <div class="col-md-9 col-form-label">
+                            {% for value, text in form.getPageChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input{% if errors.page %} is-invalid{% endif %}" type="checkbox" id="page-{{ value }}" name="page[]" value="{{ value }}" {{ value in values.page ? 'checked' : '' }} />
+                                <label class="form-check-label" for="page-{{ value }}">{{ text }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" class="form-control {% if errors.page %} is-invalid{% endif %}" />
+                        <div class="invalid-feedback">
+                            {% for messages in errors.page %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出場所：劇場</label>
+                        <div class="col-md-9 col-form-label">
+                            {% for value, text in form.getTheaterChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input{% if errors.theater %} is-invalid{% endif %}" type="checkbox" id="theater-{{ value }}" name="theater[]" value="{{ value }}" {{ value in values.theater ? 'checked' : '' }} />
+                                <label class="form-check-label" for="theater-{{ value }}">{{ text }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" class="form-control {% if errors.theater %} is-invalid{% endif %}" />
+                        <div class="invalid-feedback">
+                            {% for messages in errors.theater %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出場所：特設</label>
+                        <div class="col-md-9 col-form-label">
+                            {% for value, text in form.getSpecialSiteChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input{% if errors.special_site %} is-invalid{% endif %}" type="checkbox" id="special-site-{{ value }}" name="special_site[]" value="{{ value }}" {{ value in values.special_site ? 'checked' : '' }} />
+                                <label class="form-check-label" for="special-site-{{ value }}">{{ text }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" class="form-control {% if errors.special_site %} is-invalid{% endif %}" />
+                        <div class="invalid-feedback">
+                            {% for messages in errors.special_site %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">検索</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card">
             <div class="card-header">
                 一覧
             </div>

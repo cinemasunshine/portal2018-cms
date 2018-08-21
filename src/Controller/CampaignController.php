@@ -33,7 +33,20 @@ class CampaignController extends BaseController
         $page = (int) $request->getParam('p', 1);
         $this->data->set('page', $page);
         
+        $form = new Form\CampaignFindForm($this->em);
+        $form->setData($request->getParams());
         $cleanValues = [];
+        
+        if ($form->isValid()) {
+            $cleanValues = $form->getData();
+            $values = $cleanValues;
+        } else {
+            $values = $request->getParams();
+            $this->data->set('errors', $form->getMessages());
+        }
+        
+        $this->data->set('form', $form);
+        $this->data->set('values', $values);
         $this->data->set('params', $cleanValues);
         
         /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
