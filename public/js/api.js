@@ -38,4 +38,26 @@ $(function(){
             }
         });
     };
+    
+    api.editor = {};
+    
+    /**
+     * upload from editor
+     * 
+     * @param {File} file
+     * @returns {jqXHR}
+     */
+    api.editor.upload = function(file) {
+        var data = new FormData();
+        data.append('file', file, file.name);
+        
+        return $.ajax({
+            method: 'POST',
+            url: '/api/editor/upload',
+            processData: false,
+            contentType: false,
+            dataType: 'JSON',
+            data: data
+        });
+    }
 });

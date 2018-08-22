@@ -4,9 +4,12 @@
 
 {% block css %}
 <link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="/css/vendor/summernote-bs4.css">
 {% endblock %}
 
 {% block javascript %}
+<script src="/js/vendor/summernote-bs4.min.js"></script>
+<script src="/js/vendor/summernote-ja-JP.js"></script>
 <script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
 <script src="/js/vendor/jsrender.min.js"></script>
 <script src="/js/api.js"></script>
@@ -19,6 +22,66 @@ $(function(){
     };
     
     $('.datetimepicker').datetimepicker(datetimepickerOption);
+    
+    var editorOptions = {
+        lang: 'ja-JP',
+        height: 200,
+        toolbar: [
+            ['edit', ['undo', 'redo']],
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert', ['picture', 'link', 'table', 'hr']],
+            ['etc', ['fullscreen', 'codeview', 'help']]
+        ]
+    };
+    
+    $.extend(editorOptions, {
+        callbacks: {
+            onImageUpload: function(files) {
+                $.each(files, function(i, file) {
+                    upload(file);
+                });
+            }
+        }
+    });
+    
+    var $summernote = $('textarea.editor').summernote(editorOptions);
+    
+    /**
+     * upload from editor
+     * 
+     * @param {File} file
+     * @returns {jqXHR}
+     */
+    function upload(file) {
+        var jqXHR = api.editor.upload(file);
+        jqXHR
+            .done(function(data) {
+                if (data.errors) {
+                    var message = '';
+                    
+                    $.each(data.errors, function(i, error) {
+                        if (i > 0) {
+                            message += "\n";
+                        }
+                        
+                        message += error.title;
+                    });
+                    
+                    alert(message);
+                    return;
+                }
+                
+                var file = data.data;
+                $summernote.summernote('insertImage', file.url);
+            })
+            .fail(function() {
+            });
+    }
     
     var $form = $('form[name="news"]');
     var $titleField = $form.find('.form-group.title');
@@ -182,7 +245,7 @@ $(function(){
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">本文</label>
                         <div class="col-md-9">
-                            <textarea name="body" rows="6" class="form-control{% if errors.body %} is-invalid{% elseif is_validated %} is-valid{% endif %}">{{ values.body }}</textarea>
+                            <textarea name="body" class="form-control editor{% if errors.body %} is-invalid{% elseif is_validated %} is-valid{% endif %}">{{ values.body }}</textarea>
                             <div class="invalid-feedback">
                                 {% for message in errors.body %}
                                     {{ message }}
