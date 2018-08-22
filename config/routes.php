@@ -12,6 +12,7 @@ use Cinemasunshine\PortalAdmin\Controller\NewsController;
 use Cinemasunshine\PortalAdmin\Controller\TitleController;
 
 use Cinemasunshine\PortalAdmin\Controller\API\CampaignController as CampaignApiController;
+use Cinemasunshine\PortalAdmin\Controller\API\EditorController as EditorApiController;
 use Cinemasunshine\PortalAdmin\Controller\API\TitleController as TitleApiController;
 
 use Cinemasunshine\PortalAdmin\Middleware\AuthMiddleware;
@@ -55,6 +56,10 @@ $app->group('', function () {
         
         $this->group('/campaign', function() {
             $this->get('/list', CampaignApiController::class . ':list');
+        });
+        
+        $this->group('/editor', function() {
+            $this->post('/upload', EditorApiController::class . ':upload');
         });
     });
 })->add(new AuthMiddleware($container));
