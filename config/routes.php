@@ -6,6 +6,7 @@
  */
 
 use Cinemasunshine\PortalAdmin\Controller\AuthController;
+use Cinemasunshine\PortalAdmin\Controller\AdvanceTicketController;
 use Cinemasunshine\PortalAdmin\Controller\CampaignController;
 use Cinemasunshine\PortalAdmin\Controller\IndexController;
 use Cinemasunshine\PortalAdmin\Controller\NewsController;
@@ -47,6 +48,10 @@ $app->group('', function () {
     $this->group('/news', function() {
         $this->get('/new', NewsController::class . ':new')->setName('news_new');
         $this->post('/create', NewsController::class . ':create')->setName('news_create');
+    });
+    
+    $this->group('/advance_ticket', function() {
+        $this->get('/new', AdvanceTicketController::class . ':new')->setName('advance_ticket_new');
     });
     
     $this->group('/api', function() {

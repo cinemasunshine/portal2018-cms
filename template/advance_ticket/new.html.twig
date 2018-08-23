@@ -1,0 +1,306 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}新規追加 | 前売券情報{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
+<script src="/js/vendor/jsrender.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/modal/select-title.js"></script>
+<script>
+$(function(){
+    $.datetimepicker.setLocale('ja');
+    
+    var datepickerOption = {
+        timepicker:false,
+        format: 'Y/m/d'
+    };
+    
+    $('.datepicker').datetimepicker(datepickerOption);
+    
+    var datetimepickerOption = {
+        format: 'Y/m/d H:i'
+    };
+    
+    var $form = $('form[name="advance"]');
+    var $titleField = $form.find('.form-group.title');
+    var $tickets = $('#tickets');
+    
+    var ticketFiledsetTmpl = $.templates("#ticketFiledsetTmpl");
+    var filedsetIndex = $tickets.find('.ticket').length;
+    
+    $('.btn-add-fieldset').click(function() {
+        addFieldset();
+    });
+    
+    $tickets.on('click', '.ticket .btn-delete', function() {
+        $(this).parents('.ticket').remove();
+    });
+    
+    /**
+     * add fieldset
+     */
+    function addFieldset() {
+        var $fieldset = $(ticketFiledsetTmpl.render({
+            index: filedsetIndex
+        }));
+        
+        $fieldset.find('.datetimepicker').datetimepicker(datetimepickerOption); 
+        $tickets.append($fieldset);
+        
+        filedsetIndex++;
+    }
+    
+    var $selectTitleModal = $('#selectTitleModal');
+    
+    $selectTitleModal.on('selected.cs.title', function(event, title) {
+        setTitle(title);
+    });
+    
+    /**
+     * set title
+     * 
+     * @param {Array} title
+     */
+    function setTitle(title) {
+        $titleField.find('input[name="title_id"]').val(title.id);
+        $titleField.find('input[name="title_name"]').val(title.name);
+        $titleField.find('.title-name').text(title.name);
+    }
+    
+    /**
+     * clear title
+     */
+    function clearTitle() {
+        $titleField.find('input[name="title_id"]').val('');
+        $titleField.find('input[name="title_name"]').val('');
+        $titleField.find('.title-name').text('選択されていません。');
+    }
+    
+    /**
+     * execute
+     */
+    function execute() {
+        if ($tickets.find('.ticket').length === 0) {
+            addFieldset();
+        }
+        
+        var id = $('input[name="title_id"]').val();
+        
+        if (!id) {
+            clearTitle();
+        }
+    }
+    
+    execute();
+});
+</script>
+</script>
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">前売券情報</li>
+    <li class="breadcrumb-item active">新規追加</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form name="advance" method="post" action="#"/>
+                <div class="card-header">
+                    新規追加
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">劇場</label>
+                        <div class="col-md-9">
+                            <select name="theater" class="form-control col-md-4">
+                                <option value="1">池袋</option>
+                                <option value="2">平和島</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row title">
+                        <label class="col-md-3 col-form-label">作品名</label>
+                        <div class="col-md-9">
+                            <input type="hidden" name="title_id" value="">
+                            <input type="hidden" name="title_name" value="">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="form-control-static title-name"></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">作品公開予定日</label>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" name="publishing_expected_date" class="form-control datepicker"  value="" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </div>
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="col-form-label">
+                                <div class="form-check form-check">
+                                    <input class="form-check-input" type="checkbox" id="not_exist_publishing_expected_date" name="not_exist_publishing_expected_date" value="1">
+                                    <label class="form-check-label" for="not_exist_publishing_expected_date">未定</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">上書き表記</span>
+                                </div>
+                                <input type="text" name="publishing_expected_date_text" class="form-control" value="">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="tickets">
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success btn-add-fieldset">前売券情報追加</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script id="ticketFiledsetTmpl" type="text/x-jsrender">
+{% verbatim %}
+ <div class="card ticket">
+    <div class="card-header">
+        <div class="card-header-actions">
+            <a href="#" class="card-header-action btn-delete">
+                <i class="icon-trash"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">ID</label>
+            <div class="col-md-9">
+                <p class="form-control-static">&nbsp;</p>
+                <span class="help-block">※自動でIDが付与されます。</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">前売券発売日</label>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <input type="text" name="ticket[{{:index}}][release_date]" class="form-control datetimepicker"  value="" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="icon-calendar"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">上書き表記</span>
+                    </div>
+                    <input type="text" name="ticket[{{:index}}][release_date_text]" class="form-control" value="">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">販売終了</label>
+            <div class="col-md-9">
+                <div class="col-form-label">
+                    <div class="form-check form-check">
+                        <input class="form-check-input" type="checkbox" id="ticket-{{:index}}-is-sales-end" name="ticket[{{:index}}][is_sales_end]" value="1">
+                        <label class="form-check-label" for="ticket-{{:index}}-is-sales-end">販売終了</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">前売券タイプ</label>
+            <div class="col-md-9 col-form-label">
+                <div class="form-check form-check-inline mr-1">
+                    <input class="form-check-input" type="radio" id="ticket-{{:index}}-type-1" value="1" name="ticket[{{:index}}][type]">
+                    <label class="form-check-label" for="ticket-{{:index}}-type-1">ムビチケ</label>
+                </div>
+                <div class="form-check form-check-inline mr-1">
+                    <input class="form-check-input" type="radio" id="ticket-{{:index}}-type-2" value="2" name="ticket[{{:index}}][type]">
+                    <label class="form-check-label" for="ticket-{{:index}}-type-2">紙券</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">料金</label>
+            <div class="col-md-9">
+                <input type="text" name="ticket[{{:index}}][price_text]" class="form-control" value="">
+                <div class="invalid-feedback">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">特典情報</label>
+            <div class="col-md-6">
+                <input type="text" name="ticket[{{:index}}][special_gift]" class="form-control" value="">
+                <div class="invalid-feedback">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">在庫</span>
+                    </div>
+                    <select name="ticket[{{:index}}][special_gift_stock]" class="form-control">
+                        <option value="1">有り</option>
+                        <option value="2">無し</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">特典画像</label>
+            <div class="col-md-9">
+                <input type="file" name="ticket[{{:index}}][special_gift_image]" class="form-control">
+                <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                <div class="invalid-feedback">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endverbatim %}
+</script>
+
+{% include 'include/modal/select_title.html.twig' only %}
+{% endblock %}
