@@ -74,7 +74,7 @@ class AdvanceSale extends AbstractEntity
      * advance_tickets
      *
      * @var Collection
-     * @ORM\OnetoMany(targetEntity="AdvanceTicket", mappedBy="advanceSale")
+     * @ORM\OneToMany(targetEntity="AdvanceTicket", mappedBy="advanceSale")
      */
     protected $advanceTickets;
     
