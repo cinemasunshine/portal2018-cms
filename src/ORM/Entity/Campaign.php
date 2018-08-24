@@ -16,6 +16,8 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * Campaign entity class
  * 
+ * @todo campaign_publicationを廃止してページ、劇場、特設サイトそれぞれのテーブルで紐付け
+ * 
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\CampaignRepository")
  * @ORM\Table(name="campaign", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -86,50 +88,37 @@ class Campaign extends AbstractEntity
     protected $url;
     
     /**
-     * publication pages
+     * pages
      * 
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Page")
-     * @ORM\JoinTable(name="campaign_publication",
-     *      joinColumns={@ORM\JoinColumn(name="campaign_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")}
-     * )
+     * @ORM\OneToMany(targetEntity="PageCampaign", mappedBy="campaign")
      */
-    protected $publicationPages;
+    protected $pages;
     
     /**
-     * publication theaters
+     * theaters
      *
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Theater")
-     * @ORM\JoinTable(name="campaign_publication",
-     *      joinColumns={@ORM\JoinColumn(name="campaign_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="theater_id", referencedColumnName="id")}
-     * )
-     * @ORM\OrderBy({"displayOrder" = "ASC"})
+     * @ORM\OneToMany(targetEntity="TheaterCampaign", mappedBy="campaign")
      */
-    protected $publicationTheaters;
+    protected $theaters;
     
     /**
-     * publication special sites
+     * special_sites
      *
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="SpecialSite")
-     * @ORM\JoinTable(name="campaign_publication",
-     *      joinColumns={@ORM\JoinColumn(name="campaign_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="special_site_id", referencedColumnName="id")}
-     * )
+     * @ORM\OneToMany(targetEntity="SpecialSiteCampaign", mappedBy="campaign")
      */
-    protected $publicationSpecialSites;
+    protected $specialSites;
     
     /**
      * construct
      */
     public function __construct()
     {
-        $this->publicationPages = new ArrayCollection();
-        $this->publicationTheaters = new ArrayCollection();
-        $this->publicationSpecialSites = new ArrayCollection();
+        $this->pages = new ArrayCollection();
+        $this->theaters = new ArrayCollection();
+        $this->specialSites = new ArrayCollection();
     }
     
     /**
@@ -277,54 +266,57 @@ class Campaign extends AbstractEntity
     }
     
     /**
-     * get publication pages
+     * get pages
      *
      * @return Collection
      */
-    public function getPublicationPages() : Collection
+    public function getPages() : Collection
     {
-        return $this->publicationPages;
+        return $this->pages;
     }
     
     /**
-     * get publication theaters
+     * get theaters
      *
      * @return Collection
      */
-    public function getPublicationTheaters() : Collection
+    public function getTheaters() : Collection
     {
-        return $this->publicationTheaters;
+        return $this->theaters;
     }
     
     /**
-     * get publication special site
+     * get special_site
      *
      * @return Collection
      */
-    public function getPublicationSpecialSite() : Collection
+    public function getSpecialSite() : Collection
     {
-        return $this->publicationSpecialSites;
+        return $this->specialSites;
     }
     
     /**
-     * get publications
+     * get published target
      *
      * @return ArrayCollection
      */
-    public function getPublications()
+    public function getPublishedTargets()
     {
         $publications = new ArrayCollection();
         
-        foreach ($this->getPublicationPages() as $page) {
-            $publications->add($page);
+        foreach ($this->getPages() as $pageCampaign) {
+            /** @var PageCampaign $pageCampaign */
+            $publications->add($pageCampaign->getPage());
         }
         
-        foreach ($this->getPublicationTheaters() as $theater) {
-            $publications->add($theater);
+        foreach ($this->getTheaters() as $theaterCampaign) {
+            /** @var TheaterCampaign $theaterCampaign */
+            $publications->add($theaterCampaign->getTheater());
         }
         
-        foreach ($this->getPublicationSpecialSite() as $specialSite) {
-            $publications->add($specialSite);
+        foreach ($this->getSpecialSite() as $specialSiteCampaign) {
+            /** @var SpecialSiteCampaign $specialSiteCampaign */
+            $publications->add($specialSiteCampaign->getSpecialSite());
         }
         
         return $publications;

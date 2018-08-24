@@ -8,11 +8,12 @@
 namespace Cinemasunshine\PortalAdmin\Form;
 
 use zend\Form\Fieldset;
+use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
  * PublicationCampaign fieldset class
  */
-class PublicationCampaignFieldset extends Fieldset
+class PublicationCampaignFieldset extends Fieldset implements InputFilterProviderInterface
 {
     public function __construct()
     {
@@ -30,10 +31,12 @@ class PublicationCampaignFieldset extends Fieldset
     {
         $this->add([
             'name' => 'campaign_id',
+            'type' => 'Hidden',
         ]);
         
         $this->add([
             'name' => 'display_order',
+            'type' => 'Hidden',
         ]);
     }
     
@@ -45,7 +48,7 @@ class PublicationCampaignFieldset extends Fieldset
     public function getInputFilterSpecification()
     {
         return [
-            'campaing_id' => [
+            'campaign_id' => [
                 'required' => true,
             ],
             'display_order' => [

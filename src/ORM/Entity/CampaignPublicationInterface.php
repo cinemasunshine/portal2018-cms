@@ -1,6 +1,6 @@
 <?php
 /**
- * CampaignPublicationsInterface.php
+ * CampaignPublicationInterface.php
  * 
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
@@ -10,14 +10,14 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * CampaignPublications interface
+ * CampaignPublication interface
  */
-interface CampaignPublicationsInterface
+interface CampaignPublicationInterface
 {
     /**
      * get campaign_publications
      *
      * @return Collection
      */
-    public function getCampaignPublications() : Collection;
+    public function getCampaigns() : Collection;
 }

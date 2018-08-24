@@ -36,7 +36,7 @@ $app->group('', function () {
     
     $this->group('/campaign', function() {
         $this->get('/publication', CampaignController::class . ':publication')->setName('campaign_publication');
-        $this->post('/publication/update', CampaignController::class . ':publicationUpdate')->setName('campaign_publication_update');
+        $this->post('/publication/update/{target}', CampaignController::class . ':publicationUpdate')->setName('campaign_publication_update');
         $this->get('/list', CampaignController::class . ':list')->setName('campaign_list');
         $this->get('/new', CampaignController::class . ':new')->setName('campaign_new');
         $this->post('/create', CampaignController::class . ':create')->setName('campaign_create');

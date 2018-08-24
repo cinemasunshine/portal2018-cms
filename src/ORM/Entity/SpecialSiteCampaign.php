@@ -1,6 +1,6 @@
 <?php
 /**
- * CampaignPublication.php
+ * SpecialSiteCampaign.php
  * 
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
@@ -12,13 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
- * CampaignPublication entity class
+ * SpecialSiteCampaign entity class
  * 
  * @ORM\Entity
- * @ORM\Table(name="campaign_publication", options={"collate"="utf8mb4_general_ci"})
+ * @ORM\Table(name="special_site_campaign", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class CampaignPublication extends AbstractEntity
+class SpecialSiteCampaign extends AbstractEntity
 {
     use TimestampableTrait;
     
@@ -36,28 +36,10 @@ class CampaignPublication extends AbstractEntity
      * campaign
      *
      * @var Campaign
-     * @ORM\ManyToOne(targetEntity="Campaign")
+     * @ORM\ManyToOne(targetEntity="Campaign", inversedBy="specialSites")
      * @ORM\JoinColumn(name="campaign_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $campaign;
-    
-    /**
-     * theater
-     *
-     * @var Theater
-     * @ORM\ManyToOne(targetEntity="Theater")
-     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
-     */
-    protected $theater;
-    
-    /**
-     * page
-     *
-     * @var Page
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="publicationCampaigns")
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
-     */
-    protected $page;
     
     /**
      * special_site
@@ -113,48 +95,6 @@ class CampaignPublication extends AbstractEntity
     public function setCampaign(Campaign $campaign)
     {
         $this->campaign = $campaign;
-    }
-    
-    /**
-     * get theater
-     *
-     * @return Theater
-     */
-    public function getTheater()
-    {
-        return $this->theater;
-    }
-    
-    /**
-     * set theater
-     *
-     * @param Theater $theater
-     * @return void
-     */
-    public function setTheater(Theater $theater)
-    {
-        $this->theater = $theater;
-    }
-    
-    /**
-     * page
-     *
-     * @return Page
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
-    
-    /**
-     * set page
-     *
-     * @param Page $page
-     * @return void
-     */
-    public function setPage(Page $page)
-    {
-        $this->page = $page;
     }
     
     /**

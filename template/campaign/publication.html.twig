@@ -25,125 +25,128 @@
 {% block container %}
 <div class="row">
     <div class="col-md-12">
-        {% for page in pages %}
         <div class="card">
-            <form method="post" action="{{ path_for('campaign_publication_update') }}">
-                <input type="hidden" name="page_id" value="{{ page.getId() }}">
-                <div class="card-header">
-                    {{ page.getNameJa() }}
+            <div class="card-header">
+                ページ
+            </div>
+            <div class="card-body">
+                {% for page in pages %}
+                <div class="card">
+                    <form method="post" action="{{ path_for('campaign_publication_update', { target: 'page' }) }}">
+                        <input type="hidden" name="page_id" value="{{ page.getId() }}">
+                        <div class="card-header">
+                            {{ page.getNameJa() }}
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group sortable">
+                                {% for publication in page.getCampaigns() %}
+                                    {% set campaign = publication.getCampaign() %}
+                                    {% include 'campaign/include/fieldset_publication.html.twig' with {
+                                        index: loop.index0,
+                                        display_order: publication.getDisplayOrder(),
+                                        id: campaign.getId(),
+                                        image: blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()),
+                                        name: campaign.getName(),
+                                        url: campaign.getUrl(),
+                                    } only %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
+                            <button type="submit" class="btn btn-primary">保存</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="card-body">
-                    <ul class="list-group sortable">
-                        {% for publication in page.getCampaignPublications() %}
-                            {% set campaign = publication.getCampaign() %}
-                            <li class="list-group-item">
-                                <input type="hidden" name="campaigns[{{ loop.index }}][campaign_id]" value="{{ campaign.getId() }}">
-                                <input type="hidden" name="campaigns[{{ loop.index }}][display_order]" value="{{ publication.getDisplayOrder() }}">
-                                <div class="media">
-                                    <img class="mr-3" src="{{ blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()) }}" width="150">
-                                    <div class="media-body">
-                                        <h3 class="mt-0"><small>{{ campaign.getName() }}</small></h3>
-                                        URL: {{ campaign.getUrl() }}
-                                    </div>
-                                    <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
-                    <button type="submit" class="btn btn-primary">保存</button>
-                </div>
-            </form>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
         
-        {% for theater in theaters %}
         <div class="card">
-            <form method="post" action="{{ path_for('campaign_publication_update') }}">
-                <input type="hidden" name="theater_id" value="{{ theater.getId() }}">
-                <div class="card-header">
-                    {{ theater.getNameJa() }}
+            <div class="card-header">
+                劇場
+            </div>
+            <div class="card-body">
+                {% for theater in theaters %}
+                <div class="card">
+                    <form method="post" action="{{ path_for('campaign_publication_update', { target: 'theater' }) }}">
+                        <input type="hidden" name="theater_id" value="{{ theater.getId() }}">
+                        <div class="card-header">
+                            {{ theater.getNameJa() }}
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group sortable">
+                                {% for publication in theater.getCampaigns() %}
+                                    {% set campaign = publication.getCampaign() %}
+                                    {% include 'campaign/include/fieldset_publication.html.twig' with {
+                                        index: loop.index0,
+                                        display_order: publication.getDisplayOrder(),
+                                        id: campaign.getId(),
+                                        image: blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()),
+                                        name: campaign.getName(),
+                                        url: campaign.getUrl(),
+                                    } only %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
+                            <button type="submit" class="btn btn-primary">保存</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="card-body">
-                    <ul class="list-group sortable">
-                        {% for publication in theater.getCampaignPublications() %}
-                            {% set campaign = publication.getCampaign() %}
-                            <li class="list-group-item">
-                                <input type="hidden" name="campaigns[{{ loop.index }}][campaign_id]" value="{{ campaign.getId() }}">
-                                <input type="hidden" name="campaigns[{{ loop.index }}][display_order]" value="{{ publication.getDisplayOrder() }}">
-                                <div class="media">
-                                    <img class="mr-3" src="{{ blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()) }}" width="150">
-                                    <div class="media-body">
-                                        <h3 class="mt-0"><small>{{ campaign.getName() }}</small></h3>
-                                        URL: {{ campaign.getUrl() }}
-                                    </div>
-                                    <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
-                    <button type="submit" class="btn btn-primary">保存</button>
-                </div>
-            </form>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
         
-        {% for specialSite in specialSites %}
         <div class="card">
-            <form method="post" action="{{ path_for('campaign_publication_update') }}">
-                <input type="hidden" name="special_site_id" value="{{ specialSite.getId() }}">
-                <div class="card-header">
-                    {{ specialSite.getNameJa() }}
+            <div class="card-header">
+                特設サイト
+            </div>
+            <div class="card-body">
+                {% for specialSite in specialSites %}
+                <div class="card">
+                    <form method="post" action="{{ path_for('campaign_publication_update', { target: 'special_site' }) }}">
+                        <input type="hidden" name="special_site_id" value="{{ specialSite.getId() }}">
+                        <div class="card-header">
+                            {{ specialSite.getNameJa() }}
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group sortable">
+                                {% for publication in specialSite.getCampaigns() %}
+                                    {% set campaign = publication.getCampaign() %}
+                                    {% include 'campaign/include/fieldset_publication.html.twig' with {
+                                        index: loop.index0,
+                                        display_order: publication.getDisplayOrder(),
+                                        id: campaign.getId(),
+                                        image: blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()),
+                                        name: campaign.getName(),
+                                        url: campaign.getUrl(),
+                                    } only %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
+                            <button type="submit" class="btn btn-primary">保存</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="card-body">
-                    <ul class="list-group sortable">
-                        {% for publication in specialSite.getCampaignPublications() %}
-                            {% set campaign = publication.getCampaign() %}
-                            <li class="list-group-item">
-                                <input type="hidden" name="campaigns[{{ loop.index }}][campaign_id]" value="{{ campaign.getId() }}">
-                                <input type="hidden" name="campaigns[{{ loop.index }}][display_order]" value="{{ publication.getDisplayOrder() }}">
-                                <div class="media">
-                                    <img class="mr-3" src="{{ blob_url(campaign.getImage().getBlobContainer(), campaign.getImage().getName()) }}" width="150">
-                                    <div class="media-body">
-                                        <h3 class="mt-0"><small>{{ campaign.getName() }}</small></h3>
-                                        URL: {{ campaign.getUrl() }}
-                                    </div>
-                                    <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectCampaignModal">追加</button>
-                    <button type="submit" class="btn btn-primary">保存</button>
-                </div>
-            </form>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
+        
     </div>
 </div>
 
 <script id="campaignRowTmpl" type="text/x-jsrender">
-{% verbatim %}
-    <li class="list-group-item">
-        <input type="hidden" name="campaigns[{{:index}}][campaign_id]" value="{{:id}}">
-        <input type="hidden" name="campaigns[{{:index}}][display_order]" value="">
-        <div class="media">
-            <img class="mr-3" src="{{:image}}" width="150">
-            <div class="media-body">
-                <h3 class="mt-0"><small>{{:name}}</small></h3>
-                URL: {{:url}}
-            </div>
-            <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
-        </div>
-    </li>
-{% endverbatim %}
+{% include 'campaign/include/fieldset_publication.html.twig' with {
+    index: '{{:index}}',
+    id: '{{:id}}',
+    image: '{{:image}}',
+    name: '{{:name}}',
+    url: '{{:url}}',
+} only %}
 </script>
 
 {% include 'campaign/include/select_modal.html.twig' only %}

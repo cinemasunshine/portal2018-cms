@@ -13,7 +13,6 @@ use Intervention\Image\ImageManager;
 
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
-use Cinemasunshine\PortalAdmin\ORM\Entity\Title;
 
 /**
  * Campaign controller
@@ -370,7 +369,9 @@ class CampaignController extends BaseController
      */
     public function executePublicationUpdate($request, $response, $args)
     {
-        $form = new Form\CampaignPublicationForm();
+        $target = $args['target'];
+        
+        $form = new Form\CampaignPublicationForm($target, $this->em);
         $form->setData($request->getParams());
         
         if (!$form->isValid()) {
@@ -378,43 +379,37 @@ class CampaignController extends BaseController
         }
         
         $cleanData = $form->getData();
-        $target = null;
+        $targetEntity = null;
+        $basePublication = null;
         
-        if ($cleanData['theater_id']) {
-            $target = $this->em
+        if ($target === Form\CampaignPublicationForm::TARGET_TEATER) {
+            /** @var Entity\Theater $targetEntity */
+            $targetEntity = $this->em
                 ->getRepository(Entity\Theater::class)
                 ->findOneById((int) $cleanData['theater_id']);
-        } else if ($cleanData['page_id']) {
-            $target = $this->em
+            $basePublication = new Entity\TheaterCampaign();
+            $basePublication->setTheater($targetEntity);
+            
+        } else if ($target === Form\CampaignPublicationForm::TARGET_PAGE) {
+            /** @var Entity\Page $targetEntity */
+            $targetEntity = $this->em
                 ->getRepository(Entity\Page::class)
                 ->findOneById((int) $cleanData['page_id']);
-        } else if ($cleanData['special_site_id']) {
-            $target = $this->em
+            $basePublication = new Entity\PageCampaign();
+            $basePublication->setPage($targetEntity);
+        } else if ($target === Form\CampaignPublicationForm::TARGET_SPESICAL_SITE) {
+            /** @var Entity\SpecialSite $targetEntity */
+            $targetEntity = $this->em
                 ->getRepository(Entity\SpecialSite::class)
                 ->findOneById((int) $cleanData['special_site_id']);
-        }
-        
-        $basePublication = new Entity\CampaignPublication();
-        
-        if ($target instanceof Entity\Theater) {
-            /** @var Entity\Theater $target */
-            $basePublication->setTheater($target);
-        } else if ($target instanceof Entity\Page) {
-            /** @var Entity\Page $target */
-            $basePublication->setPage($target);
-        } else if ($target instanceof Entity\SpecialSite) {
-            /** @var Entity\SpecialSite $target */
-            $basePublication->setSpecialSite($target);
-        } else {
-            // @todo formで検証したい
-            throw new \LogicException('invalid target.');
+            $basePublication = new Entity\SpecialSiteCampaign();
+            $basePublication->setSpecialSite($targetEntity);
         }
         
         // いったん削除する
-        $target->getCampaignPublications()->clear();
+        $targetEntity->getCampaigns()->clear();
         
         foreach ($cleanData['campaigns'] as $campaignData) {
-            /** @var Entity\CampaignPublication $publication */
             $publication = clone $basePublication;
             
             $campaign = $this->em
@@ -425,6 +420,8 @@ class CampaignController extends BaseController
                 // @todo formで検証したい
                 throw new \LogicException('invalid campaign.');
             }
+            
+            /** @var Entity\Campaign $campaign */
             
             $publication->setCampaign($campaign);
             $publication->setDisplayOrder((int) $campaignData['display_order']);
@@ -437,7 +434,7 @@ class CampaignController extends BaseController
         
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
-            'message' => sprintf('%sの表示順を保存しました。', $target->getNameJa()),
+            'message' => sprintf('%sの表示順を保存しました。', $targetEntity->getNameJa()),
         ]);
         
         return $this->redirect($this->router->pathFor('campaign_publication'), 303);

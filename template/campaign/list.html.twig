@@ -133,8 +133,8 @@
                                 {{ campaign.getStartDt().format('Y/m/d') }}
                             </th>
                             <th>
-                                {% for publication in campaign.getPublications() %}
-                                    {{ publication.getNameJa() }}
+                                {% for target in campaign.getPublishedTargets() %}
+                                    {{ target.getNameJa() }}
                                     {% if not loop.last %}、{% endif %}
                                 {% endfor %}
                             </th>

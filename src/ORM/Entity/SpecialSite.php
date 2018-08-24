@@ -7,6 +7,7 @@
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,7 +20,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  * @ORM\Table(name="special_site", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class SpecialSite extends AbstractEntity implements CampaignPublicationsInterface
+class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
@@ -52,20 +53,20 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationsInterfac
     
     
     /**
-     * campaign_publictions
+     * campaigns
      *
      * @var Collection
-     * @ORM\OnetoMany(targetEntity="CampaignPublication", mappedBy="specialSite", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="SpecialSiteCampaign", mappedBy="specialSite", orphanRemoval=true)
      * @ORM\OrderBy({"displayOrder" = "ASC"})
      */
-    protected $campaignPublictions;
+    protected $campaigns;
     
     /**
      * construct
      */
     public function __construct()
     {
-        $this->campaignPublictions = new ArrayCollection();
+        $this->campaigns = new ArrayCollection();
     }
     
     /**
@@ -121,12 +122,12 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationsInterfac
     }
     
     /**
-     * get campaign_publictions
+     * get campaigns
      *
      * @return Collection
      */
-    public function getCampaignPublications() : Collection
+    public function getCampaigns() : Collection
     {
-        return $this->campaignPublictions;
+        return $this->campaigns;
     }
 }
