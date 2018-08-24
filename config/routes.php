@@ -52,6 +52,7 @@ $app->group('', function () {
     
     $this->group('/advance_ticket', function() {
         $this->get('/new', AdvanceTicketController::class . ':new')->setName('advance_ticket_new');
+        $this->post('/create', AdvanceTicketController::class . ':create')->setName('advance_ticket_create');
     });
     
     $this->group('/api', function() {

@@ -14,6 +14,8 @@
 <script src="/js/modal/select-title.js"></script>
 <script>
 $(function(){
+    var $form = $('form[name="advance"]');
+    
     $.datetimepicker.setLocale('ja');
     
     var datepickerOption = {
@@ -21,13 +23,23 @@ $(function(){
         format: 'Y/m/d'
     };
     
-    $('.datepicker').datetimepicker(datepickerOption);
+    $form.find('.datepicker').datetimepicker(datepickerOption);
     
     var datetimepickerOption = {
         format: 'Y/m/d H:i'
     };
+    $form.find('.datetimepicker').datetimepicker(datetimepickerOption); 
     
-    var $form = $('form[name="advance"]');
+    $form.find('input[type="checkbox"][name="not_exist_publishing_expected_date"]').change(function(){
+        var $publishingExpectedDate = $form.find('input[name="publishing_expected_date"]');
+        
+        if ($(this).is(':checked')) {
+            $publishingExpectedDate.prop('disabled', true);
+        } else {
+            $publishingExpectedDate.prop('disabled', false);
+        }
+    });
+    
     var $titleField = $form.find('.form-group.title');
     var $tickets = $('#tickets');
     
@@ -95,6 +107,8 @@ $(function(){
         if (!id) {
             clearTitle();
         }
+        
+        $form.find('input[type="checkbox"][name="not_exist_publishing_expected_date"]').change();
     }
     
     execute();
@@ -115,7 +129,7 @@ $(function(){
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="advance" method="post" action="#"/>
+            <form name="advance" method="post" enctype="multipart/form-data" action="{{ path_for('advance_ticket_create') }}">
                 <div class="card-header">
                     新規追加
                 </div>
@@ -124,19 +138,32 @@ $(function(){
                         <label class="col-md-3 col-form-label">劇場</label>
                         <div class="col-md-9">
                             <select name="theater" class="form-control col-md-4">
-                                <option value="1">池袋</option>
-                                <option value="2">平和島</option>
+                            {% for value, text in form.getTheaterChoices() %}
+                                <option value="{{ value }}" {{ value == values.theater ? 'selected' : '' }}>{{ text }}</text>
+                            {% endfor %}
                             </select>
+                            <div class="invalid-feedback">
+                                {% for message in errors.theater %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row title">
                         <label class="col-md-3 col-form-label">作品名</label>
                         <div class="col-md-9">
-                            <input type="hidden" name="title_id" value="">
-                            <input type="hidden" name="title_name" value="">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="form-control-static title-name"></p>
+                                    <p class="form-control-static title-name">{{ values.title_name }}</p>
+                                    <input type="hidden" name="title_name" value="{{ values.title_name }}">
+                                    <input type="hidden" name="title_id" class="form-control{% if errors.title_id %} is-invalid{% endif %}" value="{{ values.title_id }}">
+                                    <div class="invalid-feedback">
+                                        {% for message in errors.title_id %}
+                                            {{ message }}
+                                            {% if not loop.last %}<br />{% endif %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
                                 <div class="col-md-12">
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
@@ -148,19 +175,24 @@ $(function(){
                         <label class="col-md-3 col-form-label">作品公開予定日</label>
                         <div class="col-md-3">
                             <div class="input-group">
-                                <input type="text" name="publishing_expected_date" class="form-control datepicker"  value="" />
+                                <input type="text" name="publishing_expected_date" class="form-control datepicker{% if errors.publishing_expected_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.publishing_expected_date }}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="icon-calendar"></i>
                                     </span>
                                 </div>
                                 <div class="invalid-feedback">
+                                    {% for message in errors.publishing_expected_date %}
+                                        {{ message }}
+                                        {% if not loop.last %}<br />{% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="col-form-label">
                                 <div class="form-check form-check">
+                                    <input type="hidden" name="not_exist_publishing_expected_date" value="0">
                                     <input class="form-check-input" type="checkbox" id="not_exist_publishing_expected_date" name="not_exist_publishing_expected_date" value="1">
                                     <label class="form-check-label" for="not_exist_publishing_expected_date">未定</label>
                                 </div>
@@ -171,7 +203,13 @@ $(function(){
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">上書き表記</span>
                                 </div>
-                                <input type="text" name="publishing_expected_date_text" class="form-control" value="">
+                                <input type="text" name="publishing_expected_date_text" class="form-control{% if errors.publishing_expected_date_text %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.publishing_expected_date_text }}">
+                                <div class="invalid-feedback">
+                                    {% for message in errors.publishing_expected_date_text %}
+                                        {{ message }}
+                                        {% if not loop.last %}<br />{% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -179,6 +217,14 @@ $(function(){
                     <div class="card">
                         <div class="card-body">
                             <div id="tickets">
+                            {% for index, ticket in values.tickets %}
+                                {% include 'advance_ticket/include/fieldset_ticket.html.twig' with {
+                                    index: loop.index0,
+                                    form: form,
+                                    values: ticket,
+                                    errors: errors.tickets[index],
+                                } only %}
+                            {% endfor %}
                             </div>
                             
                             <div class="col-md-12">
@@ -197,109 +243,10 @@ $(function(){
 </div>
 
 <script id="ticketFiledsetTmpl" type="text/x-jsrender">
-{% verbatim %}
- <div class="card ticket">
-    <div class="card-header">
-        <div class="card-header-actions">
-            <a href="#" class="card-header-action btn-delete">
-                <i class="icon-trash"></i>
-            </a>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label">ID</label>
-            <div class="col-md-9">
-                <p class="form-control-static">&nbsp;</p>
-                <span class="help-block">※自動でIDが付与されます。</span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label">前売券発売日</label>
-            <div class="col-md-3">
-                <div class="input-group">
-                    <input type="text" name="ticket[{{:index}}][release_date]" class="form-control datetimepicker"  value="" />
-                    <div class="input-group-append">
-                        <span class="input-group-text">
-                            <i class="icon-calendar"></i>
-                        </span>
-                    </div>
-                    <div class="invalid-feedback">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">上書き表記</span>
-                    </div>
-                    <input type="text" name="ticket[{{:index}}][release_date_text]" class="form-control" value="">
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label">販売終了</label>
-            <div class="col-md-9">
-                <div class="col-form-label">
-                    <div class="form-check form-check">
-                        <input class="form-check-input" type="checkbox" id="ticket-{{:index}}-is-sales-end" name="ticket[{{:index}}][is_sales_end]" value="1">
-                        <label class="form-check-label" for="ticket-{{:index}}-is-sales-end">販売終了</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label">前売券タイプ</label>
-            <div class="col-md-9 col-form-label">
-                <div class="form-check form-check-inline mr-1">
-                    <input class="form-check-input" type="radio" id="ticket-{{:index}}-type-1" value="1" name="ticket[{{:index}}][type]">
-                    <label class="form-check-label" for="ticket-{{:index}}-type-1">ムビチケ</label>
-                </div>
-                <div class="form-check form-check-inline mr-1">
-                    <input class="form-check-input" type="radio" id="ticket-{{:index}}-type-2" value="2" name="ticket[{{:index}}][type]">
-                    <label class="form-check-label" for="ticket-{{:index}}-type-2">紙券</label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label">料金</label>
-            <div class="col-md-9">
-                <input type="text" name="ticket[{{:index}}][price_text]" class="form-control" value="">
-                <div class="invalid-feedback">
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label">特典情報</label>
-            <div class="col-md-6">
-                <input type="text" name="ticket[{{:index}}][special_gift]" class="form-control" value="">
-                <div class="invalid-feedback">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">在庫</span>
-                    </div>
-                    <select name="ticket[{{:index}}][special_gift_stock]" class="form-control">
-                        <option value="1">有り</option>
-                        <option value="2">無し</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label">特典画像</label>
-            <div class="col-md-9">
-                <input type="file" name="ticket[{{:index}}][special_gift_image]" class="form-control">
-                <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
-                <div class="invalid-feedback">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endverbatim %}
+{% include 'advance_ticket/include/fieldset_ticket.html.twig' with {
+    index: '{{:index}}',
+    form: form
+} only %}
 </script>
 
 {% include 'include/modal/select_title.html.twig' only %}

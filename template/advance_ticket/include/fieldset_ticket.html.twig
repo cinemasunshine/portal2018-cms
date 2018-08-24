@@ -1,0 +1,160 @@
+{##
+ # 前売券 fieldset
+ #
+ # jsrenderのテンプレートにも使用する。
+ #
+ # Parameters:
+ # * index
+ # * form
+ # * values
+ # * errors
+ #}
+{% set index = 'i' ~ index %} {# マージするため添字は文字列にする #}
+<div class="card ticket">
+    <div class="card-header">
+        <div class="card-header-actions">
+            <a href="#" class="card-header-action btn-delete">
+                <i class="icon-trash"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">ID</label>
+            <div class="col-md-9">
+                <p class="form-control-static">&nbsp;</p>
+                <span class="help-block">※自動でIDが付与されます。</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">前売券発売日</label>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" name="tickets[{{ index }}][release_date]" class="form-control datetimepicker{% if errors.release_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.release_date }}">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="icon-calendar"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for message in errors.release_date %}
+                            {{ message }}
+                            {% if not loop.last %}<br />{% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">上書き表記</span>
+                    </div>
+                    <input type="text" name="tickets[{{ index }}][release_date_text]" class="form-control{% if errors.release_date_text %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.release_date_text }}">
+                    <div class="invalid-feedback">
+                        {% for message in errors.release_date_text %}
+                            {{ message }}
+                            {% if not loop.last %}<br />{% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">販売終了</label>
+            <div class="col-md-9">
+                <div class="col-form-label">
+                    <div class="form-check form-check">
+                        <input type="hidden" name="tickets[{{ index }}][is_sales_end]" value="0">
+                        <input class="form-check-input{% if errors.is_sales_end %} is-invalid{% elseif is_validated %} is-valid{% endif %}" type="checkbox" id="tickets-{{ index }}-is-sales-end" name="tickets[{{ index }}][is_sales_end]" value="1" {{ '1' == values.is_sales_end ? 'checked' : '' }}>
+                        <label class="form-check-label" for="tickets-{{ index }}-is-sales-end">販売終了</label>
+                        <div class="invalid-feedback">
+                            {% for message in errors.is_sales_end %}
+                                {{ message }}
+                                {% if not loop.last %}<br />{% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">前売券タイプ</label>
+            <div class="col-md-9 col-form-label">
+            {% for value, text in form.getTicketTypeChoices() %}
+                <div class="form-check form-check-inline mr-1">
+                    <input class="form-check-input{% if errors.type %} is-invalid{% elseif is_validated %} is-valid{% endif %}" type="radio" id="tickets-{{ index }}-type-{{ loop.index }}" name="tickets[{{ index }}][type]" value="{{ value }}" {{ value == values.type ? 'checked' : '' }}>
+                    <label class="form-check-label" for="tickets-{{ index }}-type-{{ loop.index }}">{{ text }}</label>
+                </div>
+            {% endfor %}
+                {##
+                 # インラインの項目でエラーを表示するためのhidden
+                 # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                 # それをやると見た目が良くないので。
+                 #}
+                <input type="hidden" class="form-control {% if errors.type %} is-invalid{% endif %}">
+                <div class="invalid-feedback">
+                    {% for message in errors.type %}
+                        {{ message }}
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">料金</label>
+            <div class="col-md-9">
+                <input type="text" name="tickets[{{ index }}][price_text]" class="form-control{% if errors.price_text %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.price_text }}">
+                <div class="invalid-feedback">
+                    {% for message in errors.price_text %}
+                        {{ message }}
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">特典情報</label>
+            <div class="col-md-6">
+                <input type="text" name="tickets[{{ index }}][special_gift]" class="form-control{% if errors.special_gift %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.special_gift }}">
+                <div class="invalid-feedback">
+                    {% for message in errors.special_gift %}
+                        {{ message }}
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">在庫</span>
+                    </div>
+                    <select name="tickets[{{ index }}][special_gift_stock]" class="form-control{% if errors.special_gift_stock %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
+                        <option value=""></option>
+                    {% for value, text in form.getTicketSpecialGiftStockChoices() %}
+                        <option value="{{ value }}" {{ value == values.special_gift_stock ? 'selected' : '' }}>{{ text }}</text>
+                    {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        {% for message in errors.special_gift_stock %}
+                            {{ message }}
+                            {% if not loop.last %}<br />{% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">特典画像</label>
+            <div class="col-md-9">
+                <input type="file" name="tickets[{{ index }}][special_gift_image]" class="form-control{% if errors.special_gift_image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
+                <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                <div class="invalid-feedback">
+                    {% for message in errors.special_gift_image %}
+                        {{ message }}
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
