@@ -77,14 +77,8 @@ class CampaignController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
-        // Zend_Formの都合で$_FILESを使用する
-        // $files = $request->getUploadedFiles();
-        $files = $_FILES;
-        
-        $params = array_merge_recursive(
-            $request->getParams(),
-            $files
-        );
+        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
         
         $form = new Form\CampaignForm(Form\CampaignForm::TYPE_NEW);
         $form->setData($params);
@@ -217,14 +211,8 @@ class CampaignController extends BaseController
         
         /**@var Entity\Campaign $campaign */
         
-        // Zend_Formの都合で$_FILESを使用する
-        // $files = $request->getUploadedFiles();
-        $files = $_FILES;
-        
-        $params = array_merge_recursive(
-            $request->getParams(),
-            $files
-        );
+        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
         
         $form = new Form\CampaignForm(Form\CampaignForm::TYPE_EDIT);
         $form->setData($params);

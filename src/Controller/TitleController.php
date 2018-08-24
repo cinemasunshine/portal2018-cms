@@ -77,14 +77,8 @@ class TitleController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
-        // Zend_Formの都合で$_FILESを使用する
-        // $files = $request->getUploadedFiles();
-        $files = $_FILES;
-        
-        $params = array_merge_recursive(
-            $request->getParams(),
-            $files
-        );
+        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
         
         $form = new Form\TitleForm();
         $form->setData($params);
@@ -234,14 +228,8 @@ class TitleController extends BaseController
         
         /**@var Entity\Title $title */
         
-        // Zend_Formの都合で$_FILESを使用する
-        // $files = $request->getUploadedFiles();
-        $files = $_FILES;
-        
-        $params = array_merge_recursive(
-            $request->getParams(),
-            $files
-        );
+        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
         
         $form = new Form\TitleForm();
         $form->setData($params);

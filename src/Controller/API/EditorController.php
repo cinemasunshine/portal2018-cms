@@ -31,14 +31,8 @@ class EditorController extends BaseController
      */
     public function executeUpload($request, $response, $args)
     {
-        // Zend_Formの都合で$_FILESを使用する
-        // $files = $request->getUploadedFiles();
-        $files = $_FILES;
-        
-        $params = array_merge_recursive(
-            $request->getParams(),
-            $files
-        );
+        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
         
         $form = new Form\EditorUploadForm();
         $form->setData($params);
