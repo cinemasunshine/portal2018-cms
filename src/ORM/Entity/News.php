@@ -180,7 +180,7 @@ class News extends AbstractEntity
      *
      * @return string|null
      */
-    public function getCategoryLable()
+    public function getCategoryLabel()
     {
         return self::$categories[$this->getCategory()] ?? null;
     }

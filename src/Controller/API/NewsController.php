@@ -40,7 +40,7 @@ class NewsController extends BaseController
                     'id'             => $news->getId(),
                     'headline'       => $news->getHeadline(),
                     'image'          => $this->getBlobUrl($news->getImage()->getName()),
-                    'category_label' => $news->getCategoryLable(),
+                    'category_label' => $news->getCategoryLabel(),
                 ];
             }
         }
