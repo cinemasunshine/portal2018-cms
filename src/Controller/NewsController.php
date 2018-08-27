@@ -99,21 +99,17 @@ class NewsController extends BaseController
             $title =  $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
         }
         
-        // News of Information
-        if ($cleanData['category'] === Form\NewsForm::CATEGORY_NEWS) {
-            $entity = new Entity\News();
-        } else {
-            $entity = new Entity\Information();
-        }
+        $news = new Entity\News();
         
-        $entity->setTitle($title);
-        $entity->setImage($file);
-        $entity->setStartDt($cleanData['start_dt']);
-        $entity->setEndDt($cleanData['end_dt']);
-        $entity->setHeadline($cleanData['headline']);
-        $entity->setBody($cleanData['body']);
+        $news->setTitle($title);
+        $news->setImage($file);
+        $news->setCategory((int) $cleanData['category']);
+        $news->setStartDt($cleanData['start_dt']);
+        $news->setEndDt($cleanData['end_dt']);
+        $news->setHeadline($cleanData['headline']);
+        $news->setBody($cleanData['body']);
         
-        $this->em->persist($entity);
+        $this->em->persist($news);
         $this->em->flush();
         exit;
     }

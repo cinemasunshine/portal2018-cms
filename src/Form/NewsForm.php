@@ -10,6 +10,8 @@ namespace Cinemasunshine\PortalAdmin\Form;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
 
+use Cinemasunshine\PortalAdmin\ORM\Entity\News;
+
 /**
  * News form class
  */
@@ -18,17 +20,11 @@ class NewsForm extends BaseForm
     const TYPE_NEW = 1;
     const TYPE_EDIT = 2;
     
-    const CATEGORY_NEWS = '1';
-    const CATEGORY_INFO = '2';
-    
     /** @var int */
     protected $type;
     
     /** @var array */
-    protected $categoryChoices = [
-        self::CATEGORY_NEWS => 'NEWS',
-        self::CATEGORY_INFO => 'インフォメーション',
-    ];
+    protected $categoryChoices;
     
     /**
      * construct
@@ -38,6 +34,7 @@ class NewsForm extends BaseForm
     public function __construct(int $type)
     {
         $this->type = $type;
+        $this->categoryChoices = News::$categories;
         
         parent::__construct();
         
