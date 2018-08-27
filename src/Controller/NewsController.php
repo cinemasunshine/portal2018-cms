@@ -329,4 +329,29 @@ class NewsController extends BaseController
         
         return $this->redirect($this->router->pathFor('news_list'), 303);
     }
+    
+    /**
+     * publication action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executePublication($request, $response, $args)
+    {
+        // @todo ユーザによって取得する情報を変更する
+        
+        /** @var Entity\Page[] */
+        $pages = $this->em->getRepository(Entity\Page::class)->findActive();
+        $this->data->set('pages', $pages);
+        
+        /** @var Entity\Theater[] */
+        $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
+        $this->data->set('theaters', $theaters);
+        
+        /** @var Entity\SpecialSite[] */
+        $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
+        $this->data->set('specialSites', $specialSites);
+    }
 }

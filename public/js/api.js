@@ -39,6 +39,23 @@ $(function(){
         });
     };
     
+    api.news = {};
+    
+    /**
+     * find news
+     * 
+     * @param {String} headline
+     * @returns {jqXHR}
+     */
+    api.news.find = function(headline) {
+        return $.ajax({
+            url: '/api/news/list',
+            data: {
+                headline: headline
+            }
+        });
+    };
+    
     api.editor = {};
     
     /**

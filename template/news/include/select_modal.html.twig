@@ -1,0 +1,53 @@
+<div class="modal" id="selectNewsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="h4 modal-title">NEWS・インフォメーション選択</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label">タイトル</label>
+                        <div class="col-md-8">
+                            <input type="text" name="headline" class="form-control">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-find">検索</button>
+                </form>
+                
+                <hr>
+                
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>選択</th>
+                            <th>ID</th>
+                            <th>NEWS・インフォメーション</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        <!-- add #selectNewsRowTmpl -->
+                    </tbody>
+                    <script id="selectNewsRowTmpl" type="text/x-jsrender">
+                    {% verbatim %}
+                        <tr class="title">
+                            <th><input type="checkbox" name="news[]" value="{{:id}}"></th>
+                            <th>{{:id}}</th>
+                            <th>
+                                <img src="{{:image}}" width="100">
+                                {{:headline}}
+                            </th>
+                        </tr>
+                    {% endverbatim %}
+                    </script>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-select">選択</button>
+            </div>
+        </div>
+    </div>
+</div>

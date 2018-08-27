@@ -51,4 +51,16 @@ class NewsResponder extends BaseResponder
     {
         return $this->view->render($response, 'news/edit.html.twig', $data->all());
     }
+    
+    /**
+     * publication
+     *
+     * @param Response   $response
+     * @param Collection $data
+     * @return Response
+     */
+    public function publication(Response $response, Collection $data)
+    {
+        return $this->view->render($response, 'news/publication.html.twig', $data->all());
+    }
 }

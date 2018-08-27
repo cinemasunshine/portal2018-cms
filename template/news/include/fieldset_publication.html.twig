@@ -1,0 +1,25 @@
+{##
+ # 掲載 fieldset
+ # 
+ # jsrenderのテンプレートにも使用する。
+ # 
+ # Parameters:
+ # * index
+ # * id
+ # * display_order
+ # * image
+ # * name
+ # * cateogry_lable
+ #}
+<li class="list-group-item">
+    <input type="hidden" name="news_list[{{ index }}][news_id]" value="{{ id }}">
+    <input type="hidden" name="news_list[{{ index }}][display_order]" value="{{ display_order }}">
+    <div class="media">
+        <img class="mr-3" src="{{ image }}" width="150">
+        <div class="media-body">
+            <h3 class="mt-0"><small>{{ headline }}</small></h3>
+            カテゴリ: {{ category_label }}
+        </div>
+        <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
+    </div>
+</li>
