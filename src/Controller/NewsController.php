@@ -31,7 +31,20 @@ class NewsController extends BaseController
     {
         $page = (int) $request->getParam('p', 1);
         
+        $form = new Form\NewsFindForm($this->em);
+        $form->setData($request->getParams());
         $cleanValues = [];
+        
+        if ($form->isValid()) {
+            $cleanValues = $form->getData();
+            $values = $cleanValues;
+        } else {
+            $values = $request->getParams();
+            $this->data->set('errors', $form->getMessages());
+        }
+        
+        $this->data->set('form', $form);
+        $this->data->set('values', $values);
         $this->data->set('params', $cleanValues);
         
         /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */

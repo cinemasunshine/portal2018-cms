@@ -32,6 +32,41 @@ class NewsRepository extends EntityRepository
             ->where('n.isDeleted = false')
             ->orderBy('n.createdAt', 'DESC');
         
+        if (isset($params['term']) && count($params['term']) > 0) {
+            $or = $qb->expr()->orX();
+            
+            if (in_array('1', $params['term'])) {
+                $or->add($qb->expr()->andX(
+                    $qb->expr()->lte('n.startDt', 'CURRENT_TIMESTAMP()'),
+                    $qb->expr()->gt('n.endDt', 'CURRENT_TIMESTAMP()')
+                ));
+            }
+            
+            if (in_array('2', $params['term'])) {
+                $or->add($qb->expr()->lte('n.endDt', 'CURRENT_TIMESTAMP()'));
+            }
+            
+            $qb->andWhere($or);
+        }
+        
+        if (isset($params['category'])) {
+            $qb
+                ->andWhere('n.category = :category')
+                ->setParameter('category', $params['category']);
+        }
+        
+        if (isset($params['page']) && count($params['page']) > 0) {
+            $qb
+                ->join('n.pages', 'np')
+                ->andWhere($qb->expr()->in('np.page', $params['page']));
+        }
+        
+        if (isset($params['theater']) && count($params['theater']) > 0) {
+            $qb
+                ->join('n.theaters', 'nt')
+                ->andWhere($qb->expr()->in('nt.theater', $params['theater']));
+        }
+        
         $query = $qb->getQuery();
         
         return new DoctrinePaginator($query, $page, $maxPerPage);

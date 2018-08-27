@@ -14,6 +14,90 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <form method="get" action="{{ path_for('news_list') }}">
+                <div class="card-header">
+                    検索
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">期間</label>
+                        <div class="col-md-9 col-form-label">
+                            {% for value, text in form.getTermChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input{% if errors.term %} is-invalid{% endif %}" type="checkbox" id="term-{{ value }}" name="term[]" value="{{ value }}" {{ value in values.term ? 'checked' : '' }} />
+                                <label class="form-check-label" for="term-{{ value }}">{{ text }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" class="form-control {% if errors.term %} is-invalid{% endif %}" />
+                        <div class="invalid-feedback">
+                            {% for messages in errors.term %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">投稿カテゴリ</label>
+                        <div class="col-md-9 col-form-label">
+                        {% for value, text in form.getCategoryChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input type="radio" class="form-check-input{% if errors.category %} is-invalid{% elseif is_validated %} is-valid{% endif %}" id="category-{{ value }}" name="category" value="{{ value }}"  {{ value == values.category ? 'checked' : '' }}>
+                                <label class="form-check-label" for="category-{{ value }}">{{ text }}</label>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出場所：ページ</label>
+                        <div class="col-md-9 col-form-label">
+                            {% for value, text in form.getPageChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input{% if errors.page %} is-invalid{% endif %}" type="checkbox" id="page-{{ value }}" name="page[]" value="{{ value }}" {{ value in values.page ? 'checked' : '' }} />
+                                <label class="form-check-label" for="page-{{ value }}">{{ text }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" class="form-control {% if errors.page %} is-invalid{% endif %}" />
+                        <div class="invalid-feedback">
+                            {% for messages in errors.page %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出場所：劇場</label>
+                        <div class="col-md-9 col-form-label">
+                            {% for value, text in form.getTheaterChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input{% if errors.theater %} is-invalid{% endif %}" type="checkbox" id="theater-{{ value }}" name="theater[]" value="{{ value }}" {{ value in values.theater ? 'checked' : '' }} />
+                                <label class="form-check-label" for="theater-{{ value }}">{{ text }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" class="form-control {% if errors.theater %} is-invalid{% endif %}" />
+                        <div class="invalid-feedback">
+                            {% for messages in errors.theater %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">検索</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card">
             <div class="card-header">
                 一覧
             </div>
