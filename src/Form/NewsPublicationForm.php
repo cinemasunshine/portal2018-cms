@@ -150,7 +150,7 @@ class NewsPublicationForm extends BaseForm
         }
         
         $inputFilter->add([
-            'name' => 'campaigns',
+            'name' => 'news_list',
             'required' => false,
         ]);
         
