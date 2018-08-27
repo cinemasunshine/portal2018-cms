@@ -32,7 +32,7 @@ $(function() {
     $selectCampaignModal.on('show.bs.modal', function(event) {
         var $button = $(event.relatedTarget);
         
-        $addTargetList = $button.parents('.card').find('.list-group');
+        $addTargetList = $button.closest('.card').find('.list-group');
     });
     
     $selectCampaignModal.on('selected.cs.campaign', function(event, campaigns) {
