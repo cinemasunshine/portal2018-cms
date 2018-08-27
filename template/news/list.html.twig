@@ -40,7 +40,10 @@
                                 {{ news.getStartDt().format('Y/m/d') }}
                             </th>
                             <th>
-                                @todo
+                                {% for target in news.getPublishedTargets() %}
+                                    {{ target.getNameJa() }}
+                                    {% if not loop.last %}、{% endif %}
+                                {% endfor %}
                             </th>
                             <th>
                                 <a href="{{ path_for('news_delete', { id: news.getId() }) }}" class="btn btn-sm btn-danger" role="button">削除</a>
