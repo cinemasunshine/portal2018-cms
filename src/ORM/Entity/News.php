@@ -14,7 +14,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * News entity class
  * 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\NewsRepository")
  * @ORM\Table(name="news", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
@@ -193,7 +193,7 @@ class News extends AbstractEntity
      */
     public function getHeadline()
     {
-        $this->headline;
+        return $this->headline;
     }
     
     /**

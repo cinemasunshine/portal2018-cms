@@ -1,0 +1,64 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}一覧 | NEWS・インフォメーション{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">NEWS・インフォメーション</li>
+    <li class="breadcrumb-item active">一覧</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>タイトル</th>
+                            <th>提出開始日</th>
+                            <th>提出場所</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for news in pagenater.getResultsInPage() %}
+                        <tr>
+                            <th>{{ news.getId() }}</th>
+                            <th>
+                                <img src="{{ blob_url(news.getImage().getBlobContainer(), news.getImage().getName()) }}" width="100" alt="画像" />
+                                <a href="#">{{ news.getHeadline() }}</a>
+                            </th>
+                            <th>
+                                {{ news.getStartDt().format('Y/m/d') }}
+                            </th>
+                            <th>
+                                @todo
+                            </th>
+                            <th>
+                                <a href="#" class="btn btn-sm btn-danger" role="button">削除</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <hr>
+                
+                {% include 'include/pagination.html.twig' with {'pagenater': pagenater, 'params': params} only %}
+                
+            </div>
+            <div class="card-footer">
+                {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
