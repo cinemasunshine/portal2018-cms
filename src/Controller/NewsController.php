@@ -296,4 +296,37 @@ class NewsController extends BaseController
             $this->router->pathFor('news_edit', [ 'id' => $news->getId() ]),
             303);
     }
+    
+    /**
+     * delete action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeDelete($request, $response, $args)
+    {
+        $news = $this->em->getRepository(Entity\News::class)->findOneById($args['id']);
+        
+        if (is_null($news)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\News $news */
+        
+        $news->setIsDeleted(true);
+        
+        // 関連データの処理はイベントで対応する
+        
+        $this->em->persist($news);
+        $this->em->flush();
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('NEWS・インフォメーション「%s」を削除しました。', $news->getHeadline()),
+        ]);
+        
+        return $this->redirect($this->router->pathFor('news_list'), 303);
+    }
 }
