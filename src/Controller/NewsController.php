@@ -186,4 +186,114 @@ class NewsController extends BaseController
         $form = new Form\NewsForm(Form\NewsForm::TYPE_EDIT);
         $this->data->set('form', $form);
     }
+    
+    /**
+     * update action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeUpdate($request, $response, $args)
+    {
+        $news = $this->em->getRepository(Entity\News::class)->findOneById($args['id']);
+        
+        if (is_null($news)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\News $news */
+        
+        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
+        
+        $form = new Form\NewsForm(Form\NewsForm::TYPE_EDIT);
+        $form->setData($params);
+        
+        if (!$form->isValid()) {
+            $this->data->set('news', $news);
+            $this->data->set('form', $form);
+            $this->data->set('values', $request->getParams());
+            $this->data->set('errors', $form->getMessages());
+            $this->data->set('is_validated', true);
+            
+            return 'edit';
+        }
+        
+        $cleanData = $form->getData();
+        
+        $image = $cleanData['image'];
+        
+        if ($image['name']) {
+            // rename
+            $newName = Entity\File::createName($image['name']);
+            
+            // resize
+            // @todo サイズ調整
+            $imageManager = new ImageManager();
+            $imageManager
+                ->make($image['tmp_name'])
+                ->resize(500, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->save();
+            
+            // upload storage
+            // @todo storageと同期するような仕組みをFileへ
+            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options->setContentType($image['type']);
+            $this->bc->createBlockBlob(
+                Entity\File::getBlobContainer(),
+                $newName,
+                fopen($image['tmp_name'], 'r'),
+                $options);
+            
+            $file = new Entity\File();
+            $file->setName($newName);
+            $file->setOriginalName($image['name']);
+            $file->setMimeType($image['type']);
+            $file->setSize((int) $image['size']);
+            
+            $this->em->persist($file);
+            
+            $oldImage = $news->getImage();
+            $news->setImage($file);
+            
+            
+            // @todo preUpdateで出来ないか？ hasChangedField()
+            $this->em->remove($oldImage);
+            
+            // @todo postRemoveイベントへ
+            $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
+        }
+        
+        
+        $title = null;
+        
+        if ($cleanData['title_id']) {
+            $title =  $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
+        }
+        
+        $news->setTitle($title);
+        
+        $news->setCategory((int) $cleanData['category']);
+        $news->setStartDt($cleanData['start_dt']);
+        $news->setEndDt($cleanData['end_dt']);
+        $news->setHeadline($cleanData['headline']);
+        $news->setBody($cleanData['body']);
+        
+        $this->em->persist($news);
+        $this->em->flush();
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('NEWS・インフォメーション「%s」を追加しました。', $news->getHeadline()),
+        ]);
+        
+        $this->redirect(
+            $this->router->pathFor('news_edit', [ 'id' => $news->getId() ]),
+            303);
+    }
 }

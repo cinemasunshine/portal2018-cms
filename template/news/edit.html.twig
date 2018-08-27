@@ -29,7 +29,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="news" method="post" enctype="multipart/form-data" action="#">
+            <form name="news" method="post" enctype="multipart/form-data" action="{{ path_for('news_update', { 'id': news.getId() }) }}">
                 <div class="card-header">
                     「{{ news.getHeadline() }}」編集
                 </div>

@@ -48,6 +48,13 @@ class NewsForm extends BaseForm
      */
     protected function setup()
     {
+        if ($this->type === self::TYPE_EDIT) {
+            $this->add([
+                'name' => 'id',
+                'type' => 'Hidden',
+            ]);
+        }
+        
         $this->add([
             'name' => 'category',
             'type' => 'Radio',
@@ -94,6 +101,14 @@ class NewsForm extends BaseForm
         
         
         $inputFilter = new InputFilter();
+        
+        if ($this->type === self::TYPE_EDIT) {
+            $inputFilter->add([
+                'name' => 'id',
+                'required' => true,
+            ]);
+        }
+        
         $inputFilter->add([
             'name' => 'category',
             'required' => true,
