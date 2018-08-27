@@ -51,20 +51,20 @@ class CampaignRepository extends EntityRepository
         
         if (isset($params['page']) && count($params['page']) > 0) {
             $qb
-                ->join('c.publicationPages', 'pp')
-                ->andWhere($qb->expr()->in('pp.id', $params['page']));
+                ->join('c.pages', 'cp')
+                ->andWhere($qb->expr()->in('cp.page', $params['page']));
         }
         
         if (isset($params['theater']) && count($params['theater']) > 0) {
             $qb
-                ->join('c.publicationTheaters', 'pt')
-                ->andWhere($qb->expr()->in('pt.id', $params['theater']));
+                ->join('c.theaters', 'ct')
+                ->andWhere($qb->expr()->in('ct.theater', $params['theater']));
         }
         
         if (isset($params['special_site']) && count($params['special_site']) > 0) {
             $qb
-                ->join('c.publicationSpecialSites', 'ps')
-                ->andWhere($qb->expr()->in('ps.id', $params['special_site']));
+                ->join('c.specialSites', 'cs')
+                ->andWhere($qb->expr()->in('cs.specialSite', $params['special_site']));
         }
         
         $query = $qb->getQuery();
