@@ -20,7 +20,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  * @ORM\Table(name="special_site", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
+class SpecialSite extends AbstractEntity implements CampaignPublicationInterface, NewsPublicationInterface
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
@@ -62,11 +62,21 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
     protected $campaigns;
     
     /**
+     * news_list
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="SpecialSiteNews", mappedBy="specialSite", orphanRemoval=true)
+     * @ORM\OrderBy({"displayOrder" = "ASC"})
+     */
+    protected $newsList;
+    
+    /**
      * construct
      */
     public function __construct()
     {
         $this->campaigns = new ArrayCollection();
+        $this->newsList =  new ArrayCollection();
     }
     
     /**
@@ -129,5 +139,15 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
     public function getCampaigns() : Collection
     {
         return $this->campaigns;
+    }
+    
+    /**
+     * get news_list
+     *
+     * @return Collection
+     */
+    public function getNewsList(): Collection
+    {
+        return $this->newsList;
     }
 }

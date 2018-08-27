@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
@@ -107,10 +109,37 @@ class News extends AbstractEntity
     protected $endDt;
     
     /**
+     * pages
+     * 
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="PageNews", mappedBy="news")
+     */
+    protected $pages;
+    
+    /**
+     * theaters
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="TheaterNews", mappedBy="news")
+     */
+    protected $theaters;
+    
+    /**
+     * special_sites
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="SpecialSiteNews", mappedBy="news")
+     */
+    protected $specialSites;
+    
+    /**
      * construct
      */
     public function __construct()
     {
+        $this->pages = new ArrayCollection();
+        $this->theaters = new ArrayCollection();
+        $this->specialSites = new ArrayCollection();
     }
     
     /**
@@ -286,5 +315,62 @@ class News extends AbstractEntity
         } else {
             $this->endDt = new \DateTime($endDt);
         }
+    }
+    
+    /**
+     * get pages
+     *
+     * @return Collection
+     */
+    public function getPages() : Collection
+    {
+        return $this->pages;
+    }
+    
+    /**
+     * get theaters
+     *
+     * @return Collection
+     */
+    public function getTheaters() : Collection
+    {
+        return $this->theaters;
+    }
+    
+    /**
+     * get special_site
+     *
+     * @return Collection
+     */
+    public function getSpecialSite() : Collection
+    {
+        return $this->specialSites;
+    }
+    
+    /**
+     * get published target
+     *
+     * @return ArrayCollection
+     */
+    public function getPublishedTargets()
+    {
+        $publications = new ArrayCollection();
+        
+        foreach ($this->getPages() as $pageNews) {
+            /** @var PageNews $pageNews */
+            $publications->add($pageNews->getPage());
+        }
+        
+        foreach ($this->getTheaters() as $theaterNews) {
+            /** @var TheaterNews $theaterNews */
+            $publications->add($theaterNews->getTheater());
+        }
+        
+        foreach ($this->getSpecialSite() as $specialSiteNews) {
+            /** @var SpecialSiteNews $specialSiteNews */
+            $publications->add($specialSiteNews->getSpecialSite());
+        }
+        
+        return $publications;
     }
 }

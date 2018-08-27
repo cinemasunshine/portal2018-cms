@@ -354,4 +354,85 @@ class NewsController extends BaseController
         $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
         $this->data->set('specialSites', $specialSites);
     }
+    
+    /**
+     * publication update action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executePublicationUpdate($request, $response, $args)
+    {
+        $target = $args['target'];
+        
+        $form = new Form\NewsPublicationForm($target, $this->em);
+        $form->setData($request->getParams());
+        
+        if (!$form->isValid()) {
+            throw new \LogicException('invalid parameters.');
+        }
+        
+        $cleanData = $form->getData();
+        $targetEntity = null;
+        $basePublication = null;
+        
+        if ($target === Form\NewsPublicationForm::TARGET_TEATER) {
+            /** @var Entity\Theater $targetEntity */
+            $targetEntity = $this->em
+                ->getRepository(Entity\Theater::class)
+                ->findOneById((int) $cleanData['theater_id']);
+            $basePublication = new Entity\TheaterNews();
+            $basePublication->setTheater($targetEntity);
+            
+        } else if ($target === Form\NewsPublicationForm::TARGET_PAGE) {
+            /** @var Entity\Page $targetEntity */
+            $targetEntity = $this->em
+                ->getRepository(Entity\Page::class)
+                ->findOneById((int) $cleanData['page_id']);
+            $basePublication = new Entity\PageNews();
+            $basePublication->setPage($targetEntity);
+        } else if ($target === Form\NewsPublicationForm::TARGET_SPESICAL_SITE) {
+            /** @var Entity\SpecialSite $targetEntity */
+            $targetEntity = $this->em
+                ->getRepository(Entity\SpecialSite::class)
+                ->findOneById((int) $cleanData['special_site_id']);
+            $basePublication = new Entity\SpecialSiteNews();
+            $basePublication->setSpecialSite($targetEntity);
+        }
+        
+        // いったん削除する
+        $targetEntity->getNewsList()->clear();
+        
+        foreach ($cleanData['news_list'] as $newsData) {
+            $publication = clone $basePublication;
+            
+            $news = $this->em
+                ->getRepository(Entity\News::class)
+                ->findOneById((int) $newsData['news_id']);
+            
+            if (!$news) {
+                // @todo formで検証したい
+                throw new \LogicException('invalid news.');
+            }
+            
+            /** @var Entity\News $news */
+            
+            $publication->setNews($news);
+            $publication->setDisplayOrder((int) $newsData['display_order']);
+            
+            $this->em->persist($publication);
+        }
+        
+        $this->em->flush();
+        
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('%sの表示順を保存しました。', $targetEntity->getNameJa()),
+        ]);
+        
+        return $this->redirect($this->router->pathFor('news_publication'), 303);
+    }
 }

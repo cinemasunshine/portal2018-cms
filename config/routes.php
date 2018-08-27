@@ -48,6 +48,7 @@ $app->group('', function () {
     
     $this->group('/news', function() {
         $this->get('/publication', NewsController::class . ':publication')->setName('news_publication');
+        $this->post('/publication/update/{target}', NewsController::class . ':publicationUpdate')->setName('news_publication_update');
         $this->get('/list', NewsController::class . ':list')->setName('news_list');
         $this->get('/new', NewsController::class . ':new')->setName('news_new');
         $this->post('/create', NewsController::class . ':create')->setName('news_create');
