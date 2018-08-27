@@ -36,4 +36,21 @@ class NewsRepository extends EntityRepository
         
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
+    
+    /**
+     * find one by id
+     *
+     * @param int $id
+     * @return News|null
+     */
+    public function findOneById($id)
+    {
+        $qb = $this->createQueryBuilder('n');
+        $qb
+            ->where('n.id = :id')
+            ->andWhere('n.isDeleted = false')
+            ->setParameter('id', $id);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

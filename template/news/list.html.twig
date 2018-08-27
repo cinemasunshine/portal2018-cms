@@ -34,7 +34,7 @@
                             <th>{{ news.getId() }}</th>
                             <th>
                                 <img src="{{ blob_url(news.getImage().getBlobContainer(), news.getImage().getName()) }}" width="100" alt="画像" />
-                                <a href="#">{{ news.getHeadline() }}</a>
+                                <a href="{{ path_for('news_edit', { id: news.getId() }) }}">{{ news.getHeadline() }}</a>
                             </th>
                             <th>
                                 {{ news.getStartDt().format('Y/m/d') }}

@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
+use Slim\Exception\NotFoundException;
+
 use Intervention\Image\ImageManager;
 
 use Cinemasunshine\PortalAdmin\Form;
@@ -133,5 +135,47 @@ class NewsController extends BaseController
         $this->em->persist($news);
         $this->em->flush();
         exit;
+    }
+    
+    /**
+     * edit action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeEdit($request, $response, $args)
+    {
+        $news = $this->em->getRepository(Entity\News::class)->findOneById($args['id']);
+        
+        if (is_null($news)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\News $news */
+        
+        $this->data->set('news', $news);
+        
+        $values = [
+            'id'         => $news->getId(),
+            'title_id'   => null,
+            'title_name' => null,
+            'category'   => $news->getCategory(),
+            'start_dt'   => $news->getStartDt()->format('Y/m/d H:i'),
+            'end_dt'     => $news->getEndDt()->format('Y/m/d H:i'),
+            'headline'   => $news->getHeadline(),
+            'body'       => $news->getBody(),
+        ];
+        
+        if ($news->getTitle()) {
+            $values['title_id']   = $news->getTitle()->getId();
+            $values['title_name'] = $news->getTitle()->getName();
+        }
+        
+        $this->data->set('values', $values);
+        
+        $form = new Form\NewsForm(Form\NewsForm::TYPE_EDIT);
+        $this->data->set('form', $form);
     }
 }

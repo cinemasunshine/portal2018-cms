@@ -49,6 +49,7 @@ $app->group('', function () {
         $this->get('/list', NewsController::class . ':list')->setName('news_list');
         $this->get('/new', NewsController::class . ':new')->setName('news_new');
         $this->post('/create', NewsController::class . ':create')->setName('news_create');
+        $this->get('/{id}/edit', NewsController::class . ':edit')->setName('news_edit');
     });
     
     $this->group('/advance_ticket', function() {
