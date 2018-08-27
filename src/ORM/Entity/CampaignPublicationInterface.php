@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\Collection;
 interface CampaignPublicationInterface
 {
     /**
-     * get campaign_publications
+     * get campaigns
      *
      * @return Collection
      */

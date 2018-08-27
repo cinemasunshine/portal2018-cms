@@ -76,7 +76,7 @@ class CampaignRepository extends EntityRepository
      * find for list API
      *
      * @param string $name
-     * @return Title[]
+     * @return Campaign[]
      */
     public function findForListApi(string $name)
     {

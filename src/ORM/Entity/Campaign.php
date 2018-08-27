@@ -16,8 +16,6 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * Campaign entity class
  * 
- * @todo campaign_publicationを廃止してページ、劇場、特設サイトそれぞれのテーブルで紐付け
- * 
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\CampaignRepository")
  * @ORM\Table(name="campaign", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks

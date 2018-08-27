@@ -32,6 +32,8 @@ class CampaignFindForm extends BaseForm
     
     /**
      * construct
+     * 
+     * @param EntityManager $em
      */
     public function __construct(EntityManager $em)
     {
