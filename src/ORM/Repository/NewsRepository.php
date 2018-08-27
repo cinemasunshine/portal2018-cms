@@ -38,6 +38,29 @@ class NewsRepository extends EntityRepository
     }
     
     /**
+     * find for list API
+     *
+     * @param string $headline
+     * @return News[]
+     */
+    public function findForListApi(string $headline)
+    {
+        if (empty($headline)) {
+           throw new \InvalidArgumentException('invalid "headline".'); 
+        }
+        
+        $qb = $this->createQueryBuilder('c');
+        $qb
+            ->where('c.isDeleted = false')
+            ->andWhere('c.headline LIKE :headline')
+            ->andWhere('c.endDt > CURRENT_TIMESTAMP()')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setParameter('headline', '%' . $headline . '%');
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    /**
      * find one by id
      *
      * @param int $id

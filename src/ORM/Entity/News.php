@@ -176,6 +176,16 @@ class News extends AbstractEntity
     }
     
     /**
+     * get category label
+     *
+     * @return string|null
+     */
+    public function getCategoryLable()
+    {
+        return self::$categories[$this->getCategory()] ?? null;
+    }
+    
+    /**
      * set category
      *
      * @param int $category
