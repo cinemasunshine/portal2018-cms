@@ -125,21 +125,12 @@ class News extends AbstractEntity
     protected $theaters;
     
     /**
-     * special_sites
-     *
-     * @var Collection
-     * @ORM\OneToMany(targetEntity="SpecialSiteNews", mappedBy="news")
-     */
-    protected $specialSites;
-    
-    /**
      * construct
      */
     public function __construct()
     {
         $this->pages = new ArrayCollection();
         $this->theaters = new ArrayCollection();
-        $this->specialSites = new ArrayCollection();
     }
     
     /**
@@ -338,16 +329,6 @@ class News extends AbstractEntity
     }
     
     /**
-     * get special_site
-     *
-     * @return Collection
-     */
-    public function getSpecialSite() : Collection
-    {
-        return $this->specialSites;
-    }
-    
-    /**
      * get published target
      *
      * @return ArrayCollection
@@ -364,11 +345,6 @@ class News extends AbstractEntity
         foreach ($this->getTheaters() as $theaterNews) {
             /** @var TheaterNews $theaterNews */
             $publications->add($theaterNews->getTheater());
-        }
-        
-        foreach ($this->getSpecialSite() as $specialSiteNews) {
-            /** @var SpecialSiteNews $specialSiteNews */
-            $publications->add($specialSiteNews->getSpecialSite());
         }
         
         return $publications;

@@ -22,7 +22,6 @@ class NewsPublicationForm extends BaseForm
 {
     const TARGET_PAGE          = 'page';
     const TARGET_TEATER        = 'theater';
-    const TARGET_SPESICAL_SITE = 'special_site';
     
     /** @var string */
     protected $target;
@@ -38,7 +37,7 @@ class NewsPublicationForm extends BaseForm
      */
     public function __construct(string $target, EntityManager $em)
     {
-        if (!in_array($target, [self::TARGET_PAGE, self::TARGET_TEATER, self::TARGET_SPESICAL_SITE])) {
+        if (!in_array($target, [self::TARGET_PAGE, self::TARGET_TEATER])) {
             throw new \InvalidArgumentException('invalid target.');
         }
         
@@ -65,11 +64,6 @@ class NewsPublicationForm extends BaseForm
         } else if ($this->target === self::TARGET_TEATER) {
             $this->add([
                 'name' => 'theater_id',
-                'type' => 'Hidden',
-            ]);
-        } else if ($this->target === self::TARGET_TEATER) {
-            $this->add([
-                'name' => 'special_site_id',
                 'type' => 'Hidden',
             ]);
         }
@@ -123,26 +117,6 @@ class NewsPublicationForm extends BaseForm
                         'name' => Validator\InArray::class,
                         'options' => [
                             'haystack' => $theaterIds,
-                        ],
-                    ],
-                ],
-            ]);
-        } else if ($this->target === self::TARGET_SPESICAL_SITE) {
-            $specialSiteIds = [];
-            $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
-            
-            foreach ($specialSites as $specialSite) {
-                $specialSiteIds[] = $specialSite->getId();
-            }
-            
-            $inputFilter->add([
-                'name' => 'special_site_id',
-                'required' => true,
-                'validators' => [
-                    [
-                        'name' => Validator\InArray::class,
-                        'options' => [
-                            'haystack' => $specialSiteIds,
                         ],
                     ],
                 ],
