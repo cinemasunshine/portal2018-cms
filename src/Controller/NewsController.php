@@ -134,7 +134,15 @@ class NewsController extends BaseController
         
         $this->em->persist($news);
         $this->em->flush();
-        exit;
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('NEWS・インフォメーション「%s」を追加しました。', $news->getHeadline()),
+        ]);
+        
+        $this->redirect(
+            $this->router->pathFor('news_edit', [ 'id' => $news->getId() ]),
+            303);
     }
     
     /**
