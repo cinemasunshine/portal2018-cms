@@ -161,8 +161,14 @@ class AdvanceTicketController extends BaseController
         
         $this->em->flush();
         
-        // @todo 編集ページへリダイレクト
-        exit;
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => '前売券情報を追加しました。',
+        ]);
+        
+        $this->redirect(
+            $this->router->pathFor('advance_ticket_edit', [ 'id' => $advanceSale->getId() ]),
+            303);
     }
     
     /**
