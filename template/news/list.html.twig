@@ -139,7 +139,11 @@
                 
                 <hr>
                 
-                {% include 'include/pagination.html.twig' with {'pagenater': pagenater, 'params': params} only %}
+                {% include 'include/pagination.html.twig' with {
+                    'pagenater': pagenater,
+                    'route_name': 'news_list',
+                    'params': params
+                } only %}
                 
             </div>
             <div class="card-footer">

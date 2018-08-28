@@ -128,7 +128,11 @@ $(function(){
                 
                 <hr>
                 
-                {% include 'include/pagination.html.twig' with {'pagenater': pagenater, 'params': params} only %}
+                {% include 'include/pagination.html.twig' with {
+                    'pagenater': pagenater,
+                    'route_name': 'advance_ticket_list',
+                    'params': params
+                } only %}
                 
             </div>
             <div class="card-footer">
