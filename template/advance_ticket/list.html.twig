@@ -1,0 +1,138 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}一覧 | 前売券情報{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
+<script>
+$(function(){
+    var $form = $('form[name="advance_ticket_find"]');
+    
+    $.datetimepicker.setLocale('ja');
+    
+    var datetimepickerOption = {
+        format: 'Y/m/d H:i'
+    };
+    $form.find('.datetimepicker').datetimepicker(datetimepickerOption); 
+});
+</script>
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">前売券情報</li>
+    <li class="breadcrumb-item active">一覧</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form name="advance_ticket_find" method="get" action="{{ path_for('advance_ticket_list') }}">
+                <div class="card-header">
+                    検索
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">販売ステータス</label>
+                        <div class="col-md-9 col-form-label">
+                            {% for value, text in form.getStatusChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input{% if errors.status %} is-invalid{% endif %}" type="checkbox" id="status-{{ value }}" name="status[]" value="{{ value }}" {{ value in values.status ? 'checked' : '' }} />
+                                <label class="form-check-label" for="status-{{ value }}">{{ text }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" class="form-control {% if errors.status %} is-invalid{% endif %}" />
+                        <div class="invalid-feedback">
+                            {% for messages in errors.status %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">発売日期間指定</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" name="release_dt" class="form-control datetimepicker{% if errors.release_dt %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.release_dt }}">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </div>
+                                <div class="invalid-feedback">
+                                    {% for message in errors.release_dt %}
+                                        {{ message }}
+                                        {% if not loop.last %}<br />{% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">検索</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>作品名</th>
+                            <th>劇場</th>
+                            <th>販売日</th>
+                            <th>販売ステータス</th>
+                            <th>タイプ</th>
+                            <th>料金</th>
+                            <th>特典在庫</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for advanceTicket in pagenater.getResultsInPage() %}
+                        <tr>
+                            <th>{{ advanceTicket.getId() }}</th>
+                            <th>{{ advanceTicket.getAdvanceSale().getTitle().getName() }}</th>
+                            <th>{{ advanceTicket.getAdvanceSale().getTheater().getNameJa() }}</th>
+                            <th>{{ advanceTicket.getReleaseDt().format('Y/m/d H:i') }}</th>
+                            <th>{{ advanceTicket.getStatusLabel() }}</th>
+                            <th>{{ advanceTicket.getTypeLabel() }}</th>
+                            <th>{{ advanceTicket.getPriceText() }}</th>
+                            <th>{{ advanceTicket.getSpecialGiftStockLabel() }}</th>
+                            <th>
+                                <a href="#" class="btn btn-sm btn-danger" role="button">削除</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <hr>
+                
+                {% include 'include/pagination.html.twig' with {'pagenater': pagenater, 'params': params} only %}
+                
+            </div>
+            <div class="card-footer">
+                {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
