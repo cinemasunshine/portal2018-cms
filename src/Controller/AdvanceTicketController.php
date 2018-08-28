@@ -75,8 +75,8 @@ class AdvanceTicketController extends BaseController
         foreach ($cleanData['tickets'] as $ticket) {
             $advanceTicket = new Entity\AdvanceTicket();
             $advanceTicket->setAdvanceSale($advanceSale);
-            $advanceTicket->setReleaseDate($ticket['release_date']);
-            $advanceTicket->setReleaseDateText($ticket['release_date_text']);
+            $advanceTicket->setReleaseDt($ticket['release_dt']);
+            $advanceTicket->setReleaseDtText($ticket['release_dt_text']);
             $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
             $advanceTicket->setType($ticket['type']);
             $advanceTicket->setPriceText($ticket['price_text']);

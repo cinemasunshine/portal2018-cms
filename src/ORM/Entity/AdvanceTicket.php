@@ -23,6 +23,26 @@ class AdvanceTicket extends AbstractEntity
     use SoftDeleteTrait;
     use TimestampableTrait;
     
+    const TYPE_MVTK  = 1;
+    const TYPE_PAPER = 2;
+    
+    const SPECIAL_GIFT_STOCK_IN     = 1;
+    const SPECIAL_GIFT_STOCK_FEW    = 2;
+    const SPECIAL_GIFT_STOCK_NOT_IN = 3;
+    
+    /** @var array */
+    protected static $types = [
+        self::TYPE_MVTK  => 'ムビチケ',
+        self::TYPE_PAPER => '紙券',
+    ];
+    
+    /** @var array */
+    protected static $specialGiftStockList = [
+        self::SPECIAL_GIFT_STOCK_IN     => '有り',
+        self::SPECIAL_GIFT_STOCK_FEW    => '残り僅か',
+        self::SPECIAL_GIFT_STOCK_NOT_IN => '特典終了',
+    ];
+    
     /**
      * id
      * 
@@ -43,20 +63,20 @@ class AdvanceTicket extends AbstractEntity
     protected $advanceSale;
     
     /**
-     * release_date
+     * release_dt
      *
-     * @var \DateTime|null
-     * @ORM\Column(type="datetime", name="release_date", nullable=true)
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="release_dt")
      */
-    protected $releaseDate;
+    protected $releaseDt;
     
     /**
-     * release_date_text
+     * release_dt_text
      *
      * @var string
-     * @ORM\Column(type="string", name="release_date_text", nullable=true)
+     * @ORM\Column(type="string", name="release_dt_text", nullable=true)
      */
-    protected $releaseDateText;
+    protected $releaseDtText;
     
     /**
      * is_sales_end
@@ -147,49 +167,49 @@ class AdvanceTicket extends AbstractEntity
     }
     
     /**
-     * get release_date
+     * get release_dt
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
-    public function getReleaseDate()
+    public function getReleaseDt()
     {
-        return $this->releaseDate;
+        return $this->releaseDt;
     }
     
     /**
-     * set release_date
+     * set release_dt
      *
-     * @param \DateTime|string|null $releaseDate
+     * @param \DateTime|string $releaseDt
      * @return void
      */
-    public function setReleaseDate($releaseDate)
+    public function setReleaseDt($releaseDt)
     {
-        if (is_null($releaseDate) || ($releaseDate instanceof \Datetime)) {
-            $this->releaseDate = $releaseDate;
+        if ($releaseDt instanceof \Datetime) {
+            $this->releaseDt = $releaseDt;
         } else {
-            $this->releaseDate = new \DateTime($releaseDate);
+            $this->releaseDt = new \DateTime($releaseDt);
         }
     }
     
     /**
-     * get release_date_text
+     * get release_dt_text
      *
      * @return string
      */
-    public function getReleaseDateText()
+    public function getReleaseDtText()
     {
-        return $this->releaseDateText;
+        return $this->releaseDtText;
     }
     
     /**
-     * set release_date_text
+     * set release_dt_text
      *
-     * @param string $releaseDateText
+     * @param string $releaseDtText
      * @return void
      */
-    public function setReleaseDateText(string $releaseDateText)
+    public function setReleaseDtText(string $releaseDtText)
     {
-        $this->releaseDateText = $releaseDateText;
+        $this->releaseDtText = $releaseDtText;
     }
     
     /**
@@ -328,5 +348,25 @@ class AdvanceTicket extends AbstractEntity
     public function setSpecialGiftImage($specialGiftImage)
     {
         $this->specialGiftImage = $specialGiftImage;
+    }
+    
+    /**
+     * return types
+     *
+     * @return array
+     */
+    public static function getTypes()
+    {
+        return self::$types;
+    }
+    
+    /**
+     * return special gift stock list
+     *
+     * @return array
+     */
+    public static function getSpecialGiftStockList()
+    {
+        return self::$specialGiftStockList;
     }
 }

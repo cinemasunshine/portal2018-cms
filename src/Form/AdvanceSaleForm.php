@@ -22,6 +22,9 @@ class AdvanceSaleForm extends BaseForm
     /** @var EntityManager */
     protected $em;
     
+    /** @var AdvanceTicketFieldset */
+    protected $ticketFieldset;
+    
     /**@var array */
     protected $theaterChoices = [];
     
@@ -33,6 +36,7 @@ class AdvanceSaleForm extends BaseForm
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
+        $this->ticketFieldset = new AdvanceTicketFieldset();
         
         parent::__construct();
         
@@ -53,6 +57,7 @@ class AdvanceSaleForm extends BaseForm
             $this->theaterChoices[$theater->getId()] = $theater->getNameJa();
         }
         
+        // @todo 劇場アカウントの場合はHiddenにする
         $this->add([
             'name' => 'theater',
             'type' => 'Select',
@@ -95,9 +100,7 @@ class AdvanceSaleForm extends BaseForm
             'name' => 'tickets',
             'type' => 'Collection',
             'options' => [
-                'target_element' => [
-                    'type' => AdvanceTicketFieldset::class,
-                ],
+                'target_element' => $this->ticketFieldset,
             ],
         ]);
         
@@ -132,6 +135,12 @@ class AdvanceSaleForm extends BaseForm
             'name' => 'publishing_expected_date_text',
             'required' => false,
         ]);
+        
+        // fieldsetのinputfilterが消えてしまう？ので設定しない
+        // 1件以上必要な場合はどうする？
+        // $inputFilter->add([
+        //     'name' => 'tickets',
+        // ]);
         
         $this->setInputFilter($inputFilter);
     }
@@ -176,7 +185,7 @@ class AdvanceSaleForm extends BaseForm
      */
     public function getTicketTypeChoices()
     {
-        return AdvanceTicketFieldset::getTypeChoices();
+        return $this->ticketFieldset->getTypeChoices();
     }
     
     /**
@@ -186,6 +195,6 @@ class AdvanceSaleForm extends BaseForm
      */
     public function getTicketSpecialGiftStockChoices()
     {
-        return AdvanceTicketFieldset::getSpecialGiftStockChoices();
+        return $this->ticketFieldset->getSpecialGiftStockChoices();
     }
 }

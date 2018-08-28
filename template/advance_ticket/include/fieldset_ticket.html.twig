@@ -12,6 +12,8 @@
 {% set index = 'i' ~ index %} {# マージするため添字は文字列にする #}
 <div class="card ticket">
     <div class="card-header">
+        前売券情報
+        
         <div class="card-header-actions">
             <a href="#" class="card-header-action btn-delete">
                 <i class="icon-trash"></i>
@@ -30,14 +32,14 @@
             <label class="col-md-3 col-form-label">前売券発売日</label>
             <div class="col-md-4">
                 <div class="input-group">
-                    <input type="text" name="tickets[{{ index }}][release_date]" class="form-control datetimepicker{% if errors.release_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.release_date }}">
+                    <input type="text" name="tickets[{{ index }}][release_dt]" class="form-control datetimepicker{% if errors.release_dt %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.release_dt }}">
                     <div class="input-group-append">
                         <span class="input-group-text">
                             <i class="icon-calendar"></i>
                         </span>
                     </div>
                     <div class="invalid-feedback">
-                        {% for message in errors.release_date %}
+                        {% for message in errors.release_dt %}
                             {{ message }}
                             {% if not loop.last %}<br />{% endif %}
                         {% endfor %}
@@ -49,9 +51,9 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">上書き表記</span>
                     </div>
-                    <input type="text" name="tickets[{{ index }}][release_date_text]" class="form-control{% if errors.release_date_text %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.release_date_text }}">
+                    <input type="text" name="tickets[{{ index }}][release_dt_text]" class="form-control{% if errors.release_dt_text %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.release_dt_text }}">
                     <div class="invalid-feedback">
-                        {% for message in errors.release_date_text %}
+                        {% for message in errors.release_dt_text %}
                             {{ message }}
                             {% if not loop.last %}<br />{% endif %}
                         {% endfor %}
@@ -73,6 +75,7 @@
                                 {% if not loop.last %}<br />{% endif %}
                             {% endfor %}
                         </div>
+                        <span class="help-block">販売期間にかかわらず販売終了となります。</span>
                     </div>
                 </div>
             </div>
