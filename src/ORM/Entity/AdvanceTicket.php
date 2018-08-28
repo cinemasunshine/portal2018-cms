@@ -357,7 +357,7 @@ class AdvanceTicket extends AbstractEntity
      */
     public function setSpecialGiftStock($specialGiftStock)
     {
-        $this->specialGiftStock = !empty($specialGiftStock) ?: null;
+        $this->specialGiftStock = $specialGiftStock ?: null;
     }
     
     /**
