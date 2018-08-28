@@ -39,4 +39,16 @@ class AdvanceTicketResponder extends BaseResponder
     {
         return $this->view->render($response, 'advance_ticket/new.html.twig', $data->all());
     }
+    
+    /**
+     * edit
+     *
+     * @param Response   $response
+     * @param Collection $data
+     * @return Response
+     */
+    public function edit(Response $response, Collection $data)
+    {
+        return $this->view->render($response, 'advance_ticket/edit.html.twig', $data->all());
+    }
 }

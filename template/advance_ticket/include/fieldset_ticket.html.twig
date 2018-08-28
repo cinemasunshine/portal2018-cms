@@ -24,7 +24,8 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label">ID</label>
             <div class="col-md-9">
-                <p class="form-control-static">&nbsp;</p>
+                <input type="hidden" name="tickets[{{ index }}][id]" value="{{ values.id }}">
+                <p class="form-control-static">{{ values.id }}</p>
                 <span class="help-block">※自動でIDが付与されます。</span>
             </div>
         </div>
@@ -75,8 +76,8 @@
                                 {% if not loop.last %}<br />{% endif %}
                             {% endfor %}
                         </div>
-                        <span class="help-block">販売期間にかかわらず販売終了となります。</span>
                     </div>
+                    <span class="help-block">※販売期間にかかわらず販売終了となります。</span>
                 </div>
             </div>
         </div>
@@ -149,6 +150,19 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label">特典画像</label>
             <div class="col-md-9">
+                {% if values.special_gift_image %}
+                {% set image = values.special_gift_image %}
+                <div class="col-md-12">
+                    <img src="{{ blob_url(image.getBlobContainer(), image.getName()) }}" width="200">
+                </div>
+                <div class="col-md-12 col-form-label">
+                    <div class="form-check form-check">
+                        <input type="hidden" name="tickets[{{ index }}][delete_special_gift_image]"  value="0">
+                        <input class="form-check-input" type="checkbox" id="tickets-{{ index }}-delete-special-gift-image" name="tickets[{{ index }}][delete_special_gift_image]" value="1" {{ '1' == values.delete_image ? 'checked' : '' }}>
+                        <label class="form-check-label" for="tickets-{{ index }}-delete-special-gift-image">削除</label>
+                    </div>
+                </div>
+                {% endif %}
                 <input type="file" name="tickets[{{ index }}][special_gift_image]" class="form-control{% if errors.special_gift_image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
                 <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
                 <div class="invalid-feedback">

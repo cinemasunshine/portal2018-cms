@@ -17,7 +17,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * AdvanceSale entity class
  * 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\AdvanceSaleRepository")
  * @ORM\Table(name="advance_sale", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */

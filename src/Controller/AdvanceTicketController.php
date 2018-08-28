@@ -164,4 +164,66 @@ class AdvanceTicketController extends BaseController
         // @todo 編集ページへリダイレクト
         exit;
     }
+    
+    /**
+     * edit action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeEdit($request, $response, $args)
+    {
+        $advanceSale = $this->em->getRepository(Entity\AdvanceSale::class)->findOneById($args['id']);
+        
+        if (is_null($advanceSale)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\AdvanceSale $advanceSale */
+        
+        $this->data->set('advanceSale', $advanceSale);
+        
+        $form = new Form\AdvanceSaleForm($this->em);
+        $this->data->set('form', $form);
+        
+        $values = [
+            'id'         => $advanceSale->getId(),
+            'theater'    => $advanceSale->getTheater()->getId(),
+            'title_id'   => $advanceSale->getTitle()->getId(),
+            'title_name' => $advanceSale->getTitle()->getName(),
+            'tickets'    => [],
+        ];
+        
+        $publishingExpectedDate = $advanceSale->getPublishingExpectedDate();
+        
+        if ($publishingExpectedDate instanceof \DateTime) {
+            $values['publishing_expected_date'] = $publishingExpectedDate->format('Y/m/d');
+            $values['not_exist_publishing_expected_date'] = null;
+        } else {
+            $values['publishing_expected_date'] = null;
+            $values['not_exist_publishing_expected_date'] = '1';
+        }
+        
+        // @todo 有効な前売券だけ取得
+        foreach ($advanceSale->getAdvanceTickets() as $advanceTicket) {
+            /** @var Entity\AdvanceTicket $advanceTicket */
+            $ticket = [
+                'id'                 => $advanceTicket->getId(),
+                'release_dt'         => $advanceTicket->getReleaseDt()->format('Y/m/d H:i'),
+                'release_dt_text'    => $advanceTicket->getReleaseDtText(),
+                'is_sales_end'       => $advanceTicket->getIsSalesEnd() ? '1' : '0',
+                'type'               => $advanceTicket->getType(),
+                'price_text'         => $advanceTicket->getPriceText(),
+                'special_gift'       => $advanceTicket->getSpecialGift(),
+                'special_gift_stock' => $advanceTicket->getSpecialGiftStock(),
+                'special_gift_image' => $advanceTicket->getSpecialGiftImage(),
+            ];
+            
+            $values['tickets'][] = $ticket;
+        }
+        
+        $this->data->set('values', $values);
+    }
 }

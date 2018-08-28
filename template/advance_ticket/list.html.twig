@@ -109,7 +109,9 @@ $(function(){
                     {% for advanceTicket in pagenater.getResultsInPage() %}
                         <tr>
                             <th>{{ advanceTicket.getId() }}</th>
-                            <th>{{ advanceTicket.getAdvanceSale().getTitle().getName() }}</th>
+                            <th><a href="{{ path_for('advance_ticket_edit', { id: advanceTicket.getAdvanceSale().getId() }) }}">
+                                {{ advanceTicket.getAdvanceSale().getTitle().getName() }}
+                            </a></th>
                             <th>{{ advanceTicket.getAdvanceSale().getTheater().getNameJa() }}</th>
                             <th>{{ advanceTicket.getReleaseDt().format('Y/m/d H:i') }}</th>
                             <th>{{ advanceTicket.getStatusLabel() }}</th>
