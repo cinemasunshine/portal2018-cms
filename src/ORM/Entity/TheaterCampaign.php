@@ -46,7 +46,7 @@ class TheaterCampaign extends AbstractEntity
      *
      * @var Theater
      * @ORM\ManyToOne(targetEntity="Theater", inversedBy="theaters")
-     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $theater;
     

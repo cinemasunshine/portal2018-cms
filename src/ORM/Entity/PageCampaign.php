@@ -46,7 +46,7 @@ class PageCampaign extends AbstractEntity
      *
      * @var Page
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="campaigns")
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $page;
     
