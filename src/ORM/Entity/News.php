@@ -72,7 +72,7 @@ class News extends AbstractEntity
      * category
      *
      * @var int
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     protected $category;
     

@@ -79,7 +79,7 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
      * display_order
      *
      * @var int
-     * @ORM\Column(type="smallint", name="display_order")
+     * @ORM\Column(type="smallint", name="display_order", options={"unsigned"=true})
      */
     protected $displayOrder;
     

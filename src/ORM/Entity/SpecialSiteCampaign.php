@@ -54,7 +54,7 @@ class SpecialSiteCampaign extends AbstractEntity
      * display_order
      *
      * @var int
-     * @ORM\Column(type="smallint", name="display_order")
+     * @ORM\Column(type="smallint", name="display_order", options={"unsigned"=true})
      */
     protected $displayOrder;
     

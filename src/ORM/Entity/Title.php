@@ -126,7 +126,7 @@ class Title extends AbstractEntity
      * rating
      *
      * @var string
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     protected $rating;
     

@@ -101,7 +101,7 @@ class AdvanceTicket extends AbstractEntity
      * type
      *
      * @var int
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     protected $type;
     
@@ -125,7 +125,7 @@ class AdvanceTicket extends AbstractEntity
      * special_gift_stock
      *
      * @var int|null
-     * @ORM\Column(type="smallint", name="special_gift_stock", nullable=true)
+     * @ORM\Column(type="smallint", name="special_gift_stock", nullable=true, options={"unsigned"=true})
      */
     protected $specialGiftStock;
     
