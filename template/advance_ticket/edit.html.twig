@@ -27,12 +27,18 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="advance_sale" method="post" enctype="multipart/form-data" action="#">
+            <form name="advance_sale" method="post" enctype="multipart/form-data" action="{{ path_for('advance_ticket_update', { id: advanceSale.getId() }) }}">
                 <input type="hidden" name="id" value="{{ values.id }}">
                 <div class="card-header">
                     編集
                 </div>
                 <div class="card-body">
+                    {% if errors %}
+                    <div class="alert alert-danger" role="alert">
+                        入力エラーがあります。
+                    </div>
+                    {% endif %}
+                
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">劇場</label>
                         <div class="col-md-9">
@@ -115,13 +121,24 @@
                     
                     <div class="card">
                         <div class="card-body">
+                            {% for id in values.delete_tickets %}
+                                {# @see form.jsの削除処理 #}
+                                <input type="hidden" name="delete_tickets[]" value="{{ id }}">
+                            {% endfor %}
+                            
                             <div id="tickets">
                             {% for index, ticket in values.tickets %}
+                                {% set advance_ticket = null %}
+                                {% if ticket.id %}
+                                    {% set advance_ticket = advanceSale.getAdvanceTickets().get(ticket.id) %}
+                                {% endif %}
+                                
                                 {% include 'advance_ticket/include/fieldset_ticket.html.twig' with {
                                     index: loop.index0,
                                     form: form,
                                     values: ticket,
                                     errors: errors.tickets[index],
+                                    advance_ticket: advance_ticket
                                 } only %}
                             {% endfor %}
                             </div>

@@ -10,6 +10,7 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
@@ -74,7 +75,7 @@ class AdvanceSale extends AbstractEntity
      * advance_tickets
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="AdvanceTicket", mappedBy="advanceSale")
+     * @ORM\OneToMany(targetEntity="AdvanceTicket", mappedBy="advanceSale", indexBy="id")
      */
     protected $advanceTickets;
     
@@ -193,5 +194,18 @@ class AdvanceSale extends AbstractEntity
     public function getAdvanceTickets()
     {
         return $this->advanceTickets;
+    }
+    
+    /**
+     * get active advance_tickets
+     *
+     * @return Collection
+     */
+    public function getActiveAdvanceTickets()
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('isDeleted', false));
+            
+        return $this->getAdvanceTickets()->matching($criteria);
     }
 }

@@ -40,7 +40,18 @@ $(function(){
     });
     
     $tickets.on('click', '.ticket .btn-delete', function() {
-        $(this).parents('.ticket').remove();
+        var $ticket = $(this).closest('.ticket');
+        var $inputId = $ticket.find('input[name*="[id]"]');
+        
+        if ($inputId.val()) {
+            var $inputDeleteId = $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', 'delete_tickets[]')
+                .val($inputId.val());
+            $tickets.before($inputDeleteId);
+        }
+        
+        $ticket.remove();
         toggleFieldsetDeleteBtn();
     });
     

@@ -150,8 +150,8 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label">特典画像</label>
             <div class="col-md-9">
-                {% if values.special_gift_image %}
-                {% set image = values.special_gift_image %}
+                {% if advance_ticket and advance_ticket.getSpecialGiftImage() %}
+                {% set image = advance_ticket.getSpecialGiftImage() %}
                 <div class="col-md-12">
                     <img src="{{ blob_url(image.getBlobContainer(), image.getName()) }}" width="200">
                 </div>

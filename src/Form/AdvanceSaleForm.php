@@ -19,6 +19,12 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class AdvanceSaleForm extends BaseForm
 {
+    const TYPE_NEW = 1;
+    const TYPE_EDIT = 2;
+    
+    /** @var int */
+    protected $type;
+    
     /** @var EntityManager */
     protected $em;
     
@@ -31,12 +37,14 @@ class AdvanceSaleForm extends BaseForm
     /**
      * construct
      * 
+     * @param int $type
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(int $type, EntityManager $em)
     {
+        $this->type = $type;
         $this->em = $em;
-        $this->ticketFieldset = new AdvanceTicketFieldset();
+        $this->ticketFieldset = new AdvanceTicketFieldset($type);
         
         parent::__construct();
         
@@ -50,6 +58,19 @@ class AdvanceSaleForm extends BaseForm
      */
     protected function setup()
     {
+        if ($this->type === self::TYPE_EDIT) {
+            $this->add([
+                'name' => 'id',
+                'type' => 'Hidden',
+            ]);
+            
+            // 削除する前売券のid（デフォルトで配列が返るのがベスト）
+            $this->add([
+                'name' => 'delete_tickets',
+                'type' => 'Hidden', // Collectionかもしれない
+            ]);
+        }
+        
         $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
         
         foreach ($theaters as $theater) {
@@ -106,6 +127,19 @@ class AdvanceSaleForm extends BaseForm
         
         
         $inputFilter = new InputFilter();
+        
+        if ($this->type === self::TYPE_EDIT) {
+            $inputFilter->add([
+                'name' => 'id',
+                'required' => true,
+            ]);
+            
+            $inputFilter->add([
+                'name' => 'delete_tickets',
+                'required' => false,
+            ]);
+        }
+        
         $inputFilter->add([
             'name' => 'theater',
             'required' => true,

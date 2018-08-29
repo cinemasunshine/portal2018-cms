@@ -61,7 +61,7 @@ class AdvanceTicketController extends BaseController
      */
     public function executeNew($request, $response, $args)
     {
-        $form = new Form\AdvanceSaleForm($this->em);
+        $form = new Form\AdvanceSaleForm(Form\AdvanceSaleForm::TYPE_NEW, $this->em);
         $this->data->set('form', $form);
     }
     
@@ -78,7 +78,7 @@ class AdvanceTicketController extends BaseController
         // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
         
-        $form = new Form\AdvanceSaleForm($this->em);
+        $form = new Form\AdvanceSaleForm(Form\AdvanceSaleForm::TYPE_NEW, $this->em);
         $form->setData($params);
         
         if (!$form->isValid()) {
@@ -191,7 +191,7 @@ class AdvanceTicketController extends BaseController
         
         $this->data->set('advanceSale', $advanceSale);
         
-        $form = new Form\AdvanceSaleForm($this->em);
+        $form = new Form\AdvanceSaleForm(Form\AdvanceSaleForm::TYPE_EDIT, $this->em);
         $this->data->set('form', $form);
         
         $values = [
@@ -199,6 +199,7 @@ class AdvanceTicketController extends BaseController
             'theater'    => $advanceSale->getTheater()->getId(),
             'title_id'   => $advanceSale->getTitle()->getId(),
             'title_name' => $advanceSale->getTitle()->getName(),
+            'publishing_expected_date_text' => $advanceSale->getPublishingExpectedDateText(),
             'tickets'    => [],
         ];
         
@@ -212,8 +213,7 @@ class AdvanceTicketController extends BaseController
             $values['not_exist_publishing_expected_date'] = '1';
         }
         
-        // @todo 有効な前売券だけ取得
-        foreach ($advanceSale->getAdvanceTickets() as $advanceTicket) {
+        foreach ($advanceSale->getActiveAdvanceTickets() as $advanceTicket) {
             /** @var Entity\AdvanceTicket $advanceTicket */
             $ticket = [
                 'id'                 => $advanceTicket->getId(),
@@ -224,12 +224,170 @@ class AdvanceTicketController extends BaseController
                 'price_text'         => $advanceTicket->getPriceText(),
                 'special_gift'       => $advanceTicket->getSpecialGift(),
                 'special_gift_stock' => $advanceTicket->getSpecialGiftStock(),
-                'special_gift_image' => $advanceTicket->getSpecialGiftImage(),
             ];
             
             $values['tickets'][] = $ticket;
         }
         
         $this->data->set('values', $values);
+    }
+    
+    /**
+     * update action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeUpdate($request, $response, $args)
+    {
+        $advanceSale = $this->em->getRepository(Entity\AdvanceSale::class)->findOneById($args['id']);
+        
+        if (is_null($advanceSale)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\AdvanceSale $advanceSale */
+        
+        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
+        
+        $form = new Form\AdvanceSaleForm(Form\AdvanceSaleForm::TYPE_EDIT, $this->em);
+        $form->setData($params);
+        
+        if (!$form->isValid()) {
+            $this->data->set('advanceSale', $advanceSale);
+            $this->data->set('form', $form);
+            $this->data->set('values', $params);
+            $this->data->set('errors', $form->getMessages());
+            $this->data->set('is_validated', true);
+            
+            return 'edit';
+        }
+        
+        $cleanData = $form->getData();
+        
+        /** @var Entity\Theater $theater */
+        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($cleanData['theater']);
+        $advanceSale->setTheater($theater);
+        
+        /** @var Entity\Title $title */
+        $title = $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
+        $advanceSale->setTitle($title);
+        
+        $advanceSale->setPublishingExpectedDate($cleanData['publishing_expected_date']);
+        $advanceSale->setPublishingExpectedDateText($cleanData['publishing_expected_date_text']);
+        
+        $advanceTickets = $advanceSale->getActiveAdvanceTickets();
+        
+        if (is_array($cleanData['delete_tickets'])) {
+            // 前売券削除
+            
+            foreach ($cleanData['delete_tickets'] as $advanceTicketId) {
+                // indexByでidをindexにしている
+                $advanceTicket = $advanceTickets->get($advanceTicketId);
+                
+                if (!$advanceTicket) {
+                    throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $advanceTicketId));
+                }
+                
+                /** @var Entity\AdvanceTicket $advanceTicket */
+                
+                $advanceTicket->setIsDeleted(true);
+            }
+        }
+        
+        foreach ($cleanData['tickets'] as $ticket) {
+            if ($ticket['id']) {
+                // 前売券編集
+                
+                // indexByでidをindexにしている
+                $advanceTicket = $advanceTickets->get($ticket['id']);
+                
+                if (!$advanceTicket) {
+                    throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $ticket['id']));
+                }
+                
+                /** @var Entity\AdvanceTicket $advanceTicket */
+                
+            } else {
+                // 前売券登録
+                
+                $advanceTicket = new Entity\AdvanceTicket();
+                $this->em->persist($advanceTicket);
+                
+                $advanceTicket->setAdvanceSale($advanceSale);
+            }
+            
+            $advanceTicket->setReleaseDt($ticket['release_dt']);
+            $advanceTicket->setReleaseDtText($ticket['release_dt_text']);
+            $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
+            $advanceTicket->setType($ticket['type']);
+            $advanceTicket->setPriceText($ticket['price_text']);
+            $advanceTicket->setSpecialGift($ticket['special_gift']);
+            $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock']);
+            
+            $image = $ticket['special_gift_image'];
+            $isDeleteImage = ($ticket['delete_special_gift_image'] == '1') || $image['name'];
+        
+            if ($isDeleteImage && $advanceTicket->getSpecialGiftImage()) {
+                // @todo preUpdateで出来ないか？ hasChangedField()
+                $oldImage = $advanceTicket->getSpecialGiftImage();
+                $this->em->remove($oldImage);
+                
+                // @todo postRemoveイベントへ
+                $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
+                
+                $advanceTicket->setSpecialGiftImage(null);
+            }
+            
+            if ($image['name']) {
+                // rename
+                $newName = Entity\File::createName($image['name']);
+                
+                // resize
+                // @todo サイズ調整
+                $imageManager = new ImageManager();
+                $imageManager
+                    ->make($image['tmp_name'])
+                    ->resize(500, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->save();
+                
+                // upload storage
+                // @todo storageと同期するような仕組みをFileへ
+                $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+                $options->setContentType($image['type']);
+                $this->bc->createBlockBlob(
+                    Entity\File::getBlobContainer(),
+                    $newName,
+                    fopen($image['tmp_name'], 'r'),
+                    $options);
+                
+                $file = new Entity\File();
+                $file->setName($newName);
+                $file->setOriginalName($image['name']);
+                $file->setMimeType($image['type']);
+                $file->setSize((int) $image['size']);
+                
+                $this->em->persist($file);
+                
+                $advanceTicket->setSpecialGiftImage($file);
+            }
+        }
+        
+        $this->em->flush();
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => '前売券情報を編集しました。',
+        ]);
+        
+        $this->redirect(
+            $this->router->pathFor('advance_ticket_edit', [ 'id' => $advanceSale->getId() ]),
+            303);
     }
 }
