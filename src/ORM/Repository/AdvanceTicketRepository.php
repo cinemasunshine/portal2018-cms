@@ -79,4 +79,21 @@ class AdvanceTicketRepository extends EntityRepository
         
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
+    
+    /**
+     * find one by id
+     *
+     * @param int $id
+     * @return AdvanceTicket|null
+     */
+    public function findOneById($id)
+    {
+        $qb = $this->createQueryBuilder('at');
+        $qb
+            ->where('at.id = :id')
+            ->andWhere('at.isDeleted = false')
+            ->setParameter('id', $id);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

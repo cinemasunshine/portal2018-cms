@@ -390,4 +390,45 @@ class AdvanceTicketController extends BaseController
             $this->router->pathFor('advance_ticket_edit', [ 'id' => $advanceSale->getId() ]),
             303);
     }
+    
+    /**
+     * delete action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeDelete($request, $response, $args)
+    {
+        $advanceTicket = $this->em->getRepository(Entity\AdvanceTicket::class)->findOneById($args['id']);
+        
+        if (is_null($advanceTicket)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\AdvanceTicket $advanceTicket */
+        
+        // 関連データの処理はイベントで対応する
+        $advanceTicket->setIsDeleted(true);
+        
+        
+        $advanceSale = $advanceTicket->getAdvanceSale();
+        
+        // 有効なAdvanceTicketの件数確認
+        if ($advanceSale->getActiveAdvanceTickets()->count() === 1) {
+            
+            // この処理で有効なAdvanceTicketが無くなるのでAdvanceSaleも削除する
+            $advanceSale->setIsDeleted(true);
+        }
+        
+        $this->em->flush();
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => '前売券情報を削除しました。',
+        ]);
+        
+        return $this->redirect($this->router->pathFor('advance_ticket_list'), 303);
+    }
 }
