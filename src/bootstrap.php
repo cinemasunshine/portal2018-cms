@@ -19,7 +19,7 @@ if (file_exists(APP_ROOT . '/.env')) {
     $dotenv->load();
 }
 
-define('APP_ENV', getenv('APP_ENV'));
+define('APP_ENV', getenv('APPSETTING_ENV'));
 
 /** @var array $settings */
 $settings = require APP_ROOT . '/config/settings.php';

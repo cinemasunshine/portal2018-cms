@@ -41,11 +41,11 @@ $settings['doctrine'] = [
     
     'connection' => [
         'driver'   => 'pdo_mysql',
-        'host'     => getenv('DB_HOST'),
-        'port'     => getenv('DB_PORT'),
-        'dbname'   => getenv('DB_NAME'),
-        'user'     => getenv('DB_USER'),
-        'password' => getenv('DB_PASSWORD'),
+        'host'     => getenv('MYSQLCONNSTR_HOST'),
+        'port'     => getenv('MYSQLCONNSTR_PORT'),
+        'dbname'   => getenv('MYSQLCONNSTR_NAME'),
+        'user'     => getenv('MYSQLCONNSTR_USER'),
+        'password' => getenv('MYSQLCONNSTR_PASSWORD'),
         'charset'  => 'utf8mb4',
     ],
 ];
@@ -54,8 +54,8 @@ $settings['doctrine'] = [
 $settings['storage'] = [
     'secure'  => true,
     'account' => [
-        'name' => getenv('STORAGE_NAME'),
-        'key'  => getenv('STORAGE_KEY'),
+        'name' => getenv('CUSTOMCONNSTR_STORAGE_NAME'),
+        'key'  => getenv('CUSTOMCONNSTR_STORAGE_KEY'),
     ],
 ];
 
