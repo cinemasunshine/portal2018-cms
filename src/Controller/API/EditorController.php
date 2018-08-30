@@ -7,7 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller\API;
 
-use Cinemasunshine\PortalAdmin\Form\API as Form;
+use Cinemasunshine\PortalAdmin\Form;
+use Cinemasunshine\PortalAdmin\Form\API as ApiForm;
 
 /**
  * Editor API controller
@@ -34,7 +35,7 @@ class EditorController extends BaseController
         // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
         
-        $form = new Form\EditorUploadForm();
+        $form = new ApiForm\EditorUploadForm();
         $form->setData($params);
         
         if (!$form->isValid()) {
