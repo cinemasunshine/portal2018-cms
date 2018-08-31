@@ -21,7 +21,7 @@
             </li>
         {% endfor %}
         
-        <li class="page-item {% if pagenater.isLastPage() %}disabled{% endif %}">
+        <li class="page-item {% if pagenater.isLastPage() or pagenater.getLastPage() == 0 %}disabled{% endif %}">
             {% set params = params|merge({ 'p': pagenater.getNextPage() }) %}
             <a class="page-link" href="{{ path_for(route_name, {}, params) }}">&raquo;</a>
         </li>
