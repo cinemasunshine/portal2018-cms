@@ -35,20 +35,34 @@ $settings['logger'] = [
 ];
 
 // doctrine
-$settings['doctrine'] = [
-    'dev_mode' => (APP_ENV === 'dev'),
-    'metadata_dirs' => [APP_ROOT . '/src/ORM/Entity'],
+$getDoctrineSetting = function() {
+    $settings = [
+        'dev_mode' => (APP_ENV === 'dev'),
+        'metadata_dirs' => [APP_ROOT . '/src/ORM/Entity'],
+        
+        'connection' => [
+            'driver'   => 'pdo_mysql',
+            'host'     => getenv('MYSQLCONNSTR_HOST'),
+            'port'     => getenv('MYSQLCONNSTR_PORT'),
+            'dbname'   => getenv('MYSQLCONNSTR_NAME'),
+            'user'     => getenv('MYSQLCONNSTR_USER'),
+            'password' => getenv('MYSQLCONNSTR_PASSWORD'),
+            'charset'  => 'utf8mb4',
+            'driverOptions'  => [],
+        ],
+    ];
     
-    'connection' => [
-        'driver'   => 'pdo_mysql',
-        'host'     => getenv('MYSQLCONNSTR_HOST'),
-        'port'     => getenv('MYSQLCONNSTR_PORT'),
-        'dbname'   => getenv('MYSQLCONNSTR_NAME'),
-        'user'     => getenv('MYSQLCONNSTR_USER'),
-        'password' => getenv('MYSQLCONNSTR_PASSWORD'),
-        'charset'  => 'utf8mb4',
-    ],
-];
+    if (getenv('MYSQLCONNSTR_SSL') === 'true') {
+        // https://docs.microsoft.com/ja-jp/azure/mysql/howto-configure-ssl
+        $cafile = APP_ROOT . '/cert/BaltimoreCyberTrustRoot.crt.pem';
+        $settings['connection']['driverOptions'][PDO::MYSQL_ATTR_SSL_CA] = $cafile;
+    }
+    
+    return $settings;
+};
+
+$settings['doctrine'] = $getDoctrineSetting();
+
 
 // storage
 $settings['storage'] = [
