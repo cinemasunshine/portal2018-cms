@@ -69,6 +69,7 @@ $app->group('', function () {
     $this->group('/api', function() {
         $this->group('/title', function() {
             $this->get('/list', TitleApiController::class . ':list');
+            $this->get('/master', TitleApiController::class . ':master');
         });
         
         $this->group('/campaign', function() {

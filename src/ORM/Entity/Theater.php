@@ -25,6 +25,9 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     use SoftDeleteTrait;
     use TimestampableTrait;
     
+    const MASTER_VERSION_V1 = 1;
+    const MASTER_VERSION_V2 = 2;
+    
     /**
      * id
      * 
