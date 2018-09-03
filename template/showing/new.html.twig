@@ -1,0 +1,235 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}新規追加 | 上映情報{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">上映情報</li>
+    <li class="breadcrumb-item active">新規追加</li>
+</ol>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
+<script src="/js/vendor/jsrender.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/modal/select-title.js"></script>
+<script src="/js/modal/select-title-master.js"></script>
+<script>
+$(function(){
+    var $form = $('form[name="showing"]');
+    
+    $.datetimepicker.setLocale('ja');
+    
+    var datepickerOption = {
+        timepicker: false,
+        format: 'Y/m/d'
+    };
+    $form.find('.datepicker').datetimepicker(datepickerOption);
+    
+    var datetimepickerOption = {
+        format: 'Y/m/d H:i'
+    };
+    $form.find('.datetimepicker').datetimepicker(datetimepickerOption); 
+    
+    var $titleField = $form.find('.form-group.title');
+    var $selectTitleModal = $('#selectTitleModal');
+    
+    $selectTitleModal.on('selected.cs.title', function(event, title) {
+        setTitle(title);
+    });
+    
+    /**
+     * set title
+     * 
+     * @param {Object} title
+     */
+    function setTitle(title) {
+        $titleField.find('input[name="title_id"]').val(title.id);
+        $titleField.find('input[name="title_name"]').val(title.name);
+        $titleField.find('.title-name').text(title.name);
+    }
+    
+    var $selectTitleMasterModal = $('#selectTitleMasterModal');
+    var $targetTitleMasterField;
+    
+    $selectTitleMasterModal.on('show.bs.modal', function(event, title) {
+        $targetTitleMasterField = $(event.relatedTarget).closest('.form-group.title-master');
+    });
+    
+    $selectTitleMasterModal.on('selected.cs.title_master', function(event, title) {
+        setTitleMaster(title);
+    });
+    
+    /**
+     * set title master
+     * 
+     * @param {Object} title
+     */
+    function setTitleMaster(title) {
+        $targetTitleMasterField.find('input[name*="master_code"]').val(title.code);
+    }
+    
+    var $showings = $('#showings');
+    var showingFiledsetIndex = $showings.find('.showing').length;
+    var showingFiledsetTmpl = $.templates('#showingFiledsetTmpl');
+    
+    $showings.on('click', '.showing .btn-delete-showing', function() {
+        var $showing = $(this).closest('.showing');
+        
+        $showing.remove();
+        toggleShowingFieldsetDeleteBtn();
+    });
+    
+    $('.btn-add-showing-fieldset').click(function() {
+        addShowingFieldset();
+        toggleShowingFieldsetDeleteBtn();
+    });
+    
+    /**
+     * add showing fieldset
+     */
+    function addShowingFieldset() {
+        var $fieldset = $(showingFiledsetTmpl.render({
+            index: showingFiledsetIndex
+        }));
+        
+        $showings.append($fieldset);
+        
+        showingFiledsetIndex++;
+    }
+    
+    /**
+     * 上映情報fieldset削除ボタンの切り替え
+     * 
+     * １件は必須とする。
+     */
+    function toggleShowingFieldsetDeleteBtn() {
+        var $showing = $showings.find('.showing');
+        
+        if ($showing.length > 1) {
+            $showing.find('.btn-delete-showing').show();
+        } else {
+            $showing.find('.btn-delete-showing').hide();
+        }
+    }
+    
+    var titleCodeFiledsetTmpl = $.templates('#titleCodeFiledsetTmpl');
+    var titleCodeFiledsetIndex = 0; // prefixやsuffixをつけて重複しないようにする
+    var titleCodeFieldsetIndexSuffix = 'a'; // "a"dd
+    
+    $showings.on('click', '.title-code .btn-delete-title-code', function() {
+        var $titleCode = $(this).closest('.title-code');
+        
+        $titleCode.remove();
+    });
+    
+    $showings.on('click', '.showing .btn-add-title-code-fieldset', function() {
+        var $showing = $(this).closest('.showing');
+        
+        addTitleCodeFieldset($showing);
+    });
+    
+    /**
+     * add title code fieldset
+     */
+    function addTitleCodeFieldset($showing) {
+        var $fieldset = $(titleCodeFiledsetTmpl.render({
+            showing_index: $showing.data('index'),
+            index: titleCodeFiledsetIndex + titleCodeFieldsetIndexSuffix
+        }));
+        
+        $showing.find('.cords').append($fieldset);
+        
+        titleCodeFiledsetIndex++;
+    }
+    
+    /**
+     * execute
+     */
+    function execute() {
+        if ($showings.find('.showing').length === 0) {
+            addShowingFieldset();
+        }
+        
+        toggleShowingFieldsetDeleteBtn();
+    }
+    
+    execute();
+});
+</script>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form name="showing" method="post" action="#">
+                <div class="card-header">
+                    新規追加
+                </div>
+                <div class="card-body">
+                    <div class="form-group row title">
+                        <label class="col-md-3 col-form-label">該当作品</label>
+                        <div class="col-md-9">
+                            <input type="hidden" name="title_id" value="">
+                            <input type="hidden" name="title_name" value="">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="form-control-static title-name"></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">備考</label>
+                        <div class="col-md-9">
+                            <textarea name="note" class="form-control"></textarea>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="showings">
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success btn-add-showing-fieldset">上映情報追加</button>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script id="showingFiledsetTmpl" type="text/x-jsrender">
+{% include 'showing/include/fieldset_showing.html.twig' with {
+    index: '{{:index}}'
+} only %}
+</script>
+
+<script id="titleCodeFiledsetTmpl" type="text/x-jsrender">
+{% include 'showing/include/fieldset_title_code.html.twig' with {
+    showing_index: '{{:showing_index}}',
+    index: '{{:index}}'
+} only %}
+</script>
+
+{% include 'include/modal/select_title.html.twig' only %}
+
+{% include 'showing/include/modal_select_title_master.html.twig' with {
+    form: master_find_form
+} only %}
+{% endblock %}

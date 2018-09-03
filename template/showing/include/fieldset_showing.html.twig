@@ -1,0 +1,81 @@
+{##
+ # 上映情報 fieldset
+ #
+ # jsrenderのテンプレートにも使用する。
+ #
+ # Parameters:
+ # * index
+ #}
+ {% set index = 'i' ~ index %} {# マージするため添字は文字列にする #}
+<div class="card showing" data-index="{{ index }}">
+    <div class="card-header">
+        上映情報
+        
+        <div class="card-header-actions">
+            <a href="#" class="card-header-action btn-delete-showing">
+                <i class="icon-trash"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">ID</label>
+            <div class="col-md-9">
+                <input type="hidden" name="showings[{{ index }}][id]" value="">
+                <p class="form-control-static"></p>
+                <span class="help-block">※自動でIDが付与されます。</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">上映方式</label>
+            <div class="col-md-3">
+                <select name="showing[{{ index }}][system]" class="form-control">
+                    <option value=""></option>
+                    <option value="1">2D</option>
+                    <option value="2">3D</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="showing[{{ index }}][audio]" class="form-control">
+                    <option value=""></option>
+                    <option value="1">字幕</option>
+                    <option value="2">吹替</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">公開予定日</label>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <input type="text" name="showing[{{ index }}][publishing_expected_date]" class="form-control datepicker"  value="">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="icon-calendar"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">提出期間</label>
+            <div class="col-md-6">
+                <div class="form-inline input-group">
+                    <input type="text" name="showing[{{ index }}][start_dt]" class="form-control datetimepicker" value="">
+                    <div class="input-group-addon">
+                        <span class="input-group-text">～</span>
+                    </div>
+                    <input type="text" name="showing[{{ index }}][end_dt]" class="form-control datetimepicker" value="">
+                </div>
+            </div>
+        </div>
+        
+        <div class="cords">
+        </div>
+        
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success btn-add-title-code-fieldset">作品コード追加</button>
+        </div>
+    </div>
+</div>

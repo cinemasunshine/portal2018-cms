@@ -1,0 +1,70 @@
+{## 
+ # 作品選択モーダル
+ # 
+ # javascriptを一緒に使用する。
+ # * /js/modal/select-title-master.js
+ #}
+<div class="modal" id="selectTitleMasterModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="h4 modal-title">作品マスター選択</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">劇場</label>
+                        <div class="col-md-9">
+                            <select name="theater" class="form-control" required>
+                            {% for value, text in form.getTheaterChoices() %}
+                                <option value="{{ value }}">{{ text }}</text>
+                            {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">値は必須です。空値は許可されていません</div>
+                            <span class="help-block">※新バージョンの劇場のみ選択できます。</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">作品名</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name" class="form-control" minlength="2" required>
+                            <div class="invalid-feedback">入力値は 2 文字より短いです</div>
+                            <span class="help-block">※２文字以上入力してください。</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-find">検索</button>
+                </form>
+                
+                <hr>
+                
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>コード</th>
+                            <th>作品名</th>
+                            <th>選択</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        <!-- add #selectTitleMasterRowTmpl -->
+                    </tbody>
+                    <script id="selectTitleMasterRowTmpl" type="text/x-jsrender">
+                    {% verbatim %}
+                        <tr>
+                            <th>{{:code}}</th>
+                            <th>{{:name}}</th>
+                            <th><button type="button" class="btn btn-success btn-select" data-code="{{:code}}">選択</button></th>
+                        </tr>
+                    {% endverbatim %}
+                    </script>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

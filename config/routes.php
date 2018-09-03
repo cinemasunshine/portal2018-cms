@@ -10,6 +10,7 @@ use Cinemasunshine\PortalAdmin\Controller\AdvanceTicketController;
 use Cinemasunshine\PortalAdmin\Controller\CampaignController;
 use Cinemasunshine\PortalAdmin\Controller\IndexController;
 use Cinemasunshine\PortalAdmin\Controller\NewsController;
+use Cinemasunshine\PortalAdmin\Controller\ShowingController;
 use Cinemasunshine\PortalAdmin\Controller\TitleController;
 
 use Cinemasunshine\PortalAdmin\Controller\API\CampaignController as CampaignApiController;
@@ -33,6 +34,10 @@ $app->group('', function () {
         $this->get('/{id}/edit', TitleController::class . ':edit')->setName('title_edit');
         $this->post('/{id}/update', TitleController::class . ':update')->setName('title_update');
         $this->get('/{id}/delete', TitleController::class . ':delete')->setName('title_delete');
+    });
+    
+    $this->group('/showing', function() {
+        $this->get('/new', ShowingController::class . ':new')->setName('showing_new');
     });
     
     $this->group('/campaign', function() {

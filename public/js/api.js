@@ -22,6 +22,23 @@ $(function(){
         });
     };
     
+    /**
+     * find title master
+     * 
+     * @param {Integer} theater 
+     * @param {String} name
+     * @returns {jqXHR}
+     */
+    api.title.master = function(theater, name) {
+        return $.ajax({
+            url: '/api/title/master',
+            data: {
+                'theater': theater,
+                'name': name
+            }
+        });
+    }
+    
     api.campaign = {};
     
     /**
