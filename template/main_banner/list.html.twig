@@ -1,0 +1,85 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}一覧 | メインバナー{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">メインバナー</li>
+    <li class="breadcrumb-item active">一覧</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form method="get" action="{{ path_for('main_banner_list') }}">
+                <div class="card-header">
+                    検索
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">バナータイトル</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name" class="form-control{% if errors.name %} is-invalid{% endif %}" value="{{ values.name }}">
+                            <div class="invalid-feedback">
+                                {% for message in errors.name %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br>{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">検索</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>バナータイトル</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for mainBanner in pagenater.getResultsInPage() %}
+                        <tr>
+                            <th>{{ mainBanner.getId() }}</th>
+                            <th>
+                                <img src="{{ blob_url(mainBanner.getImage().getBlobContainer(), mainBanner.getImage().getName()) }}" width="100" alt="画像" />
+                                <a href="#" >{{ mainBanner.getName() }}</a>
+                            </th>
+                            <th>
+                                <a href="#" class="btn btn-sm btn-danger" role="button">削除</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <hr>
+                
+                {% include 'include/pagination.html.twig' with {
+                    'pagenater': pagenater,
+                    'route_name': 'main_banner_list',
+                    'params': params
+                } only %}
+                
+            </div>
+            <div class="card-footer">
+                {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

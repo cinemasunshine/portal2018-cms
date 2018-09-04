@@ -17,6 +17,18 @@ use Psr\Http\Message\ResponseInterface as Response;
 class MainBannerResponder extends BaseResponder
 {
     /**
+     * list
+     *
+     * @param Response   $response
+     * @param Collection $data
+     * @return Response
+     */
+    public function list(Response $response, Collection $data)
+    {
+        return $this->view->render($response, 'main_banner/list.html.twig', $data->all());
+    }
+    
+    /**
      * new
      *
      * @param Response   $response
