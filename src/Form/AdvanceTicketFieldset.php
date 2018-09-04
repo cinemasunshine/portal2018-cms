@@ -7,7 +7,7 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use zend\Form\Fieldset;
+use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator;
 
