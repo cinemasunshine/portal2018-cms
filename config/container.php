@@ -27,6 +27,7 @@ $container['view'] = function ($container) {
     $view->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
     
     // add Extension
+    $view->addExtension(new \Twig_Extension_Debug());
     $view->addExtension(new \Cinemasunshine\PortalAdmin\Twig\Extension\AzureStorageExtension($container));
 
     return $view;
