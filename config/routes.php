@@ -9,6 +9,7 @@ use Cinemasunshine\PortalAdmin\Controller\AuthController;
 use Cinemasunshine\PortalAdmin\Controller\AdvanceTicketController;
 use Cinemasunshine\PortalAdmin\Controller\CampaignController;
 use Cinemasunshine\PortalAdmin\Controller\IndexController;
+use Cinemasunshine\PortalAdmin\Controller\MainBannerController;
 use Cinemasunshine\PortalAdmin\Controller\NewsController;
 use Cinemasunshine\PortalAdmin\Controller\ShowingController;
 use Cinemasunshine\PortalAdmin\Controller\TitleController;
@@ -38,6 +39,10 @@ $app->group('', function () {
     
     $this->group('/showing', function() {
         $this->get('/new', ShowingController::class . ':new')->setName('showing_new');
+    });
+    
+    $this->group('/main_banner', function() {
+        $this->get('/new', MainBannerController::class . ':new')->setName('main_banner_new');
     });
     
     $this->group('/campaign', function() {
