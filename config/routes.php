@@ -43,6 +43,7 @@ $app->group('', function () {
     
     $this->group('/main_banner', function() {
         $this->get('/new', MainBannerController::class . ':new')->setName('main_banner_new');
+        $this->post('/create', MainBannerController::class . ':create')->setName('main_banner_create');
     });
     
     $this->group('/campaign', function() {
