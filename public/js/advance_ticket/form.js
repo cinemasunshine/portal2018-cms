@@ -36,7 +36,7 @@ $(function(){
     
     $('.btn-add-fieldset').click(function() {
         addFieldset();
-        toggleFieldsetDeleteBtn();
+        controlFieldsetDeleteButton();
     });
     
     $tickets.on('click', '.ticket .btn-delete', function() {
@@ -52,15 +52,15 @@ $(function(){
         }
         
         $ticket.remove();
-        toggleFieldsetDeleteBtn();
+        controlFieldsetDeleteButton();
     });
     
     /**
-     * fieldset削除ボタンの切り替え
+     * fieldset削除ボタン制御
      * 
      * １件は必須とする。
      */
-    function toggleFieldsetDeleteBtn() {
+    function controlFieldsetDeleteButton() {
         var $ticket = $tickets.find('.ticket');
         
         if ($ticket.length > 1) {
@@ -118,7 +118,7 @@ $(function(){
             addFieldset();
         }
         
-        toggleFieldsetDeleteBtn();
+        controlFieldsetDeleteButton();
         
         var id = $('input[name="title_id"]').val();
         
