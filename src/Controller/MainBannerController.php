@@ -328,4 +328,78 @@ class MainBannerController extends BaseController
         $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
         $this->data->set('theaters', $theaters);
     }
+    
+    /**
+     * publication update action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executePublicationUpdate($request, $response, $args)
+    {
+        $target = $args['target'];
+        
+        $form = new Form\MainBannerPublicationForm($target, $this->em);
+        $form->setData($request->getParams());
+        
+        if (!$form->isValid()) {
+            throw new \LogicException('invalid parameters.');
+        }
+        
+        $cleanData = $form->getData();
+        $targetEntity = null;
+        $basePublication = null;
+        
+        if ($target === Form\MainBannerPublicationForm::TARGET_TEATER) {
+            /** @var Entity\Theater $targetEntity */
+            $targetEntity = $this->em
+                ->getRepository(Entity\Theater::class)
+                ->findOneById((int) $cleanData['theater_id']);
+            $basePublication = new Entity\TheaterMainBanner();
+            $basePublication->setTheater($targetEntity);
+            
+        } else if ($target === Form\MainBannerPublicationForm::TARGET_PAGE) {
+            /** @var Entity\Page $targetEntity */
+            $targetEntity = $this->em
+                ->getRepository(Entity\Page::class)
+                ->findOneById((int) $cleanData['page_id']);
+            $basePublication = new Entity\PageMainBanner();
+            $basePublication->setPage($targetEntity);
+        }
+        
+        // いったん削除する
+        $targetEntity->getMainBanners()->clear();
+        
+        foreach ($cleanData['main_banners'] as $mainBannerData) {
+            $publication = clone $basePublication;
+            
+            $mainBanner = $this->em
+                ->getRepository(Entity\MainBanner::class)
+                ->findOneById((int) $mainBannerData['main_banner_id']);
+            
+            if (!$mainBanner) {
+                // @todo formで検証したい
+                throw new \LogicException('invalid main_banner.');
+            }
+            
+            /** @var Entity\MainBanner $mainBanner */
+            
+            $publication->setMainBanner($mainBanner);
+            $publication->setDisplayOrder((int) $mainBannerData['display_order']);
+            
+            $this->em->persist($publication);
+        }
+        
+        $this->em->flush();
+        
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('%sの表示順を保存しました。', $targetEntity->getNameJa()),
+        ]);
+        
+        return $this->redirect($this->router->pathFor('main_banner_publication'), 303);
+    }
 }

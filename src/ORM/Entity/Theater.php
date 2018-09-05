@@ -20,7 +20,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  * @ORM\Table(name="theater", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class Theater extends AbstractEntity implements CampaignPublicationInterface, NewsPublicationInterface
+class Theater extends AbstractEntity implements CampaignPublicationInterface, NewsPublicationInterface, MainBannerPublicationInterface
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
@@ -113,6 +113,15 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     protected $newsList;
     
     /**
+     * main_banners
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="TheaterMainBanner", mappedBy="theater", orphanRemoval=true)
+     * @ORM\OrderBy({"displayOrder" = "ASC"})
+     */
+    protected $mainBanners;
+    
+    /**
      * construct
      */
     public function __construct()
@@ -120,6 +129,7 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
         $this->adminUsers = new ArrayCollection();
         $this->campaigns = new ArrayCollection();
         $this->newsList =  new ArrayCollection();
+        $this->mainBanners = new ArrayCollection();
     }
     
     /**
@@ -265,5 +275,15 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     public function getNewsList(): Collection
     {
         return $this->newsList;
+    }
+    
+    /**
+     * get main_banners
+     *
+     * @return Collection
+     */
+    public function getMainBanners(): Collection
+    {
+        return $this->mainBanners;
     }
 }

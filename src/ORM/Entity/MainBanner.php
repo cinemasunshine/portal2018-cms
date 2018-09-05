@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
@@ -76,6 +78,22 @@ class MainBanner extends AbstractEntity
     protected $linkUrl;
     
     /**
+     * pages
+     * 
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="PageMainBanner", mappedBy="mainBanner")
+     */
+    protected $pages;
+    
+    /**
+     * theaters
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="TheaterMainBanner", mappedBy="mainBanner")
+     */
+    protected $theaters;
+    
+    /**
      * return link types
      *
      * @return array
@@ -90,6 +108,8 @@ class MainBanner extends AbstractEntity
      */
     public function __construct()
     {
+        $this->pages = new ArrayCollection();
+        $this->theaters = new ArrayCollection();
     }
     
     /**
@@ -184,5 +204,25 @@ class MainBanner extends AbstractEntity
     public function setLinkUrl($linkUrl)
     {
         $this->linkUrl = $linkUrl;
+    }
+    
+    /**
+     * get pages
+     *
+     * @return Collection
+     */
+    public function getPages() : Collection
+    {
+        return $this->pages;
+    }
+    
+    /**
+     * get theaters
+     *
+     * @return Collection
+     */
+    public function getTheaters() : Collection
+    {
+        return $this->theaters;
     }
 }

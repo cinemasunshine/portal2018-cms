@@ -44,6 +44,7 @@ $app->group('', function () {
     
     $this->group('/main_banner', function() {
         $this->get('/publication', MainBannerController::class . ':publication')->setName('main_banner_publication');
+        $this->post('/publication/update/{target}', MainBannerController::class . ':publicationUpdate')->setName('main_banner_publication_update');
         $this->get('/list', MainBannerController::class . ':list')->setName('main_banner_list');
         $this->get('/new', MainBannerController::class . ':new')->setName('main_banner_new');
         $this->post('/create', MainBannerController::class . ':create')->setName('main_banner_create');

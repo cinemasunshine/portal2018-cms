@@ -32,13 +32,23 @@
             <div class="card-body">
                 {% for page in pages %}
                 <div class="card">
-                    <form method="post" action="#">
-                        <input type="hidden" name="page_id" value="">
+                    <form method="post" action="{{ path_for('main_banner_publication_update', { target: 'page' }) }}">
+                        <input type="hidden" name="page_id" value="{{ page.getId() }}">
                         <div class="card-header">
                             {{ page.getNameJa() }}
                         </div>
                         <div class="card-body">
                             <ul class="list-group sortable">
+                            {% for publication in page.getMainBanners() %}
+                                {% set mainBanner = publication.getMainBanner() %}
+                                {% include 'main_banner/include/fieldset_publication.html.twig' with {
+                                    index: loop.index0,
+                                    display_order: publication.getDisplayOrder(),
+                                    id: mainBanner.getId(),
+                                    image: blob_url(mainBanner.getImage().getBlobContainer(), mainBanner.getImage().getName()),
+                                    name: mainBanner.getName(),
+                                } only %}
+                            {% endfor %}
                             </ul>
                         </div>
                         <div class="card-footer">
@@ -58,13 +68,23 @@
             <div class="card-body">
                 {% for theater in theaters %}
                 <div class="card">
-                    <form method="post" action="#">
-                        <input type="hidden" name="theater_id" value="#">
+                    <form method="post" action="{{ path_for('main_banner_publication_update', { target: 'theater' }) }}">
+                        <input type="hidden" name="theater_id" value="{{ theater.getId() }}">
                         <div class="card-header">
                             {{ theater.getNameJa() }}
                         </div>
                         <div class="card-body">
                             <ul class="list-group sortable">
+                            {% for publication in theater.getMainBanners() %}
+                                {% set mainBanner = publication.getMainBanner() %}
+                                {% include 'main_banner/include/fieldset_publication.html.twig' with {
+                                    index: loop.index0,
+                                    display_order: publication.getDisplayOrder(),
+                                    id: mainBanner.getId(),
+                                    image: blob_url(mainBanner.getImage().getBlobContainer(), mainBanner.getImage().getName()),
+                                    name: mainBanner.getName(),
+                                } only %}
+                            {% endfor %}
                             </ul>
                         </div>
                         <div class="card-footer">
