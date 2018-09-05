@@ -44,6 +44,28 @@ class MainBannerRepository extends EntityRepository
     }
     
     /**
+     * find for list API
+     *
+     * @param string $name
+     * @return MainBanner[]
+     */
+    public function findForListApi(string $name)
+    {
+        if (empty($name)) {
+           throw new \InvalidArgumentException('invalid "name".'); 
+        }
+        
+        $qb = $this->createQueryBuilder('mb');
+        $qb
+            ->where('mb.isDeleted = false')
+            ->andWhere('mb.name LIKE :name')
+            ->orderBy('mb.createdAt', 'DESC')
+            ->setParameter('name', '%' . $name . '%');
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    /**
      * find one by id
      *
      * @param int $id
