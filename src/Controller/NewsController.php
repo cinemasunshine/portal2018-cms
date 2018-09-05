@@ -302,7 +302,7 @@ class NewsController extends BaseController
         
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
-            'message' => sprintf('NEWS・インフォメーション「%s」を追加しました。', $news->getHeadline()),
+            'message' => sprintf('NEWS・インフォメーション「%s」を編集しました。', $news->getHeadline()),
         ]);
         
         $this->redirect(

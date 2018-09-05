@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="main_banner" method="post" enctype="multipart/form-data" action="#">
+            <form name="main_banner" method="post" enctype="multipart/form-data" action="{{ path_for('main_banner_update', { id: mainBanner.getId() }) }}">
                 <div class="card-header">
                     「{{ mainBanner.getName() }}」編集
                 </div>
