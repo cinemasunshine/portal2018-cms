@@ -136,8 +136,14 @@ class MainBannerController extends BaseController
         $this->em->persist($mainBanner);
         $this->em->flush();
         
-        // @todo 編集画面へリダイレクト
-        exit;
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('メインバナー「%s」を追加しました。', $mainBanner->getName()),
+        ]);
+        
+        $this->redirect(
+            $this->router->pathFor('main_banner_edit', [ 'id' => $mainBanner->getId() ]),
+            303);
     }
     
     /**
