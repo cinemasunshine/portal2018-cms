@@ -47,6 +47,7 @@ $app->group('', function () {
         $this->post('/create', MainBannerController::class . ':create')->setName('main_banner_create');
         $this->get('/{id}/edit', MainBannerController::class . ':edit')->setName('main_banner_edit');
         $this->post('/{id}/update', MainBannerController::class . ':update')->setName('main_banner_update');
+        $this->get('/{id}/delete', MainBannerController::class . ':delete')->setName('main_banner_delete');
     });
     
     $this->group('/campaign', function() {

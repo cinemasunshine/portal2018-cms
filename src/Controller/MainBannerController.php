@@ -275,4 +275,36 @@ class MainBannerController extends BaseController
             $this->router->pathFor('main_banner_edit', [ 'id' => $mainBanner->getId() ]),
             303);
     }
+    
+    /**
+     * delete action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeDelete($request, $response, $args)
+    {
+        $mainBanner = $this->em->getRepository(Entity\MainBanner::class)->findOneById($args['id']);
+        
+        if (is_null($mainBanner)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\MainBanner $mainBanner */
+        
+        $mainBanner->setIsDeleted(true);
+        
+        // 関連データの処理はイベントで対応する
+        
+        $this->em->flush();
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('メインバナー「%s」を削除しました。', $mainBanner->getName()),
+        ]);
+        
+        $this->redirect($this->router->pathFor('main_banner_list'), 303);
+    }
 }
