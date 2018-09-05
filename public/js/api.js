@@ -56,6 +56,23 @@ $(function(){
         });
     };
     
+    api.mainBanner = {};
+    
+    /**
+     * find main_banner
+     * 
+     * @param {String} name
+     * @returns {jqXHR}
+     */
+    api.mainBanner.find = function(name) {
+        return $.ajax({
+            url: '/api/main_banner/list',
+            data: {
+                name: name
+            }
+        });
+    };
+    
     api.news = {};
     
     /**

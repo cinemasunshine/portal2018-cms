@@ -1,0 +1,23 @@
+{##
+ # 掲載 fieldset
+ # 
+ # jsrenderのテンプレートにも使用する。
+ # 
+ # Parameters:
+ # * index
+ # * id
+ # * display_order
+ # * image
+ # * name
+ #}
+<li class="list-group-item">
+    <input type="hidden" name="main_banners[{{ index }}][main_banner_id]" value="{{ id }}">
+    <input type="hidden" name="main_banners[{{ index }}][display_order]" value="{{ display_order }}">
+    <div class="media">
+        <img class="mr-3" src="{{ image }}" width="150">
+        <div class="media-body">
+            <h3 class="mt-0"><small>{{ name }}</small></h3>
+        </div>
+        <div><button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button></div>
+    </div>
+</li>

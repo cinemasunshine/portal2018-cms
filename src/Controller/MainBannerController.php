@@ -307,4 +307,25 @@ class MainBannerController extends BaseController
         
         $this->redirect($this->router->pathFor('main_banner_list'), 303);
     }
+    
+    /**
+     * publication action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executePublication($request, $response, $args)
+    {
+        // @todo ユーザによって取得する情報を変更する
+        
+        /** @var Entity\Page[] */
+        $pages = $this->em->getRepository(Entity\Page::class)->findActive();
+        $this->data->set('pages', $pages);
+        
+        /** @var Entity\Theater[] */
+        $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
+        $this->data->set('theaters', $theaters);
+    }
 }
