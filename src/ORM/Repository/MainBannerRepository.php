@@ -42,4 +42,21 @@ class MainBannerRepository extends EntityRepository
         
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
+    
+    /**
+     * find one by id
+     *
+     * @param int $id
+     * @return MainBanner|null
+     */
+    public function findOneById($id)
+    {
+        $qb = $this->createQueryBuilder('mb');
+        $qb
+            ->where('mb.id = :id')
+            ->andWhere('mb.isDeleted = false')
+            ->setParameter('id', $id);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

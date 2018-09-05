@@ -57,7 +57,7 @@
                             <th>{{ mainBanner.getId() }}</th>
                             <th>
                                 <img src="{{ blob_url(mainBanner.getImage().getBlobContainer(), mainBanner.getImage().getName()) }}" width="100" alt="画像" />
-                                <a href="#" >{{ mainBanner.getName() }}</a>
+                                <a href="{{ path_for('main_banner_edit', { id: mainBanner.getId() }) }}">{{ mainBanner.getName() }}</a>
                             </th>
                             <th>
                                 <a href="#" class="btn btn-sm btn-danger" role="button">削除</a>

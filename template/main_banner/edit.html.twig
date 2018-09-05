@@ -1,12 +1,12 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}新規追加 | メインバナー{% endblock %}
+{% block title %}「{{ mainBanner.getName() }}」編集 | メインバナー{% endblock %}
 
 {% block breadcrumb %}
 <ol class="breadcrumb">
     <li class="breadcrumb-item">ダッシュボード</li>
     <li class="breadcrumb-item">メインバナー</li>
-    <li class="breadcrumb-item active">新規追加</li>
+    <li class="breadcrumb-item active">「{{ mainBanner.getName() }}」編集</li>
 </ol>
 {% endblock %}
 
@@ -18,15 +18,17 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="main_banner" method="post" enctype="multipart/form-data" action="{{ path_for('main_banner_create') }}">
+            <form name="main_banner" method="post" enctype="multipart/form-data" action="#">
                 <div class="card-header">
-                    新規追加
+                    「{{ mainBanner.getName() }}」編集
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">ID</label>
                         <div class="col-md-9">
-                            <p class="form-control-static">&nbsp;</p>
+                            <p class="form-control-static">{{ values.id }}</p>
+                            <input type="hidden" name="id" value="{{ values.id }}">
+                            <div class="invalid-feedback"></div>
                             <span class="help-block">※自動でIDが付与されます。</span>
                         </div>
                     </div>
@@ -81,13 +83,20 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">画像</label>
                         <div class="col-md-9">
-                            <input type="file" name="image" class="form-control{% if errors.image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
-                            <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
-                            <div class="invalid-feedback">
-                                {% for message in errors.image %}
-                                    {{ message }}
-                                    {% if not loop.last %}<br>{% endif %}
-                                {% endfor %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img src="{{ blob_url(mainBanner.getImage().getBlobContainer(), mainBanner.getImage().getName()) }}" width="200">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="file" name="image" class="form-control{% if errors.image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
+                                    <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                                    <div class="invalid-feedback">
+                                        {% for message in errors.image %}
+                                            {{ message }}
+                                            {% if not loop.last %}<br />{% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

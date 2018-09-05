@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
+use Slim\Exception\NotFoundException;
+
 use Intervention\Image\ImageManager;
 
 use Cinemasunshine\PortalAdmin\Form;
@@ -136,5 +138,37 @@ class MainBannerController extends BaseController
         
         // @todo 編集画面へリダイレクト
         exit;
+    }
+    
+    /**
+     * edit action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeEdit($request, $response, $args)
+    {
+        $mainBanner = $this->em->getRepository(Entity\MainBanner::class)->findOneById($args['id']);
+        
+        if (is_null($mainBanner)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\MainBanner $mainBanner */
+        
+        $this->data->set('mainBanner', $mainBanner);
+        
+        $values = [
+            'id'        => $mainBanner->getId(),
+            'name'      => $mainBanner->getName(),
+            'link_type' => $mainBanner->getLinkType(),
+            'link_url'  => $mainBanner->getLinkUrl(),
+        ];
+        
+        $this->data->set('values', $values);
+        
+        $this->data->set('form', new Form\MainBannerForm());
     }
 }
