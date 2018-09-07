@@ -99,7 +99,7 @@ class MainBannerController extends BaseController
         $newName = Entity\File::createName($image['name']);
         
         // @todo サイズ調整
-        $this->resizeImage($image['tmp_name'], 500);
+        $imageStream = $this->resizeImage($image['tmp_name'], 500);
         
         // upload storage
         // @todo storageと同期するような仕組みをFileへ
@@ -108,7 +108,7 @@ class MainBannerController extends BaseController
         $this->bc->createBlockBlob(
             Entity\File::getBlobContainer(),
             $newName,
-            fopen($image['tmp_name'], 'r'),
+            $imageStream,
             $options);
         
         $file = new Entity\File();
@@ -213,7 +213,7 @@ class MainBannerController extends BaseController
             $newName = Entity\File::createName($image['name']);
             
             // @todo サイズ調整
-            $this->resizeImage($image['tmp_name'], 500);
+            $imageStream = $this->resizeImage($image['tmp_name'], 500);
             
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
@@ -222,7 +222,7 @@ class MainBannerController extends BaseController
             $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),
                 $newName,
-                fopen($image['tmp_name'], 'r'),
+                $imageStream,
                 $options);
             
             $file = new Entity\File();

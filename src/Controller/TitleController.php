@@ -103,7 +103,7 @@ class TitleController extends BaseController
             
             // resize
             // @todo サイズ調整
-            $this->resizeImage($image['tmp_name'], 500);
+            $imageStream = $this->resizeImage($image['tmp_name'], 500);
             
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
@@ -112,7 +112,7 @@ class TitleController extends BaseController
             $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),
                 $newName,
-                fopen($image['tmp_name'], 'r'),
+                $imageStream,
                 $options);
             
             $file = new Entity\File();
@@ -259,7 +259,7 @@ class TitleController extends BaseController
             
             // resize
             // @todo サイズ調整
-            $this->resizeImage($image['tmp_name'], 500);
+            $imageStream = $this->resizeImage($image['tmp_name'], 500);
             
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
@@ -268,7 +268,7 @@ class TitleController extends BaseController
             $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),
                 $newName,
-                fopen($image['tmp_name'], 'r'),
+                $imageStream,
                 $options);
             
             $file = new Entity\File();

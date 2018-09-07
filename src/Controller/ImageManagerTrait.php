@@ -53,17 +53,25 @@ trait ImageManagerTrait
      * @param mixed    $data   ファイルパスなど。make()を参照。
      * @param int|null $width
      * @param int|null $height
-     * @return void
+     * @return GuzzleHttp\Psr7\Stream
      */
     protected function resizeImage($data, $width, $height = null)
     {
         $imageManager = $this->getImageManager();
-        $imageManager
+        $image = $imageManager
             ->make($data)
             ->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio(); // アスペクト比を固定
                 $constraint->upsize(); // アップサイズしない
-            })
-            ->save();
+            });
+        
+        /**
+         * テンポラリファイルかつWindows環境の場合、そのままsave()するとエラーが発生する。
+         * > Encoding format (tmp) is not supported.
+         */
+        // $image->save();
+        
+        // 上記の問題もあり、ここでは保存せずにストリームオブジェクトを返す
+        return $image->stream();
     }
 }
