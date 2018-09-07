@@ -9,8 +9,6 @@ namespace Cinemasunshine\PortalAdmin\Controller;
 
 use Slim\Exception\NotFoundException;
 
-use Intervention\Image\ImageManager;
-
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
@@ -19,6 +17,8 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class MainBannerController extends BaseController
 {
+    use ImageManagerTrait;
+    
     /**
      * list action
      * 
@@ -98,16 +98,8 @@ class MainBannerController extends BaseController
         // rename
         $newName = Entity\File::createName($image['name']);
         
-        // resize
         // @todo サイズ調整
-        $imageManager = new ImageManager();
-        $imageManager
-            ->make($image['tmp_name'])
-            ->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })
-            ->save();
+        $this->resizeImage($image['tmp_name'], 500);
         
         // upload storage
         // @todo storageと同期するような仕組みをFileへ
@@ -220,16 +212,8 @@ class MainBannerController extends BaseController
             // rename
             $newName = Entity\File::createName($image['name']);
             
-            // resize
             // @todo サイズ調整
-            $imageManager = new ImageManager();
-            $imageManager
-                ->make($image['tmp_name'])
-                ->resize(500, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })
-                ->save();
+            $this->resizeImage($image['tmp_name'], 500);
             
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
