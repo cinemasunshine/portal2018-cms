@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
+use Slim\Exception\NotFoundException;
+
 use Intervention\Image\ImageManager;
 
 use Cinemasunshine\PortalAdmin\Form;
