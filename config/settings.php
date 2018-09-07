@@ -49,6 +49,9 @@ $getDoctrineSetting = function() {
             'password' => getenv('MYSQLCONNSTR_PASSWORD'),
             'charset'  => 'utf8mb4',
             'driverOptions'  => [],
+            
+            // @link https://m-p.backlog.jp/view/SASAKI-246
+            'serverVersion' => '5.7',
         ],
     ];
     
