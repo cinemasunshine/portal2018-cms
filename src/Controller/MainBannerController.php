@@ -115,7 +115,7 @@ class MainBannerController extends BaseController
         $file->setName($newName);
         $file->setOriginalName($image['name']);
         $file->setMimeType($image['type']);
-        $file->setSize((int) $image['size']);
+        $file->setSize($imageStream->getSize());
         
         $this->em->persist($file);
         
@@ -229,7 +229,7 @@ class MainBannerController extends BaseController
             $file->setName($newName);
             $file->setOriginalName($image['name']);
             $file->setMimeType($image['type']);
-            $file->setSize((int) $image['size']); // @todo リサイズ後のサイズに修正
+            $file->setSize($imageStream->getSize());
             
             $this->em->persist($file);
             

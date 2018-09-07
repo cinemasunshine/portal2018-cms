@@ -119,7 +119,7 @@ class TitleController extends BaseController
             $file->setName($newName);
             $file->setOriginalName($image['name']);
             $file->setMimeType($image['type']);
-            $file->setSize((int) $image['size']);
+            $file->setSize($imageStream->getSize());
             
             $this->em->persist($file);
         }
@@ -275,7 +275,7 @@ class TitleController extends BaseController
             $file->setName($newName);
             $file->setOriginalName($image['name']);
             $file->setMimeType($image['type']);
-            $file->setSize((int) $image['size']);
+            $file->setSize($imageStream->getSize());
             
             $this->em->persist($file);
             
