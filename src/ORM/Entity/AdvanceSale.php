@@ -205,7 +205,21 @@ class AdvanceSale extends AbstractEntity
     {
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq('isDeleted', false));
-            
-        return $this->getAdvanceTickets()->matching($criteria);
+        
+        /**
+         * matching()を使うとindexByオプションの設定が消えてしまう
+         * https://github.com/doctrine/doctrine2/issues/4693
+         */
+        $tmpResults = $this->getAdvanceTickets()->matching($criteria);
+        
+        // idをindexにしたcollectionを作り直す
+        $results = new ArrayCollection();
+        
+        foreach ($tmpResults as $tmp) {
+            /** @var AdvanceTicket $tmp */
+            $results->set($tmp->getId(), $tmp);
+        }
+        
+        return $results;
     }
 }
