@@ -33,24 +33,6 @@ class TheaterRepository extends EntityRepository
     }
     
     /**
-     * find by master version
-     *
-     * @param integer $version
-     * @return void
-     */
-    public function findByMasterVersion(int $version)
-    {
-        $qb = $this->createQueryBuilder('t');
-        $qb
-            ->where('t.isDeleted = false')
-            ->andWhere('t.masterVersion = :version')
-            ->orderBy('t.displayOrder', 'ASC')
-            ->setParameter('version', $version);
-        
-        return $qb->getQuery()->getResult();
-    }
-    
-    /**
      * find one by id
      *
      * @param int $id

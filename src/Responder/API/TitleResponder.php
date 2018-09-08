@@ -27,16 +27,4 @@ class TitleResponder extends BaseResponder
     {
         return $response->withJson($data->all());
     }
-    
-    /**
-     * master
-     *
-     * @param Response   $response
-     * @param Collection $data
-     * @return Response
-     */
-    public function master(Response $response, Collection $data)
-    {
-        return $response->withJson($data->all());
-    }
 }

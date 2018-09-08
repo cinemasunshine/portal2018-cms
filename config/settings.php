@@ -76,10 +76,4 @@ $settings['storage'] = [
     ],
 ];
 
-// コアシステムズ
-$settings['coa'] = [
-    'api_server' => getenv('CUSTOMCONNSTR_COA_API_SERVER'),
-    'refresh_token' => getenv('CUSTOMCONNSTR_COA_REFRESH_TOKEN'),
-];
-
 return $settings;
