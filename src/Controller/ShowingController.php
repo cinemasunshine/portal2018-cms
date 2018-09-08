@@ -7,8 +7,6 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
-use Cinemasunshine\PortalAdmin\Form\API\TitleMasterFindForm;
-
 /**
  * Showing controller
  */
@@ -24,6 +22,5 @@ class ShowingController extends BaseController
      */
     public function executeNew($request, $response, $args)
     {
-        $this->data->set('master_find_form', new TitleMasterFindForm($this->em));
     }
 }

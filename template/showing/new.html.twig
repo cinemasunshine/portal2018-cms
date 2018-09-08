@@ -20,7 +20,6 @@
 <script src="/js/vendor/jsrender.min.js"></script>
 <script src="/js/api.js"></script>
 <script src="/js/modal/select-title.js"></script>
-<script src="/js/modal/select-title-master.js"></script>
 <script>
 $(function(){
     var $form = $('form[name="showing"]');
@@ -56,109 +55,60 @@ $(function(){
         $titleField.find('.title-name').text(title.name);
     }
     
-    var $selectTitleMasterModal = $('#selectTitleMasterModal');
-    var $targetTitleMasterField;
+    var $formats = $('#formats');
+    var formatFiledsetIndex = $formats.find('.format').length;
+    var formatFiledsetTmpl = $.templates('#formatFiledsetTmpl');
     
-    $selectTitleMasterModal.on('show.bs.modal', function(event, title) {
-        $targetTitleMasterField = $(event.relatedTarget).closest('.form-group.title-master');
-    });
-    
-    $selectTitleMasterModal.on('selected.cs.title_master', function(event, title) {
-        setTitleMaster(title);
-    });
-    
-    /**
-     * set title master
-     * 
-     * @param {Object} title
-     */
-    function setTitleMaster(title) {
-        $targetTitleMasterField.find('input[name*="master_code"]').val(title.code);
-    }
-    
-    var $showings = $('#showings');
-    var showingFiledsetIndex = $showings.find('.showing').length;
-    var showingFiledsetTmpl = $.templates('#showingFiledsetTmpl');
-    
-    $showings.on('click', '.showing .btn-delete-showing', function() {
-        var $showing = $(this).closest('.showing');
+    $formats.on('click', '.format .btn-delete', function() {
+        var $format = $(this).closest('.format');
         
-        $showing.remove();
-        toggleShowingFieldsetDeleteBtn();
+        $format.remove();
+        controlFormatFieldsetDeleteBtn();
     });
     
-    $('.btn-add-showing-fieldset').click(function() {
-        addShowingFieldset();
-        toggleShowingFieldsetDeleteBtn();
+    $('.btn-add-format-fieldset').click(function() {
+        addFormatFieldset();
+        controlFormatFieldsetDeleteBtn();
     });
     
     /**
-     * add showing fieldset
+     * add format fieldset
      */
-    function addShowingFieldset() {
-        var $fieldset = $(showingFiledsetTmpl.render({
-            index: showingFiledsetIndex
+    function addFormatFieldset() {
+        var $fieldset = $(formatFiledsetTmpl.render({
+            index: formatFiledsetIndex
         }));
         
-        $showings.append($fieldset);
+        $formats.append($fieldset);
         
-        showingFiledsetIndex++;
+        formatFiledsetIndex++;
     }
     
     /**
-     * 上映情報fieldset削除ボタンの切り替え
+     * 上映方式fieldset削除ボタンの切り替え
      * 
      * １件は必須とする。
      */
-    function toggleShowingFieldsetDeleteBtn() {
-        var $showing = $showings.find('.showing');
+    function controlFormatFieldsetDeleteBtn() {
+        var $format = $formats.find('.format');
         
-        if ($showing.length > 1) {
-            $showing.find('.btn-delete-showing').show();
+        if ($format.length > 1) {
+            $format.find('.btn-delete').show();
         } else {
-            $showing.find('.btn-delete-showing').hide();
+            $format.find('.btn-delete').hide();
         }
     }
     
-    var titleCodeFiledsetTmpl = $.templates('#titleCodeFiledsetTmpl');
-    var titleCodeFiledsetIndex = 0; // prefixやsuffixをつけて重複しないようにする
-    var titleCodeFieldsetIndexSuffix = 'a'; // "a"dd
-    
-    $showings.on('click', '.title-code .btn-delete-title-code', function() {
-        var $titleCode = $(this).closest('.title-code');
-        
-        $titleCode.remove();
-    });
-    
-    $showings.on('click', '.showing .btn-add-title-code-fieldset', function() {
-        var $showing = $(this).closest('.showing');
-        
-        addTitleCodeFieldset($showing);
-    });
-    
-    /**
-     * add title code fieldset
-     */
-    function addTitleCodeFieldset($showing) {
-        var $fieldset = $(titleCodeFiledsetTmpl.render({
-            showing_index: $showing.data('index'),
-            index: titleCodeFiledsetIndex + titleCodeFieldsetIndexSuffix
-        }));
-        
-        $showing.find('.cords').append($fieldset);
-        
-        titleCodeFiledsetIndex++;
-    }
     
     /**
      * execute
      */
     function execute() {
-        if ($showings.find('.showing').length === 0) {
-            addShowingFieldset();
+        if ($formats.find('.format').length === 0) {
+            addFormatFieldset();
         }
         
-        toggleShowingFieldsetDeleteBtn();
+        controlFormatFieldsetDeleteBtn();
     }
     
     execute();
@@ -191,19 +141,62 @@ $(function(){
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-md-3 col-form-label">公開予定日</label>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" name="publishing_expected_date" class="form-control datepicker"  value="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="icon-calendar"></i>
+                                    </span>
+                                </div>
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出期間</label>
+                        <div class="col-md-6">
+                            <div class="form-inline input-group">
+                                <input type="text" name="start_dt" class="form-control datetimepicker" value="">
+                                <div class="input-group-addon">
+                                    <span class="input-group-text">～</span>
+                                </div>
+                                <input type="text" name="end_dt" class="form-control datetimepicker" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-md-3 col-form-label">備考</label>
                         <div class="col-md-9">
-                            <textarea name="note" class="form-control"></textarea>
+                            <textarea name="remark" rows="6" class="form-control"></textarea>
                             <div class="invalid-feedback">
                             </div>
                         </div>
                     </div>
                     
-                    <div id="showings">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">対象劇場</label>
+                        <div class="col-md-9 col-form-label">
+                            <div class="form-check form-check-inline mr-1">
+                                <input type="checkbox" class="form-check-input" id="theaters-1" name="theaters[]" value="1">
+                                <label class="form-check-label" for="theaters-1">池袋</label>
+                            </div>
+                            <div class="form-check form-check-inline mr-1">
+                                <input type="checkbox" class="form-check-input" id="theaters-2" name="theaters[]" value="2">
+                                <label class="form-check-label" for="theaters-2">平和島</label>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-success btn-add-showing-fieldset">上映情報追加</button>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">上映方式</label>
+                        <div class="col-md-9">
+                            <div id="formats">
+                            </div>
+                            <button type="button" class="btn btn-success btn-add-format-fieldset">上映方式追加</button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -214,22 +207,11 @@ $(function(){
     </div>
 </div>
 
-<script id="showingFiledsetTmpl" type="text/x-jsrender">
-{% include 'showing/include/fieldset_showing.html.twig' with {
-    index: '{{:index}}'
-} only %}
-</script>
-
-<script id="titleCodeFiledsetTmpl" type="text/x-jsrender">
-{% include 'showing/include/fieldset_title_code.html.twig' with {
-    showing_index: '{{:showing_index}}',
+<script id="formatFiledsetTmpl" type="text/x-jsrender">
+{% include 'showing/include/fieldset_format.html.twig' with {
     index: '{{:index}}'
 } only %}
 </script>
 
 {% include 'include/modal/select_title.html.twig' only %}
-
-{% include 'showing/include/modal_select_title_master.html.twig' with {
-    form: master_find_form
-} only %}
 {% endblock %}

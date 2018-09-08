@@ -12,7 +12,7 @@ use Slim\Collection;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- * Title responder
+ * Showing responder
  */
 class ShowingResponder extends BaseResponder
 {
