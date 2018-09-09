@@ -1,6 +1,6 @@
 <?php
 /**
- * ShowingResponder.php
+ * ScheduleResponder.php
  * 
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
@@ -12,9 +12,9 @@ use Slim\Collection;
 use Psr\Http\Message\ResponseInterface as Response;
 
 /**
- * Showing responder
+ * Schedule responder
  */
-class ShowingResponder extends BaseResponder
+class ScheduleResponder extends BaseResponder
 {
     /**
      * new
@@ -25,6 +25,6 @@ class ShowingResponder extends BaseResponder
      */
     public function new(Response $response, Collection $data)
     {
-        return $this->view->render($response, 'showing/new.html.twig', $data->all());
+        return $this->view->render($response, 'schedule/new.html.twig', $data->all());
     }
 }

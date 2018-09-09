@@ -1,0 +1,49 @@
+{##
+ # 上映方式 fieldset
+ #
+ # jsrenderのテンプレートにも使用する。
+ #
+ # Parameters:
+ # * index
+ # * fieldset
+ # * values
+ # * errors
+ #}
+ {% set index = 'i' ~ index %} {# マージするため添字は文字列にする #}
+<div class="card format" data-index="{{ index }}">
+    <div class="card-body">
+        <div class="form-group row">
+            <div class="col-md-3">
+                <select name="formats[{{ index }}][system]" class="form-control{% if errors.system %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
+                    <option value=""></option>
+                {% for value, text in fieldset.getSystemChoices() %}
+                    <option value="{{ value }}" {{ value == values.system ? 'selected' : '' }}>{{ text }}</option>
+                {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                    {% for message in errors.system %}
+                        {{ message }}
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select name="formats[{{ index }}][voice]" class="form-control{% if errors.voice %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
+                    <option value=""></option>
+                {% for value, text in fieldset.getVoiceChoices() %}
+                    <option value="{{ value }}" {{ value == values.voice ? 'selected' : '' }}>{{ text }}</option>
+                {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                    {% for message in errors.voice %}
+                        {{ message }}
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -33,6 +33,24 @@ class TheaterRepository extends EntityRepository
     }
     
     /**
+     * find by ids
+     *
+     * @param array $ids
+     * @return Theater[]
+     */
+    public function findByIds(array $ids)
+    {
+        $qb = $this->createQueryBuilder('t');
+        $qb
+            ->where('t.isDeleted = false')
+            ->andWhere('t.id IN (:ids)')
+            ->orderBy('t.displayOrder', 'ASC')
+            ->setParameter('ids', $ids);
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    /**
      * find one by id
      *
      * @param int $id
