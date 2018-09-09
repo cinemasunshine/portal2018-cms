@@ -16,7 +16,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * Schedule entity class
  * 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\ScheduleRepository")
  * @ORM\Table(name="schedule", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */

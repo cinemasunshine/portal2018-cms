@@ -1,0 +1,206 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}一覧 | 上映情報{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">上映情報</li>
+    <li class="breadcrumb-item active">一覧</li>
+</ol>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
+<script>
+$(function(){
+    $.datetimepicker.setLocale('ja');
+    var datetimepickerOption = {
+        format: 'Y/m/d H:i'
+    };
+    
+    $('.datetimepicker').datetimepicker(datetimepickerOption);
+});
+</script>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form method="get" action="{{ path_for('schedule_list') }}">
+                <div class="card-header">
+                    検索
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">作品名</label>
+                        <div class="col-md-9">
+                            <input type="text" name="title_name" class="form-control{% if errors.title_name %} is-invalid{% endif %}" value="{{ values.title_name }}">
+                            <div class="invalid-feedback">
+                                {% for message in errors.title_name %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br>{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">上映ステータス</label>
+                        <div class="col-md-9">
+                            <div class="col-form-label">
+                            {% for value, text in form.getStatusChoices() %}
+                                <div class="form-check form-check-inline mr-1">
+                                    <input type="checkbox" class="form-check-input{% if errors.status %} is-invalid{% endif %}" id="status-{{ loop.index }}" name="status[]" value="{{ value }}" {{ value in values.status ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="status-{{ loop.index }}">{{ text }}</label>
+                                </div>
+                            {% endfor %}
+                            </div>
+                            <input type="hidden" class="form-control {% if errors.status %} is-invalid{% endif %}" />
+                            <div class="invalid-feedback">
+                            {% for messages in errors.status %}
+                                {% if messages is iterable %}
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% else %}
+                                    {{ messages }}
+                                {% endif %}
+                                {% if not loop.last %}<br />{% endif %}
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">上映方式</label>
+                        <div class="col-md-9">
+                            <div class="col-form-label">
+                            {% for value, text in form.getFormatSystemChoices() %}
+                                <div class="form-check form-check-inline mr-1">
+                                    <input type="checkbox" class="form-check-input{% if errors.format_system %} is-invalid{% endif %}" id="format-system-{{ loop.index }}" name="format_system[]" value="{{ value }}" {{ value in values.format_system ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="format-system-{{ loop.index }}">{{ text }}</label>
+                                </div>
+                            {% endfor %}
+                            </div>
+                            <input type="hidden" class="form-control {% if errors.format_system %} is-invalid{% endif %}" />
+                            <div class="invalid-feedback">
+                            {% for messages in errors.format_system %}
+                                {% if messages is iterable %}
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% else %}
+                                    {{ messages }}
+                                {% endif %}
+                                {% if not loop.last %}<br />{% endif %}
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">公開日期間指定</label>
+                        <div class="col-md-6">
+                            <div class="form-inline input-group">
+                                <input type="text" name="public_start_dt" class="form-control datetimepicker{% if errors.public_start_dt %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.public_start_dt }}">
+                                <div class="input-group-addon">
+                                    <span class="input-group-text">～</span>
+                                </div>
+                                <input type="text" name="public_end_dt" class="form-control datetimepicker{% if errors.public_end_dt %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.public_end_dt }}">
+                            </div>
+                            {# mergeだと同じキーは上書きされるが、同じメッセージは表示されないのでこれで良い #}
+                            {% set termErrors = [] %}
+                            {% if errors.public_start_dt %}
+                                {% set termErrors = termErrors|merge(errors.public_start_dt) %}
+                            {% endif %}
+                            {% if errors.public_end_dt %}
+                                {% set termErrors = termErrors|merge(errors.public_end_dt) %}
+                            {% endif %}
+                            
+                            {##
+                             # エラーを表示するためのhidden
+                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                             # それをやると見た目が良くないので。
+                             #}
+                            <input type="hidden" class="form-control {% if termErrors %} is-invalid{% endif %}">
+                            <div class="invalid-feedback">
+                                {% for message in termErrors %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">検索</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>作品名</th>
+                            <th>上映方式</th>
+                            <th>上映開始日</th>
+                            <th>上映劇場</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for schedule in pagenater.getResultsInPage() %}
+                        <tr>
+                            <th>{{ schedule.getId() }}</th>
+                            <th>
+                                <a href="#">{{ schedule.getTitle().getName() }}</a>
+                            </th>
+                            <th>
+                                {% for format in schedule.getShowingFormats() %}
+                                    {{ format.getSystemLabel() }}{{ format.getVoiceLabel() }}
+                                    {% if not loop.last %}、{% endif %}
+                                {% endfor %}
+                            </th>
+                            <th>{{ schedule.getStartDate().format('Y/m/d') }}</th>
+                            <th>
+                                {% for showingTheater in schedule.getShowingTheaters() %}
+                                    {{ showingTheater.getTheater().getNameJa() }}
+                                    {% if not loop.last %}、{% endif %}
+                                {% endfor %}
+                            </th>
+                            <th>
+                                <a href="#" class="btn btn-sm btn-danger" role="button">削除</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <hr>
+                
+                {% include 'include/pagination.html.twig' with {
+                    'pagenater': pagenater,
+                    'route_name': 'schedule_list',
+                    'params': params
+                } only %}
+                
+            </div>
+            <div class="card-footer">
+                {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
