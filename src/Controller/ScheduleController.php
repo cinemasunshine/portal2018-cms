@@ -59,6 +59,7 @@ class ScheduleController extends BaseController
         $schedule->setTitle($title);
         
         $schedule->setStartDate($cleanData['start_date']);
+        $schedule->setEndDate($cleanData['end_date']);
         $schedule->setPublicStartDt($cleanData['public_start_dt']);
         $schedule->setPublicEndDt($cleanData['public_end_dt']);
         $schedule->setRemark($cleanData['remark']);

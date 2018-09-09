@@ -63,6 +63,11 @@ class ScheduleForm extends BaseForm
         ]);
         
         $this->add([
+            'name' => 'end_date',
+            'type' => 'Text', // Datepickerを入れるのでtextにする
+        ]);
+        
+        $this->add([
             'name' => 'public_start_dt',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
@@ -108,6 +113,19 @@ class ScheduleForm extends BaseForm
         
         $inputFilter->add([
             'name' => 'start_date',
+            'required' => true,
+            'validators' => [
+                [
+                    'name' => Validator\Date::class,
+                    'options' => [
+                        'format' => 'Y/m/d',
+                    ],
+                ],
+            ],
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'end_date',
             'required' => true,
             'validators' => [
                 [

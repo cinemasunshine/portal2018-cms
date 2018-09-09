@@ -53,6 +53,14 @@ class Schedule extends AbstractEntity
     protected $startDate;
     
     /**
+     * end_date
+     *
+     * @var \DateTime
+     * @ORM\Column(type="date", nullable=false, name="end_date")
+     */
+    protected $endDate;
+    
+    /**
      * public_start_dt
      *
      * @var \DateTime
@@ -154,6 +162,31 @@ class Schedule extends AbstractEntity
             $this->startDate = $startDate;
         } else {
             $this->startDate = new \DateTime($startDate);
+        }
+    }
+    
+    /**
+     * get end_date
+     *
+     * @return \DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+    
+    /**
+     * set end_date
+     *
+     * @param \DateTime|string $endDate
+     * @return void
+     */
+    public function setEndDate($endDate)
+    {
+        if ($endDate instanceof \Datetime) {
+            $this->endDate = $endDate;
+        } else {
+            $this->endDate = new \DateTime($endDate);
         }
     }
     

@@ -55,6 +55,21 @@ $(function(){
         $titleField.find('.title-name').text(title.name);
     }
     
+    $form.find('input[name="public_end_dt"]').change(function() {
+        var value = $(this).val();
+        
+        if (value) {
+            var date = new Date(value);
+            value = date.getFullYear()
+                  + '/'
+                  + ('00' + (date.getMonth() + 1)).slice(-2)
+                  + '/'
+                  + ('00' + date.getDate()).slice(-2);
+        }
+        
+        $form.find('input[name="end_date"]').val(value);
+    });
+    
     var $formats = $('#formats');
     var formatFiledsetIndex = $formats.find('.format').length;
     var formatFiledsetTmpl = $.templates('#formatFiledsetTmpl');
@@ -160,25 +175,6 @@ $(function(){
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">公開予定日</label>
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <input type="text" name="start_date" class="form-control datepicker{% if errors.start_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.start_date }}">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="icon-calendar"></i>
-                                    </span>
-                                </div>
-                                <div class="invalid-feedback">
-                                    {% for message in errors.start_date %}
-                                        {{ message }}
-                                        {% if not loop.last %}<br />{% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label class="col-md-3 col-form-label">提出期間</label>
                         <div class="col-md-6">
                             <div class="form-inline input-group">
@@ -195,6 +191,39 @@ $(function(){
                             {% endif %}
                             {% if errors.public_end_dt %}
                                 {% set termErrors = termErrors|merge(errors.public_end_dt) %}
+                            {% endif %}
+                            
+                            {##
+                             # エラーを表示するためのhidden
+                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                             # それをやると見た目が良くないので。
+                             #}
+                            <input type="hidden" class="form-control {% if termErrors %} is-invalid{% endif %}">
+                            <div class="invalid-feedback">
+                                {% for message in termErrors %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">上映期間</label>
+                        <div class="col-md-6">
+                            <div class="form-inline input-group">
+                                <input type="text" name="start_date" class="form-control datepicker{% if errors.start_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.start_date }}">
+                                <div class="input-group-addon">
+                                    <span class="input-group-text">～</span>
+                                </div>
+                                <input type="text" name="end_date" class="form-control datepicker{% if errors.end_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.end_date }}">
+                            </div>
+                            {# mergeだと同じキーは上書きされるが、同じメッセージは表示されないのでこれで良い #}
+                            {% set termErrors = [] %}
+                            {% if errors.start_date %}
+                                {% set termErrors = termErrors|merge(errors.start_date) %}
+                            {% endif %}
+                            {% if errors.end_date %}
+                                {% set termErrors = termErrors|merge(errors.end_date) %}
                             {% endif %}
                             
                             {##
