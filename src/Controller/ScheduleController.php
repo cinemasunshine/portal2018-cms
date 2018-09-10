@@ -125,8 +125,14 @@ class ScheduleController extends BaseController
         
         $this->em->flush();
         
-        // @todo 編集ページへリダイレクト
-        exit;
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('「%s」の上映情報を追加しました。', $schedule->getTitle()->getName()),
+        ]);
+        
+        $this->redirect(
+            $this->router->pathFor('schedule_edit', [ 'id' => $schedule->getId() ]),
+            303);
     }
     
     /**
