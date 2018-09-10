@@ -1,0 +1,48 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}開館時間管理 | 劇場情報{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">劇場情報</li>
+    <li class="breadcrumb-item active">開館時間管理</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                劇場一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>劇場</th>
+                            <th>開館時間</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for meta in metas %}
+                        <tr>
+                            <th>{{ meta.getTheater().getId() }}</th>
+                            <th>{{ meta.getTheater().getNameJa() }}</th>
+                            <th>@todo</th>
+                            <th>
+                                <a href="#" class="btn btn-sm btn-success" role="button">編集</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

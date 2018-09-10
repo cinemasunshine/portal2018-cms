@@ -87,6 +87,14 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     protected $displayOrder;
     
     /**
+     * meta
+     *
+     * @var TheaterMeta
+     * @ORM\OneToOne(targetEntity="TheaterMeta", mappedBy="theater")
+     */
+    protected $meta;
+    
+    /**
      * admin_users
      * 
      * @var ArrayCollection
@@ -245,6 +253,16 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     public function setMasterCode($masterCode)
     {
         $this->masterCode = $masterCode;
+    }
+    
+    /**
+     * get meta
+     *
+     * @return TheaterMeta
+     */
+    public function getMeta()
+    {
+        return $this-meta;
     }
     
     /**

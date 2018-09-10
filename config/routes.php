@@ -12,6 +12,7 @@ use Cinemasunshine\PortalAdmin\Controller\IndexController;
 use Cinemasunshine\PortalAdmin\Controller\MainBannerController;
 use Cinemasunshine\PortalAdmin\Controller\NewsController;
 use Cinemasunshine\PortalAdmin\Controller\ScheduleController;
+use Cinemasunshine\PortalAdmin\Controller\TheaterMetaController;
 use Cinemasunshine\PortalAdmin\Controller\TitleController;
 
 use Cinemasunshine\PortalAdmin\Controller\API\CampaignController as CampaignApiController;
@@ -87,6 +88,10 @@ $app->group('', function () {
         $this->get('/{id}/edit', AdvanceTicketController::class . ':edit')->setName('advance_ticket_edit');
         $this->post('/{id}/update', AdvanceTicketController::class . ':update')->setName('advance_ticket_update');
         $this->get('/{id}/delete', AdvanceTicketController::class . ':delete')->setName('advance_ticket_delete');
+    });
+    
+    $this->group('/theater', function() {
+        $this->get('/opening-hour', TheaterMetaController::class . ':openingHour')->setName('opening_hour');
     });
     
     $this->group('/api', function() {
