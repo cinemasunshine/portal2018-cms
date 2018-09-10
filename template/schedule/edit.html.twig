@@ -27,7 +27,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="schedule" method="post" action="#">
+            <form name="schedule" method="post" action="{{ path_for('schedule_update', { id: schedule.getId() }) }}">
                 <div class="card-header">
                     「{{ schedule.getTitle().getName() }}」上映情報編集
                 </div>

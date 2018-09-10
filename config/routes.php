@@ -43,6 +43,7 @@ $app->group('', function () {
         $this->get('/new', ScheduleController::class . ':new')->setName('schedule_new');
         $this->post('/create', ScheduleController::class . ':create')->setName('schedule_create');
         $this->get('/{id}/edit', ScheduleController::class . ':edit')->setName('schedule_edit');
+        $this->post('/{id}/update', ScheduleController::class . ':update')->setName('schedule_update');
     });
     
     $this->group('/main_banner', function() {

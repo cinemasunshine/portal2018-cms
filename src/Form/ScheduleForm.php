@@ -19,6 +19,12 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\Theater;
  */
 class ScheduleForm extends BaseForm
 {
+    const TYPE_NEW = 1;
+    const TYPE_EDIT = 2;
+    
+    /** @var int */
+    protected $type;
+    
     /** @var EntityManager */
     protected $em;
     
@@ -31,10 +37,12 @@ class ScheduleForm extends BaseForm
     /**
      * construct
      * 
+     * @param int           $type
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(int $type, EntityManager $em)
     {
+        $this->type = $type;
         $this->em = $em;
         
         parent::__construct();
@@ -52,6 +60,13 @@ class ScheduleForm extends BaseForm
      */
     protected function setup()
     {
+        if ($this->type === self::TYPE_EDIT) {
+            $this->add([
+                'name' => 'id',
+                'type' => 'Hidden',
+            ]);
+        }
+        
         $this->add([
             'name' => 'title_id',
             'type' => 'Hidden',
@@ -106,6 +121,14 @@ class ScheduleForm extends BaseForm
         ]);
         
         $inputFilter = new InputFilter();
+        
+        if ($this->type === self::TYPE_EDIT) {
+            $inputFilter->add([
+                'name' => 'id',
+                'required' => true,
+            ]);
+        }
+        
         $inputFilter->add([
             'name' => 'title_id',
             'required' => true,
