@@ -44,6 +44,7 @@ $app->group('', function () {
         $this->post('/create', ScheduleController::class . ':create')->setName('schedule_create');
         $this->get('/{id}/edit', ScheduleController::class . ':edit')->setName('schedule_edit');
         $this->post('/{id}/update', ScheduleController::class . ':update')->setName('schedule_update');
+        $this->get('/{id}/delete', ScheduleController::class . ':delete')->setName('schedule_delete');
     });
     
     $this->group('/main_banner', function() {

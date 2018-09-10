@@ -266,4 +266,36 @@ class ScheduleController extends BaseController
             $this->router->pathFor('schedule_edit', [ 'id' => $schedule->getId() ]),
             303);
     }
+    
+    /**
+     * delete action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeDelete($request, $response, $args)
+    {
+        $schedule = $this->em->getRepository(Entity\Schedule::class)->findOneById($args['id']);
+        
+        if (is_null($schedule)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\Schedule $schedule */
+        
+        $schedule->setIsDeleted(true);
+        
+        // 関連データの処理はイベントで対応する
+        
+        $this->em->flush();
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('「%s」の上映情報を削除しました。', $schedule->getTitle()->getName()),
+        ]);
+        
+        return $this->redirect($this->router->pathFor('schedule_list'), 303);
+    }
 }
