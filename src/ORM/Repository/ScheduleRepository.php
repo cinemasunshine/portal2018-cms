@@ -92,4 +92,21 @@ class ScheduleRepository extends EntityRepository
         
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
+    
+    /**
+     * find one by id
+     *
+     * @param int $id
+     * @return Schedule|null
+     */
+    public function findOneById($id)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb
+            ->where('s.id = :id')
+            ->andWhere('s.isDeleted = false')
+            ->setParameter('id', $id);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

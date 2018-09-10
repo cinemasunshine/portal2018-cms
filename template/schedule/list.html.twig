@@ -165,7 +165,7 @@ $(function(){
                         <tr>
                             <th>{{ schedule.getId() }}</th>
                             <th>
-                                <a href="#">{{ schedule.getTitle().getName() }}</a>
+                                <a href="{{ path_for('schedule_edit', { id: schedule.getId() }) }}">{{ schedule.getTitle().getName() }}</a>
                             </th>
                             <th>
                                 {% for format in schedule.getShowingFormats() %}

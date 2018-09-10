@@ -1,12 +1,12 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}新規追加 | 上映情報{% endblock %}
+{% block title %}「{{ schedule.getTitle().getName() }}」上映情報編集 | 上映情報{% endblock %}
 
 {% block breadcrumb %}
 <ol class="breadcrumb">
     <li class="breadcrumb-item">ダッシュボード</li>
     <li class="breadcrumb-item">上映情報</li>
-    <li class="breadcrumb-item active">新規追加</li>
+    <li class="breadcrumb-item active">「{{ schedule.getTitle().getName() }}」上映情報編集</li>
 </ol>
 {% endblock %}
 
@@ -27,9 +27,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="schedule" method="post" action="{{ path_for('schedule_create') }}">
+            <form name="schedule" method="post" action="#">
                 <div class="card-header">
-                    新規追加
+                    「{{ schedule.getTitle().getName() }}」上映情報編集
                 </div>
                 <div class="card-body">
                     {% if errors %}
@@ -41,7 +41,8 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">上映情報ID</label>
                         <div class="col-md-9">
-                            <p class="form-control-static">&nbsp;</p>
+                            <p class="form-control-static">{{ values.id }}</p>
+                            <input type="hidden" name="id" value="{{ values.id }}">
                             <span class="help-block">※自動でIDが付与されます。</span>
                         </div>
                     </div>

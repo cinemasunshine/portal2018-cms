@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
+use Slim\Exception\NotFoundException;
+
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
@@ -125,5 +127,56 @@ class ScheduleController extends BaseController
         
         // @todo 編集ページへリダイレクト
         exit;
+    }
+    
+    /**
+     * edit action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeEdit($request, $response, $args)
+    {
+        $schedule = $this->em->getRepository(Entity\Schedule::class)->findOneById($args['id']);
+        
+        if (is_null($schedule)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\Schedule $schedule */
+        
+        $this->data->set('schedule', $schedule);
+        
+        $values = [
+            'id' => $schedule->getId(),
+            'title_id' => $schedule->getTitle()->getId(),
+            'title_name' => $schedule->getTitle()->getName(),
+            'start_date' => $schedule->getStartDate()->format('Y/m/d'),
+            'end_date' => $schedule->getEndDate()->format('Y/m/d'),
+            'public_start_dt' => $schedule->getPublicStartDt()->format('Y/m/d H:i'),
+            'public_end_dt' => $schedule->getPublicEndDt()->format('Y/m/d H:i'),
+            'remark' => $schedule->getRemark(),
+            'theater' => [],
+            'formats' => [],
+        ];
+        
+        foreach ($schedule->getShowingTheaters() as $showingTheater) {
+            /** @var Entity\ShowingTheater $showingTheater */
+            $values['theater'][] = $showingTheater->getTheater()->getId();
+        }
+        
+        foreach ($schedule->getShowingFormats() as $showingFormat) {
+            /** @var Entity\ShowingFormat $showingFormat */
+            $values['formats'][] = [
+                'system' => $showingFormat->getSystem(),
+                'voice' => $showingFormat->getVoice(),
+            ];
+        }
+        
+        $this->data->set('values', $values);
+        
+        $this->data->set('form', new Form\ScheduleForm($this->em));
     }
 }
