@@ -1,0 +1,42 @@
+
+
+{##
+ # 開館時間 fieldset
+ #
+ # jsrenderのテンプレートにも使用する。
+ #
+ # Parameters:
+ # * index
+ #}
+ {% set index = 'i' ~ index %} {# マージするため添字は文字列にする #}
+<div class="card hour" data-index="{{ index }}">
+    <div class="card-body">
+        <div class="form-group row">
+            <div class="col-md-3 col-form-label">
+                <div class="form-check form-check-inline mr-1">
+                    <input type="radio" class="form-check-input" id="hours-{{ index }}-type-1" name="hours[{{ index }}][type]" value="1">
+                    <label class="form-check-label" for="hours-{{ index }}-type-1">日付</label>
+                </div>
+                <div class="form-check form-check-inline mr-1">
+                    <input type="radio" class="form-check-input" id="hours-{{ index }}-type-2" name="hours[{{ index }}][type]" value="2">
+                    <label class="form-check-label" for="hours-{{ index }}-type-2">期間</label>
+                </div>
+            </div>
+            <div class="col-md-6 field-date">
+                <div class="form-inline input-group">
+                    <input type="text" name="hours[{{ index }}][from_date]" class="form-control datepicker" value="">
+                    <div class="input-group-addon">
+                        <span class="input-group-text">～</span>
+                    </div>
+                    <input type="text" name="hours[{{ index }}][to_date]" class="form-control datepicker" value="">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="hours[{{ index }}][time]" class="form-control timepicker" value="">
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-danger btn-delete-fieldset"><i class="icon-trash"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

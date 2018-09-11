@@ -1,0 +1,122 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}編集 | 開館時間管理 | 劇場情報{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">劇場情報</li>
+    <li class="breadcrumb-item">開館時間管理</li>
+    <li class="breadcrumb-item active">編集</li>
+</ol>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
+<script src="/js/vendor/jsrender.min.js"></script>
+<script>
+$(function(){
+    var $form = $('form[name="opening_hour"]');
+    
+    $.datetimepicker.setLocale('ja');
+    
+    var datepickerOption = {
+        timepicker: false,
+        format: 'Y/m/d'
+    };
+    $form.find('.datepicker').datetimepicker(datepickerOption);
+    
+    var timepickerOption = {
+        datepicker: false,
+        format: 'H:i'
+    };
+    $form.find('.timepicker').datetimepicker(timepickerOption);
+    
+    var $hours = $('#hours');
+    var fieldsetTmpl = $.templates("#filedsetTmpl");
+    var filedsetIndex = $hours.find('.hour').length;
+    
+    $('.btn-add-fieldset').click(function() {
+        addFieldset();
+    });
+    
+    /**
+     * add fieldset
+     */
+    function addFieldset() {
+        var $fieldset = $(fieldsetTmpl.render({
+            index: filedsetIndex
+        }));
+        
+        $fieldset.find('.datepicker').datetimepicker(datepickerOption);
+        $fieldset.find('.timepicker').datetimepicker(timepickerOption);
+        
+        $hours.append($fieldset);
+        
+        $fieldset.find('input[name*="[type]"]:eq(0)')
+            .prop('checked', true)
+            .change();
+        
+        filedsetIndex++;
+    }
+    
+    $hours.on('change', 'input[name*="[type]"]', function() {
+        var $dateField = $(this).closest('.hour').find('.field-date');
+        
+        if ($(this).val() === '1') {
+            $dateField.find('input[name*="[to_date]"]')
+                .prop('disabled', true)
+                .hide();
+            $dateField.find('.input-group-addon').hide();
+        } else {
+            $dateField.find('input[name*="[to_date]"]')
+                .prop('disabled', false)
+                .show();
+            $dateField.find('.input-group-addon').show();
+        }
+    });
+    
+    $hours.on('click', '.hour .btn-delete-fieldset', function() {
+        $(this).closest('.hour').remove();
+    });
+});
+</script>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form name="opening_hour" method="post" action="#">
+                <div class="card-header">
+                    {{ theater.getNameJa() }}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">開館時間</label>
+                        <div class="col-md-9">
+                            <div id="hours">
+                            </div>
+                            <button type="button" class="btn btn-success btn-add-fieldset">時間追加</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script id="filedsetTmpl" type="text/x-jsrender">
+{% include 'theater_meta/opening_hour/include/fieldset.html.twig' with {
+    index: '{{:index}}',
+} only %}
+</script>
+{% endblock %}

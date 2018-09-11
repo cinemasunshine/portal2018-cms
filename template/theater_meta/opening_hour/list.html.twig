@@ -29,12 +29,13 @@
                     </thead>
                     <tbody>
                     {% for meta in metas %}
+                        {% set theater = meta.getTheater() %}
                         <tr>
-                            <th>{{ meta.getTheater().getId() }}</th>
-                            <th>{{ meta.getTheater().getNameJa() }}</th>
+                            <th>{{ theater.getId() }}</th>
+                            <th>{{ theater.getNameJa() }}</th>
                             <th>@todo</th>
                             <th>
-                                <a href="#" class="btn btn-sm btn-success" role="button">編集</a>
+                                <a href="{{ path_for('opening_hour_edit', { id: theater.getId() }) }}" class="btn btn-sm btn-success" role="button">編集</a>
                             </th>
                         </tr>
                     {% endfor %}

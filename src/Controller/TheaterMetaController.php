@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
+use Slim\Exception\NotFoundException;
+
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
@@ -27,5 +29,26 @@ class TheaterMetaController extends BaseController
         // @todo ユーザによってデータを調整
         $metas = $this->em->getRepository(Entity\TheaterMeta::class)->findActive();
         $this->data->set('metas', $metas);
+    }
+    
+    /**
+     * opening hour edit action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeOpeningHourEdit($request, $response, $args)
+    {
+        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
+        
+        if (is_null($theater)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\Theater $theater */
+        
+        $this->data->set('theater', $theater);
     }
 }
