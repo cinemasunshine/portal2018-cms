@@ -262,7 +262,7 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
      */
     public function getMeta()
     {
-        return $this-meta;
+        return $this->meta;
     }
     
     /**
