@@ -7,8 +7,6 @@
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
@@ -46,10 +44,8 @@ class TheaterMeta extends AbstractEntity
     /**
      * opening_hours
      * 
-     * 初回のみnullとなる予定。可能であれば最初からデータを入れてNOT NULLとしたい。
-     * 
-     * @var Collection|null
-     * @ORM\Column(type="object", name="opening_hours", nullable=true)
+     * @var array|null
+     * @ORM\Column(type="json", name="opening_hours")
      */
     protected $openingHours;
     
@@ -58,7 +54,7 @@ class TheaterMeta extends AbstractEntity
      */
     public function __construct()
     {
-        $this->openingHours = new ArrayCollection();
+        $this->openingHours = [];
     }
     
     /**
@@ -95,21 +91,36 @@ class TheaterMeta extends AbstractEntity
     /**
      * get opening_hours
      *
-     * @return Collection|null
+     * @return TheaterOpeningHour[]
      */
     public function getOpeningHours()
     {
-        return $this->openingHours;
+        $hours = [];
+        
+        if (is_array($this->openingHours)) {
+            foreach ($this->openingHours as $hour) {
+                $hours[] = TheaterOpeningHour::create($hour);
+            }
+        }
+        
+        return $hours;
     }
     
     /**
      * set opening_hours
      *
-     * @param Collection $openingHours
+     * @param TheaterOpeningHour[] $openingHours
      * @return void
      */
-    public function setOpeningHours(Collection $openingHours)
+    public function setOpeningHours(array $openingHours)
     {
-        $this->openingHours = $openingHours;
+        $hours = [];
+        
+        foreach ($openingHours as $hour) {
+            /** @var TheaterOpeningHour $hour */
+            $hours[] = $hour->toArray();
+        }
+        
+        $this->openingHours = $hours;
     }
 }

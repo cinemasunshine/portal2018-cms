@@ -7,32 +7,72 @@
  #
  # Parameters:
  # * index
+ # * fieldset
+ # * values
+ # * errors
  #}
  {% set index = 'i' ~ index %} {# マージするため添字は文字列にする #}
 <div class="card hour" data-index="{{ index }}">
     <div class="card-body">
         <div class="form-group row">
             <div class="col-md-3 col-form-label">
+            {% for value, text in fieldset.getTypeChoices() %}
                 <div class="form-check form-check-inline mr-1">
-                    <input type="radio" class="form-check-input" id="hours-{{ index }}-type-1" name="hours[{{ index }}][type]" value="1">
-                    <label class="form-check-label" for="hours-{{ index }}-type-1">日付</label>
+                    <input type="radio" class="form-check-input{% if errors.type %} is-invalid{% elseif is_validated %} is-valid{% endif %}" id="hours-{{ index }}-type-{{ loop.index }}" name="hours[{{ index }}][type]" value="{{ value }}" {{ value == values.type ? 'checked' : '' }}>
+                    <label class="form-check-label" for="hours-{{ index }}-type-{{ loop.index }}">{{ text }}</label>
                 </div>
-                <div class="form-check form-check-inline mr-1">
-                    <input type="radio" class="form-check-input" id="hours-{{ index }}-type-2" name="hours[{{ index }}][type]" value="2">
-                    <label class="form-check-label" for="hours-{{ index }}-type-2">期間</label>
+            {% endfor %}
+                {##
+                 # インラインの項目でエラーを表示するためのhidden
+                 # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                 # それをやると見た目が良くないので。
+                 #}
+                <input type="hidden" class="form-control {% if errors.type %} is-invalid{% endif %}">
+                <div class="invalid-feedback">
+                    {% for message in errors.type %}
+                        {{ message }}
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
                 </div>
             </div>
             <div class="col-md-6 field-date">
                 <div class="form-inline input-group">
-                    <input type="text" name="hours[{{ index }}][from_date]" class="form-control datepicker" value="">
+                    <input type="text" name="hours[{{ index }}][from_date]" class="form-control datepicker{% if errors.from_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.from_date }}">
                     <div class="input-group-addon">
                         <span class="input-group-text">～</span>
                     </div>
-                    <input type="text" name="hours[{{ index }}][to_date]" class="form-control datepicker" value="">
+                    <input type="text" name="hours[{{ index }}][to_date]" class="form-control datepicker{% if errors.to_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.to_date }}">
+                </div>
+                {# mergeだと同じキーは上書きされるが、同じメッセージは表示されないのでこれで良い #}
+                {% set termErrors = [] %}
+                {% if errors.from_date %}
+                    {% set termErrors = termErrors|merge(errors.from_date) %}
+                {% endif %}
+                {% if errors.to_date %}
+                    {% set termErrors = termErrors|merge(errors.to_date) %}
+                {% endif %}
+                
+                {##
+                 # エラーを表示するためのhidden
+                 # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                 # それをやると見た目が良くないので。
+                 #}
+                <input type="hidden" class="form-control {% if termErrors %} is-invalid{% endif %}">
+                <div class="invalid-feedback">
+                    {% for message in termErrors %}
+                        {{ message }}
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
                 </div>
             </div>
             <div class="col-md-2">
-                <input type="text" name="hours[{{ index }}][time]" class="form-control timepicker" value="">
+                <input type="text" name="hours[{{ index }}][time]" class="form-control timepicker{% if errors.time %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.time }}">
+                <div class="invalid-feedback">
+                    {% for message in errors.time %}
+                        {{ message }}
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
+                </div>
             </div>
             <div class="col-md-1">
                 <button type="button" class="btn btn-danger btn-delete-fieldset"><i class="icon-trash"></i></button>

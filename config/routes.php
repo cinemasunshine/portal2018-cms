@@ -93,6 +93,7 @@ $app->group('', function () {
     $this->group('/theater', function() {
         $this->get('/opening-hour', TheaterMetaController::class . ':openingHour')->setName('opening_hour');
         $this->get('/{id}/opening-hour/edit', TheaterMetaController::class . ':openingHourEdit')->setName('opening_hour_edit');
+        $this->post('/{id}/opening-hour/update', TheaterMetaController::class . ':openingHourUpdate')->setName('opening_hour_update');
     });
     
     $this->group('/api', function() {

@@ -84,6 +84,15 @@ $(function(){
     $hours.on('click', '.hour .btn-delete-fieldset', function() {
         $(this).closest('.hour').remove();
     });
+    
+    /**
+     * execute
+     */
+    function execute() {
+        $hours.find('input[name*="[type]"]:checked').change();
+    }
+    
+    execute();
 });
 </script>
 {% endblock %}
@@ -92,7 +101,7 @@ $(function(){
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="opening_hour" method="post" action="#">
+            <form name="opening_hour" method="post" action="{{ path_for('opening_hour_update', { id: theater.getId() }) }}">
                 <div class="card-header">
                     {{ theater.getNameJa() }}
                 </div>
@@ -101,6 +110,14 @@ $(function(){
                         <label class="col-md-3 col-form-label">開館時間</label>
                         <div class="col-md-9">
                             <div id="hours">
+                            {% for index, hour in values.hours %}
+                                {% include 'theater_meta/opening_hour/include/fieldset.html.twig' with {
+                                    index: loop.index0,
+                                    fieldset: form.getOpeingHourFieldset(),
+                                    values: hour,
+                                    errors: errors.hours[index],
+                                } only %}
+                            {% endfor %}
                             </div>
                             <button type="button" class="btn btn-success btn-add-fieldset">時間追加</button>
                         </div>
@@ -117,6 +134,7 @@ $(function(){
 <script id="filedsetTmpl" type="text/x-jsrender">
 {% include 'theater_meta/opening_hour/include/fieldset.html.twig' with {
     index: '{{:index}}',
+    fieldset: form.getOpeingHourFieldset(),
 } only %}
 </script>
 {% endblock %}
