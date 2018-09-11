@@ -33,7 +33,17 @@
                         <tr>
                             <th>{{ theater.getId() }}</th>
                             <th>{{ theater.getNameJa() }}</th>
-                            <th>@todo</th>
+                            <th>
+                            {% for hour in meta.getOpeningHours() %}
+                                {{ hour.getFromDate().format('m/d') }}
+                                {% if hour.getType() == 2 %}
+                                   ～ {{ hour.getToDate().format('m/d') }}
+                                {% endif %}
+                                {{ hour.getTime().format('H:i') }}
+                                OPEN
+                                {% if not loop.last %}<br>{% endif %}
+                            {% endfor %}
+                            </th>
                             <th>
                                 <a href="{{ path_for('opening_hour_edit', { id: theater.getId() }) }}" class="btn btn-sm btn-success" role="button">編集</a>
                             </th>
