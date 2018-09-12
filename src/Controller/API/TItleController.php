@@ -37,8 +37,9 @@ class TitleController extends BaseController
                 /** @var Entity\Title $title */
                 
                 $data[] = [
-                    'id'   => $title->getId(),
-                    'name' => $title->getName(),
+                    'id'            => $title->getId(),
+                    'name'          => $title->getName(),
+                    'official_site' => $title->getOfficialSite(),
                 ];
             }
         }
