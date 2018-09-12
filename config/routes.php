@@ -51,6 +51,7 @@ $app->group('', function () {
     
     $this->group('/trailer', function() {
         $this->get('/new', TrailerController::class . ':new')->setName('trailer_new');
+        $this->post('/create', TrailerController::class . ':create')->setName('trailer_create');
     });
     
     $this->group('/main_banner', function() {

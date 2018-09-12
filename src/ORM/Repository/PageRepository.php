@@ -31,6 +31,23 @@ class PageRepository extends EntityRepository
     }
     
     /**
+     * find by ids
+     *
+     * @param array $ids
+     * @return Page[]
+     */
+    public function findByIds(array $ids)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where('p.isDeleted = false')
+            ->andWhere('p.id IN (:ids)')
+            ->setParameter('ids', $ids);
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    /**
      * find one by id
      *
      * @param int $id
