@@ -86,7 +86,7 @@ class TitleForm extends BaseForm
         ]);
         
         $this->add([
-            'name' => 'website',
+            'name' => 'official_site',
             'type' => 'Url',
         ]);
         
@@ -195,7 +195,7 @@ class TitleForm extends BaseForm
         ]);
         
         $inputFilter->add([
-            'name' => 'website',
+            'name' => 'official_site',
             'required' => false,
         ]);
         

@@ -135,7 +135,7 @@ class TitleController extends BaseController
         $title->setDirector($cleanData['director']);
         $title->setCast($cleanData['cast']);
         $title->setPublishingExpectedDate($cleanData['publishing_expected_date']);
-        $title->setWebsite($cleanData['website']);
+        $title->setOfficialSite($cleanData['official_site']);
         $title->setRating((int) $cleanData['rating']);
         $title->setUniversal($cleanData['universal'] ?? []);
         
@@ -176,18 +176,18 @@ class TitleController extends BaseController
         $this->data->set('form', $form);
         
         $values = [
-            'id'           => $title->getId(),
-            'name'         => $title->getName(),
-            'name_kana'    => $title->getNameKana(),
-            'name_en'      => $title->getNameEn(),
-            'credit'       => $title->getCredit(),
-            'catchcopy'    => $title->getCatchcopy(),
-            'introduction' => $title->getIntroduction(),
-            'director'     => $title->getDirector(),
-            'cast'         => $title->getCast(),
-            'website'      => $title->getWebsite(),
-            'rating'       => $title->getRating(),
-            'universal'    => $title->getUniversal(),
+            'id'            => $title->getId(),
+            'name'          => $title->getName(),
+            'name_kana'     => $title->getNameKana(),
+            'name_en'       => $title->getNameEn(),
+            'credit'        => $title->getCredit(),
+            'catchcopy'     => $title->getCatchcopy(),
+            'introduction'  => $title->getIntroduction(),
+            'director'      => $title->getDirector(),
+            'cast'          => $title->getCast(),
+            'official_site' => $title->getOfficialSite(),
+            'rating'        => $title->getRating(),
+            'universal'     => $title->getUniversal(),
         ];
         
         $publishingExpectedDate = $title->getPublishingExpectedDate();
@@ -291,7 +291,7 @@ class TitleController extends BaseController
         $title->setDirector($cleanData['director']);
         $title->setCast($cleanData['cast']);
         $title->setPublishingExpectedDate($cleanData['publishing_expected_date']);
-        $title->setWebsite($cleanData['website']);
+        $title->setOfficialSite($cleanData['official_site']);
         $title->setRating((int) $cleanData['rating']);
         $title->setUniversal($cleanData['universal'] ?? []);
         $title->setIsDeleted(false);

@@ -192,9 +192,9 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">公式サイト</label>
                         <div class="col-md-9">
-                            <input type="url" name="website" class="form-control{% if errors.website %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.website }}" />
+                            <input type="url" name="official_site" class="form-control{% if errors.official_site %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.official_site }}" />
                             <div class="invalid-feedback">
-                                {% for message in errors.website %}
+                                {% for message in errors.official_site %}
                                     {{ message }}
                                     {% if not loop.last %}<br />{% endif %}
                                 {% endfor %}

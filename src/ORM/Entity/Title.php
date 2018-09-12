@@ -70,7 +70,7 @@ class Title extends AbstractEntity
      * credit
      *
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $credit;
     
@@ -78,7 +78,7 @@ class Title extends AbstractEntity
      * catchcopy
      *
      * @var string
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $catchcopy;
     
@@ -86,7 +86,7 @@ class Title extends AbstractEntity
      * introduction
      *
      * @var string
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $introduction;
     
@@ -94,7 +94,7 @@ class Title extends AbstractEntity
      * director
      *
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $director;
     
@@ -102,7 +102,7 @@ class Title extends AbstractEntity
      * cast
      *
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $cast;
     
@@ -115,18 +115,18 @@ class Title extends AbstractEntity
     protected $publishingExpectedDate;
     
     /**
-     * website
+     * official_site
      *
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", name="official_site", nullable=true)
      */
-    protected $website;
+    protected $officialSite;
     
     /**
      * rating
      *
      * @var string
-     * @ORM\Column(type="smallint", options={"unsigned"=true})
+     * @ORM\Column(type="smallint", nullable=true, options={"unsigned"=true})
      */
     protected $rating;
     
@@ -134,7 +134,7 @@ class Title extends AbstractEntity
      * universal
      *
      * @var array
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json", nullable=true)
      */
     protected $universal;
     
@@ -392,24 +392,24 @@ class Title extends AbstractEntity
     }
     
     /**
-     * get website
+     * get official_site
      *
      * @return string
      */
-    public function getWebsite()
+    public function getOfficialSite()
     {
-        return $this->website;
+        return $this->officialSite;
     }
     
     /**
-     * set website
+     * set official_site
      *
-     * @param string $website
+     * @param string $officialSite
      * @return void
      */
-    public function setWebsite(string $website)
+    public function setOfficialSite(string $officialSite)
     {
-        $this->website = $website;
+        $this->officialSite = $officialSite;
     }
     
     /**
