@@ -1,0 +1,176 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}新規追加 | 予告動画{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/jsrender.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/modal/select-title.js"></script>
+<script>
+$(function(){
+    var $form = $('form[name="trailer"]');
+    var $titleField = $form.find('.form-group.field-title');
+    
+    $titleField.find('.btn-clear').click(function() {
+       clearTitle(); 
+    });
+    
+    var $selectTitleModal = $('#selectTitleModal');
+    
+    $selectTitleModal.on('selected.cs.title', function(event, title) {
+        setTitle(title);
+    });
+    
+    /**
+     * set title
+     * 
+     * @param {Array} title
+     */
+    function setTitle(title) {
+        $titleField.find('input[name="title_id"]').val(title.id);
+        $titleField.find('input[name="title_name"]').val(title.name);
+        $titleField.find('.title-name').text(title.name);
+        $titleField.find('.btn-clear').show();
+        
+        $form.find('input[name="banner_link_url"]').val(title.official_site);
+    }
+    
+    /**
+     * clear title
+     */
+    function clearTitle() {
+        $titleField.find('input[name="title_id"]').val('');
+        $titleField.find('input[name="title_name"]').val('');
+        $titleField.find('.title-name').text('選択されていません。');
+        $titleField.find('.btn-clear').hide();
+    }
+    
+    /**
+     * execute
+     */
+    function execute() {
+        var id = $('input[name="title_id"]').val();
+        
+        if (!id) {
+            clearTitle();
+        }
+    }
+    
+    execute();
+});
+</script>
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">予告動画</li>
+    <li class="breadcrumb-item active">新規追加</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form name="trailer" method="post" action="#">
+                <div class="card-header">
+                    新規追加
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">ID</label>
+                        <div class="col-md-9">
+                            <p class="form-control-static">&nbsp;</p>
+                            <span class="help-block">※自動でIDが付与されます。</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">動画タイトル</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name" class="form-control" value="">
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row field-title">
+                        <label class="col-md-3 col-form-label">該当作品</label>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="form-control-static title-name"></p>
+                                    <input type="hidden" name="title_name" value="">
+                                    <input type="hidden" name="title_id" class="form-control" value="">
+                                    <div class="invalid-feedback">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
+                                    <button type="button" class="btn btn-danger btn-clear">選択解除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">YouTube</label>
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">https://youtu.be/</span>
+                                </div>
+                                <input type="text" class="form-control" name="youtube" value="">
+                            </div>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">バナー画像</label>
+                        <div class="col-md-9">
+                            <input type="file" name="banner_image" class="form-control">
+                            <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">リンクURL</label>
+                        <div class="col-md-9">
+                            <input type="url" name="banner_link_url" class="form-control" value="">
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出ページ</label>
+                        <div class="col-md-9 col-form-label">
+                            <div class="form-check form-check-inline mr-1">
+                                <input type="checkbox" class="form-check-input" id="page-1" name="page[]" value="1">
+                                <label class="form-check-label" for="page-1">ポータルTOP</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出劇場</label>
+                        <div class="col-md-9 col-form-label">
+                            <div class="form-check form-check-inline mr-1">
+                                <input type="checkbox" class="form-check-input" id="theater-1" name="theater[]" value="1">
+                                <label class="form-check-label" for="theater-1">池袋</label>
+                            </div>
+                            <div class="form-check form-check-inline mr-1">
+                                <input type="checkbox" class="form-check-input" id="theater-2" name="theater[]" value="2">
+                                <label class="form-check-label" for="theater-2">平和島</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'include/modal/select_title.html.twig' only %}
+{% endblock %}

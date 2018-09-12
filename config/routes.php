@@ -14,6 +14,7 @@ use Cinemasunshine\PortalAdmin\Controller\NewsController;
 use Cinemasunshine\PortalAdmin\Controller\ScheduleController;
 use Cinemasunshine\PortalAdmin\Controller\TheaterMetaController;
 use Cinemasunshine\PortalAdmin\Controller\TitleController;
+use Cinemasunshine\PortalAdmin\Controller\TrailerController;
 
 use Cinemasunshine\PortalAdmin\Controller\API\CampaignController as CampaignApiController;
 use Cinemasunshine\PortalAdmin\Controller\API\EditorController as EditorApiController;
@@ -46,6 +47,10 @@ $app->group('', function () {
         $this->get('/{id}/edit', ScheduleController::class . ':edit')->setName('schedule_edit');
         $this->post('/{id}/update', ScheduleController::class . ':update')->setName('schedule_update');
         $this->get('/{id}/delete', ScheduleController::class . ':delete')->setName('schedule_delete');
+    });
+    
+    $this->group('/trailer', function() {
+        $this->get('/new', TrailerController::class . ':new')->setName('trailer_new');
     });
     
     $this->group('/main_banner', function() {
