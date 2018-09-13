@@ -19,6 +19,12 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class TrailerForm extends BaseForm
 {
+    const TYPE_NEW = 1;
+    const TYPE_EDIT = 2;
+    
+    /** @var int */
+    protected $type;
+    
     /** @var EntityManager */
     protected $em;
     
@@ -32,10 +38,12 @@ class TrailerForm extends BaseForm
     /**
      * construct
      * 
+     * @param int           $type
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(int $type, EntityManager $em)
     {
+        $this->type = $type;
         $this->em = $em;
         
         parent::__construct();
@@ -53,6 +61,13 @@ class TrailerForm extends BaseForm
      */
     protected function setup()
     {
+        if ($this->type === self::TYPE_EDIT) {
+            $this->add([
+                'name' => 'id',
+                'type' => 'Hidden',
+            ]);
+        }
+        
         $this->add([
             'name' => 'name',
             'type' => 'Text',
@@ -116,6 +131,13 @@ class TrailerForm extends BaseForm
         
         $inputFilter = new InputFilter();
         
+        if ($this->type === self::TYPE_EDIT) {
+            $inputFilter->add([
+                'name' => 'id',
+                'required' => true,
+            ]);
+        }
+        
         $inputFilter->add([
             'name' => 'name',
             'required' => true,
@@ -138,7 +160,7 @@ class TrailerForm extends BaseForm
         
         $inputFilter->add([
             'name' => 'banner_image',
-            'required' => true,
+            'required' => ($this->type === self::TYPE_NEW),
             'validators' => [
                 [
                     'name' => Validator\File\Size::class,
