@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
+use Slim\Exception\NotFoundException;
+
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
@@ -167,5 +169,57 @@ class TrailerController extends BaseController
         
         // @todo 編集ページへリダイレクト
         exit;
+    }
+    
+    /**
+     * edit action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeEdit($request, $response, $args)
+    {
+        $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
+        
+        if (is_null($trailer)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\Trailer $trailer */
+        
+        $this->data->set('trailer', $trailer);
+        
+        $values = [
+            'id'              => $trailer->getId(),
+            'name'            => $trailer->getName(),
+            'title_id'        => null,
+            'title_name'      => null,
+            'youtube'         => $trailer->getYoutube(),
+            'banner_link_url' => $trailer->getBannerLinkUrl(),
+            'page'            => [],
+            'theater'         => [],
+        ];
+        
+        if ($trailer->getTitle()) {
+            $values['title_id']   = $trailer->getTitle()->getId();
+            $values['title_name'] = $trailer->getTitle()->getName();
+        }
+        
+        foreach ($trailer->getPageTrailers() as $pageTrailer) {
+            /** @var Entity\PageTrailer $pageTrailer */
+            $values['page'][] = $pageTrailer->getPage()->getId();
+        }
+        
+        foreach ($trailer->getTheaterTrailers() as $theaterTrailer) {
+            /** @var Entity\TheaterTrailer $theaterTrailer */
+            $values['theater'][] = $theaterTrailer->getTheater()->getId();
+        }
+        
+        $this->data->set('values', $values);
+        
+        $form = new Form\TrailerForm($this->em);
+        $this->data->set('form', $form);
     }
 }

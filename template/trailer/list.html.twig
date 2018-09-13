@@ -117,7 +117,7 @@
                         <tr>
                             <th>{{ trailer.getId() }}</th>
                             <th>
-                                <a href="#">{{ trailer.getName() }}</a>
+                                <a href="{{ path_for('trailer_edit', { id: trailer.getId() }) }}">{{ trailer.getName() }}</a>
                             </th>
                             <th>
                                 {% for target in trailer.getPublishedTargets() %}

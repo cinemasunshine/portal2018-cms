@@ -54,4 +54,21 @@ class TrailerRepository extends EntityRepository
         
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
+    
+    /**
+     * find one by id
+     *
+     * @param int $id
+     * @return Trailer|null
+     */
+    public function findOneById($id)
+    {
+        $qb = $this->createQueryBuilder('t');
+        $qb
+            ->where('t.id = :id')
+            ->andWhere('t.isDeleted = false')
+            ->setParameter('id', $id);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

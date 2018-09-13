@@ -1,6 +1,6 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}新規追加 | 予告動画{% endblock %}
+{% block title %}「{{ trailer.getName() }}」編集 | 予告動画{% endblock %}
 
 {% block javascript %}
 <script src="/js/vendor/jsrender.min.js"></script>
@@ -13,7 +13,7 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item">ダッシュボード</li>
     <li class="breadcrumb-item">予告動画</li>
-    <li class="breadcrumb-item active">新規追加</li>
+    <li class="breadcrumb-item active">「{{ trailer.getName() }}」編集</li>
 </ol>
 {% endblock %}
 
@@ -21,9 +21,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="trailer" method="post" enctype="multipart/form-data" action="{{ path_for('trailer_create') }}">
+            <form name="trailer" method="post" enctype="multipart/form-data" action="{{ path_for('trailer_update', { id: trailer.getId() }) }}">
                 <div class="card-header">
-                    新規追加
+                    「{{ trailer.getName() }}」編集
                 </div>
                 <div class="card-body">
                     {% if errors %}
@@ -35,7 +35,8 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">ID</label>
                         <div class="col-md-9">
-                            <p class="form-control-static">&nbsp;</p>
+                            <p class="form-control-static">{{ values.id }}</p>
+                            <input type="hidden" name="id" value="{{ values.id }}">
                             <span class="help-block">※自動でIDが付与されます。</span>
                         </div>
                     </div>
@@ -78,7 +79,7 @@
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-12">
-                                    {# 編集ページで動画が入る部分 #}
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ trailer.getYoutube() }}?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -100,13 +101,20 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">バナー画像</label>
                         <div class="col-md-9">
-                            <input type="file" name="banner_image" class="form-control{% if errors.banner_image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
-                            <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
-                            <div class="invalid-feedback">
-                                {% for message in errors.banner_image %}
-                                    {{ message }}
-                                    {% if not loop.last %}<br>{% endif %}
-                                {% endfor %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img src="{{ blob_url(trailer.getBannerImage().getBlobContainer(), trailer.getBannerImage().getName()) }}" width="200">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="file" name="banner_image" class="form-control{% if errors.banner_image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
+                                    <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                                    <div class="invalid-feedback">
+                                        {% for message in errors.banner_image %}
+                                            {{ message }}
+                                            {% if not loop.last %}<br />{% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
