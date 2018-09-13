@@ -349,4 +349,36 @@ class TrailerController extends BaseController
             $this->router->pathFor('trailer_edit', [ 'id' => $trailer->getId() ]),
             303);
     }
+    
+    /**
+     * delete action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeDelete($request, $response, $args)
+    {
+        $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
+        
+        if (is_null($trailer)) {
+            throw new NotFoundException($request, $response);
+        }
+        
+        /**@var Entity\Trailer $trailer */
+        
+        $trailer->setIsDeleted(true);
+        
+        // 関連データの処理はイベントで対応する
+        
+        $this->em->flush();
+        
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('予告動画「%s」を削除しました。', $trailer->getName()),
+        ]);
+        
+        return $this->redirect($this->router->pathFor('trailer_list'), 303);
+    }
 }

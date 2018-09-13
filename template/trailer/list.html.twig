@@ -126,7 +126,7 @@
                                 {% endfor %}
                             </th>
                             <th>
-                                <a href="#" class="btn btn-sm btn-danger" role="button">削除</a>
+                                <a href="{{ path_for('trailer_delete', { id: trailer.getId() }) }}" class="btn btn-sm btn-danger" role="button">削除</a>
                             </th>
                         </tr>
                     {% endfor %}
