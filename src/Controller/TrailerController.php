@@ -167,8 +167,14 @@ class TrailerController extends BaseController
         
         $this->em->flush();
         
-        // @todo 編集ページへリダイレクト
-        exit;
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('予告動画「%s」を追加しました。', $trailer->getName()),
+        ]);
+        
+        $this->redirect(
+            $this->router->pathFor('trailer_edit', [ 'id' => $trailer->getId() ]),
+            303);
     }
     
     /**
