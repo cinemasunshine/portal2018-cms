@@ -1,0 +1,151 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}一覧 | 予告動画{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">予告動画</li>
+    <li class="breadcrumb-item active">一覧</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form method="get" action="{{ path_for('trailer_list') }}">
+                <div class="card-header">
+                    検索
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">動画タイトル</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name" class="form-control{% if errors.name %} is-invalid{% endif %}" value="{{ values.name }}">
+                            <div class="invalid-feedback">
+                                {% for message in errors.name %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br>{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出箇所：ページ</label>
+                        <div class="col-md-9 col-form-label">
+                        {% for value, text in form.getPageChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input type="checkbox" class="form-check-input{% if errors.page %} is-invalid{% elseif is_validated %} is-valid{% endif %}" id="page-{{ loop.index }}" name="page[]" value="{{ value }}" {{ value in values.page ? 'checked' : '' }}>
+                                <label class="form-check-label" for="page-{{ loop.index }}">{{ text }}</label>
+                            </div>
+                        {% endfor %}
+                            {##
+                             # インラインの項目でエラーを表示するためのhidden
+                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                             # それをやると見た目が良くないので。
+                             #}
+                            <input type="hidden" class="form-control {% if errors.page %} is-invalid{% endif %}">
+                            <div class="invalid-feedback">
+                                {% for messages in errors.page %}
+                                    {% if messages is iterable %}
+                                        {% for message in messages %}
+                                            {{ message }}
+                                        {% endfor %}
+                                        {% if not loop.last %}<br>{% endif %}
+                                    {% else %}
+                                        {{ messages }}
+                                    {% endif %}
+                                    {% if not loop.last %}<br>{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">提出箇所：劇場</label>
+                        <div class="col-md-9 col-form-label">
+                        {% for value, text in form.getTheaterChoices() %}
+                            <div class="form-check form-check-inline mr-1">
+                                <input type="checkbox" class="form-check-input{% if errors.theater %} is-invalid{% elseif is_validated %} is-valid{% endif %}" id="theater-{{ loop.index }}" name="theater[]" value="{{ value }}" {{ value in values.theater ? 'checked' : '' }}>
+                                <label class="form-check-label" for="theater-{{ loop.index }}">{{ text }}</label>
+                            </div>
+                        {% endfor %}
+                            {##
+                             # インラインの項目でエラーを表示するためのhidden
+                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                             # それをやると見た目が良くないので。
+                             #}
+                            <input type="hidden" class="form-control {% if errors.theater %} is-invalid{% endif %}">
+                            <div class="invalid-feedback">
+                                {% for messages in errors.theater %}
+                                    {% if messages is iterable %}
+                                        {% for message in messages %}
+                                            {{ message }}
+                                        {% endfor %}
+                                        {% if not loop.last %}<br>{% endif %}
+                                    {% else %}
+                                        {{ messages }}
+                                    {% endif %}
+                                    {% if not loop.last %}<br>{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">検索</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>動画タイトル</th>
+                            <th>提出場所</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for trailer in pagenater.getResultsInPage() %}
+                        <tr>
+                            <th>{{ trailer.getId() }}</th>
+                            <th>
+                                <a href="#">{{ trailer.getName() }}</a>
+                            </th>
+                            <th>
+                                {% for target in trailer.getPublishedTargets() %}
+                                    {{ target.getNameJa() }}
+                                    {% if not loop.last %}、{% endif %}
+                                {% endfor %}
+                            </th>
+                            <th>
+                                <a href="#" class="btn btn-sm btn-danger" role="button">削除</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <hr>
+                
+                {% include 'include/pagination.html.twig' with {
+                    'pagenater': pagenater,
+                    'route_name': 'trailer_list',
+                    'params': params
+                } only %}
+                
+            </div>
+            <div class="card-footer">
+                {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

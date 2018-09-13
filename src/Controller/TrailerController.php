@@ -18,6 +18,42 @@ class TrailerController extends BaseController
     use ImageManagerTrait;
     
     /**
+     * list action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeList($request, $response, $args)
+    {
+        $page = (int) $request->getParam('p', 1);
+        $this->data->set('page', $page);
+        
+        $form = new Form\TrailerFindForm($this->em);
+        $this->data->set('form', $form);
+        
+        $form->setData($request->getParams());
+        $cleanValues = [];
+        
+        if ($form->isValid()) {
+            $cleanValues = $form->getData();
+            $values = $cleanValues;
+        } else {
+            $values = $request->getParams();
+            $this->data->set('errors', $form->getMessages());
+        }
+        
+        $this->data->set('values', $values);
+        $this->data->set('params', $cleanValues);
+        
+        /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
+        $pagenater = $this->em->getRepository(Entity\Trailer::class)->findForList($cleanValues, $page);
+        
+        $this->data->set('pagenater', $pagenater);
+    }
+    
+    /**
      * new action
      * 
      * @param \Slim\Http\Request  $request

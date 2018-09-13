@@ -16,6 +16,17 @@ use Psr\Http\Message\ResponseInterface as Response;
  */
 class TrailerResponder extends BaseResponder
 {
+    /**
+     * list
+     *
+     * @param Response   $response
+     * @param Collection $data
+     * @return Response
+     */
+    public function list(Response $response, Collection $data)
+    {
+        return $this->view->render($response, 'trailer/list.html.twig', $data->all());
+    }
     
     /**
      * new
