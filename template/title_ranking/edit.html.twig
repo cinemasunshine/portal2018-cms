@@ -11,61 +11,7 @@
 <script src="/js/vendor/jsrender.min.js"></script>
 <script src="/js/api.js"></script>
 <script src="/js/modal/select-title.js"></script>
-<script>
-$(function(){
-    var $form = $('form[name="title_ranking"]');
-    
-    $.datetimepicker.setLocale('ja');
-    
-    var datepickerOption = {
-        timepicker:false,
-        format: 'Y/m/d'
-    };
-    
-    $form.find('.datepicker').datetimepicker(datepickerOption);
-    
-    var $selectTitleModal = $('#selectTitleModal');
-    var $targetRank;
-    
-    $selectTitleModal.on('show.bs.modal', function(event) {
-        var $button = $(event.relatedTarget);
-        
-        $targetRank = $button.closest('.rank');
-    });
-    
-    $form.find('.rank .field-title .btn-clear').click(function() {
-        var $field = $(this).closest('.field-title');
-        clearTitle($field); 
-    });
-    
-    $selectTitleModal.on('selected.cs.title', function(event, title) {
-        setTitle(title);
-    });
-    
-    /**
-     * set title
-     * 
-     * @param {Array} title
-     */
-    function setTitle(title) {
-        var $field = $targetRank.find('.field-title');
-        $field.find('input[name="title_id"]').val(title.id);
-        $field.find('input[name="title_name"]').val(title.name);
-        $field.find('.title-name').text(title.name);
-        $field.find('.btn-clear').show();
-    }
-    
-    /**
-     * clear title
-     */
-    function clearTitle($field) {
-        $field.find('input[name="title_id"]').val('');
-        $field.find('input[name="title_name"]').val('');
-        $field.find('.title-name').text('選択されていません。');
-        $field.find('.btn-clear').hide();
-    }
-});
-</script>
+<script src="/js/title_ranking/form.js"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -80,7 +26,7 @@ $(function(){
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="title_ranking" method="post" action="">
+            <form name="title_ranking" method="post" action="{{ path_for('title_ranking_update') }}">
                 <div class="card-header">
                     ランキング情報更新
                 </div>
@@ -89,37 +35,45 @@ $(function(){
                         <label class="col-md-3 col-form-label">集計期間</label>
                         <div class="col-md-6">
                             <div class="form-inline input-group">
-                                <input type="text" name="from_date" class="form-control datepicker" value="">
+                                <input type="text" name="from_date" class="form-control datepicker{% if errors.from_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.from_date }}">
                                 <div class="input-group-addon">
                                     <span class="input-group-text">～</span>
                                 </div>
-                                <input type="text" name="to_date" class="form-control datepicker" value="">
+                                <input type="text" name="to_date" class="form-control datepicker{% if errors.to_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.to_date }}">
+                            </div>
+                            {# mergeだと同じキーは上書きされるが、同じメッセージは表示されないのでこれで良い #}
+                            {% set termErrors = [] %}
+                            {% if errors.from_date %}
+                                {% set termErrors = termErrors|merge(errors.from_date) %}
+                            {% endif %}
+                            {% if errors.to_date %}
+                                {% set termErrors = termErrors|merge(errors.to_date) %}
+                            {% endif %}
+                            
+                            {##
+                             # エラーを表示するためのhidden
+                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
+                             # それをやると見た目が良くないので。
+                             #}
+                            <input type="hidden" class="form-control {% if termErrors %} is-invalid{% endif %}">
+                            <div class="invalid-feedback">
+                                {% for message in termErrors %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">ランキング</label>
-                        <div class="col-md-9">
+                        <div id="ranks" class="col-md-9">
                         
-                            {% include 'title_ranking/include/field_rank.html.twig' with {
-                                rank: 1
+                        {% for rank in 1..5 %}
+                            {% include 'title_ranking/include/fieldset_rank.html.twig' with {
+                                rank: rank,
+                                values: values.ranks[rank],
                             } only %}
-                            
-                            {% include 'title_ranking/include/field_rank.html.twig' with {
-                                rank: 2
-                            } only %}
-                            
-                            {% include 'title_ranking/include/field_rank.html.twig' with {
-                                rank: 3
-                            } only %}
-                            
-                            {% include 'title_ranking/include/field_rank.html.twig' with {
-                                rank: 4
-                            } only %}
-                            
-                            {% include 'title_ranking/include/field_rank.html.twig' with {
-                                rank: 5
-                            } only %}
+                        {% endfor %}
                             
                         </div>
                     </div>

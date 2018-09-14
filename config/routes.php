@@ -52,6 +52,7 @@ $app->group('', function () {
     
     $this->group('/title_ranking', function() {
         $this->get('/edit', TitleRankingController::class . ':edit')->setName('title_ranking_edit');
+        $this->post('/update', TitleRankingController::class . ':update')->setName('title_ranking_update');
     });
     
     $this->group('/trailer', function() {
