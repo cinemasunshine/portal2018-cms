@@ -1,0 +1,135 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}更新 | ランキング情報{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
+<script src="/js/vendor/jsrender.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/modal/select-title.js"></script>
+<script>
+$(function(){
+    var $form = $('form[name="title_ranking"]');
+    
+    $.datetimepicker.setLocale('ja');
+    
+    var datepickerOption = {
+        timepicker:false,
+        format: 'Y/m/d'
+    };
+    
+    $form.find('.datepicker').datetimepicker(datepickerOption);
+    
+    var $selectTitleModal = $('#selectTitleModal');
+    var $targetRank;
+    
+    $selectTitleModal.on('show.bs.modal', function(event) {
+        var $button = $(event.relatedTarget);
+        
+        $targetRank = $button.closest('.rank');
+    });
+    
+    $form.find('.rank .field-title .btn-clear').click(function() {
+        var $field = $(this).closest('.field-title');
+        clearTitle($field); 
+    });
+    
+    $selectTitleModal.on('selected.cs.title', function(event, title) {
+        setTitle(title);
+    });
+    
+    /**
+     * set title
+     * 
+     * @param {Array} title
+     */
+    function setTitle(title) {
+        var $field = $targetRank.find('.field-title');
+        $field.find('input[name="title_id"]').val(title.id);
+        $field.find('input[name="title_name"]').val(title.name);
+        $field.find('.title-name').text(title.name);
+        $field.find('.btn-clear').show();
+    }
+    
+    /**
+     * clear title
+     */
+    function clearTitle($field) {
+        $field.find('input[name="title_id"]').val('');
+        $field.find('input[name="title_name"]').val('');
+        $field.find('.title-name').text('選択されていません。');
+        $field.find('.btn-clear').hide();
+    }
+});
+</script>
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">ランキング情報</li>
+    <li class="breadcrumb-item active">更新</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form name="title_ranking" method="post" action="">
+                <div class="card-header">
+                    ランキング情報更新
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">集計期間</label>
+                        <div class="col-md-6">
+                            <div class="form-inline input-group">
+                                <input type="text" name="from_date" class="form-control datepicker" value="">
+                                <div class="input-group-addon">
+                                    <span class="input-group-text">～</span>
+                                </div>
+                                <input type="text" name="to_date" class="form-control datepicker" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">ランキング</label>
+                        <div class="col-md-9">
+                        
+                            {% include 'title_ranking/include/field_rank.html.twig' with {
+                                rank: 1
+                            } only %}
+                            
+                            {% include 'title_ranking/include/field_rank.html.twig' with {
+                                rank: 2
+                            } only %}
+                            
+                            {% include 'title_ranking/include/field_rank.html.twig' with {
+                                rank: 3
+                            } only %}
+                            
+                            {% include 'title_ranking/include/field_rank.html.twig' with {
+                                rank: 4
+                            } only %}
+                            
+                            {% include 'title_ranking/include/field_rank.html.twig' with {
+                                rank: 5
+                            } only %}
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% include 'include/modal/select_title.html.twig' only %}
+{% endblock %}
