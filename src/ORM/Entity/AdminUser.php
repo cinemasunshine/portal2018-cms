@@ -23,6 +23,10 @@ class AdminUser extends AbstractEntity
     use SoftDeleteTrait;
     use TimestampableTrait;
     
+    const GROUP_MASTER  = 1;
+    const GROUP_MANAGER = 2;
+    const GROUP_THEATER = 3;
+    
     /**
      * id
      * 
@@ -166,6 +170,47 @@ class AdminUser extends AbstractEntity
     public function setGroup(int $group)
     {
         $this->group = $group;
+    }
+    
+    /**
+     * is group
+     *
+     * @param int $group
+     * @return boolean
+     */
+    public function isGroup(int $group)
+    {
+        return $this->getGroup() === $group;
+    }
+    
+    /**
+     * is master group
+     *
+     * @return boolean
+     */
+    public function isMaster()
+    {
+        return $this->isGroup(self::GROUP_MASTER);
+    }
+    
+    /**
+     * is manager group
+     *
+     * @return boolean
+     */
+    public function isManager()
+    {
+        return $this->isGroup(self::GROUP_MANAGER);
+    }
+    
+    /**
+     * is theater group
+     *
+     * @return boolean
+     */
+    public function isTheater()
+    {
+        return $this->isGroup(self::GROUP_THEATER);
     }
     
     /**
