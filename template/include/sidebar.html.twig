@@ -4,6 +4,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path_for('homepage') }}">ダッシュボード</a>
             </li>
+            
+        {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
                     作品マスター
@@ -17,6 +19,8 @@
                     </li>
                 </ul>
             </li>
+        {% endif %}
+            
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
                     上映情報
