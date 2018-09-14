@@ -9,6 +9,7 @@ namespace Cinemasunshine\PortalAdmin\Controller;
 
 use Slim\Exception\NotFoundException;
 
+use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
@@ -39,11 +40,19 @@ class TitleRankingController extends BaseController
      */
     protected function preExecute($request, $response): void
     {
+        $user = $this->auth->getUser();
+        
+        if ($user->isTheater()) {
+            throw new ForbiddenException();
+        }
+        
         $titleRanking = $this->getEntity();
         
         if (!$titleRanking) {
             throw new NotFoundException($request, $response);
         }
+        
+        parent::preExecute($request, $response);
     }
     
     /**

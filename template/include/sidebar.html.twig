@@ -37,6 +37,7 @@
             </li>
         {% endif %}
             
+        {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
                     ランキング情報
@@ -47,6 +48,8 @@
                     </li>
                 </ul>
             </li>
+        {% endif %}
+            
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
                     予告動画
