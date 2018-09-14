@@ -66,6 +66,7 @@
             </li>
         {% endif %}
             
+        {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
                     メインバナー
@@ -82,6 +83,8 @@
                     </li>
                 </ul>
             </li>
+        {% endif %}
+            
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
                     キャンペーン情報

@@ -9,6 +9,7 @@ namespace Cinemasunshine\PortalAdmin\Controller;
 
 use Slim\Exception\NotFoundException;
 
+use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
@@ -18,6 +19,20 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
 class MainBannerController extends BaseController
 {
     use ImageManagerTrait;
+    
+    /**
+     * {@inheritDoc}
+     */
+    protected function preExecute($request, $response): void
+    {
+        $user = $this->auth->getUser();
+        
+        if ($user->isTheater()) {
+            throw new ForbiddenException();
+        }
+        
+        parent::preExecute($request, $response);
+    }
     
     /**
      * list action
