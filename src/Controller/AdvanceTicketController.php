@@ -63,6 +63,17 @@ class AdvanceTicketController extends BaseController
     }
     
     /**
+     * return form
+     *
+     * @param int $type
+     * @return Form\AdvanceSaleForm
+     */
+    protected function getForm(int $type)
+    {
+        return new Form\AdvanceSaleForm($type, $this->em, $this->auth->getUser());
+    }
+    
+    /**
      * new action
      * 
      * @param \Slim\Http\Request  $request
@@ -72,7 +83,7 @@ class AdvanceTicketController extends BaseController
      */
     public function executeNew($request, $response, $args)
     {
-        $form = new Form\AdvanceSaleForm(Form\AdvanceSaleForm::TYPE_NEW, $this->em);
+        $form = $this->getForm(Form\AdvanceSaleForm::TYPE_NEW);
         $this->data->set('form', $form);
     }
     
@@ -89,7 +100,7 @@ class AdvanceTicketController extends BaseController
         // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
         
-        $form = new Form\AdvanceSaleForm(Form\AdvanceSaleForm::TYPE_NEW, $this->em);
+        $form = $this->getForm(Form\AdvanceSaleForm::TYPE_NEW);
         $form->setData($params);
         
         if (!$form->isValid()) {
@@ -194,7 +205,7 @@ class AdvanceTicketController extends BaseController
         
         $this->data->set('advanceSale', $advanceSale);
         
-        $form = new Form\AdvanceSaleForm(Form\AdvanceSaleForm::TYPE_EDIT, $this->em);
+        $form = $this->getForm(Form\AdvanceSaleForm::TYPE_EDIT);
         $this->data->set('form', $form);
         
         $values = [
@@ -256,7 +267,7 @@ class AdvanceTicketController extends BaseController
         // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
         
-        $form = new Form\AdvanceSaleForm(Form\AdvanceSaleForm::TYPE_EDIT, $this->em);
+        $form = $this->getForm(Form\AdvanceSaleForm::TYPE_EDIT);
         $form->setData($params);
         
         if (!$form->isValid()) {

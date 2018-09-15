@@ -41,6 +41,12 @@
                 
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">劇場</label>
+                    {% if user.isTheater() %}
+                        <div class="col-md-9">
+                            <input type="hidden" name="theater" value="{{ advanceSale.getTheater().getId() }}">
+                            <p class="form-control-static">{{ advanceSale.getTheater().getNameJa() }}</p>
+                        </div>
+                    {% else %}
                         <div class="col-md-9">
                             <select name="theater" class="form-control col-md-4">
                             {% for value, text in form.getTheaterChoices() %}
@@ -54,7 +60,9 @@
                                 {% endfor %}
                             </div>
                         </div>
+                    {% endif %}
                     </div>
+                    
                     <div class="form-group row title">
                         <label class="col-md-3 col-form-label">作品名</label>
                         <div class="col-md-9">

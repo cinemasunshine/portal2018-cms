@@ -28,6 +28,9 @@ class AdvanceSaleForm extends BaseForm
     /** @var EntityManager */
     protected $em;
     
+    /** @var Entity\AdminUser */
+    protected $adminUser;
+    
     /** @var AdvanceTicketFieldset */
     protected $ticketFieldset;
     
@@ -39,11 +42,13 @@ class AdvanceSaleForm extends BaseForm
      * 
      * @param int $type
      * @param EntityManager $em
+     * @param Entity\AdminUser
      */
-    public function __construct(int $type, EntityManager $em)
+    public function __construct(int $type, EntityManager $em, Entity\AdminUser $adminUser)
     {
         $this->type = $type;
         $this->em = $em;
+        $this->adminUser = $adminUser;
         $this->ticketFieldset = new AdvanceTicketFieldset($type);
         
         parent::__construct();
@@ -53,7 +58,7 @@ class AdvanceSaleForm extends BaseForm
 
     /**
      * setup
-     *
+     * 
      * @return void
      */
     protected function setup()
@@ -71,21 +76,29 @@ class AdvanceSaleForm extends BaseForm
             ]);
         }
         
-        $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
+        $theaterRepository = $this->em->getRepository(Entity\Theater::class);
         
-        foreach ($theaters as $theater) {
-            /** @var Entity\Theater $theater */
-            $this->theaterChoices[$theater->getId()] = $theater->getNameJa();
+        if ($this->adminUser->isTheater()) {
+            $this->add([
+                'name' => 'theater',
+                'type' => 'Hidden',
+            ]);
+        } else {
+            $theaters = $theaterRepository->findActive();
+            
+            foreach ($theaters as $theater) {
+                /** @var Entity\Theater $theater */
+                $this->theaterChoices[$theater->getId()] = $theater->getNameJa();
+            }
+            
+            $this->add([
+                'name' => 'theater',
+                'type' => 'Select',
+                'options' => [
+                    'value_options' => $this->theaterChoices,
+                ],
+            ]);
         }
-        
-        // @todo 劇場アカウントの場合はHiddenにする
-        $this->add([
-            'name' => 'theater',
-            'type' => 'Select',
-            'options' => [
-                'value_options' => $this->theaterChoices,
-            ],
-        ]);
         
         $this->add([
             'name' => 'title_id',
