@@ -53,4 +53,16 @@ class AdminUserController extends BaseController
         
         $this->data->set('pagenater', $pagenater);
     }
+    
+    /**
+     * new action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeNew($request, $response, $args)
+    {
+    }
 }

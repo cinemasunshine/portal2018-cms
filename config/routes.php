@@ -115,6 +115,7 @@ $app->group('', function () {
     
     $this->group('/admin_user', function() {
         $this->get('/list', AdminUserController::class . ':list')->setName('admin_user_list');
+        $this->get('/new', AdminUserController::class . ':new')->setName('admin_user_new');
     });
     
     $this->group('/api', function() {

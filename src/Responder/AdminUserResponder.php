@@ -27,4 +27,16 @@ class AdminUserResponder extends BaseResponder
     {
         return $this->view->render($response, 'admin_user/list.html.twig', $data->all());
     }
+    
+    /**
+     * new
+     *
+     * @param Response   $response
+     * @param Collection $data
+     * @return Response
+     */
+    public function new(Response $response, Collection $data)
+    {
+        return $this->view->render($response, 'admin_user/new.html.twig', $data->all());
+    }
 }

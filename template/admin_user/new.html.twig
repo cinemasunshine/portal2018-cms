@@ -1,0 +1,139 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}新規追加 | 管理ユーザ{% endblock %}
+
+{% block javascript %}
+<script>
+$(function(){
+    var $form = $('form[name="admin_user"]');
+    var $group = $form.find('select[name="group"]');
+    
+    $group.change(function() {
+        controlTheaterField($(this).val());
+    });
+    
+    var $theaterField = $form.find('.field-theater');
+    
+    /**
+     * control theater field
+     * 
+     * @param {String} group
+     */
+    function controlTheaterField(group) {
+        if (group === '3') {
+            $theaterField.find('select').prop('disabled', false);
+            $theaterField.show();
+        } else {
+            $theaterField.hide();
+            $theaterField.find('select').prop('disabled', true);
+        }
+    }
+    
+    /**
+     * execute
+     */
+    function execute() {
+        controlTheaterField($group.val());
+    }
+    
+    execute();
+});
+</script>
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">管理ユーザ</li>
+    <li class="breadcrumb-item active">新規追加</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="alert alert-warning" role="alert">
+    この機能はalphaバージョンです。
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form name="admin_user" method="post" action="#">
+                <div class="card-header">
+                    新規追加
+                </div>
+                <div class="card-body">
+                    
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">ID</label>
+                        <div class="col-md-9">
+                            <p class="form-control-static">&nbsp;</p>
+                            <span class="help-block">※自動でIDが付与されます。</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">ユーザ名</label>
+                        <div class="col-md-9">
+                            <input type="text" name="name" class="form-control" value="">
+                            <span class="help-block">
+                                ※半角英数のみ。同じユーザ名は登録できません。
+                            </span>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">表示名</label>
+                        <div class="col-md-9">
+                            <input type="text" name="display_name" class="form-control" value="">
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">パスワード</label>
+                        <div class="col-md-9">
+                            <input type="password" name="password" class="form-control">
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">グループ</label>
+                        <div class="col-md-9">
+                            <select name="group" class="form-control col-md-4">
+                                <option value=""></option>
+                                <option value="1">マスター</option>
+                                <option value="2">マネージャー</option>
+                                <option value="3">劇場</option>
+                            </select>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row field-theater">
+                        <label class="col-md-3 col-form-label">劇場</label>
+                        <div class="col-md-9">
+                            <select name="theater" class="form-control col-md-4">
+                                <option value=""></option>
+                                <option value="1">池袋</option>
+                                <option value="2">平和島</option>
+                            </select>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
