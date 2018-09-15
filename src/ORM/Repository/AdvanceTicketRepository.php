@@ -34,7 +34,11 @@ class AdvanceTicketRepository extends EntityRepository
             ->where('sale.isDeleted = false')
             ->andWhere('at.isDeleted = false')
             ->orderBy('at.createdAt', 'DESC');
-            
+        
+        if (isset($params['theater']) && count($params['theater']) > 0) {
+            $qb->andWhere($qb->expr()->in('sale.theater', $params['theater']));
+        }
+        
         if (isset($params['status']) && count($params['status']) > 0) {
             $or = $qb->expr()->orX();
             

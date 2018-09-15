@@ -43,6 +43,15 @@ class AdvanceTicketController extends BaseController
             $this->data->set('errors', $form->getMessages());
         }
         
+        $user = $this->auth->getUser();
+        
+        if ($user->isTheater()) {
+            // ひとまず検索のパラメータとして扱う
+            $cleanValues['theater'] = [
+                $user->getTheater()->getId()
+            ];
+        }
+        
         $this->data->set('form', $form);
         $this->data->set('values', $values);
         $this->data->set('params', $cleanValues);
