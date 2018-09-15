@@ -86,6 +86,16 @@ class AdminUser extends AbstractEntity
     protected $theater;
     
     /**
+     * return groups
+     *
+     * @return array
+     */
+    public static function getGroups()
+    {
+        return self::$groups;
+    }
+    
+    /**
      * get id
      *
      * @return int

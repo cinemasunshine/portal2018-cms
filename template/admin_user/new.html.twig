@@ -57,11 +57,16 @@ $(function(){
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form name="admin_user" method="post" action="#">
+            <form name="admin_user" method="post" action="{{ path_for('admin_user_create') }}">
                 <div class="card-header">
                     新規追加
                 </div>
                 <div class="card-body">
+                    {% if errors %}
+                    <div class="alert alert-danger" role="alert">
+                        入力エラーがあります。
+                    </div>
+                    {% endif %}
                     
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">ID</label>
@@ -74,11 +79,15 @@ $(function(){
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">ユーザ名</label>
                         <div class="col-md-9">
-                            <input type="text" name="name" class="form-control" value="">
+                            <input type="text" name="name" class="form-control{% if errors.name %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.name }}">
                             <span class="help-block">
                                 ※半角英数のみ。同じユーザ名は登録できません。
                             </span>
                             <div class="invalid-feedback">
+                            {% for message in errors.name %}
+                                {{ message }}
+                                {% if not loop.last %}<br>{% endif %}
+                            {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -86,8 +95,12 @@ $(function(){
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">表示名</label>
                         <div class="col-md-9">
-                            <input type="text" name="display_name" class="form-control" value="">
+                            <input type="text" name="display_name" class="form-control{% if errors.display_name %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.display_name }}">
                             <div class="invalid-feedback">
+                            {% for message in errors.display_name %}
+                                {{ message }}
+                                {% if not loop.last %}<br>{% endif %}
+                            {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -95,8 +108,12 @@ $(function(){
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">パスワード</label>
                         <div class="col-md-9">
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" name="password" class="form-control{% if errors.password %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
                             <div class="invalid-feedback">
+                            {% for message in errors.password %}
+                                {{ message }}
+                                {% if not loop.last %}<br>{% endif %}
+                            {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -104,13 +121,17 @@ $(function(){
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">グループ</label>
                         <div class="col-md-9">
-                            <select name="group" class="form-control col-md-4">
+                            <select name="group" class="form-control col-md-4{% if errors.group %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
                                 <option value=""></option>
-                                <option value="1">マスター</option>
-                                <option value="2">マネージャー</option>
-                                <option value="3">劇場</option>
+                            {% for value, text in form.getGroupChoices() %}
+                                <option value="{{ value }}" {{ value == values.group ? 'selected' : '' }}>{{ text }}</text>
+                            {% endfor %}
                             </select>
                             <div class="invalid-feedback">
+                            {% for message in errors.group %}
+                                {{ message }}
+                                {% if not loop.last %}<br>{% endif %}
+                            {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -118,12 +139,17 @@ $(function(){
                     <div class="form-group row field-theater">
                         <label class="col-md-3 col-form-label">劇場</label>
                         <div class="col-md-9">
-                            <select name="theater" class="form-control col-md-4">
+                            <select name="theater" class="form-control col-md-4{% if errors.theater %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
                                 <option value=""></option>
-                                <option value="1">池袋</option>
-                                <option value="2">平和島</option>
+                            {% for value, text in form.getTheaterChoices() %}
+                                <option value="{{ value }}" {{ value == values.theater ? 'selected' : '' }}>{{ text }}</text>
+                            {% endfor %}
                             </select>
                             <div class="invalid-feedback">
+                            {% for message in errors.theater %}
+                                {{ message }}
+                                {% if not loop.last %}<br>{% endif %}
+                            {% endfor %}
                             </div>
                         </div>
                     </div>
