@@ -27,6 +27,13 @@ class AdminUser extends AbstractEntity
     const GROUP_MANAGER = 2;
     const GROUP_THEATER = 3;
     
+    /** @var array */
+    protected static $groups = [
+        self::GROUP_MASTER  => 'マスター',
+        self::GROUP_MANAGER => 'マネージャー',
+        self::GROUP_THEATER => '劇場',
+    ];
+    
     /**
      * id
      * 
@@ -159,6 +166,16 @@ class AdminUser extends AbstractEntity
     public function getGroup()
     {
         return $this->group;
+    }
+    
+    /**
+     * get group label
+     *
+     * @return string|null
+     */
+    public function getGroupLabel()
+    {
+        return self::$groups[$this->getGroup()] ?? null; 
     }
     
     /**

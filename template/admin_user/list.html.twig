@@ -1,0 +1,69 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}一覧 | 管理ユーザ{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">管理ユーザ</li>
+    <li class="breadcrumb-item active">一覧</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="alert alert-warning" role="alert">
+    この機能はalphaバージョンです。
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        
+        <div class="card">
+            <div class="card-header">
+                一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ユーザ名</th>
+                            <th>表示名</th>
+                            <th>グループ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for adminUser in pagenater.getResultsInPage() %}
+                        <tr>
+                            <th>{{ adminUser.getId() }}</th>
+                            <th><a href="#">
+                                {{ adminUser.getName() }}
+                            </a></th>
+                            <th>{{ adminUser.getDisplayName() }}</th>
+                            <th>
+                                {{ adminUser.getGroupLabel() }}
+                                {% if adminUser.isTheater() %}
+                                    （{{ adminUser.getTheater().getNameJa() }}）
+                                {% endif %}
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <hr>
+                
+                {% include 'include/pagination.html.twig' with {
+                    'pagenater': pagenater,
+                    'route_name': 'admin_user_list',
+                    'params': params
+                } only %}
+                
+            </div>
+            <div class="card-footer">
+                {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

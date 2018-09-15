@@ -10,12 +10,33 @@ namespace Cinemasunshine\PortalAdmin\ORM\Repository;
 use Doctrine\ORM\EntityRepository;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
+use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
 
 /**
  * AdminUser repository class
  */
 class AdminUserRepository extends EntityRepository
 {
+    /**
+     * find for list page
+     * 
+     * @param array $params
+     * @param int   $page
+     * @param int   $maxPerPage
+     * @return DoctrinePaginator
+     */
+    public function findForList(array $params, int $page, int $maxPerPage = 10)
+    {
+        $qb = $this->createQueryBuilder('au');
+        $qb
+            ->where('au.isDeleted = false')
+            ->orderBy('au.id', 'ASC');
+        
+        $query = $qb->getQuery();
+        
+        return new DoctrinePaginator($query, $page, $maxPerPage);
+    }
+    
     /**
      * find one by id
      *

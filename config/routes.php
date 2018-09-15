@@ -5,6 +5,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
+use Cinemasunshine\PortalAdmin\Controller\AdminUserController;
 use Cinemasunshine\PortalAdmin\Controller\AuthController;
 use Cinemasunshine\PortalAdmin\Controller\AdvanceTicketController;
 use Cinemasunshine\PortalAdmin\Controller\CampaignController;
@@ -110,6 +111,10 @@ $app->group('', function () {
         $this->get('/opening-hour', TheaterMetaController::class . ':openingHour')->setName('opening_hour');
         $this->get('/{id}/opening-hour/edit', TheaterMetaController::class . ':openingHourEdit')->setName('opening_hour_edit');
         $this->post('/{id}/opening-hour/update', TheaterMetaController::class . ':openingHourUpdate')->setName('opening_hour_update');
+    });
+    
+    $this->group('/admin_user', function() {
+        $this->get('/list', AdminUserController::class . ':list')->setName('admin_user_list');
     });
     
     $this->group('/api', function() {
