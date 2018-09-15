@@ -46,12 +46,12 @@ class AdminUser extends AbstractEntity
     protected $name;
     
     /** 
-     * name_ja
+     * display_name
      * 
      * @var string
-     * @ORM\Column(type="string", name="name_ja")
+     * @ORM\Column(type="string", name="display_name")
      */
-    protected $nameJa;
+    protected $displayName;
     
     /**
      * password
@@ -110,24 +110,24 @@ class AdminUser extends AbstractEntity
     }
     
     /**
-     * get name_ja
+     * get display_name
      *
      * @return string
      */
-    public function getNameJa()
+    public function getDisplayName()
     {
-        return $this->nameJa;
+        return $this->displayName;
     }
     
     /**
-     * set name_ja
+     * set display_name
      *
-     * @param string $nameJa
+     * @param string $displayName
      * @return void
      */
-    public function setNameJa(string $nameJa)
+    public function setDisplayName(string $displayName)
     {
-        $this->nameJa = $nameJa;
+        $this->displayName = $displayName;
     }
     
     /**
