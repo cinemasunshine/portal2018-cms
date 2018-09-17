@@ -151,6 +151,8 @@ class TrailerController extends BaseController
         $trailer->setYoutube($cleanData['youtube']);
         $trailer->setBannerImage($file);
         $trailer->setBannerLinkUrl($cleanData['banner_link_url']);
+        $trailer->setCreatedUser($this->auth->getUser());
+        $trailer->setUpdatedUser($this->auth->getUser());
         
         if ($cleanData['page']) {
             $pages = $this->em->getRepository(Entity\Page::class)->findByIds($cleanData['page']);
@@ -320,6 +322,7 @@ class TrailerController extends BaseController
         $trailer->setName($cleanData['name']);
         $trailer->setYoutube($cleanData['youtube']);
         $trailer->setBannerLinkUrl($cleanData['banner_link_url']);
+        $trailer->setUpdatedUser($this->auth->getUser());
         
         $trailer->getPageTrailers()->clear();
         
@@ -384,6 +387,7 @@ class TrailerController extends BaseController
         /**@var Entity\Trailer $trailer */
         
         $trailer->setIsDeleted(true);
+        $trailer->setUpdatedUser($this->auth->getUser());
         
         // 関連データの処理はイベントで対応する
         

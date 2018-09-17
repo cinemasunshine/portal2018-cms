@@ -22,6 +22,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  */
 class Trailer extends AbstractEntity
 {
+    use SavedUserTrait;
     use SoftDeleteTrait;
     use TimestampableTrait;
     

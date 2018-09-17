@@ -136,6 +136,8 @@ class NewsController extends BaseController
         $news->setEndDt($cleanData['end_dt']);
         $news->setHeadline($cleanData['headline']);
         $news->setBody($cleanData['body']);
+        $news->setCreatedUser($this->auth->getUser());
+        $news->setUpdatedUser($this->auth->getUser());
         
         $this->em->persist($news);
         $this->em->flush();
@@ -280,6 +282,7 @@ class NewsController extends BaseController
         $news->setEndDt($cleanData['end_dt']);
         $news->setHeadline($cleanData['headline']);
         $news->setBody($cleanData['body']);
+        $news->setUpdatedUser($this->auth->getUser());
         
         $this->em->persist($news);
         $this->em->flush();
@@ -313,6 +316,7 @@ class NewsController extends BaseController
         /**@var Entity\News $news */
         
         $news->setIsDeleted(true);
+        $news->setUpdatedUser($this->auth->getUser());
         
         // 関連データの処理はイベントで対応する
         

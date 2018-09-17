@@ -24,6 +24,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  */
 class AdvanceSale extends AbstractEntity
 {
+    use SavedUserTrait;
     use SoftDeleteTrait;
     use TimestampableTrait;
     

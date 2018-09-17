@@ -147,6 +147,8 @@ class CampaignController extends BaseController
         $campaign->setStartDt($cleanData['start_dt']);
         $campaign->setEndDt($cleanData['end_dt']);
         $campaign->setUrl($cleanData['url']);
+        $campaign->setCreatedUser($this->auth->getUser());
+        $campaign->setUpdatedUser($this->auth->getUser());
         
         $this->em->persist($campaign);
         $this->em->flush();
@@ -286,6 +288,7 @@ class CampaignController extends BaseController
         $campaign->setStartDt($cleanData['start_dt']);
         $campaign->setEndDt($cleanData['end_dt']);
         $campaign->setUrl($cleanData['url']);
+        $campaign->setUpdatedUser($this->auth->getUser());
         
         $this->em->persist($campaign);
         $this->em->flush();
@@ -319,6 +322,7 @@ class CampaignController extends BaseController
         /**@var Entity\Campaign $campaign */
         
         $campaign->setIsDeleted(true);
+        $campaign->setUpdatedUser($this->auth->getUser());
         
         // 関連データの処理はイベントで対応する
         

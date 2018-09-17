@@ -20,6 +20,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  */
 class Title extends AbstractEntity
 {
+    use SavedUserTrait;
     use SoftDeleteTrait;
     use TimestampableTrait;
     

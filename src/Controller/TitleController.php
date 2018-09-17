@@ -153,6 +153,8 @@ class TitleController extends BaseController
         $title->setOfficialSite($cleanData['official_site']);
         $title->setRating((int) $cleanData['rating']);
         $title->setUniversal($cleanData['universal'] ?? []);
+        $title->setCreatedUser($this->auth->getUser());
+        $title->setUpdatedUser($this->auth->getUser());
         
         $this->em->persist($title);
         $this->em->flush();
@@ -309,6 +311,7 @@ class TitleController extends BaseController
         $title->setOfficialSite($cleanData['official_site']);
         $title->setRating((int) $cleanData['rating']);
         $title->setUniversal($cleanData['universal'] ?? []);
+        $title->setUpdatedUser($this->auth->getUser());
         $title->setIsDeleted(false);
         
         $this->em->persist($title);
@@ -343,6 +346,7 @@ class TitleController extends BaseController
         /**@var Entity\Title $title */
         
         $title->setIsDeleted(true);
+        $title->setUpdatedUser($this->auth->getUser());
         
         // 関連データの処理はイベントで対応する
         

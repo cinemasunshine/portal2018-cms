@@ -116,6 +116,8 @@ class ScheduleController extends BaseController
         $schedule->setPublicStartDt($cleanData['public_start_dt']);
         $schedule->setPublicEndDt($cleanData['public_end_dt']);
         $schedule->setRemark($cleanData['remark']);
+        $schedule->setCreatedUser($this->auth->getUser());
+        $schedule->setUpdatedUser($this->auth->getUser());
         
         $theaters = $this->em->getRepository(Entity\Theater::class)->findByIds($cleanData['theater']);
         
@@ -242,7 +244,7 @@ class ScheduleController extends BaseController
         $schedule->setPublicStartDt($cleanData['public_start_dt']);
         $schedule->setPublicEndDt($cleanData['public_end_dt']);
         $schedule->setRemark($cleanData['remark']);
-        
+        $schedule->setUpdatedUser($this->auth->getUser());
         
         $schedule->getShowingTheaters()->clear();
         
@@ -301,6 +303,7 @@ class ScheduleController extends BaseController
         /**@var Entity\Schedule $schedule */
         
         $schedule->setIsDeleted(true);
+        $schedule->setUpdatedUser($this->auth->getUser());
         
         // 関連データの処理はイベントで対応する
         

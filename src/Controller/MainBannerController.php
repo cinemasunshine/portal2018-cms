@@ -139,6 +139,8 @@ class MainBannerController extends BaseController
         $mainBanner->setName($cleanData['name']);
         $mainBanner->setLinkType((int) $cleanData['link_type']);
         $mainBanner->setLinkUrl($cleanData['link_url']);
+        $mainBanner->setCreatedUser($this->auth->getUser());
+        $mainBanner->setUpdatedUser($this->auth->getUser());
         
         $this->em->persist($mainBanner);
         $this->em->flush();
@@ -262,6 +264,7 @@ class MainBannerController extends BaseController
         $mainBanner->setName($cleanData['name']);
         $mainBanner->setLinkType((int) $cleanData['link_type']);
         $mainBanner->setLinkUrl($cleanData['link_url']);
+        $mainBanner->setUpdatedUser($this->auth->getUser());
         
         $this->em->flush();
         
@@ -294,6 +297,7 @@ class MainBannerController extends BaseController
         /**@var Entity\MainBanner $mainBanner */
         
         $mainBanner->setIsDeleted(true);
+        $mainBanner->setUpdatedUser($this->auth->getUser());
         
         // 関連データの処理はイベントで対応する
         

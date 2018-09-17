@@ -126,6 +126,9 @@ class AdvanceTicketController extends BaseController
         
         $advanceSale->setPublishingExpectedDate($cleanData['publishing_expected_date']);
         $advanceSale->setPublishingExpectedDateText($cleanData['publishing_expected_date_text']);
+        $advanceSale->setCreatedUser($this->auth->getUser());
+        $advanceSale->setUpdatedUser($this->auth->getUser());
+        
         $this->em->persist($advanceSale);
         
         foreach ($cleanData['tickets'] as $ticket) {
@@ -292,6 +295,7 @@ class AdvanceTicketController extends BaseController
         
         $advanceSale->setPublishingExpectedDate($cleanData['publishing_expected_date']);
         $advanceSale->setPublishingExpectedDateText($cleanData['publishing_expected_date_text']);
+        $advanceSale->setUpdatedUser($this->auth->getUser());
         
         $advanceTickets = $advanceSale->getActiveAdvanceTickets();
         
@@ -426,6 +430,7 @@ class AdvanceTicketController extends BaseController
         
         
         $advanceSale = $advanceTicket->getAdvanceSale();
+        $advanceSale->setUpdatedUser($this->auth->getUser());
         
         // 有効なAdvanceTicketの件数確認
         if ($advanceSale->getActiveAdvanceTickets()->count() === 1) {
