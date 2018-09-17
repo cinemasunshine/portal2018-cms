@@ -348,14 +348,29 @@ class NewsController extends BaseController
      */
     public function executePublication($request, $response, $args)
     {
-        // @todo ユーザによって取得する情報を変更する
+        $user = $this->auth->getUser();
         
-        /** @var Entity\Page[] */
-        $pages = $this->em->getRepository(Entity\Page::class)->findActive();
+        /** @var Entity\Page[] $pages */
+        $pages = [];
+        
+        if (!$user->isTheater()) {
+            $pages = $this->em->getRepository(Entity\Page::class)->findActive();
+        }
+        
         $this->data->set('pages', $pages);
         
-        /** @var Entity\Theater[] */
-        $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
+        $theaterRepository = $this->em->getRepository(Entity\Theater::class);
+        
+        /** @var Entity\Theater[] $theater */
+        
+        if ($user->isTheater()) {
+            $theaters = [
+                $theaterRepository->findOneById($user->getTheater()->getId())
+            ];
+        } else {
+            $theaters = $theaterRepository->findActive();
+        }
+        
         $this->data->set('theaters', $theaters);
     }
     
