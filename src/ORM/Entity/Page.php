@@ -31,7 +31,7 @@ class Page extends AbstractEntity implements CampaignPublicationInterface, NewsP
      * @var int
      * @ORM\Id
      * @ORM\Column(type="smallint", options={"unsigned"=true})
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $id;
     
@@ -80,9 +80,12 @@ class Page extends AbstractEntity implements CampaignPublicationInterface, NewsP
     
     /**
      * construct
+     * 
+     * @param int $id
      */
-    public function __construct()
+    public function __construct(int $id)
     {
+        $this->id = $id;
         $this->campaigns = new ArrayCollection();
         $this->newsList =  new ArrayCollection();
         $this->mainBanners = new ArrayCollection();

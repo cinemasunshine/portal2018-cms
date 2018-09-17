@@ -34,7 +34,7 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
      * @var int
      * @ORM\Id
      * @ORM\Column(type="smallint", options={"unsigned"=true})
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $id;
     
@@ -131,9 +131,12 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     
     /**
      * construct
+     * 
+     * @param int $id
      */
-    public function __construct()
+    public function __construct(int $id)
     {
+        $this->id = $id;
         $this->adminUsers = new ArrayCollection();
         $this->campaigns = new ArrayCollection();
         $this->newsList =  new ArrayCollection();

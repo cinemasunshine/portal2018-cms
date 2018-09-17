@@ -31,7 +31,7 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
      * @var int
      * @ORM\Id
      * @ORM\Column(type="smallint", options={"unsigned"=true})
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $id;
     
@@ -63,9 +63,12 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
     
     /**
      * construct
+     * 
+     * @param int $id
      */
-    public function __construct()
+    public function __construct(int $id)
     {
+        $this->id = $id;
         $this->campaigns = new ArrayCollection();
     }
     
