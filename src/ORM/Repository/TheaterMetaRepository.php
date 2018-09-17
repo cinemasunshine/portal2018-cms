@@ -32,4 +32,22 @@ class TheaterMetaRepository extends EntityRepository
         
         return $qb->getQuery()->getResult();
     }
+    
+    /**
+     * find one by theater id
+     *
+     * @param int $theaterId
+     * @return TheaterMeta|null
+     */
+    public function findOneByTheaterId($theaterId)
+    {
+        $qb = $this->createQueryBuilder('tm');
+        $qb
+            ->join('tm.theater', 't')
+            ->where('t.id = :id')
+            ->andWhere('t.isDeleted = false')
+            ->setParameter('id', $theaterId);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

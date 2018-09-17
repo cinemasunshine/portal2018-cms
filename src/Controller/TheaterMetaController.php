@@ -27,8 +27,17 @@ class TheaterMetaController extends BaseController
      */
     public function executeOpeningHour($request, $response, $args)
     {
-        // @todo ユーザによってデータを調整
-        $metas = $this->em->getRepository(Entity\TheaterMeta::class)->findActive();
+        $user = $this->auth->getUser();
+        $repository = $this->em->getRepository(Entity\TheaterMeta::class);
+        
+        if ($user->isTheater()) {
+            $metas = [
+                $repository->findOneByTheaterId($user->getTheater()->getId())
+            ];
+        } else {
+            $metas = $repository->findActive();
+        }
+        
         $this->data->set('metas', $metas);
     }
     
