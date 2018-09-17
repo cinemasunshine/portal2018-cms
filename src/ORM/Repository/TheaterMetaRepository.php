@@ -20,7 +20,7 @@ class TheaterMetaRepository extends EntityRepository
     /**
      * find
      * 
-     * @return Theater[]
+     * @return TheaterMeta[]
      */
     public function findActive()
     {
