@@ -32,6 +32,12 @@ class NewsRepository extends EntityRepository
             ->where('n.isDeleted = false')
             ->orderBy('n.createdAt', 'DESC');
         
+        if (isset($params['user'])) {
+            $qb
+                ->andWhere('n.createdUser = :user')
+                ->setParameter('user', $params['user']);
+        }
+        
         if (isset($params['term']) && count($params['term']) > 0) {
             $or = $qb->expr()->orX();
             
