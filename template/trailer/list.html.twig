@@ -2,6 +2,10 @@
 
 {% block title %}一覧 | 予告動画{% endblock %}
 
+{% block javascript %}
+<script src="/js/trailer/list.js"></script>
+{% endblock %}
+
 {% block breadcrumb %}
 <ol class="breadcrumb">
     <li class="breadcrumb-item">ダッシュボード</li>
@@ -14,7 +18,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form method="get" action="{{ path_for('trailer_list') }}">
+            <form name="find_trailer" method="get" action="{{ path_for('trailer_list') }}">
                 <div class="card-header">
                     検索
                 </div>
@@ -31,66 +35,31 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">提出箇所：ページ</label>
-                        <div class="col-md-9 col-form-label">
-                        {% for value, text in form.getPageChoices() %}
-                            <div class="form-check form-check-inline mr-1">
-                                <input type="checkbox" class="form-check-input{% if errors.page %} is-invalid{% elseif is_validated %} is-valid{% endif %}" id="page-{{ loop.index }}" name="page[]" value="{{ value }}" {{ value in values.page ? 'checked' : '' }}>
-                                <label class="form-check-label" for="page-{{ loop.index }}">{{ text }}</label>
-                            </div>
-                        {% endfor %}
-                            {##
-                             # インラインの項目でエラーを表示するためのhidden
-                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
-                             # それをやると見た目が良くないので。
-                             #}
-                            <input type="hidden" class="form-control {% if errors.page %} is-invalid{% endif %}">
-                            <div class="invalid-feedback">
-                                {% for messages in errors.page %}
-                                    {% if messages is iterable %}
-                                        {% for message in messages %}
-                                            {{ message }}
-                                        {% endfor %}
-                                        {% if not loop.last %}<br>{% endif %}
-                                    {% else %}
-                                        {{ messages }}
-                                    {% endif %}
-                                    {% if not loop.last %}<br>{% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
+                        {% include 'include/form/field_multi_checkbox.html.twig' with {
+                            label: '提出箇所：ページ',
+                            name: 'page',
+                            choices: form.getPageChoices(),
+                            value: values.page,
+                            error: errors.page,
+                            is_validated: is_validated,
+                            with_assist: false,
+                        } only %}
                     </div>
+                    
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">提出箇所：劇場</label>
-                        <div class="col-md-9 col-form-label">
-                        {% for value, text in form.getTheaterChoices() %}
-                            <div class="form-check form-check-inline mr-1">
-                                <input type="checkbox" class="form-check-input{% if errors.theater %} is-invalid{% elseif is_validated %} is-valid{% endif %}" id="theater-{{ loop.index }}" name="theater[]" value="{{ value }}" {{ value in values.theater ? 'checked' : '' }}>
-                                <label class="form-check-label" for="theater-{{ loop.index }}">{{ text }}</label>
-                            </div>
-                        {% endfor %}
-                            {##
-                             # インラインの項目でエラーを表示するためのhidden
-                             # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
-                             # それをやると見た目が良くないので。
-                             #}
-                            <input type="hidden" class="form-control {% if errors.theater %} is-invalid{% endif %}">
-                            <div class="invalid-feedback">
-                                {% for messages in errors.theater %}
-                                    {% if messages is iterable %}
-                                        {% for message in messages %}
-                                            {{ message }}
-                                        {% endfor %}
-                                        {% if not loop.last %}<br>{% endif %}
-                                    {% else %}
-                                        {{ messages }}
-                                    {% endif %}
-                                    {% if not loop.last %}<br>{% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
+                        {% include 'include/form/field_multi_checkbox.html.twig' with {
+                            label: '提出箇所：劇場',
+                            name: 'theater',
+                            choices: form.getTheaterChoices(),
+                            value: values.theater,
+                            error: errors.theater,
+                            is_validated: is_validated,
+                            with_assist: true,
+                        } only %}
                     </div>
+                    
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">検索</button>
