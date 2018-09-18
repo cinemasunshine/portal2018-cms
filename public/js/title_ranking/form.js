@@ -4,13 +4,6 @@
 $(function(){
     var $form = $('form[name="title_ranking"]');
     
-    $.datetimepicker.setLocale('ja');
-    
-    var datepickerOption = {
-        timepicker:false,
-        format: 'Y/m/d'
-    };
-    
     $form.find('.datepicker').datetimepicker(datepickerOption);
     
     var $selectTitleModal = $('#selectTitleModal');

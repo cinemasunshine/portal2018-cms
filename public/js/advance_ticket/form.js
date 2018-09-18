@@ -4,18 +4,9 @@
 $(function(){
     var $form = $('form[name="advance_sale"]');
     
-    $.datetimepicker.setLocale('ja');
-    
-    var datepickerOption = {
-        timepicker:false,
-        format: 'Y/m/d'
-    };
-    
     $form.find('.datepicker').datetimepicker(datepickerOption);
     
-    var datetimepickerOption = {
-        format: 'Y/m/d H:i'
-    };
+    // javascriptで動的に追加された項目については別途設定する
     $form.find('.datetimepicker').datetimepicker(datetimepickerOption); 
     
     $form.find('input[type="checkbox"][name="not_exist_publishing_expected_date"]').change(function(){

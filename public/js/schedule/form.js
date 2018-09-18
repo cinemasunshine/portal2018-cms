@@ -4,17 +4,7 @@
 $(function(){
     var $form = $('form[name="schedule"]');
     
-    $.datetimepicker.setLocale('ja');
-    
-    var datepickerOption = {
-        timepicker: false,
-        format: 'Y/m/d'
-    };
     $form.find('.datepicker').datetimepicker(datepickerOption);
-    
-    var datetimepickerOption = {
-        format: 'Y/m/d H:i'
-    };
     $form.find('.datetimepicker').datetimepicker(datetimepickerOption); 
     
     var $titleField = $form.find('.form-group.title');

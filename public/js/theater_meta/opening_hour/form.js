@@ -4,18 +4,8 @@
 $(function(){
     var $form = $('form[name="opening_hour"]');
     
-    $.datetimepicker.setLocale('ja');
-    
-    var datepickerOption = {
-        timepicker: false,
-        format: 'Y/m/d'
-    };
+    // javascriptで動的に追加された項目については別途設定する
     $form.find('.datepicker').datetimepicker(datepickerOption);
-    
-    var timepickerOption = {
-        datepicker: false,
-        format: 'H:i'
-    };
     $form.find('.timepicker').datetimepicker(timepickerOption);
     
     var $hours = $('#hours');

@@ -2,14 +2,10 @@
  * campaign/form.js
  */
 $(function(){
-    $.datetimepicker.setLocale('ja');
-    var datetimepickerOption = {
-        format: 'Y/m/d H:i'
-    };
-    
-    $('.datetimepicker').datetimepicker(datetimepickerOption);
-    
     var $form = $('form[name="campaign"]');
+    
+    $form.find('.datetimepicker').datetimepicker(datetimepickerOption);
+    
     var $titleField = $form.find('.form-group.title');
     
     $titleField.find('.btn-clear').click(function() {

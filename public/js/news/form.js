@@ -2,30 +2,12 @@
  * news/form.js
  */
 $(function(){
-    $.datetimepicker.setLocale('ja');
-    var datetimepickerOption = {
-        format: 'Y/m/d H:i'
-    };
+    var $form = $('form[name="news"]');
     
-    $('.datetimepicker').datetimepicker(datetimepickerOption);
-    
-    var editorOptions = {
-        lang: 'ja-JP',
-        height: 200,
-        toolbar: [
-            ['edit', ['undo', 'redo']],
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough', 'superscript', 'subscript']],
-            ['fontsize', ['fontsize']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['insert', ['picture', 'link', 'table', 'hr']],
-            ['etc', ['fullscreen', 'codeview', 'help']]
-        ]
-    };
+    $form.find('.datetimepicker').datetimepicker(datetimepickerOption);
     
     $.extend(editorOptions, {
+        height: 200,
         callbacks: {
             onImageUpload: function(files) {
                 $.each(files, function(i, file) {
@@ -35,7 +17,7 @@ $(function(){
         }
     });
     
-    var $summernote = $('textarea.editor').summernote(editorOptions);
+    var $summernote = $form.find('textarea.editor').summernote(editorOptions);
     
     /**
      * upload from editor
@@ -69,7 +51,6 @@ $(function(){
             });
     }
     
-    var $form = $('form[name="news"]');
     var $titleField = $form.find('.form-group.title');
     
     $titleField.find('.btn-clear').click(function() {

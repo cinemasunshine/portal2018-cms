@@ -2,16 +2,12 @@
  * title/form.js
  */
 $(function(){
-    $.datetimepicker.setLocale('ja');
-    var datetimepickerOption = {
-        timepicker:false,
-        format: 'Y/m/d'
-    };
+    var $form = $('form[name="title"]');
     
-    $('.datetimepicker').datetimepicker(datetimepickerOption);
+    $form.find('.datetimepicker').datetimepicker(datetimepickerOption);
     
-    $('input[name="not_exist_publishing_expected_date"]').change(function(){
-        var $publishingExpectedDate = $('input[name="publishing_expected_date"]');
+    $form.find('input[name="not_exist_publishing_expected_date"]').change(function(){
+        var $publishingExpectedDate = $form.find('input[name="publishing_expected_date"]');
         
         if ($(this).is(':checked')) {
             $publishingExpectedDate.prop('disabled', true);
@@ -20,8 +16,11 @@ $(function(){
         }
     });
     
+    /**
+     * execute
+     */
     function execute() {
-        $('input[name="not_exist_publishing_expected_date"]').change();
+        $form.find('input[name="not_exist_publishing_expected_date"]').change();
     }
     
     execute();
