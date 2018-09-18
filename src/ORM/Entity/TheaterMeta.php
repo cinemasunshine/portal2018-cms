@@ -28,7 +28,7 @@ class TheaterMeta extends AbstractEntity
      * @var int
      * @ORM\Id
      * @ORM\Column(type="smallint", options={"unsigned"=true})
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $id;
     
@@ -37,7 +37,7 @@ class TheaterMeta extends AbstractEntity
      * 
      * @var Theater
      * @ORM\OneToOne(targetEntity="Theater")
-     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $theater;
     
