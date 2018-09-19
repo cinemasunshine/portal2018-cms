@@ -27,4 +27,16 @@ class TitleResponder extends BaseResponder
     {
         return $response->withJson($data->all());
     }
+    
+    /**
+     * autocomplete
+     *
+     * @param Response   $response
+     * @param Collection $data
+     * @return Response
+     */
+    public function autocomplete(Response $response, Collection $data)
+    {
+        return $response->withJson($data->all());
+    }
 }

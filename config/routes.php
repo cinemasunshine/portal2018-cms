@@ -122,6 +122,7 @@ $app->group('', function () {
     $this->group('/api', function() {
         $this->group('/title', function() {
             $this->get('/list', TitleApiController::class . ':list');
+            $this->get('/autocomplete', TitleApiController::class . ':autocomplete');
         });
         
         $this->group('/main_banner', function() {

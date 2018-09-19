@@ -49,4 +49,33 @@ class TitleController extends BaseController
         
         $this->data->set('data', $data);
     }
+    
+    /**
+     * autocomplete action
+     * 
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeAutocomplete($request, $response, $args)
+    {
+        $titles = $this->em
+                ->getRepository(Entity\Title::class)
+                ->findForAutocomplete($request->getParams());
+                
+        $data = [];
+        
+        foreach ($titles as $title) {
+            /** @var Entity\Title $title */
+            
+            $data[] = [
+                'name'          => $title->getName(),
+                'name_kana'     => $title->getNameKana(),
+                'name_original' => $title->getNameOriginal(),
+            ];
+        }
+        
+        $this->data->set('data', $data);
+    }
 }

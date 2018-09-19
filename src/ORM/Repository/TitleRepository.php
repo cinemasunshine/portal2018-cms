@@ -81,6 +81,37 @@ class TitleRepository extends EntityRepository
     }
     
     /**
+     * find for autocomplete
+     *
+     * @param array $params
+     * @return Title[]
+     * @link https://github.com/sergiodlopes/jquery-flexdatalist
+     */
+    public function findForAutocomplete(array $params)
+    {
+        $keyword = $params['keyword'];
+        
+        if ($params['contain'] === 'true') {
+            $name = '%' . $keyword . '%';
+        } else {
+            $name = $keyword . '%';
+        }
+        
+        $qb = $this->createQueryBuilder('t');
+        $qb
+            ->where('t.isDeleted = false')
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->like('t.name', ':name'),
+                $qb->expr()->like('t.nameKana', ':name'),
+                $qb->expr()->like('t.nameOriginal', ':name')
+            ))
+            ->orderBy('t.createdAt', 'DESC')
+            ->setParameter('name', $name);
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    /**
      * find one by id
      *
      * @param int $id
