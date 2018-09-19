@@ -3,6 +3,17 @@
  */
 $(function(){
     var $modal = $('#selectTitleModal');
+    
+    $modal.find('input[name="name"]').flexdatalist({
+        requestType: 'get',
+        url: '/api/title/autocomplete',
+        noResultsText: '「{keyword}」は見つかりませんでした。',
+        resultsProperty: 'data',
+        searchIn: ['name', 'name_kana', 'name_original'],
+        searchContain: true,
+        textProperty: 'name',
+    });
+    
     var titleRowTmpl = $.templates("#selectTitleRowTmpl");
     var titles;
     

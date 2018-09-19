@@ -2,10 +2,15 @@
 
 {% block title %}「{{ trailer.getName() }}」編集 | 予告動画{% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/jquery.flexdatalist.min.css">
+{% endblock %}
+
 {% block javascript %}
+<script src="/js/vendor/jquery.flexdatalist.min.js"></script>
 <script src="/js/vendor/jsrender.min.js"></script>
 <script src="/js/api.js"></script>
-<script src="/js/modal/select-title.js"></script>
+<script src="/js/modal/select-title.js?v=20180919"></script>
 <script src="/js/trailer/form.js"></script>
 {% endblock %}
 
