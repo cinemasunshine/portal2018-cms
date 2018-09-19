@@ -60,12 +60,12 @@ class Title extends AbstractEntity
     protected $nameKana;
     
     /** 
-     * name_en
+     * name_original
      * 
      * @var string
-     * @ORM\Column(type="string", name="name_en")
+     * @ORM\Column(type="string", name="name_original")
      */
-    protected $nameEn;
+    protected $nameOriginal;
     
     /**
      * credit
@@ -242,24 +242,24 @@ class Title extends AbstractEntity
     }
     
     /**
-     * get name_en
+     * get name_original
      *
      * @return string
      */
-    public function getNameEn()
+    public function getNameOriginal()
     {
-        return $this->nameEn;
+        return $this->nameOriginal;
     }
     
     /**
-     * set name_en
+     * set name_original
      *
-     * @param string $nameEn
+     * @param string $nameOriginal
      * @return void
      */
-    public function setNameEn(string $nameEn)
+    public function setNameOriginal(string $nameOriginal)
     {
-        $this->nameEn = $nameEn;
+        $this->nameOriginal = $nameOriginal;
     }
     
     /**

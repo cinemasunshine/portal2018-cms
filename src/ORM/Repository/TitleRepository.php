@@ -44,7 +44,7 @@ class TitleRepository extends EntityRepository
                 ->andWhere($qb->expr()->orX(
                     $qb->expr()->like('t.name', ':name'),
                     $qb->expr()->like('t.nameKana', ':name'),
-                    $qb->expr()->like('t.nameEn', ':name')
+                    $qb->expr()->like('t.nameOriginal', ':name')
                 ))
                 ->setParameter('name', '%' . $params['name'] . '%');
         }
@@ -72,7 +72,7 @@ class TitleRepository extends EntityRepository
             ->andWhere($qb->expr()->orX(
                 $qb->expr()->like('t.name', ':name'),
                 $qb->expr()->like('t.nameKana', ':name'),
-                $qb->expr()->like('t.nameEn', ':name')
+                $qb->expr()->like('t.nameOriginal', ':name')
             ))
             ->orderBy('t.createdAt', 'DESC')
             ->setParameter('name', '%' . $name . '%');

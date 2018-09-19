@@ -142,7 +142,7 @@ class TitleController extends BaseController
         $title->setImage($file);
         $title->setName($cleanData['name']);
         $title->setNameKana($cleanData['name_kana']);
-        $title->setNameEn($cleanData['name_en']);
+        $title->setNameOriginal($cleanData['name_original']);
         $title->setCredit($cleanData['credit']);
         $title->setCatchcopy($cleanData['catchcopy']);
         $title->setIntroduction($cleanData['introduction']);
@@ -195,7 +195,7 @@ class TitleController extends BaseController
             'id'            => $title->getId(),
             'name'          => $title->getName(),
             'name_kana'     => $title->getNameKana(),
-            'name_en'       => $title->getNameEn(),
+            'name_original' => $title->getNameOriginal(),
             'credit'        => $title->getCredit(),
             'catchcopy'     => $title->getCatchcopy(),
             'introduction'  => $title->getIntroduction(),
@@ -299,7 +299,7 @@ class TitleController extends BaseController
         
         $title->setName($cleanData['name']);
         $title->setNameKana($cleanData['name_kana']);
-        $title->setNameEn($cleanData['name_en']);
+        $title->setNameOriginal($cleanData['name_original']);
         $title->setCredit($cleanData['credit']);
         $title->setCatchcopy($cleanData['catchcopy']);
         $title->setIntroduction($cleanData['introduction']);

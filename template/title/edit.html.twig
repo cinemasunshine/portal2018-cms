@@ -71,9 +71,9 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">英名（原題）</label>
                         <div class="col-md-9">
-                            <input type="text" name="name_en" class="form-control{% if errors.name_en %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.name_en }}" />
+                            <input type="text" name="name_original" class="form-control{% if errors.name_original %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.name_original }}" />
                             <div class="invalid-feedback">
-                                {% for message in errors.name_en %}
+                                {% for message in errors.name_original %}
                                     {{ message }}
                                     {% if not loop.last %}<br />{% endif %}
                                 {% endfor %}
