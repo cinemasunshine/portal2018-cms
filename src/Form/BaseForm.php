@@ -19,6 +19,13 @@ use Cinemasunshine\PortalAdmin\Translator\ValidatorTranslator;
  */
 class BaseForm extends Form
 {
+    /** @var array */
+    public static $imageMimeTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+    ];
+    
     /**
      * construct
      */

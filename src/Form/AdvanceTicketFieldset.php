@@ -161,17 +161,13 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
                     [
                         'name' => Validator\File\Size::class,
                         'options' => [
-                            'max' => '200KB', // @todo 調整
+                            'max' => '10MB', // SASAKI-245
                         ],
                     ],
                     [
                         'name' => Validator\File\MimeType::class,
                         'options' => [
-                            'mimeType' => [
-                                'image/jpeg',
-                                'image/png',
-                                'image/gif',
-                            ],
+                            'mimeType' => AdvanceSaleForm::$imageMimeTypes,
                         ],
                     ],
                 ],

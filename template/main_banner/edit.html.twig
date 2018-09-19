@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <input type="file" name="image" class="form-control{% if errors.image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
-                                    <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                                    <span class="help-block">jpg、png、gif形式のみ対応。10MB以内。</span>
                                     <div class="invalid-feedback">
                                         {% for message in errors.image %}
                                             {{ message }}

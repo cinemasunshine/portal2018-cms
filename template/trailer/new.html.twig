@@ -101,7 +101,7 @@
                         <label class="col-md-3 col-form-label">バナー画像</label>
                         <div class="col-md-9">
                             <input type="file" name="banner_image" class="form-control{% if errors.banner_image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
-                            <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                            <span class="help-block">jpg、png、gif形式のみ対応。10MB以内。</span>
                             <div class="invalid-feedback">
                                 {% for message in errors.banner_image %}
                                     {{ message }}

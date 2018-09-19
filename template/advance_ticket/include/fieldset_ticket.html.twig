@@ -164,7 +164,7 @@
                 </div>
                 {% endif %}
                 <input type="file" name="tickets[{{ index }}][special_gift_image]" class="form-control{% if errors.special_gift_image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
-                <span class="help-block">jpg、png、gif形式のみ対応。○○MB以内。</span>
+                <span class="help-block">jpg、png、gif形式のみ対応。10MB以内。</span>
                 <div class="invalid-feedback">
                     {% for message in errors.special_gift_image %}
                         {{ message }}

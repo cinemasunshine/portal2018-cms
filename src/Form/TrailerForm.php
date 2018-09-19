@@ -165,7 +165,7 @@ class TrailerForm extends BaseForm
                 [
                     'name' => Validator\File\Size::class,
                     'options' => [
-                        'max' => '200KB', // @todo 調整
+                        'max' => '10MB', // SASAKI-245
                     ],
                 ],
                 [
