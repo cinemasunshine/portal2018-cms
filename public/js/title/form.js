@@ -4,7 +4,7 @@
 $(function(){
     var $form = $('form[name="title"]');
     
-    $form.find('.datetimepicker').datetimepicker(datetimepickerOption);
+    $form.find('.datepicker').datetimepicker(datepickerOption);
     
     $form.find('input[name="not_exist_publishing_expected_date"]').change(function(){
         var $publishingExpectedDate = $form.find('input[name="publishing_expected_date"]');

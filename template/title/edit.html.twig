@@ -10,7 +10,7 @@
 {% block javascript %}
 <script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
 <script src="/js/form.js"></script>
-<script src="/js/title/form.js?v=20180918"></script>
+<script src="/js/title/form.js?v=20180919"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -167,7 +167,7 @@
                         <label class="col-md-3 col-form-label">公開予定日</label>
                         <div class="col-md-3">
                             <div class="input-group">
-                                <input type="text" name="publishing_expected_date" class="form-control datetimepicker{% if errors.publishing_expected_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.publishing_expected_date }}" />
+                                <input type="text" name="publishing_expected_date" class="form-control datepicker{% if errors.publishing_expected_date %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.publishing_expected_date }}" />
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="icon-calendar"></i>
