@@ -106,8 +106,8 @@ class NewsController extends BaseController
         // rename
         $newName = Entity\File::createName($image['name']);
         
-        // @todo サイズ調整
-        $imageStream = $this->resizeImage($image['tmp_name'], 500);
+        // SASAKI-245
+        $imageStream = $this->resizeImage($image['tmp_name'], 1200, 600);
         
         // upload storage
         // @todo storageと同期するような仕組みをFileへ
@@ -243,8 +243,8 @@ class NewsController extends BaseController
             // rename
             $newName = Entity\File::createName($image['name']);
             
-            // @todo サイズ調整
-            $imageStream = $this->resizeImage($image['tmp_name'], 500);
+            // SASAKI-245
+            $imageStream = $this->resizeImage($image['tmp_name'], 1200, 600);
             
             // upload storage
             // @todo storageと同期するような仕組みをFileへ

@@ -55,7 +55,7 @@ trait ImageManagerTrait
      * @param int|null $height
      * @return \GuzzleHttp\Psr7\Stream
      */
-    protected function resizeImage($data, $width, $height = null)
+    protected function resizeImage($data, ?int $width, ?int $height = null)
     {
         $imageManager = $this->getImageManager();
         $image = $imageManager

@@ -113,9 +113,6 @@ class MainBannerController extends BaseController
         // rename
         $newName = Entity\File::createName($image['name']);
         
-        // @todo サイズ調整
-        $imageStream = $this->resizeImage($image['tmp_name'], 500);
-        
         // upload storage
         // @todo storageと同期するような仕組みをFileへ
         $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
@@ -123,14 +120,14 @@ class MainBannerController extends BaseController
         $this->bc->createBlockBlob(
             Entity\File::getBlobContainer(),
             $newName,
-            $imageStream,
+            fopen($image['tmp_name'], 'r'),
             $options);
         
         $file = new Entity\File();
         $file->setName($newName);
         $file->setOriginalName($image['name']);
         $file->setMimeType($image['type']);
-        $file->setSize($imageStream->getSize());
+        $file->setSize((int) $image['size']);
         
         $this->em->persist($file);
         
@@ -229,9 +226,6 @@ class MainBannerController extends BaseController
             // rename
             $newName = Entity\File::createName($image['name']);
             
-            // @todo サイズ調整
-            $imageStream = $this->resizeImage($image['tmp_name'], 500);
-            
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
             $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
@@ -239,14 +233,14 @@ class MainBannerController extends BaseController
             $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),
                 $newName,
-                $imageStream,
+                fopen($image['tmp_name'], 'r'),
                 $options);
             
             $file = new Entity\File();
             $file->setName($newName);
             $file->setOriginalName($image['name']);
             $file->setMimeType($image['type']);
-            $file->setSize($imageStream->getSize());
+            $file->setSize((int) $image['size']);
             
             $this->em->persist($file);
             
