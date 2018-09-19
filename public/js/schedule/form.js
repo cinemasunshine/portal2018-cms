@@ -23,6 +23,8 @@ $(function(){
         $titleField.find('input[name="title_id"]').val(title.id);
         $titleField.find('input[name="title_name"]').val(title.name);
         $titleField.find('.title-name').text(title.name);
+        
+        $form.find('input[name="start_date"]').val(title.publishing_expected_date);
     }
     
     $form.find('input[name="public_end_dt"]').change(function() {

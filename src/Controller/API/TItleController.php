@@ -40,6 +40,9 @@ class TitleController extends BaseController
                     'id'            => $title->getId(),
                     'name'          => $title->getName(),
                     'official_site' => $title->getOfficialSite(),
+                    'publishing_expected_date' => $title->getPublishingExpectedDate()
+                                               ? $title->getPublishingExpectedDate()->format('Y/m/d')
+                                               : null,
                 ];
             }
         }
