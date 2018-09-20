@@ -23,16 +23,31 @@ $settings['view'] = [
 
 
 // logger
-$loggerLevel = (APP_ENV === 'dev')
-             ? \Monolog\Logger::DEBUG
-             : \Monolog\Logger::ERROR;
+$getLoggerSetting = function() {
+    $settings = [
+        'name' => 'app',
+    ];
+    
+    if (APP_ENV === 'dev') {
+        $settings['chrome_php'] = [
+            'level' => \Monolog\Logger::DEBUG,
+        ];
+    }
+    
+    $settings['fingers_crossed'] = [
+        'activation_strategy' => \Monolog\Logger::ERROR,
+    ];
+    
+    $settings['azure_blob_storage'] = [
+        'level' => \Monolog\Logger::INFO,
+        'container' => 'admin-log',
+        'blob' => date('Ymd') . '.log',
+    ];
+    
+    return $settings;
+};
 
-$settings['logger'] = [
-    'name' => 'app',
-    'chrome_php' => [
-        'level' => $loggerLevel,
-    ],
-];
+$settings['logger'] = $getLoggerSetting();
 
 // doctrine
 $getDoctrineSetting = function() {

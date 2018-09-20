@@ -36,7 +36,8 @@ $container['view'] = function ($container) {
 /**
  * logger
  * 
- * @todo 環境毎に設定を変える
+ * @link https://github.com/Seldaek/monolog
+ * 
  * @return \Monolog\Logger
  */
 $container['logger'] = function ($container) {
@@ -50,10 +51,25 @@ $container['logger'] = function ($container) {
     $logger->pushProcessor(new Monolog\Processor\MemoryUsageProcessor());
     $logger->pushProcessor(new Monolog\Processor\MemoryPeakUsageProcessor());
     
-    // chromePHP
-    $chromePhpSettings = $settings['chrome_php'];
-    $logger->pushHandler(new Monolog\Handler\ChromePHPHandler(
-        $chromePhpSettings['level']
+    if (isset($settings['chrome_php'])) {
+        $chromePhpSettings = $settings['chrome_php'];
+        $logger->pushHandler(new Monolog\Handler\ChromePHPHandler(
+            $chromePhpSettings['level']
+        ));
+    }
+    
+    $azureBlobStorageSettings = $settings['azure_blob_storage'];
+    $azureBlobStorageHandler = new Cinemasunshine\PortalAdmin\Logger\Handler\AzureBlobStorageHandler(
+        $container->get('bc'),
+        $azureBlobStorageSettings['container'],
+        $azureBlobStorageSettings['blob'],
+        $azureBlobStorageSettings['level']
+    );
+    
+    $fingersCrossedSettings = $settings['fingers_crossed'];
+    $logger->pushHandler(new Monolog\Handler\FingersCrossedHandler(
+        $azureBlobStorageHandler,
+        $fingersCrossedSettings['activation_strategy']
     ));
     
     return $logger;
