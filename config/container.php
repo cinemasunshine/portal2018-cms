@@ -8,6 +8,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
+/** @var \Slim\App $app */
 $container = $app->getContainer();
 
 /** 
@@ -135,4 +136,8 @@ $container['bc'] = function ($container) {
         $settings['account']['key']);
     
     return \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobService($connectionString);
+};
+
+$container['errorHandler'] = function ($container) {
+    return new \Cinemasunshine\PortalAdmin\Application\Handlers\Error($container);
 };
