@@ -79,6 +79,9 @@ $container['em'] = function ($container) {
         false
     );
     
+    $logger = new \Cinemasunshine\PortalAdmin\Logger\DbalLogger($container->get('logger'));
+    $config->setSQLLogger($logger);
+    
     return \Doctrine\ORM\EntityManager::create($settings['connection'], $config);
 };
 
