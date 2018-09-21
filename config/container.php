@@ -141,3 +141,7 @@ $container['bc'] = function ($container) {
 $container['errorHandler'] = function ($container) {
     return new \Cinemasunshine\PortalAdmin\Application\Handlers\Error($container);
 };
+
+$container['phpErrorHandler'] = function ($container) {
+    return new \Cinemasunshine\PortalAdmin\Application\Handlers\PhpError($container);
+};
