@@ -38,13 +38,16 @@ class Error extends BaseHandler
     }
     
     /**
-     * {@inheritdoc}
+     *  Write to the error log
+     * 
+     * @see Slim\Handlers\AbstractError
+     *
+     * @param \Exception|\Throwable $throwable
+     * @return void
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, \Exception $exception)
+    protected function writeToErrorLog($throwable)
     {
-        $this->log($exception);
-        
-        return parent::__invoke($request, $response, $exception);
+        $this->log($throwable);
     }
     
     /**
