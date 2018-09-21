@@ -10,9 +10,6 @@ namespace Cinemasunshine\PortalAdmin\Application\Handlers;
 use Slim\Container;
 use Slim\Handlers\PhpError as BaseHandler;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-
 /**
  * PHP Error handler
  */
