@@ -63,4 +63,16 @@ class Error extends BaseHandler
             'trace' => $exception->getTraceAsString(),
         ]);
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    protected function renderHtmlErrorMessage(\Exception $exception)
+    {
+        if (APP_ENV === 'dev') {
+            return parent::renderHtmlErrorMessage($exception);
+        }
+        
+        return file_get_contents(APP_ROOT . '/error/500.html');
+    }
 }
