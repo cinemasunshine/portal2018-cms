@@ -145,3 +145,7 @@ $container['errorHandler'] = function ($container) {
 $container['phpErrorHandler'] = function ($container) {
     return new \Cinemasunshine\PortalAdmin\Application\Handlers\PhpError($container);
 };
+
+$container['notFoundHandler'] = function ($container) {
+    return new \Cinemasunshine\PortalAdmin\Application\Handlers\NotFound($container);
+};
