@@ -51,6 +51,13 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
      */
     protected $nameJa;
     
+    /**
+     * theaters
+     *
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Theater", mappedBy="specialSites")
+     */
+    protected $theaters;
     
     /**
      * campaigns
@@ -69,6 +76,7 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
     public function __construct(int $id)
     {
         $this->id = $id;
+        $this->theaters = new ArrayCollection();
         $this->campaigns = new ArrayCollection();
     }
     
@@ -122,6 +130,16 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
     public function setNameJa(string $nameJa)
     {
         $this->nameJa = $nameJa;
+    }
+    
+    /**
+     * get theaters
+     *
+     * @return Collection
+     */
+    public function getTheaters()
+    {
+        return $this->theaters;
     }
     
     /**

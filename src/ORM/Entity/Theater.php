@@ -95,6 +95,18 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     protected $meta;
     
     /**
+     * special_sites
+     *
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="SpecialSite", inversedBy="theaters")
+     * @ORM\JoinTable(name="theater_special_site",
+     *      joinColumns={@ORM\JoinColumn(name="theater_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="special_site_id", referencedColumnName="id")}
+     * )
+     */
+    protected $specialSites;
+    
+    /**
      * admin_users
      * 
      * @var ArrayCollection
@@ -137,6 +149,7 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     public function __construct(int $id)
     {
         $this->id = $id;
+        $this->specialSites = new ArrayCollection();
         $this->adminUsers = new ArrayCollection();
         $this->campaigns = new ArrayCollection();
         $this->newsList =  new ArrayCollection();
@@ -266,6 +279,16 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     public function getMeta()
     {
         return $this->meta;
+    }
+    
+    /**
+     * get special_sites
+     *
+     * @return Collection
+     */
+    public function getSpecialSites()
+    {
+        return $this->specialSites;
     }
     
     /**
