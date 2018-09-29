@@ -50,6 +50,22 @@ class TheaterMeta extends AbstractEntity
     protected $openingHours;
     
     /**
+     * twitter
+     *
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $twitter;
+    
+    /**
+     * facebook
+     *
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $facebook;
+    
+    /**
      * construct
      */
     public function __construct()
@@ -122,5 +138,47 @@ class TheaterMeta extends AbstractEntity
         }
         
         $this->openingHours = $hours;
+    }
+    
+    /**
+     * get twitter
+     *
+     * @return string
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+    
+    /**
+     * set twitter
+     *
+     * @param string|null $twitter
+     * @return void
+     */
+    public function setTwitter(?string $twitter)
+    {
+        $this->twitter = $twitter;
+    }
+    
+    /**
+     * get facebook
+     *
+     * @return string
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+    
+    /**
+     * set facebook
+     *
+     * @param string|null $facebook
+     * @return void
+     */
+    public function setFacebook(?string $facebook)
+    {
+        $this->facebook = $facebook;
     }
 }
