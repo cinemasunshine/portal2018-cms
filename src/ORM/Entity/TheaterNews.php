@@ -45,7 +45,7 @@ class TheaterNews extends AbstractEntity
      * theater
      *
      * @var Theater
-     * @ORM\ManyToOne(targetEntity="Theater", inversedBy="theaters")
+     * @ORM\ManyToOne(targetEntity="Theater", inversedBy="newsList")
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $theater;
