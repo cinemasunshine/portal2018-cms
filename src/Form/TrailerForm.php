@@ -34,6 +34,8 @@ class TrailerForm extends BaseForm
     /** @var array */
     protected $theaterChoices;
     
+    /** @var array */
+    protected $specialSiteChoices;
     
     /**
      * construct
@@ -50,6 +52,7 @@ class TrailerForm extends BaseForm
         
         $this->pageChoices = [];
         $this->theaterChoices = [];
+        $this->specialSiteChoices = [];
         
         $this->setup();
     }
@@ -129,6 +132,22 @@ class TrailerForm extends BaseForm
             ],
         ]);
         
+        
+        $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
+        
+        foreach ($specialSites as $specialSite) {
+            /** @var Entity\SpecialSite $specialSite */
+            $this->specialSiteChoices[$specialSite->getId()] = $specialSite->getNameJa();
+        }
+        
+        $this->add([
+            'name' => 'special_site',
+            'type' => 'MultiCheckbox',
+            'options' => [
+                'value_options' => $this->specialSiteChoices,
+            ],
+        ]);
+        
         $inputFilter = new InputFilter();
         
         if ($this->type === self::TYPE_EDIT) {
@@ -196,6 +215,11 @@ class TrailerForm extends BaseForm
             'required' => false,
         ]);
         
+        $inputFilter->add([
+            'name' => 'special_site',
+            'required' => false,
+        ]);
+        
         $this->setInputFilter($inputFilter);
     }
     
@@ -217,5 +241,15 @@ class TrailerForm extends BaseForm
     public function getTheaterChoices()
     {
         return $this->theaterChoices;
+    }
+    
+    /**
+     * return special_site choices
+     *
+     * @return array
+     */
+    public function getSpecialSiteChoices()
+    {
+        return $this->specialSiteChoices;
     }
 }

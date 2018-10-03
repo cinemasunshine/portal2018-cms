@@ -31,6 +31,23 @@ class SpecialSiteRepository extends EntityRepository
     }
     
     /**
+     * find by ids
+     *
+     * @param array $ids
+     * @return SpecialSite[]
+     */
+    public function findByIds(array $ids)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb
+            ->where('s.isDeleted = false')
+            ->andWhere('s.id IN (:ids)')
+            ->setParameter('ids', $ids);
+        
+        return $qb->getQuery()->getResult();
+    }
+    
+    /**
      * find one by id
      *
      * @param int $id

@@ -95,12 +95,21 @@ class Trailer extends AbstractEntity
     protected $theaterTrailers;
     
     /**
+     * special_site_trailers
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="SpecialSiteTrailer", mappedBy="trailer", orphanRemoval=true)
+     */
+    protected $specialSiteTrailers;
+    
+    /**
      * construct
      */
     public function __construct()
     {
         $this->pageTrailers = new ArrayCollection();
         $this->theaterTrailers = new ArrayCollection();
+        $this->specialSiteTrailers = new ArrayCollection();
     }
     
     /**
@@ -261,6 +270,27 @@ class Trailer extends AbstractEntity
     }
     
     /**
+     * get special_site_trailers
+     *
+     * @return Collection
+     */
+    public function getSpecialSiteTrailers()
+    {
+        return $this->specialSiteTrailers;
+    }
+    
+    /**
+     * set special_site_trailers
+     *
+     * @param Collection $specialSiteTrailers
+     * @return void
+     */
+    public function setSpecialSiteTrailers(Collection $specialSiteTrailers)
+    {
+        $this->specialSiteTrailers = $specialSiteTrailers;
+    }
+    
+    /**
      * get published target
      *
      * @return ArrayCollection
@@ -277,6 +307,11 @@ class Trailer extends AbstractEntity
         foreach ($this->getTheaterTrailers() as $theaterTrailer) {
             /** @var TheaterTrailer $theaterTrailer */
             $publications->add($theaterTrailer->getTheater());
+        }
+        
+        foreach ($this->getSpecialSiteTrailers() as $specialSiteTrailer) {
+            /** @var SpecialSiteTrailer $specialSiteTrailer */
+            $publications->add($specialSiteTrailer->getSpecialSite());
         }
         
         return $publications;

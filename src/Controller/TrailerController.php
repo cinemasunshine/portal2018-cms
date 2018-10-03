@@ -179,6 +179,22 @@ class TrailerController extends BaseController
             }
         }
         
+        if ($cleanData['special_site']) {
+            $specialSite = $this->em
+                ->getRepository(Entity\SpecialSite::class)
+                ->findByIds($cleanData['special_site']);
+            
+            foreach ($specialSite as $specialSite) {
+                /** @var Entity\SpecialSite $specialSite */
+                
+                $specialSiteTrailer = new Entity\SpecialSiteTrailer();
+                $this->em->persist($specialSiteTrailer);
+                
+                $specialSiteTrailer->setSpecialSite($specialSite);
+                $specialSiteTrailer->setTrailer($trailer);
+            }
+        }
+        
         $this->em->flush();
         
         $this->flash->addMessage('alerts', [
@@ -220,6 +236,7 @@ class TrailerController extends BaseController
             'banner_link_url' => $trailer->getBannerLinkUrl(),
             'page'            => [],
             'theater'         => [],
+            'special_site'    => [],
         ];
         
         if ($trailer->getTitle()) {
@@ -235,6 +252,11 @@ class TrailerController extends BaseController
         foreach ($trailer->getTheaterTrailers() as $theaterTrailer) {
             /** @var Entity\TheaterTrailer $theaterTrailer */
             $values['theater'][] = $theaterTrailer->getTheater()->getId();
+        }
+        
+        foreach ($trailer->getSpecialSiteTrailers() as $specialSiteTrailer) {
+            /** @var Entity\SpecialSiteTrailer $specialSiteTrailer */
+            $values['special_site'][] = $specialSiteTrailer->getSpecialSite()->getId();
         }
         
         $this->data->set('values', $values);
@@ -347,6 +369,25 @@ class TrailerController extends BaseController
                 
                 $theaterTrailer->setTheater($theater);
                 $theaterTrailer->setTrailer($trailer);
+            }
+        }
+        
+        
+        $trailer->getSpecialSiteTrailers()->clear();
+        
+        if ($cleanData['special_site']) {
+            $specialSite = $this->em
+                ->getRepository(Entity\SpecialSite::class)
+                ->findByIds($cleanData['special_site']);
+            
+            foreach ($specialSite as $specialSite) {
+                /** @var Entity\SpecialSite $specialSite */
+                
+                $specialSiteTrailer = new Entity\SpecialSiteTrailer();
+                $this->em->persist($specialSiteTrailer);
+                
+                $specialSiteTrailer->setSpecialSite($specialSite);
+                $specialSiteTrailer->setTrailer($trailer);
             }
         }
         
