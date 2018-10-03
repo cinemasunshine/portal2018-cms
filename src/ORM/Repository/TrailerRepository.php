@@ -50,6 +50,12 @@ class TrailerRepository extends EntityRepository
                 ->andWhere($qb->expr()->in('tt.theater', $params['theater']));
         }
         
+        if (isset($params['special_site']) && count($params['special_site']) > 0) {
+            $qb
+                ->join('t.specialSiteTrailers', 'st')
+                ->andWhere($qb->expr()->in('st.specialSite', $params['special_site']));
+        }
+        
         $query = $qb->getQuery();
         
         return new DoctrinePaginator($query, $page, $maxPerPage);

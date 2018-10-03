@@ -60,6 +60,18 @@
                         } only %}
                     </div>
                     
+                    <div class="form-group row">
+                        {% include 'include/form/field_multi_checkbox.html.twig' with {
+                            label: '提出箇所：特設サイト',
+                            name: 'special_site',
+                            choices: form.getSpecialSiteChoices(),
+                            value: values.special_site,
+                            error: errors.special_site,
+                            is_validated: is_validated,
+                            with_assist: false,
+                        } only %}
+                    </div>
+                    
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">検索</button>
