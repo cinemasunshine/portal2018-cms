@@ -67,7 +67,7 @@ class CampaignPublicationForm extends BaseForm
                 'name' => 'theater_id',
                 'type' => 'Hidden',
             ]);
-        } else if ($this->target === self::TARGET_TEATER) {
+        } else if ($this->target === self::TARGET_SPESICAL_SITE) {
             $this->add([
                 'name' => 'special_site_id',
                 'type' => 'Hidden',
