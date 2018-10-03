@@ -45,7 +45,7 @@ class PageTrailer extends AbstractEntity
      * page
      *
      * @var Page
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="newsList")
+     * @ORM\ManyToOne(targetEntity="Page")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $page;
