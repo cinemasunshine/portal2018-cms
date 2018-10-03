@@ -324,6 +324,10 @@ class MainBannerController extends BaseController
         /** @var Entity\Theater[] */
         $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
         $this->data->set('theaters', $theaters);
+        
+        /** @var Entity\SpecialSite[] */
+        $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
+        $this->data->set('specialSites', $specialSites);
     }
     
     /**
@@ -364,6 +368,14 @@ class MainBannerController extends BaseController
                 ->findOneById((int) $cleanData['page_id']);
             $basePublication = new Entity\PageMainBanner();
             $basePublication->setPage($targetEntity);
+            
+        } else if ($target === Form\MainBannerPublicationForm::TARGET_SPESICAL_SITE) {
+            /** @var Entity\SpecialSite $targetEntity */
+            $targetEntity = $this->em
+                ->getRepository(Entity\SpecialSite::class)
+                ->findOneById((int) $cleanData['special_site_id']);
+            $basePublication = new Entity\SpecialSiteMainBanner();
+            $basePublication->setSpecialSite($targetEntity);
         }
         
         // いったん削除する

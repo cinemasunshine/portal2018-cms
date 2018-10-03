@@ -20,7 +20,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  * @ORM\Table(name="special_site", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
+class SpecialSite extends AbstractEntity implements CampaignPublicationInterface, MainBannerPublicationInterface
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
@@ -69,6 +69,15 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
     protected $campaigns;
     
     /**
+     * main_banners
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="SpecialSiteMainBanner", mappedBy="specialSite", orphanRemoval=true)
+     * @ORM\OrderBy({"displayOrder" = "ASC"})
+     */
+    protected $mainBanners;
+    
+    /**
      * construct
      * 
      * @param int $id
@@ -78,6 +87,7 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
         $this->id = $id;
         $this->theaters = new ArrayCollection();
         $this->campaigns = new ArrayCollection();
+        $this->mainBanners = new ArrayCollection();
     }
     
     /**
@@ -150,5 +160,15 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
     public function getCampaigns() : Collection
     {
         return $this->campaigns;
+    }
+    
+    /**
+     * get main_banners
+     *
+     * @return Collection
+     */
+    public function getMainBanners(): Collection
+    {
+        return $this->mainBanners;
     }
 }

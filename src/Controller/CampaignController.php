@@ -341,8 +341,6 @@ class CampaignController extends BaseController
      */
     public function executePublication($request, $response, $args)
     {
-        // @todo ユーザによって取得する情報を変更する
-        
         /** @var Entity\Page[] */
         $pages = $this->em->getRepository(Entity\Page::class)->findActive();
         $this->data->set('pages', $pages);
