@@ -175,7 +175,7 @@ abstract class AbstractController
         
         // is_callable()は__call()があると常にtrueとなるので不可
         if (!method_exists($this, $actionMethod)) {
-            throw new \BadMethodCallException(sprintf('The method "%s" dose not exist.', $name));
+            throw new \LogicException(sprintf('The method "%s" dose not exist.', $name));
         }
         
         $this->actionName = $name;
