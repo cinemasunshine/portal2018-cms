@@ -366,7 +366,7 @@ class NewsController extends BaseController
         
         $theaterRepository = $this->em->getRepository(Entity\Theater::class);
         
-        /** @var Entity\Theater[] $theater */
+        /** @var Entity\Theater[] $theaters */
         
         if ($user->isTheater()) {
             $theaters = [
