@@ -102,6 +102,45 @@
             </div>
         </div>
         
+    {% if specialSites %}
+        <div class="card">
+            <div class="card-header">
+                特設サイト
+            </div>
+            <div class="card-body">
+                {% for specialSite in specialSites %}
+                <div class="card">
+                    <form method="post" action="{{ path_for('news_publication_update', { target: 'special_site' }) }}">
+                        <input type="hidden" name="special_site_id" value="{{ specialSite.getId() }}">
+                        <div class="card-header">
+                            {{ specialSite.getNameJa() }}
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group sortable">
+                                {% for publication in specialSite.getNewsList() %}
+                                    {% set news = publication.getNews() %}
+                                    {% include 'news/include/fieldset_publication.html.twig' with {
+                                        index: loop.index0,
+                                        display_order: publication.getDisplayOrder(),
+                                        id: news.getId(),
+                                        image: blob_url(news.getImage().getBlobContainer(), news.getImage().getName()),
+                                        headline: news.getHeadline(),
+                                        category_label: news.getCategoryLabel(),
+                                    } only %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectNewsModal">追加</button>
+                            <button type="submit" class="btn btn-primary">保存</button>
+                        </div>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+        
     </div>
 </div>
 

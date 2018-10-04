@@ -353,11 +353,16 @@ class NewsController extends BaseController
         /** @var Entity\Page[] $pages */
         $pages = [];
         
+        /** @var Entity\SpecialSite[] $specialSites */
+        $specialSites = [];
+        
         if (!$user->isTheater()) {
             $pages = $this->em->getRepository(Entity\Page::class)->findActive();
+            $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
         }
         
         $this->data->set('pages', $pages);
+        $this->data->set('specialSites', $specialSites);
         
         $theaterRepository = $this->em->getRepository(Entity\Theater::class);
         
@@ -412,6 +417,13 @@ class NewsController extends BaseController
                 ->findOneById((int) $cleanData['page_id']);
             $basePublication = new Entity\PageNews();
             $basePublication->setPage($targetEntity);
+        } else if ($target === Form\NewsPublicationForm::TARGET_SPESICAL_SITE) {
+            /** @var Entity\SpecialSite $targetEntity */
+            $targetEntity = $this->em
+                ->getRepository(Entity\SpecialSite::class)
+                ->findOneById((int) $cleanData['special_site_id']);
+            $basePublication = new Entity\SpecialSiteNews();
+            $basePublication->setSpecialSite($targetEntity);
         }
         
         // いったん削除する

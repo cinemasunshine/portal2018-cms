@@ -73,6 +73,12 @@ class NewsRepository extends EntityRepository
                 ->andWhere($qb->expr()->in('nt.theater', $params['theater']));
         }
         
+        if (isset($params['special_site']) && count($params['special_site']) > 0) {
+            $qb
+                ->join('n.specialSites', 'ns')
+                ->andWhere($qb->expr()->in('ns.specialSite', $params['special_site']));
+        }
+        
         $query = $qb->getQuery();
         
         return new DoctrinePaginator($query, $page, $maxPerPage);

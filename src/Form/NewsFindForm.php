@@ -37,6 +37,9 @@ class NewsFindForm extends BaseForm
     /** @var array */
     protected $theaterChoices = [];
     
+    /** @var array */
+    protected $specialSiteChoices = [];
+    
     /**
      * construct
      * 
@@ -106,6 +109,21 @@ class NewsFindForm extends BaseForm
         ]);
         
         
+        $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
+        
+        foreach ($specialSites as $specialSite) {
+            /** @var Entity\SpecialSite $specialSite */
+            $this->specialSiteChoices[$specialSite->getId()] = $specialSite->getNameJa();
+        }
+        
+        $this->add([
+            'name' => 'special_site',
+            'type' => 'MultiCheckbox',
+            'options' => [
+                'value_options' => $this->specialSiteChoices,
+            ],
+        ]);
+        
         $inputFilter = new InputFilter();
         $inputFilter->add([
             'name' => 'term',
@@ -124,6 +142,11 @@ class NewsFindForm extends BaseForm
         
         $inputFilter->add([
             'name' => 'theater',
+            'required' => false,
+        ]);
+        
+        $inputFilter->add([
+            'name' => 'special_site',
             'required' => false,
         ]);
         
@@ -168,5 +191,15 @@ class NewsFindForm extends BaseForm
     public function getTheaterChoices()
     {
         return $this->theaterChoices;
+    }
+    
+    /**
+     * return special_site choices
+     *
+     * @return array
+     */
+    public function getSpecialSiteChoices()
+    {
+        return $this->specialSiteChoices;
     }
 }
