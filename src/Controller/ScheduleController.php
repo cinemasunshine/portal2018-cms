@@ -225,6 +225,7 @@ class ScheduleController extends BaseController
         $form->setData($request->getParams());
         
         if (!$form->isValid()) {
+            $this->data->set('schedule', $schedule);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
