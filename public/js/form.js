@@ -9,22 +9,29 @@ var editorOptions;
 
 $(function(){
     if ($.datetimepicker) {
-        $.datetimepicker.setLocale('ja');
+        initDatetimepicker();
     }
     
-    datetimepickerOption = {
-        format: 'Y/m/d H:i'
-    };
-    
-    datepickerOption = {
-        timepicker: false,
-        format: 'Y/m/d'
-    };
-    
-    timepickerOption = {
-        datepicker: false,
-        format: 'H:i'
-    };
+    /**
+     * initialize datetimepicker
+     */
+    function initDatetimepicker() {
+        $.datetimepicker.setLocale('ja');
+        
+        datetimepickerOption = {
+            format: 'Y/m/d H:i'
+        };
+        
+        datepickerOption = {
+            timepicker: false,
+            format: 'Y/m/d'
+        };
+        
+        timepickerOption = {
+            datepicker: false,
+            format: 'H:i'
+        };
+    }
     
     editorOptions = {
         lang: 'ja-JP',
