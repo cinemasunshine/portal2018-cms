@@ -18,19 +18,25 @@ $(function(){
     function initDatetimepicker() {
         $.datetimepicker.setLocale('ja');
         
-        datetimepickerOption = {
-            format: 'Y/m/d H:i'
+        var baseOption = {
+            scrollMonth: false,
+            scrollTime: false,
+            scrollInput: false
         };
         
-        datepickerOption = {
+        datetimepickerOption = $.extend({}, baseOption, {
+            format: 'Y/m/d H:i'
+        });
+        
+        datepickerOption = $.extend({}, baseOption, {
             timepicker: false,
             format: 'Y/m/d'
-        };
+        });
         
-        timepickerOption = {
+        timepickerOption = $.extend({}, baseOption, {
             datepicker: false,
             format: 'H:i'
-        };
+        });
     }
     
     editorOptions = {
