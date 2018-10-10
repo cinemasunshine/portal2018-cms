@@ -42,7 +42,7 @@ $(function(){
      * form disable
      */
     function formDisable() {
-        var $form = $modal.find('form');
+        var $form = $modal.find('.form');
         $form.find('input, button').prop('disabled', true);
     }
     
@@ -50,7 +50,7 @@ $(function(){
      * form enable
      */
     function formEnable() {
-        var $form = $modal.find('form');
+        var $form = $modal.find('.form');
         $form.find('input, button').prop('disabled', false);
     }
     
