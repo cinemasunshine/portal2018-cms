@@ -32,6 +32,8 @@ $(function(){
             return;
         }
         
+        formDisable();
+        
         titles = [];
         
         var $list = $modal.find('tbody.list');
@@ -49,6 +51,25 @@ $(function(){
                 });
             })
             .fail(function() {
+            })
+            .always(function() {
+                formEnable();
             });
     });
+    
+    /**
+     * form disable
+     */
+    function formDisable() {
+        var $form = $modal.find('form');
+        $form.find('input, button').prop('disabled', true);
+    }
+    
+    /**
+     * form enable
+     */
+    function formEnable() {
+        var $form = $modal.find('form');
+        $form.find('input, button').prop('disabled', false);
+    }
 });
