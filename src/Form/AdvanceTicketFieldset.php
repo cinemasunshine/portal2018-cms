@@ -18,12 +18,6 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AdvanceTicket;
  */
 class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    const TYPE_NEW = 1;
-    const TYPE_EDIT = 2;
-    
-    /** @var int */
-    protected $type;
-    
     /** @var array */
     protected $typeChoices;
     
@@ -32,14 +26,11 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
     
     /**
      * construct
-     * 
-     * @param int $type
      */
-    public function __construct(int $type)
+    public function __construct()
     {
         parent::__construct('advance_ticket');
         
-        $this->type = $type;
         $this->typeChoices = AdvanceTicket::getTypes();
         $this->specialGiftStockChoices = AdvanceTicket::getSpecialGiftStockList();
         
@@ -53,17 +44,15 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
      */
     protected function setup()
     {
-        if ($this->type === self::TYPE_EDIT) {
-            $this->add([
-                'name' => 'id',
-                'type' => 'Hidden',
-            ]);
-            
-            $this->add([
-                'name' => 'delete_special_gift_image',
-                'type' => 'Hidden',
-            ]);
-        }
+        $this->add([
+            'name' => 'id',
+            'type' => 'Hidden',
+        ]);
+        
+        $this->add([
+            'name' => 'delete_special_gift_image',
+            'type' => 'Hidden',
+        ]);
         
         $this->add([
             'name' => 'release_dt',
@@ -125,6 +114,9 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
     public function getInputFilterSpecification()
     {
         $specification = [
+            'id' => [
+                'required' => false,
+            ],
             'release_dt' => [
                 'required' => true,
                 'validators' => [
@@ -172,17 +164,10 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
                     ],
                 ],
             ],
-        ];
-        
-        if ($this->type === self::TYPE_EDIT) {
-            $specification['id'] = [
-                'required' => true,
-            ];
-            
-            $specification['delete_special_gift_image'] = [
+            'delete_special_gift_image' => [
                 'required' => false,
-            ];
-        }
+            ],
+        ];
         
         return $specification;
     }

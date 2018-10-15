@@ -49,7 +49,7 @@ class AdvanceSaleForm extends BaseForm
         $this->type = $type;
         $this->em = $em;
         $this->adminUser = $adminUser;
-        $this->ticketFieldset = new AdvanceTicketFieldset($type);
+        $this->ticketFieldset = new AdvanceTicketFieldset();
         
         parent::__construct();
         
