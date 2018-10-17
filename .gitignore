@@ -5,6 +5,7 @@
 # application
 /cache
 /public/.htaccess
+/src/ORM/proxy
 .env
 
 # composer
