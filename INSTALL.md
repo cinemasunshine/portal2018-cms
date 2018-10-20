@@ -48,7 +48,31 @@ Azure Web Appsのアプリケーション設定で設定する場合は **MYSQLC
 |CUSTOMCONNSTR_STORAGE_NAME|[storage name]|Azure Storage名|
 |CUSTOMCONNSTR_STORAGE_KEY|[storage access key]|Azure Sotrageのアクセスキー|
 
-### ３．.htaccess
+### ３．Doctrine
+
+#### Schema生成
+
+データベースにテーブルを生成します。
+
+すでに作成済みのデータベースに接続する場合は不要です。
+
+```sh
+$ vendor/bin/doctrine orm:schema-tool:create
+```
+
+#### Proxy生成
+
+開発環境**以外**は手動で生成が必要です。
+
+```sh
+$ vendor/bin/doctrine orm:generate-proxies
+```
+
+### ４．マスターデータ
+
+[Wiki](https://m-p.backlog.jp/alias/wiki/508245)
+
+### ５．.htaccess
 
 ドキュメントルートに *.htaccess* を設置します。 *sample.htaccess* を参考にしてください。
 
