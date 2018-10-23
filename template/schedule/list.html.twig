@@ -17,23 +17,15 @@
 
 {% block javascript %}
 <script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
-<script>
-$(function(){
-    $.datetimepicker.setLocale('ja');
-    var datetimepickerOption = {
-        format: 'Y/m/d H:i'
-    };
-    
-    $('.datetimepicker').datetimepicker(datetimepickerOption);
-});
-</script>
+<script src="/js/form.js?v=20181009"></script>
+<script src="/js/schedule/list.js"></script>
 {% endblock %}
 
 {% block container %}
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <form method="get" action="{{ path_for('schedule_list') }}">
+            <form name="schedule_find" method="get" action="{{ path_for('schedule_list') }}">
                 <div class="card-header">
                     検索
                 </div>
