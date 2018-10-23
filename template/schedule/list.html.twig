@@ -169,7 +169,7 @@ $(function(){
                             </th>
                             <th>
                                 {% for format in schedule.getShowingFormats() %}
-                                    {{ format.getSystemLabel() }}{{ format.getVoiceLabel() }}
+                                    {{ format.getSystemLabel() }}{% if format.getVoice() != 3 %}{{ format.getVoiceLabel() }}{% endif %}
                                     {% if not loop.last %}、{% endif %}
                                 {% endfor %}
                             </th>

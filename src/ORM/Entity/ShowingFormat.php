@@ -39,6 +39,7 @@ class ShowingFormat extends AbstractEntity
     protected static $voiceList = [
         1 => '字幕',
         2 => '吹替',
+        3 => 'なし', // SASAKI-297
     ];
     
     /**
