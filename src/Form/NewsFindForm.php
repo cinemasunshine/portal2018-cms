@@ -24,8 +24,8 @@ class NewsFindForm extends BaseForm
     
     /** @var array */
     protected $termChoices = [
-        '1' => '提出中',
-        '2' => '提出終了',
+        '1' => '掲出中',
+        '2' => '掲出終了',
     ];
     
     /** @var array */

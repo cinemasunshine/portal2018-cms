@@ -9,18 +9,8 @@
 
 {% block javascript %}
 <script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
-<script>
-$(function(){
-    var $form = $('form[name="advance_ticket_find"]');
-    
-    $.datetimepicker.setLocale('ja');
-    
-    var datetimepickerOption = {
-        format: 'Y/m/d H:i'
-    };
-    $form.find('.datetimepicker').datetimepicker(datetimepickerOption); 
-});
-</script>
+<script src="/js/form.js?v=20181009"></script>
+<script src="/js/advance_ticket/list.js"></script>
 {% endblock %}
 
 {% block breadcrumb %}

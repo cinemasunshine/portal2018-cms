@@ -9,26 +9,28 @@
 
 $settings = [];
 
-$settings['displayErrorDetails'] = (APP_ENV === 'dev');
+$isDebug = in_array(APP_ENV, ['dev', 'test']);
+
+$settings['displayErrorDetails'] = $isDebug;
 $settings['addContentLengthHeader'] = false;
 
 // view
 $settings['view'] = [
     'template_path' => APP_ROOT . '/template',
     'settings' => [
-        'debug' => (APP_ENV === 'dev'),
+        'debug' => $isDebug,
         'cache' => APP_ROOT . '/cache/view',
     ],
 ];
 
 
 // logger
-$getLoggerSetting = function() {
+$getLoggerSetting = function($isDebug) {
     $settings = [
         'name' => 'app',
     ];
     
-    if (APP_ENV === 'dev') {
+    if ($isDebug) {
         $settings['chrome_php'] = [
             'level' => \Monolog\Logger::DEBUG,
         ];
@@ -47,7 +49,7 @@ $getLoggerSetting = function() {
     return $settings;
 };
 
-$settings['logger'] = $getLoggerSetting();
+$settings['logger'] = $getLoggerSetting($isDebug);
 
 // doctrine
 $getDoctrineSetting = function() {

@@ -57,7 +57,7 @@
                     
                     <div class="form-group row">
                         {% include 'include/form/field_multi_checkbox.html.twig' with {
-                            label: '提出箇所：ページ',
+                            label: '掲出箇所：ページ',
                             name: 'page',
                             choices: form.getPageChoices(),
                             value: values.page,
@@ -69,7 +69,7 @@
                     
                     <div class="form-group row">
                         {% include 'include/form/field_multi_checkbox.html.twig' with {
-                            label: '提出箇所：劇場',
+                            label: '掲出箇所：劇場',
                             name: 'theater',
                             choices: form.getTheaterChoices(),
                             value: values.theater,
@@ -81,7 +81,7 @@
                     
                     <div class="form-group row">
                         {% include 'include/form/field_multi_checkbox.html.twig' with {
-                            label: '提出箇所：特設サイト',
+                            label: '掲出箇所：特設サイト',
                             name: 'special_site',
                             choices: form.getSpecialSiteChoices(),
                             value: values.special_site,
@@ -108,8 +108,8 @@
                         <tr>
                             <th>ID</th>
                             <th>タイトル</th>
-                            <th>提出開始日</th>
-                            <th>提出場所</th>
+                            <th>掲出開始日</th>
+                            <th>掲出場所</th>
                             <th>操作</th>
                         </tr>
                     </thead>
