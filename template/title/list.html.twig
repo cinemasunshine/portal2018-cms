@@ -91,7 +91,7 @@
                                 {% endfor %}
                             </th>
                             <th>
-                                <a href="{{ path_for('title_delete', { 'id': title.getId() }) }}" class="btn btn-sm btn-danger" role="button">削除</a>
+                                <a href="{{ path_for('title_delete', { 'id': title.getId() }) }}" class="btn btn-sm btn-danger confirm-delete" role="button">削除</a>
                             </th>
                         </tr>
                     {% endfor %}
