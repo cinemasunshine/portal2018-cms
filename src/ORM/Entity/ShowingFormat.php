@@ -24,15 +24,16 @@ class ShowingFormat extends AbstractEntity
     
     /** @var array */
     protected static $systemList = [
-        1 => '2D',
-        2 => '3D',
-        3 => '4DX',
-        4 => '4DX3D',
-        5 => 'IMAX',
-        6 => 'IMAX3D',
-        7 => 'BESTIA',
-        8 => 'BESTIA3D',
-        9 => 'dts-X',
+        1  => '2D',
+        2  => '3D',
+        3  => '4DX',
+        4  => '4DX3D',
+        5  => 'IMAX',
+        6  => 'IMAX3D',
+        7  => 'BESTIA',
+        8  => 'BESTIA3D',
+        9  => 'dts-X',
+        99 => 'なし',
     ];
     
     /** @var array */
