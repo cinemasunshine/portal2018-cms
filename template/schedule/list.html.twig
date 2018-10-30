@@ -161,7 +161,8 @@
                             </th>
                             <th>
                                 {% for format in schedule.getShowingFormats() %}
-                                    {{ format.getSystemLabel() }}{% if format.getVoice() != 3 %}{{ format.getVoiceLabel() }}{% endif %}
+                                    {% if format.getSystem() != 99 %}{{ format.getSystemLabel() }}{% endif %}
+                                    {% if format.getVoice() != 3 %}{{ format.getVoiceLabel() }}{% endif %}
                                     {% if not loop.last %}、{% endif %}
                                 {% endfor %}
                             </th>
@@ -173,7 +174,7 @@
                                 {% endfor %}
                             </th>
                             <th>
-                                <a href="{{ path_for('schedule_delete', { id: schedule.getId() }) }}" class="btn btn-sm btn-danger" role="button">削除</a>
+                                <a href="{{ path_for('schedule_delete', { id: schedule.getId() }) }}" class="btn btn-sm btn-danger confirm-delete" role="button">削除</a>
                             </th>
                         </tr>
                     {% endfor %}

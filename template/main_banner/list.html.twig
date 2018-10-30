@@ -60,7 +60,7 @@
                                 <a href="{{ path_for('main_banner_edit', { id: mainBanner.getId() }) }}">{{ mainBanner.getName() }}</a>
                             </th>
                             <th>
-                                <a href="{{ path_for('main_banner_delete', { 'id': mainBanner.getId() }) }}" class="btn btn-sm btn-danger" role="button">削除</a>
+                                <a href="{{ path_for('main_banner_delete', { 'id': mainBanner.getId() }) }}" class="btn btn-sm btn-danger confirm-delete" role="button">削除</a>
                             </th>
                         </tr>
                     {% endfor %}
