@@ -48,7 +48,7 @@ class AdvanceTicketRepository extends EntityRepository
                     $qb->expr()->lte('at.releaseDt', 'CURRENT_TIMESTAMP()'),
                     $qb->expr()->orX(
                         $qb->expr()->isNull('sale.publishingExpectedDate'),
-                        $qb->expr()->gte('sale.publishingExpectedDate', 'CURRENT_DATE()')
+                        $qb->expr()->gt('sale.publishingExpectedDate', 'CURRENT_DATE()')
                     )
                 ));
             }
@@ -65,7 +65,7 @@ class AdvanceTicketRepository extends EntityRepository
                     $qb->expr()->eq('at.isSalesEnd', 'true'),
                     $qb->expr()->andX(
                         $qb->expr()->isNotNull('sale.publishingExpectedDate'),
-                        $qb->expr()->lt('sale.publishingExpectedDate', 'CURRENT_DATE()')
+                        $qb->expr()->lte('sale.publishingExpectedDate', 'CURRENT_DATE()')
                     )
                 ));
             }
