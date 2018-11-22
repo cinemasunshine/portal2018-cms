@@ -395,7 +395,7 @@ class TrailerController extends BaseController
         
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
-            'message' => sprintf('予告動画「%s」を追加しました。', $trailer->getName()),
+            'message' => sprintf('予告動画「%s」を編集しました。', $trailer->getName()),
         ]);
         
         $this->redirect(
