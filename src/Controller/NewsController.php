@@ -322,13 +322,9 @@ class NewsController extends BaseController
         
         /**@var Entity\News $news */
         
-        $news->setIsDeleted(true);
-        $news->setUpdatedUser($this->auth->getUser());
+        $this->doDelete($news);
         
-        // 関連データの処理はイベントで対応する
-        
-        $this->em->persist($news);
-        $this->em->flush();
+        $this->logger->info('Delete "News".', [ 'id' => $news->getId() ]);
         
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
@@ -336,6 +332,58 @@ class NewsController extends BaseController
         ]);
         
         return $this->redirect($this->router->pathFor('news_list'), 303);
+    }
+    
+    /**
+     * do delete
+     *
+     * @param Entity\News $news
+     * @return void
+     */
+    protected function doDelete(Entity\News $news)
+    {
+        $this->em->getConnection()->beginTransaction();
+        
+        try {
+            $news->setIsDeleted(true);
+            $news->setUpdatedUser($this->auth->getUser());
+            
+            $this->logger->debug('Soft delete "News".', [
+                'id' => $news->getId() ]);
+            
+            $this->em->flush();
+            
+            
+            $pageNewsDeleteCount = $this->em
+                ->getRepository(Entity\PageNews::class)
+                ->deleteByNews($news);
+            
+            $this->logger->debug('Delete "PageNews"', [
+                'count' => $pageNewsDeleteCount ]);
+            
+            
+            $theaterNewsDeleteCount = $this->em
+                ->getRepository(Entity\TheaterNews::class)
+                ->deleteByNews($news);
+            
+            $this->logger->debug('Delete "TheaterNews"', [
+                'count' => $theaterNewsDeleteCount ]);
+            
+            
+            $specialSitesNewsDeleteCount = $this->em
+                ->getRepository(Entity\SpecialSiteNews::class)
+                ->deleteByNews($news);
+            
+            $this->logger->debug('Delete "SpecialSiteNews"', [
+                'count' => $specialSitesNewsDeleteCount ]);
+            
+            
+            $this->em->getConnection()->commit();
+            
+        } catch (\Exception $e) {
+            $this->em->getConnection()->rollBack();
+            throw $e;
+        }
     }
     
     /**
