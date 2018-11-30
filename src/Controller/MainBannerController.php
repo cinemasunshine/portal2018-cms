@@ -290,12 +290,9 @@ class MainBannerController extends BaseController
         
         /**@var Entity\MainBanner $mainBanner */
         
-        $mainBanner->setIsDeleted(true);
-        $mainBanner->setUpdatedUser($this->auth->getUser());
+        $this->doDelete($mainBanner);
         
-        // 関連データの処理はイベントで対応する
-        
-        $this->em->flush();
+        $this->logger->info('Delete "MainBanner".', [ 'id' => $mainBanner->getId() ]);
         
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
@@ -303,6 +300,57 @@ class MainBannerController extends BaseController
         ]);
         
         $this->redirect($this->router->pathFor('main_banner_list'), 303);
+    }
+    
+    /**
+     * do delete
+     *
+     * @param Entity\MainBanner $mainBanner
+     * @return void
+     */
+    protected function doDelete(Entity\MainBanner $mainBanner)
+    {
+        $this->em->getConnection()->beginTransaction();
+        
+        try {
+            $mainBanner->setIsDeleted(true);
+            $mainBanner->setUpdatedUser($this->auth->getUser());
+            
+            $this->logger->debug('Soft delete "MainBanner".', [
+                'id' => $mainBanner->getId() ]);
+            
+            $this->em->flush();
+            
+            
+            $pageMainBannerDeleteCount = $this->em
+                ->getRepository(Entity\PageMainBanner::class)
+                ->deleteByMainBanner($mainBanner);
+            
+            $this->logger->debug('Delete "PageMainBanner"', [
+                'count' => $pageMainBannerDeleteCount ]);
+            
+            
+            $theaterMainBannerDeleteCount = $this->em
+                ->getRepository(Entity\TheaterMainBanner::class)
+                ->deleteByMainBanner($mainBanner);
+            
+            $this->logger->debug('Delete "TheaterMainBanner"', [
+                'count' => $theaterMainBannerDeleteCount ]);
+            
+            
+            $specialSiteMainBannerDeleteCount = $this->em
+                ->getRepository(Entity\SpecialSiteMainBanner::class)
+                ->deleteByMainBanner($mainBanner);
+            
+            $this->logger->debug('Delete "SpecialSiteMainBanner"', [
+                'count' => $specialSiteMainBannerDeleteCount ]);
+            
+            $this->em->getConnection()->commit();
+            
+        } catch (\Exception $e) {
+            $this->em->getConnection()->rollBack();
+            throw $e;
+        }
     }
     
     /**
