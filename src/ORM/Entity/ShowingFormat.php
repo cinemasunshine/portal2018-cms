@@ -33,6 +33,7 @@ class ShowingFormat extends AbstractEntity
         7  => 'BESTIA',
         8  => 'BESTIA3D',
         9  => 'dts-X',
+        10 => 'ScreenX', // SASAKI-351
         99 => 'なし',
     ];
     
