@@ -107,6 +107,24 @@ $container['em'] = function ($container) {
 };
 
 /**
+ * session manager
+ * 
+ * @return \Zend\Session\SessionManager
+ */
+$container['sm'] = function ($container) {
+    $options = $container->get('settings')['session'];
+    
+    $config = new \Zend\Session\Config\SessionConfig();
+    $config->setOptions($options);
+    
+    $manager = new \Zend\Session\SessionManager($config);
+    
+    \Zend\Session\Container::setDefaultManager($manager);
+    
+    return $manager;
+};
+
+/**
  * flash
  * 
  * @return \Slim\Flash\Messages

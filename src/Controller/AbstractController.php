@@ -24,6 +24,7 @@ use Cinemasunshine\PortalAdmin\Responder\AbstractResponder as Responder;
  * @property \Doctrine\ORM\EntityManager $em
  * @property \Slim\Flash\Messages $flash
  * @property \Monolog\Logger $logger
+ * @property \Zend\Session\SessionManager $sm
  * @property \Slim\Views\Twig $view
  */
 abstract class AbstractController
