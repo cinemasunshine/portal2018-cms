@@ -118,12 +118,14 @@ $container['sm'] = function ($container) {
 };
 
 /**
- * flash
+ * Flash Messages
  * 
  * @return \Slim\Flash\Messages
  */
-$container['flash'] = function () {
-    return new \Slim\Flash\Messages();
+$container['flash'] = function ($container) {
+    $session = $container->get('sm')->getContainer('flash');
+    
+    return new \Slim\Flash\Messages($session);
 };
 
 /**
