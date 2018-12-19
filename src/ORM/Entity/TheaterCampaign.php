@@ -15,6 +15,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  * TheaterCampaign entity class
  * 
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\TheaterCampaignRepository")
  * @ORM\Table(name="theater_campaign", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
