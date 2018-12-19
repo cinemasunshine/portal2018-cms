@@ -109,6 +109,7 @@
                             <th>ID</th>
                             <th>タイトル</th>
                             <th>掲出開始日</th>
+                            <th>掲出終了日</th>
                             <th>掲出場所</th>
                             <th>操作</th>
                         </tr>
@@ -121,9 +122,8 @@
                                 <img src="{{ blob_url(news.getImage().getBlobContainer(), news.getImage().getName()) }}" width="100" alt="画像" />
                                 <a href="{{ path_for('news_edit', { id: news.getId() }) }}">{{ news.getHeadline() }}</a>
                             </th>
-                            <th>
-                                {{ news.getStartDt().format('Y/m/d') }}
-                            </th>
+                            <th>{{ news.getStartDt().format('Y/m/d') }}</th>
+                            <th>{{ news.getEndDt().format('Y/m/d') }}</th>
                             <th>
                                 {% for target in news.getPublishedTargets() %}
                                     {{ target.getNameJa() }}
