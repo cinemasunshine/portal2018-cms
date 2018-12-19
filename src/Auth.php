@@ -16,12 +16,16 @@ class Auth
     /** @var \Doctrine\ORM\EntityManager */
     protected $em;
     
+    /** @var \Zend\Session\Container */
+    protected $session;
+    
     /** @var AdminUser */
     protected $user;
     
     public function __construct(ContainerInterface $container)
     {
         $this->em = $container->get('em');
+        $this->session = $container->get('sm')->getContainer('auth');
     }
     
     /**
@@ -47,20 +51,22 @@ class Auth
         }
         
         $this->user = $adminUser;
-        $_SESSION['auth.user_id'] = $adminUser->getId();
+        $this->session['user_id'] = $adminUser->getId();
         
         return true;
     }
     
     /**
      * logout
-     *
+     * 
+     * @todo Session Container自体をclear、またはremoveする
+     * 
      * @return void
      */
     public function logout()
     {
         $this->user = null;
-        unset($_SESSION['auth.user_id']);
+        unset($this->session['user_id']);
     }
     
     /**
@@ -70,7 +76,7 @@ class Auth
      */
     public function isAuthenticated()
     {
-        return isset($_SESSION['auth.user_id']);
+        return isset($this->session['user_id']);
     }
     
     /**
@@ -86,7 +92,7 @@ class Auth
         
         if (!$this->user) {
             $repository = $this->em->getRepository(AdminUser::class);
-            $this->user = $repository->findOneById($_SESSION['auth.user_id']);
+            $this->user = $repository->findOneById($this->session['user_id']);
         }
         
         return $this->user;
