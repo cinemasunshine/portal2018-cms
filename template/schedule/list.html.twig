@@ -148,6 +148,7 @@
                             <th>作品名</th>
                             <th>上映方式</th>
                             <th>上映開始日</th>
+                            <th>上映終了日</th>
                             <th>上映劇場</th>
                             <th>操作</th>
                         </tr>
@@ -167,6 +168,7 @@
                                 {% endfor %}
                             </th>
                             <th>{{ schedule.getStartDate().format('Y/m/d') }}</th>
+                            <th>{{ schedule.getEndDate().format('Y/m/d') }}</th>
                             <th>
                                 {% for showingTheater in schedule.getShowingTheaters() %}
                                     {{ showingTheater.getTheater().getNameJa() }}
