@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * SpecialSiteNews entity class
  * 
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\SpecialSiteNewsRepository")
  * @ORM\Table(name="special_site_news", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */

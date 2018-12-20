@@ -11,8 +11,6 @@ define('APP_ROOT', realpath(dirname(__DIR__)));
 
 require_once APP_ROOT . '/vendor/autoload.php';
 
-session_start();
-
 if (file_exists(APP_ROOT . '/.env')) {
     // パフォーマンスの問題があるので出来るだけサーバの設定で解決したほうが良い
     $dotenv = new \Dotenv\Dotenv(APP_ROOT);

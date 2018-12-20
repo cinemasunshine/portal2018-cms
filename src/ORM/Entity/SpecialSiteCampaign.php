@@ -15,6 +15,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
  * SpecialSiteCampaign entity class
  * 
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\SpecialSiteCampaignRepository")
  * @ORM\Table(name="special_site_campaign", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */

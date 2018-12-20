@@ -315,13 +315,9 @@ class CampaignController extends BaseController
         
         /**@var Entity\Campaign $campaign */
         
-        $campaign->setIsDeleted(true);
-        $campaign->setUpdatedUser($this->auth->getUser());
+        $this->doDelete($campaign);
         
-        // 関連データの処理はイベントで対応する
-        
-        $this->em->persist($campaign);
-        $this->em->flush();
+        $this->logger->info('Delete "Campaign".', [ 'id' => $campaign->getId() ]);
         
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
@@ -329,6 +325,58 @@ class CampaignController extends BaseController
         ]);
         
         return $this->redirect($this->router->pathFor('campaign_list'), 303);
+    }
+    
+    /**
+     * do delete
+     *
+     * @param Entity\Campaign $campaign
+     * @return void
+     */
+    protected function doDelete(Entity\Campaign $campaign)
+    {
+        $this->em->getConnection()->beginTransaction();
+        
+        try {
+            $campaign->setIsDeleted(true);
+            $campaign->setUpdatedUser($this->auth->getUser());
+            
+            $this->logger->debug('Soft delete "Campaign".', [
+                'id' => $campaign->getId() ]);
+            
+            $this->em->flush();
+            
+            
+            $pageCampaignDeleteCount = $this->em
+                ->getRepository(Entity\PageCampaign::class)
+                ->deleteByCampaign($campaign);
+            
+            $this->logger->debug('Delete "PageCampaign"', [
+                'count' => $pageCampaignDeleteCount ]);
+            
+            
+            $theaterCampaignDeleteCount = $this->em
+                ->getRepository(Entity\TheaterCampaign::class)
+                ->deleteByCampaign($campaign);
+            
+            $this->logger->debug('Delete "TheaterCampaign"', [
+                'count' => $theaterCampaignDeleteCount ]);
+            
+            
+            $specialSiteCampaignDeleteCount = $this->em
+                ->getRepository(Entity\SpecialSiteCampaign::class)
+                ->deleteByCampaign($campaign);
+            
+            $this->logger->debug('Delete "SpecialSiteCampaign"', [
+                'count' => $specialSiteCampaignDeleteCount ]);
+            
+            
+            $this->em->getConnection()->commit();
+            
+        } catch (\Exception $e) {
+            $this->em->getConnection()->rollBack();
+            throw $e;
+        }
     }
     
     /**

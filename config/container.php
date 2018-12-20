@@ -107,12 +107,25 @@ $container['em'] = function ($container) {
 };
 
 /**
- * flash
+ * session manager
+ * 
+ * @return \Cinemasunshine\PortalAdmin\Session\SessionManager
+ */
+$container['sm'] = function ($container) {
+    $settings = $container->get('settings')['session'];
+    
+    return new \Cinemasunshine\PortalAdmin\Session\SessionManager($settings);
+};
+
+/**
+ * Flash Messages
  * 
  * @return \Slim\Flash\Messages
  */
-$container['flash'] = function () {
-    return new \Slim\Flash\Messages();
+$container['flash'] = function ($container) {
+    $session = $container->get('sm')->getContainer('flash');
+    
+    return new \Slim\Flash\Messages($session);
 };
 
 /**

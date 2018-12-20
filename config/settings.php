@@ -23,6 +23,17 @@ $settings['view'] = [
     ],
 ];
 
+/**
+ * session
+ * 
+ * Zend-Session Configのオプションとして使用。
+ * 
+ * @link https://docs.zendframework.com/zend-session/config/
+ */
+$settings['session'] = [
+    'name' => 'csadmin',
+];
+
 
 // logger
 $getLoggerSetting = function($isDebug) {
