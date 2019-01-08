@@ -99,6 +99,12 @@ class NewsForm extends BaseForm
             'type' => 'File',
         ]);
         
+        // @todo 編集かつ画像があるとき
+        $this->add([
+            'name' => 'delete_image',
+            'type' => 'Checkbox',
+        ]);
+        
         
         $inputFilter = new InputFilter();
         
@@ -162,7 +168,7 @@ class NewsForm extends BaseForm
         
         $inputFilter->add([
             'name' => 'image',
-            'required' => ($this->type === self::TYPE_NEW),
+            'required' => false,
             'validators' => [
                 [
                     'name' => Validator\File\Size::class,
@@ -177,6 +183,12 @@ class NewsForm extends BaseForm
                     ],
                 ],
             ],
+        ]);
+        
+        // @todo 編集かつ画像があるとき
+        $inputFilter->add([
+            'name' => 'delete_image',
+            'required' => false,
         ]);
         
         $this->setInputFilter($inputFilter);
