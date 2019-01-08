@@ -65,9 +65,9 @@ class News extends AbstractEntity
     /**
      * image
      *
-     * @var File
+     * @var File|null
      * @ORM\OneToOne(targetEntity="File")
-     * @ORM\JoinColumn(name="image_file_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
+     * @ORM\JoinColumn(name="image_file_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $image;
     
@@ -179,7 +179,7 @@ class News extends AbstractEntity
     /**
      * get image
      *
-     * @return File
+     * @return File|null
      */
     public function getImage()
     {
@@ -189,10 +189,10 @@ class News extends AbstractEntity
     /**
      * set image
      *
-     * @param File $image
+     * @param File|null $image
      * @return void
      */
-    public function setImage(File $image)
+    public function setImage(?File $image)
     {
         $this->image = $image;
     }
