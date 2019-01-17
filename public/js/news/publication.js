@@ -39,6 +39,11 @@ $(function(){
         $.each(newsList, function(i, news) {
             var data = news;
             data.index = 'add' + addIndex;
+            
+            if (!data.image) {
+                data.image = 'https://placehold.jp/150x50.png?text=No%20Image'
+            }
+            
             $addTargetList.append(newsRowTmpl.render(data));
             
             addIndex++;
