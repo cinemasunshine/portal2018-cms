@@ -28,6 +28,10 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     const MASTER_VERSION_V1 = 1;
     const MASTER_VERSION_V2 = 2;
     
+    const STATUS_PRE_OPEN = 1;
+    const STATUS_OPEN     = 2;
+    const STATUS_CLOSED   = 3;
+    
     /**
      * id
      * 
@@ -85,6 +89,14 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
      * @ORM\Column(type="smallint", name="display_order", options={"unsigned"=true})
      */
     protected $displayOrder;
+    
+    /**
+     * status
+     *
+     * @var int
+     * @ORM\Column(type="smallint", name="status", options={"unsigned"=true})
+     */
+    protected $status;
     
     /**
      * meta
@@ -290,6 +302,27 @@ class Theater extends AbstractEntity implements CampaignPublicationInterface, Ne
     public function setDisplayOrder(int $displayOrder)
     {
         $this->displayOrder = $displayOrder;
+    }
+    
+    /**
+     * get status
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    
+    /**
+     * set status
+     *
+     * @param int $status
+     * @return void
+     */
+    public function setStatus(int $status)
+    {
+        $this->status = $status;
     }
     
     /**
