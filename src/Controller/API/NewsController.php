@@ -36,10 +36,16 @@ class NewsController extends BaseController
             foreach ($newsList as $news) {
                 /** @var Entity\News $news */
                 
+                $image = null;
+                
+                if ($news->getImage()) {
+                    $image = $this->getBlobUrl($news->getImage()->getName());
+                }
+                
                 $data[] = [
                     'id'             => $news->getId(),
                     'headline'       => $news->getHeadline(),
-                    'image'          => $this->getBlobUrl($news->getImage()->getName()),
+                    'image'          => $image,
                     'category_label' => $news->getCategoryLabel(),
                 ];
             }

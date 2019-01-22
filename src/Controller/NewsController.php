@@ -102,30 +102,33 @@ class NewsController extends BaseController
         $cleanData = $form->getData();
         
         $image = $cleanData['image'];
+        $file = null;
         
-        // rename
-        $newName = Entity\File::createName($image['name']);
-        
-        // SASAKI-245
-        $imageStream = $this->resizeImage($image['tmp_name'], 1200, 600);
-        
-        // upload storage
-        // @todo storageと同期するような仕組みをFileへ
-        $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
-        $options->setContentType($image['type']);
-        $this->bc->createBlockBlob(
-            Entity\File::getBlobContainer(),
-            $newName,
-            $imageStream,
-            $options);
-        
-        $file = new Entity\File();
-        $file->setName($newName);
-        $file->setOriginalName($image['name']);
-        $file->setMimeType($image['type']);
-        $file->setSize($imageStream->getSize());
-        
-        $this->em->persist($file);
+        if ($image['name']) {
+            // rename
+            $newName = Entity\File::createName($image['name']);
+            
+            // SASAKI-245
+            $imageStream = $this->resizeImage($image['tmp_name'], 1200, 600);
+            
+            // upload storage
+            // @todo storageと同期するような仕組みをFileへ
+            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options->setContentType($image['type']);
+            $this->bc->createBlockBlob(
+                Entity\File::getBlobContainer(),
+                $newName,
+                $imageStream,
+                $options);
+            
+            $file = new Entity\File();
+            $file->setName($newName);
+            $file->setOriginalName($image['name']);
+            $file->setMimeType($image['type']);
+            $file->setSize($imageStream->getSize());
+            
+            $this->em->persist($file);
+        }
         
         // title
         $title = null;
@@ -238,6 +241,18 @@ class NewsController extends BaseController
         $cleanData = $form->getData();
         
         $image = $cleanData['image'];
+        $isDeleteImage = $cleanData['delete_image'] || $image['name'];
+        
+        if ($isDeleteImage && $news->getImage()) {
+            // @todo preUpdateで出来ないか？ hasChangedField()
+            $oldImage = $news->getImage();
+            $this->em->remove($oldImage);
+            
+            // @todo postRemoveイベントへ
+            $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
+            
+            $news->setImage(null);
+        }
         
         if ($image['name']) {
             // rename
@@ -265,14 +280,16 @@ class NewsController extends BaseController
             $this->em->persist($file);
             
             $oldImage = $news->getImage();
+            
+            if ($oldImage) {
+                // @todo preUpdateで出来ないか？ hasChangedField()
+                $this->em->remove($oldImage);
+                
+                // @todo postRemoveイベントへ
+                $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
+            }
+            
             $news->setImage($file);
-            
-            
-            // @todo preUpdateで出来ないか？ hasChangedField()
-            $this->em->remove($oldImage);
-            
-            // @todo postRemoveイベントへ
-            $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
         }
         
         

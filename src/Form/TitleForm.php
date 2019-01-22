@@ -119,7 +119,7 @@ class TitleForm extends BaseForm
         
         $inputFilter->add([
             'name' => 'name_original',
-            'required' => true,
+            'required' => false,
         ]);
         
         $inputFilter->add([

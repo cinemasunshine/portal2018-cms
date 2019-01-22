@@ -145,9 +145,17 @@
                         <label class="col-md-3 col-form-label">画像</label>
                         <div class="col-md-9">
                             <div class="row">
+                                {% if news.getImage() %}
                                 <div class="col-md-12">
-                                    <img src="{{ blob_url(news.getImage().getBlobContainer(), news.getImage().getName()) }}" width="200">
+                                    <img src="{{ blob_url(news.getImage().getBlobContainer(), news.getImage().getName()) }}" width="200" />
                                 </div>
+                                <div class="col-md-12 col-form-label">
+                                    <div class="form-check form-check">
+                                        <input class="form-check-input" type="checkbox" id="delete_image" name="delete_image" value="1" {{ '1' == values.delete_image ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="delete_image">削除</label>
+                                    </div>
+                                </div>
+                                {% endif %}
                                 <div class="col-md-12">
                                     <input type="file" name="image" class="form-control{% if errors.image %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
                                     <span class="help-block">jpg、png、gif形式のみ対応。10MB以内。</span>

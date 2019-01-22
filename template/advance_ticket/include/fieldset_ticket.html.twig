@@ -30,6 +30,25 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="col-md-3 col-form-label">前売情報公開日</label>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input type="text" name="tickets[{{ index }}][publishing_start_dt]" class="form-control datetimepicker{% if errors.publishing_start_dt %} is-invalid{% elseif is_validated %} is-valid{% endif %}"  value="{{ values.publishing_start_dt }}">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="icon-calendar"></i>
+                        </span>
+                    </div>
+                    <div class="invalid-feedback">
+                        {% for message in errors.publishing_start_dt %}
+                            {{ message }}
+                            {% if not loop.last %}<br />{% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-md-3 col-form-label">前売券発売日</label>
             <div class="col-md-4">
                 <div class="input-group">

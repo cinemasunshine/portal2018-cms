@@ -32,6 +32,9 @@ $settings['view'] = [
  */
 $settings['session'] = [
     'name' => 'csadmin',
+    'gc_maxlifetime' => 60 * 60 * 2, // SASAKI-360
+    'gc_probability' => 1,
+    'gc_divisor' => 1,
 ];
 
 

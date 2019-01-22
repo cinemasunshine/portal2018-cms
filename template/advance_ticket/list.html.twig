@@ -87,6 +87,7 @@
                             <th>ID</th>
                             <th>作品名</th>
                             <th>劇場</th>
+                            <th>情報公開日</th>
                             <th>販売日</th>
                             <th>販売ステータス</th>
                             <th>タイプ</th>
@@ -103,6 +104,7 @@
                                 {{ advanceTicket.getAdvanceSale().getTitle().getName() }}
                             </a></th>
                             <th>{{ advanceTicket.getAdvanceSale().getTheater().getNameJa() }}</th>
+                            <th>{{ advanceTicket.getPublishingStartDt().format('Y/m/d H:i') }}</th>
                             <th>{{ advanceTicket.getReleaseDt().format('Y/m/d H:i') }}</th>
                             <th>{{ advanceTicket.getStatusLabel() }}</th>
                             <th>{{ advanceTicket.getTypeLabel() }}</th>
