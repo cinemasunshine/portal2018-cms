@@ -55,6 +55,11 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
         ]);
         
         $this->add([
+            'name' => 'publishing_start_dt',
+            'type' => 'Text', // Datepickerを入れるのでtextにする
+        ]);
+        
+        $this->add([
             'name' => 'release_dt',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
@@ -116,6 +121,17 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
         $specification = [
             'id' => [
                 'required' => false,
+            ],
+            'publishing_start_dt' => [
+                'required' => true,
+                'validators' => [
+                    [
+                        'name' => Validator\Date::class,
+                        'options' => [
+                            'format' => 'Y/m/d H:i',
+                        ],
+                    ],
+                ],
             ],
             'release_dt' => [
                 'required' => true,

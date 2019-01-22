@@ -74,6 +74,14 @@ class AdvanceTicket extends AbstractEntity
     protected $advanceSale;
     
     /**
+     * publishing_start_dt
+     *
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="publishing_start_dt")
+     */
+    protected $publishingStartDt;
+    
+    /**
      * release_dt
      *
      * @var \DateTime
@@ -175,6 +183,31 @@ class AdvanceTicket extends AbstractEntity
     public function setAdvanceSale(AdvanceSale $advanceSale)
     {
         $this->advanceSale = $advanceSale;
+    }
+    
+    /**
+     * get publishing_start_dt
+     *
+     * @return \DateTime
+     */
+    public function getPublishingStartDt()
+    {
+        return $this->publishingStartDt;
+    }
+    
+    /**
+     * set publishing_start_dt
+     *
+     * @param \DateTime|string $publishingStartDt
+     * @return void
+     */
+    public function setPublishingStartDt($publishingStartDt)
+    {
+        if ($publishingStartDt instanceof \Datetime) {
+            $this->publishingStartDt = $publishingStartDt;
+        } else {
+            $this->publishingStartDt = new \DateTime($publishingStartDt);
+        }
     }
     
     /**

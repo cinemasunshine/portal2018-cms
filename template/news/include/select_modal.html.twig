@@ -38,7 +38,11 @@
                             <th><input type="checkbox" name="news[]" value="{{:id}}"></th>
                             <th>{{:id}}</th>
                             <th>
+                                {{if image}}
                                 <img src="{{:image}}" width="100">
+                                {{else}}
+                                <img src="https://placehold.jp/100x50.png?text=No%20Image" alt="No Image" />
+                                {{/if}}
                                 {{:headline}}
                             </th>
                         </tr>

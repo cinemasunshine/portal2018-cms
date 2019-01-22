@@ -11,7 +11,7 @@
 <script src="/js/vendor/jsrender.min.js"></script>
 <script src="/js/api.js"></script>
 <script src="/js/modal/select-news.js"></script>
-<script src="/js/news/publication.js"></script>
+<script src="/js/news/publication.js?v=20190118"></script>
 {% endblock %}
 
 {% block breadcrumb %}
@@ -43,11 +43,17 @@
                             <ul class="list-group sortable">
                                 {% for publication in page.getNewsList() %}
                                     {% set news = publication.getNews() %}
+                                    {% set image = 'https://placehold.jp/150x50.png?text=No%20Image' %}
+                                    
+                                    {% if news.getImage() %}
+                                        {% set image = blob_url(news.getImage().getBlobContainer(), news.getImage().getName()) %}
+                                    {% endif %}
+                                    
                                     {% include 'news/include/fieldset_publication.html.twig' with {
                                         index: loop.index0,
                                         display_order: publication.getDisplayOrder(),
                                         id: news.getId(),
-                                        image: blob_url(news.getImage().getBlobContainer(), news.getImage().getName()),
+                                        image: image,
                                         headline: news.getHeadline(),
                                         category_label: news.getCategoryLabel(),
                                     } only %}
@@ -81,11 +87,17 @@
                             <ul class="list-group sortable">
                                 {% for publication in theater.getNewsList() %}
                                     {% set news = publication.getNews() %}
+                                    {% set image = 'https://placehold.jp/150x50.png?text=No%20Image' %}
+                                    
+                                    {% if news.getImage() %}
+                                        {% set image = blob_url(news.getImage().getBlobContainer(), news.getImage().getName()) %}
+                                    {% endif %}
+                                    
                                     {% include 'news/include/fieldset_publication.html.twig' with {
                                         index: loop.index0,
                                         display_order: publication.getDisplayOrder(),
                                         id: news.getId(),
-                                        image: blob_url(news.getImage().getBlobContainer(), news.getImage().getName()),
+                                        image: image,
                                         headline: news.getHeadline(),
                                         category_label: news.getCategoryLabel(),
                                     } only %}
@@ -119,11 +131,17 @@
                             <ul class="list-group sortable">
                                 {% for publication in specialSite.getNewsList() %}
                                     {% set news = publication.getNews() %}
+                                    {% set image = 'https://placehold.jp/150x50.png?text=No%20Image' %}
+                                    
+                                    {% if news.getImage() %}
+                                        {% set image = blob_url(news.getImage().getBlobContainer(), news.getImage().getName()) %}
+                                    {% endif %}
+                                    
                                     {% include 'news/include/fieldset_publication.html.twig' with {
                                         index: loop.index0,
                                         display_order: publication.getDisplayOrder(),
                                         id: news.getId(),
-                                        image: blob_url(news.getImage().getBlobContainer(), news.getImage().getName()),
+                                        image: image,
                                         headline: news.getHeadline(),
                                         category_label: news.getCategoryLabel(),
                                     } only %}

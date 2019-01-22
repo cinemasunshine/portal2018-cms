@@ -134,6 +134,7 @@ class AdvanceTicketController extends BaseController
         foreach ($cleanData['tickets'] as $ticket) {
             $advanceTicket = new Entity\AdvanceTicket();
             $advanceTicket->setAdvanceSale($advanceSale);
+            $advanceTicket->setPublishingStartDt($ticket['publishing_start_dt']);
             $advanceTicket->setReleaseDt($ticket['release_dt']);
             $advanceTicket->setReleaseDtText($ticket['release_dt_text']);
             $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
@@ -230,14 +231,15 @@ class AdvanceTicketController extends BaseController
         foreach ($advanceSale->getActiveAdvanceTickets() as $advanceTicket) {
             /** @var Entity\AdvanceTicket $advanceTicket */
             $ticket = [
-                'id'                 => $advanceTicket->getId(),
-                'release_dt'         => $advanceTicket->getReleaseDt()->format('Y/m/d H:i'),
-                'release_dt_text'    => $advanceTicket->getReleaseDtText(),
-                'is_sales_end'       => $advanceTicket->getIsSalesEnd() ? '1' : '0',
-                'type'               => $advanceTicket->getType(),
-                'price_text'         => $advanceTicket->getPriceText(),
-                'special_gift'       => $advanceTicket->getSpecialGift(),
-                'special_gift_stock' => $advanceTicket->getSpecialGiftStock(),
+                'id'                  => $advanceTicket->getId(),
+                'publishing_start_dt' => $advanceTicket->getPublishingStartDt()->format('Y/m/d H:i'),
+                'release_dt'          => $advanceTicket->getReleaseDt()->format('Y/m/d H:i'),
+                'release_dt_text'     => $advanceTicket->getReleaseDtText(),
+                'is_sales_end'        => $advanceTicket->getIsSalesEnd() ? '1' : '0',
+                'type'                => $advanceTicket->getType(),
+                'price_text'          => $advanceTicket->getPriceText(),
+                'special_gift'        => $advanceTicket->getSpecialGift(),
+                'special_gift_stock'  => $advanceTicket->getSpecialGiftStock(),
             ];
             
             $values['tickets'][] = $ticket;
@@ -341,6 +343,7 @@ class AdvanceTicketController extends BaseController
                 $advanceTicket->setAdvanceSale($advanceSale);
             }
             
+            $advanceTicket->setPublishingStartDt($ticket['publishing_start_dt']);
             $advanceTicket->setReleaseDt($ticket['release_dt']);
             $advanceTicket->setReleaseDtText($ticket['release_dt_text']);
             $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
