@@ -34,3 +34,19 @@ phpmyadmin: http://localhost:8080/
 ```sh
 $ docker-compose up
 ```
+
+# その他
+## PHP CodeSniffer
+### コードチェック
+
+```sh
+$ vendor/bin/phpcs --standard=phpcs.xml
+```
+
+### 自動修正
+
+修正あれた箇所は適宜確認してください。
+
+```sh
+$ vendor/bin/phpcdf --standard=phpcs.xml
+```

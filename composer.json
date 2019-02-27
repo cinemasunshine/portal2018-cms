@@ -24,5 +24,8 @@
         "zendframework/zend-uri": "^2.6",
         "microsoft/azure-storage-blob": "^1.2",
         "intervention/image": "^2.4"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.4"
     }
 }
