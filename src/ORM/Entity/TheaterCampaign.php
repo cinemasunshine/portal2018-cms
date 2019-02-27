@@ -1,7 +1,7 @@
 <?php
 /**
  * TheaterCampaign.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -13,7 +13,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * TheaterCampaign entity class
- * 
+ *
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\TheaterCampaignRepository")
  * @ORM\Table(name="theater_campaign", options={"collate"="utf8mb4_general_ci"})
@@ -25,7 +25,7 @@ class TheaterCampaign extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})

@@ -1,7 +1,7 @@
 <?php
 /**
  * AdvanceTicketController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -21,7 +21,7 @@ class AdvanceTicketController extends BaseController
     
     /**
      * list action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -75,7 +75,7 @@ class AdvanceTicketController extends BaseController
     
     /**
      * new action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -89,7 +89,7 @@ class AdvanceTicketController extends BaseController
     
     /**
      * create action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -158,7 +158,8 @@ class AdvanceTicketController extends BaseController
                     Entity\File::getBlobContainer(),
                     $newName,
                     fopen($image['tmp_name'], 'r'),
-                    $options);
+                    $options
+                );
                 
                 $file = new Entity\File();
                 $file->setName($newName);
@@ -183,12 +184,13 @@ class AdvanceTicketController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('advance_ticket_edit', [ 'id' => $advanceSale->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * edit action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -250,7 +252,7 @@ class AdvanceTicketController extends BaseController
     
     /**
      * update action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -305,8 +307,7 @@ class AdvanceTicketController extends BaseController
                 // indexByでidをindexにしている
                 $advanceTicket = $advanceTickets->get($advanceTicketId);
                 
-                if (
-                    !$advanceTicket
+                if (!$advanceTicket
                     || $advanceTicket->getId() !== (int) $advanceTicketId // 念のため確認
                 ) {
                     throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $advanceTicketId));
@@ -325,15 +326,13 @@ class AdvanceTicketController extends BaseController
                 // indexByでidをindexにしている
                 $advanceTicket = $advanceTickets->get($ticket['id']);
                 
-                if (
-                    !$advanceTicket
+                if (!$advanceTicket
                     || $advanceTicket->getId() !== (int) $ticket['id'] // 念のため確認
                 ) {
                     throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $ticket['id']));
                 }
                 
                 /** @var Entity\AdvanceTicket $advanceTicket */
-                
             } else {
                 // 前売券登録
                 
@@ -378,7 +377,8 @@ class AdvanceTicketController extends BaseController
                     Entity\File::getBlobContainer(),
                     $newName,
                     fopen($image['tmp_name'], 'r'),
-                    $options);
+                    $options
+                );
                 
                 $file = new Entity\File();
                 $file->setName($newName);
@@ -401,12 +401,13 @@ class AdvanceTicketController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('advance_ticket_edit', [ 'id' => $advanceSale->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * delete action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -431,7 +432,6 @@ class AdvanceTicketController extends BaseController
         
         // 有効なAdvanceTicketの件数確認
         if ($advanceSale->getActiveAdvanceTickets()->count() === 1) {
-            
             // この処理で有効なAdvanceTicketが無くなるのでAdvanceSaleも削除する
             $advanceSale->setIsDeleted(true);
         }

@@ -1,7 +1,7 @@
 <?php
 /**
  * MainBannerForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -28,7 +28,7 @@ class MainBannerForm extends BaseForm
     
     /**
      * construct
-     * 
+     *
      * @param int $type
      */
     public function __construct(int $type)
@@ -142,8 +142,7 @@ class MainBannerForm extends BaseForm
      */
     protected function preValidator(array $data)
     {
-        if (
-            isset($data['link_type'])
+        if (isset($data['link_type'])
             && (int) $data['link_type'] ===  MainBanner::LINK_TYPE_URL
         ) {
             $this->getInputFilter()->get('link_url')->setRequired(true);

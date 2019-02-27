@@ -1,7 +1,7 @@
 <?php
 /**
  * File.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -13,9 +13,9 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * File entity class
- * 
+ *
  * @todo 削除のイベントでファイルも削除される仕組み
- * 
+ *
  * @ORM\Entity
  * @ORM\Table(name="file", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -26,7 +26,7 @@ class File extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
@@ -36,7 +36,7 @@ class File extends AbstractEntity
     
     /**
      * name
-     * 
+     *
      * @var string
      * @ORM\Column(type="string", unique=true)
      */

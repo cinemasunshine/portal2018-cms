@@ -1,7 +1,7 @@
 <?php
 /**
  * TrailerFindForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -33,7 +33,7 @@ class TrailerFindForm extends BaseForm
     
     /**
      * construct
-     * 
+     *
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em)

@@ -1,7 +1,7 @@
 <?php
 /**
  * PublicationNewsFieldset.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -42,7 +42,7 @@ class PublicationNewsFieldset extends Fieldset implements InputFilterProviderInt
     
     /**
      * return inpu filter specification
-     * 
+     *
      * @return array
      */
     public function getInputFilterSpecification()

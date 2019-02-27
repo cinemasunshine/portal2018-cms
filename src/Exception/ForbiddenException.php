@@ -1,7 +1,7 @@
 <?php
 /**
  * ForbiddenException.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

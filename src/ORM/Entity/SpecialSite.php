@@ -1,7 +1,7 @@
 <?php
 /**
  * SpecialSite.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -15,19 +15,22 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * SpecialSite entity class
- * 
+ *
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\SpecialSiteRepository")
  * @ORM\Table(name="special_site", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class SpecialSite extends AbstractEntity implements CampaignPublicationInterface, NewsPublicationInterface, MainBannerPublicationInterface
+class SpecialSite extends AbstractEntity implements
+    CampaignPublicationInterface,
+    NewsPublicationInterface,
+    MainBannerPublicationInterface
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="smallint", options={"unsigned"=true})
@@ -37,15 +40,15 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
     
     /**
      * name
-     * 
+     *
      * @var string
      * @ORM\Column(type="string", unique=true)
      */
     protected $name;
     
-    /** 
+    /**
      * name_ja
-     * 
+     *
      * @var string
      * @ORM\Column(type="string", name="name_ja")
      */
@@ -88,7 +91,7 @@ class SpecialSite extends AbstractEntity implements CampaignPublicationInterface
     
     /**
      * construct
-     * 
+     *
      * @param int $id
      */
     public function __construct(int $id)

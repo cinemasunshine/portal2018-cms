@@ -1,7 +1,7 @@
 <?php
 /**
  * AbstractPaginator.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

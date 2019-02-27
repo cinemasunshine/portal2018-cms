@@ -1,7 +1,7 @@
 <?php
 /**
  * TrailerRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -19,7 +19,7 @@ class TrailerRepository extends EntityRepository
 {
     /**
      * find for list page
-     * 
+     *
      * @param array $params
      * @param int   $page
      * @param int   $maxPerPage

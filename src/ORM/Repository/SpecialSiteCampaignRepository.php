@@ -1,7 +1,7 @@
 <?php
 /**
  * SpecialSiteCampaignRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

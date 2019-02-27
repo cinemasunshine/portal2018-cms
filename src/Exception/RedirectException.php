@@ -1,7 +1,7 @@
 <?php
 /**
  * RedirectException.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

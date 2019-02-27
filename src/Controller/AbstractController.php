@@ -1,7 +1,7 @@
 <?php
 /**
  * AbstractController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -18,7 +18,7 @@ use Cinemasunshine\PortalAdmin\Responder\AbstractResponder as Responder;
 
 /**
  * Abstract controller
- * 
+ *
  * @property \Cinemasunshine\PortalAdmin\Auth $auth
  * @property \MicrosoftAzure\Storage\Blob\BlobRestProxy $bc
  * @property \Doctrine\ORM\EntityManager $em
@@ -34,9 +34,9 @@ abstract class AbstractController
     
     /**
      * data
-     * 
+     *
      * Responderへ値を渡すために作成。
-     * 
+     *
      * @var Collection
      */
     protected $data;
@@ -46,7 +46,7 @@ abstract class AbstractController
     
     /**
      * construct
-     * 
+     *
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
@@ -57,11 +57,11 @@ abstract class AbstractController
     
     /**
      * execute
-     * 
+     *
      * 前後でpreExecute(),postExecute()処理を自動実行するために実装。
      * __call()からの呼び出しを想定。
-     * 
-     * 
+     *
+     *
      * @param string   $actionMethod
      * @param Request  $request
      * @param Response $response
@@ -85,7 +85,6 @@ abstract class AbstractController
             
             $this->logger->debug('Run postExecute().');
             $this->postExecute($request, $response);
-            
         } catch (RedirectException $e) {
             $this->logger->debug('Redirect.', [
                 'url'    => $e->getUrl(),
@@ -102,7 +101,7 @@ abstract class AbstractController
     
     /**
      * pre execute
-     * 
+     *
      * argsはそれぞれの処理固有のパラメータなので渡さない。
      * responseなどをreturnしたいケースがあれば検討する。
      *
@@ -117,7 +116,7 @@ abstract class AbstractController
      *
      * argsはそれぞれの処理固有のパラメータなので渡さない。
      * responseなどをreturnしたいケースがあれば検討する。
-     * 
+     *
      * @param Request  $request
      * @param Response $response
      * @return void
@@ -126,7 +125,7 @@ abstract class AbstractController
     
     /**
      * redirect
-     * 
+     *
      * withRedirect()ではなくこちらを使う。
      * すぐにリダイレクトさせるためにExceptionを利用している。
      *
@@ -142,7 +141,7 @@ abstract class AbstractController
     
     /**
      * build response
-     * 
+     *
      * @param Response    $response
      * @param string|null $method responder method
      * @return Response

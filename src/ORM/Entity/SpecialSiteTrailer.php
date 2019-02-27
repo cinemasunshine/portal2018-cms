@@ -1,7 +1,7 @@
 <?php
 /**
  * SpecialSiteTrailer.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * SpecialSiteTrailer entity class
- * 
+ *
  * @ORM\Entity
  * @ORM\Table(name="special_site_trailer", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -22,7 +22,7 @@ class SpecialSiteTrailer extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})

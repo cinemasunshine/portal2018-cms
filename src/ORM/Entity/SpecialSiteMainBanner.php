@@ -1,7 +1,7 @@
 <?php
 /**
  * SpecialSiteMainBanner.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -13,7 +13,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * SpecialSiteMainBanner entity class
- * 
+ *
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\SpecialSiteMainBannerRepository")
  * @ORM\Table(name="special_site_main_banner", options={"collate"="utf8mb4_general_ci"})
@@ -25,7 +25,7 @@ class SpecialSiteMainBanner extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})

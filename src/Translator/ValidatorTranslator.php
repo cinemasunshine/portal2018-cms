@@ -1,7 +1,7 @@
 <?php
 /**
  * ValidatorTranslator.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

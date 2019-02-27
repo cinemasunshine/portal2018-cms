@@ -1,7 +1,7 @@
 <?php
 /**
  * PublicationMainBannerFieldset.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -42,7 +42,7 @@ class PublicationMainBannerFieldset extends Fieldset implements InputFilterProvi
     
     /**
      * return inpu filter specification
-     * 
+     *
      * @return array
      */
     public function getInputFilterSpecification()

@@ -1,7 +1,7 @@
 <?php
 /**
  * TheaterMetaController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -19,7 +19,7 @@ class TheaterMetaController extends BaseController
 {
     /**
      * opening hour action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -43,7 +43,7 @@ class TheaterMetaController extends BaseController
     
     /**
      * opening hour edit action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -82,7 +82,7 @@ class TheaterMetaController extends BaseController
     
     /**
      * opening hour update action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -129,6 +129,7 @@ class TheaterMetaController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('opening_hour_edit', [ 'id' => $theater->getId() ]),
-            303);
+            303
+        );
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * TheaterMainBanner.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -13,7 +13,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * TheaterMainBanner entity class
- * 
+ *
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\TheaterMainBannerRepository")
  * @ORM\Table(name="theater_main_banner", options={"collate"="utf8mb4_general_ci"})
@@ -25,7 +25,7 @@ class TheaterMainBanner extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})

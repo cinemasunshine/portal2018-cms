@@ -1,7 +1,7 @@
 <?php
 /**
  * PageRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -19,7 +19,7 @@ class PageRepository extends EntityRepository
 {
     /**
      * find
-     * 
+     *
      * @return Page[]
      */
     public function findActive()

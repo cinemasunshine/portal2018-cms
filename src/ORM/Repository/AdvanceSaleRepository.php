@@ -1,7 +1,7 @@
 <?php
 /**
  * AdvanceSaleRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

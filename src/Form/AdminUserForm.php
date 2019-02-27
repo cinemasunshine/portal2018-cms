@@ -1,7 +1,7 @@
 <?php
 /**
  * AdminUserForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -30,7 +30,7 @@ class AdminUserForm extends BaseForm
     
     /**
      * construct
-     * 
+     *
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em)

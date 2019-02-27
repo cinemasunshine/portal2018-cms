@@ -1,7 +1,7 @@
 <?php
 /**
  * ShowingFormat.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -13,7 +13,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * ShowingFormat entity class
- * 
+ *
  * @ORM\Entity
  * @ORM\Table(name="showing_format", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -46,7 +46,7 @@ class ShowingFormat extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})

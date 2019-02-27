@@ -1,7 +1,7 @@
 <?php
 /**
  * TitleRanking.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -13,7 +13,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * TitleRanking entity class
- * 
+ *
  * @ORM\Entity
  * @ORM\Table(name="title_ranking", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -24,7 +24,7 @@ class TitleRanking extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="smallint", options={"unsigned"=true})
@@ -170,9 +170,9 @@ class TitleRanking extends AbstractEntity
         return $this->rank1Title;
     }
     
-    /** 
+    /**
      * set rank1_title
-     * 
+     *
      * @param Title|null $title
      */
     public function setRank1Title($title)
@@ -275,13 +275,13 @@ class TitleRanking extends AbstractEntity
     {
         if ($rank === 1) {
             return $this->getRank1Title();
-        } else if ($rank === 2) {
+        } elseif ($rank === 2) {
             return $this->getRank2Title();
-        } else if ($rank === 3) {
+        } elseif ($rank === 3) {
             return $this->getRank3Title();
-        } else if ($rank === 4) {
+        } elseif ($rank === 4) {
             return $this->getRank4Title();
-        } else if ($rank === 5) {
+        } elseif ($rank === 5) {
             return $this->getRank5Title();
         } else {
             throw new \InvalidArgumentException('invalid "rank".');
@@ -300,13 +300,13 @@ class TitleRanking extends AbstractEntity
     {
         if ($rank === 1) {
             $this->setRank1Title($title);
-        } else if ($rank === 2) {
+        } elseif ($rank === 2) {
             $this->setRank2Title($title);
-        } else if ($rank === 3) {
+        } elseif ($rank === 3) {
             $this->setRank3Title($title);
-        } else if ($rank === 4) {
+        } elseif ($rank === 4) {
             $this->setRank4Title($title);
-        } else if ($rank === 5) {
+        } elseif ($rank === 5) {
             $this->setRank5Title($title);
         } else {
             throw new \InvalidArgumentException('invalid "rank".');

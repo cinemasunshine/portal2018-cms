@@ -1,7 +1,7 @@
 <?php
 /**
  * CampaignController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -36,7 +36,7 @@ class CampaignController extends BaseController
     
     /**
      * list action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -71,7 +71,7 @@ class CampaignController extends BaseController
     
     /**
      * new action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -83,7 +83,7 @@ class CampaignController extends BaseController
     
     /**
      * create action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -121,7 +121,8 @@ class CampaignController extends BaseController
             Entity\File::getBlobContainer(),
             $newName,
             fopen($image['tmp_name'], 'r'),
-            $options);
+            $options
+        );
         
         $file = new Entity\File();
         $file->setName($newName);
@@ -157,12 +158,13 @@ class CampaignController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('campaign_edit', [ 'id' => $campaign->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * edit action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -200,7 +202,7 @@ class CampaignController extends BaseController
     
     /**
      * update action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -248,7 +250,8 @@ class CampaignController extends BaseController
                 Entity\File::getBlobContainer(),
                 $newName,
                 fopen($image['tmp_name'], 'r'),
-                $options);
+                $options
+            );
             
             $file = new Entity\File();
             $file->setName($newName);
@@ -294,12 +297,13 @@ class CampaignController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('campaign_edit', [ 'id' => $campaign->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * delete action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -372,7 +376,6 @@ class CampaignController extends BaseController
             
             
             $this->em->getConnection()->commit();
-            
         } catch (\Exception $e) {
             $this->em->getConnection()->rollBack();
             throw $e;
@@ -381,7 +384,7 @@ class CampaignController extends BaseController
     
     /**
      * publication action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -404,7 +407,7 @@ class CampaignController extends BaseController
     
     /**
      * publication update action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -432,15 +435,14 @@ class CampaignController extends BaseController
                 ->findOneById((int) $cleanData['theater_id']);
             $basePublication = new Entity\TheaterCampaign();
             $basePublication->setTheater($targetEntity);
-            
-        } else if ($target === Form\CampaignPublicationForm::TARGET_PAGE) {
+        } elseif ($target === Form\CampaignPublicationForm::TARGET_PAGE) {
             /** @var Entity\Page $targetEntity */
             $targetEntity = $this->em
                 ->getRepository(Entity\Page::class)
                 ->findOneById((int) $cleanData['page_id']);
             $basePublication = new Entity\PageCampaign();
             $basePublication->setPage($targetEntity);
-        } else if ($target === Form\CampaignPublicationForm::TARGET_SPESICAL_SITE) {
+        } elseif ($target === Form\CampaignPublicationForm::TARGET_SPESICAL_SITE) {
             /** @var Entity\SpecialSite $targetEntity */
             $targetEntity = $this->em
                 ->getRepository(Entity\SpecialSite::class)

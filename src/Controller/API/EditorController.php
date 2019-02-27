@@ -1,7 +1,7 @@
 <?php
 /**
  * EditorController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -24,7 +24,7 @@ class EditorController extends BaseController
     
     /**
      * upload action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -67,7 +67,8 @@ class EditorController extends BaseController
             $this->blobContainer,
             $blobName,
             fopen($file['tmp_name'], 'r'),
-            $options);
+            $options
+        );
         
         $url = $this->createBlobUrl($this->blobContainer, $blobName);
         
@@ -81,7 +82,7 @@ class EditorController extends BaseController
     
     /**
      * create Blob URL
-     * 
+     *
      * Blobへのpublicアクセスを許可する必要があります。
      *
      * @param string $container
@@ -98,6 +99,7 @@ class EditorController extends BaseController
             $protocol,
             $settings['account']['name'],
             $container,
-            $blob);
+            $blob
+        );
     }
 }

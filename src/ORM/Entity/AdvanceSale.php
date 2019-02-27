@@ -1,12 +1,11 @@
 <?php
 /**
  * AdvanceSale.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,7 +16,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * AdvanceSale entity class
- * 
+ *
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\AdvanceSaleRepository")
  * @ORM\Table(name="advance_sale", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -30,7 +29,7 @@ class AdvanceSale extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
@@ -40,7 +39,7 @@ class AdvanceSale extends AbstractEntity
     
     /**
      * theater
-     * 
+     *
      * @var Theater
      * @ORM\ManyToOne(targetEntity="Theater")
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", onDelete="RESTRICT")

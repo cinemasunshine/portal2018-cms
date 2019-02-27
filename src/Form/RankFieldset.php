@@ -1,7 +1,7 @@
 <?php
 /**
  * RankFieldset.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -46,7 +46,7 @@ class RankFieldset extends Fieldset implements InputFilterProviderInterface
     
     /**
      * return inpu filter specification
-     * 
+     *
      * @return array
      */
     public function getInputFilterSpecification()

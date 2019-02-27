@@ -1,7 +1,7 @@
 <?php
 /**
  * AdvanceTicketRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -20,7 +20,7 @@ class AdvanceTicketRepository extends EntityRepository
 {
     /**
      * find for list page
-     * 
+     *
      * @param array $params
      * @param int   $page
      * @param int   $maxPerPage

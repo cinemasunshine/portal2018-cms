@@ -1,7 +1,7 @@
 <?php
 /**
  * AzureBlobStorageHandler.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -36,8 +36,13 @@ class AzureBlobStorageHandler extends AbstractProcessingHandler
      * @param int           $level
      * @param boolean       $bubble
      */
-    public function __construct(BlobRestProxy $client, string $container, string $blob, $level = Logger::DEBUG, $bubble = true)
-    {
+    public function __construct(
+        BlobRestProxy $client,
+        string $container,
+        string $blob,
+        $level = Logger::DEBUG,
+        $bubble = true
+    ) {
         $this->client = $client;
         $this->container = $container;
         $this->blob = $blob;
@@ -57,7 +62,7 @@ class AzureBlobStorageHandler extends AbstractProcessingHandler
         try {
             $this->client->getBlobMetadata($this->container, $this->blob);
         } catch (ServiceException $e) {
-             if ($e->getCode() !== 404) {
+            if ($e->getCode() !== 404) {
                 throw $e;
             }
             

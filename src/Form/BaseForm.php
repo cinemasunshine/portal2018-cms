@@ -1,7 +1,7 @@
 <?php
 /**
  * LoginForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -45,7 +45,7 @@ class BaseForm extends Form
     
     /**
      * build data
-     * 
+     *
      * 配列の添字は文字列しておく（特にネストされたフィールドについて）
      * NG: <input type="text" name="items[0][name]">
      * OK: <input type="text" name="items[str][name]">
@@ -66,7 +66,7 @@ class BaseForm extends Form
      * parse uploaded files
      *
      * ネストされたfileの値をパースするために作成。
-     * 
+     *
      * @param array $uploadedFiles
      * @return void
      */

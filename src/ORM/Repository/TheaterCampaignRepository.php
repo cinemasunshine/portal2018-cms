@@ -1,7 +1,7 @@
 <?php
 /**
  * TheaterCampaignRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

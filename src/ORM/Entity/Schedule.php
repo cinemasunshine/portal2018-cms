@@ -1,7 +1,7 @@
 <?php
 /**
  * Schedule.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -15,7 +15,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * Schedule entity class
- * 
+ *
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\ScheduleRepository")
  * @ORM\Table(name="schedule", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -28,7 +28,7 @@ class Schedule extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})

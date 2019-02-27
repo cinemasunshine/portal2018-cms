@@ -1,7 +1,7 @@
 <?php
 /**
  * TitleRankingController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -57,7 +57,7 @@ class TitleRankingController extends BaseController
     
     /**
      * edit action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -76,7 +76,7 @@ class TitleRankingController extends BaseController
             'ranks'     => [],
         ];
         
-        for ($rank = 1; $rank <= 5; $rank++) { 
+        for ($rank = 1; $rank <= 5; $rank++) {
             $title = $titleRanking->getRank($rank);
             
             if (!$title) {
@@ -93,7 +93,7 @@ class TitleRankingController extends BaseController
     
     /**
      * update action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args

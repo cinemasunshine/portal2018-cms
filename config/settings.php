@@ -1,9 +1,9 @@
 <?php
 /**
  * settings.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
- * 
+ *
  * @return array
  */
 
@@ -25,9 +25,9 @@ $settings['view'] = [
 
 /**
  * session
- * 
+ *
  * Zend-Session Configのオプションとして使用。
- * 
+ *
  * @link https://docs.zendframework.com/zend-session/config/
  */
 $settings['session'] = [
@@ -39,7 +39,7 @@ $settings['session'] = [
 
 
 // logger
-$getLoggerSetting = function($isDebug) {
+$getLoggerSetting = function ($isDebug) {
     $settings = [
         'name' => 'app',
     ];
@@ -66,7 +66,7 @@ $getLoggerSetting = function($isDebug) {
 $settings['logger'] = $getLoggerSetting($isDebug);
 
 // doctrine
-$getDoctrineSetting = function() {
+$getDoctrineSetting = function () {
     $settings = [
         'dev_mode' => (APP_ENV === 'dev'),
         'metadata_dirs' => [APP_ROOT . '/src/ORM/Entity'],

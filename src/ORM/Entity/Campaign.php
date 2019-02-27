@@ -1,7 +1,7 @@
 <?php
 /**
  * Campaign.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -15,7 +15,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * Campaign entity class
- * 
+ *
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\CampaignRepository")
  * @ORM\Table(name="campaign", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -28,7 +28,7 @@ class Campaign extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
@@ -56,7 +56,7 @@ class Campaign extends AbstractEntity
     
     /**
      * name
-     * 
+     *
      * @var string
      * @ORM\Column(type="string")
      */
@@ -80,7 +80,7 @@ class Campaign extends AbstractEntity
     
     /**
      * url
-     * 
+     *
      * @var string
      * @ORM\Column(type="string")
      */
@@ -88,7 +88,7 @@ class Campaign extends AbstractEntity
     
     /**
      * pages
-     * 
+     *
      * @var Collection
      * @ORM\OneToMany(targetEntity="PageCampaign", mappedBy="campaign")
      */

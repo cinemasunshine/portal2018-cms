@@ -1,7 +1,7 @@
 <?php
 /**
  * TheaterOpeningHourForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -9,7 +9,6 @@ namespace Cinemasunshine\PortalAdmin\Form;
 
 use Zend\InputFilter\InputFilter;
 use Zend\Validator;
-
 
 /**
  * Theater opening hour form class
