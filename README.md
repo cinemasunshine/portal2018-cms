@@ -48,5 +48,5 @@ $ vendor/bin/phpcs --standard=phpcs.xml
 修正あれた箇所は適宜確認してください。
 
 ```sh
-$ vendor/bin/phpcdf --standard=phpcs.xml
+$ composer phpcs
 ```
