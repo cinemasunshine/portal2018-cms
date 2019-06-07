@@ -5,6 +5,7 @@
 # application
 /cache
 /public/.htaccess
+/report/*
 /src/ORM/proxy
 .env
 

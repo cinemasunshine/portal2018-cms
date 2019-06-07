@@ -1,7 +1,7 @@
 <?php
 /**
  * TrailerController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -36,7 +36,7 @@ class TrailerController extends BaseController
     
     /**
      * list action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -72,7 +72,7 @@ class TrailerController extends BaseController
     
     /**
      * new action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -86,7 +86,7 @@ class TrailerController extends BaseController
     
     /**
      * create action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -124,7 +124,8 @@ class TrailerController extends BaseController
             Entity\File::getBlobContainer(),
             $newName,
             fopen($bannerImage['tmp_name'], 'r'),
-            $options);
+            $options
+        );
         
         $file = new Entity\File();
         $file->setName($newName);
@@ -204,12 +205,13 @@ class TrailerController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('trailer_edit', [ 'id' => $trailer->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * edit action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -267,7 +269,7 @@ class TrailerController extends BaseController
     
     /**
      * update action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -315,7 +317,8 @@ class TrailerController extends BaseController
                 Entity\File::getBlobContainer(),
                 $newName,
                 fopen($bannerImage['tmp_name'], 'r'),
-                $options);
+                $options
+            );
             
             $file = new Entity\File();
             $file->setName($newName);
@@ -400,12 +403,13 @@ class TrailerController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('trailer_edit', [ 'id' => $trailer->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * delete action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args

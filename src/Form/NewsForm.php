@@ -1,7 +1,7 @@
 <?php
 /**
  * NewsForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -28,7 +28,7 @@ class NewsForm extends BaseForm
     
     /**
      * construct
-     * 
+     *
      * @param int $type
      */
     public function __construct(int $type)

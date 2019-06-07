@@ -1,7 +1,7 @@
 <?php
 /**
  * PublicationCampaignFieldset.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -42,7 +42,7 @@ class PublicationCampaignFieldset extends Fieldset implements InputFilterProvide
     
     /**
      * return inpu filter specification
-     * 
+     *
      * @return array
      */
     public function getInputFilterSpecification()

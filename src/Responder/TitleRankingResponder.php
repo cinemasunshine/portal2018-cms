@@ -1,7 +1,7 @@
 <?php
 /**
  * TitleRankingResponder.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

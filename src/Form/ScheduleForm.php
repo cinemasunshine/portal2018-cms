@@ -1,7 +1,7 @@
 <?php
 /**
  * ScheduleForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -36,7 +36,7 @@ class ScheduleForm extends BaseForm
     
     /**
      * construct
-     * 
+     *
      * @param int           $type
      * @param EntityManager $em
      */

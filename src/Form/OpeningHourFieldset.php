@@ -1,7 +1,7 @@
 <?php
 /**
  * OpeningHourFieldset.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -66,7 +66,7 @@ class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterfa
     
     /**
      * return inpu filter specification
-     * 
+     *
      * @return array
      */
     public function getInputFilterSpecification()

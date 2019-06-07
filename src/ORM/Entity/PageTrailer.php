@@ -1,7 +1,7 @@
 <?php
 /**
  * PageTrailer.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -13,7 +13,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * PageTrailer entity class
- * 
+ *
  * @ORM\Entity
  * @ORM\Table(name="page_trailer", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -24,7 +24,7 @@ class PageTrailer extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})

@@ -1,7 +1,7 @@
 <?php
 /**
  * TitleController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -36,7 +36,7 @@ class TitleController extends BaseController
     
     /**
      * list action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -70,7 +70,7 @@ class TitleController extends BaseController
     
     /**
      * new action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -84,7 +84,7 @@ class TitleController extends BaseController
     
     /**
      * create action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -127,7 +127,8 @@ class TitleController extends BaseController
                 Entity\File::getBlobContainer(),
                 $newName,
                 $imageStream,
-                $options);
+                $options
+            );
             
             $file = new Entity\File();
             $file->setName($newName);
@@ -165,12 +166,13 @@ class TitleController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * edit action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -221,7 +223,7 @@ class TitleController extends BaseController
     
     /**
      * update action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -284,7 +286,8 @@ class TitleController extends BaseController
                 Entity\File::getBlobContainer(),
                 $newName,
                 $imageStream,
-                $options);
+                $options
+            );
             
             $file = new Entity\File();
             $file->setName($newName);
@@ -322,12 +325,13 @@ class TitleController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * delete action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args

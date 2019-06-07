@@ -1,7 +1,7 @@
 <?php
 /**
  * TitleController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -16,7 +16,7 @@ class TitleController extends BaseController
 {
     /**
      * list action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -52,7 +52,7 @@ class TitleController extends BaseController
     
     /**
      * autocomplete action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args

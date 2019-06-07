@@ -1,7 +1,7 @@
 <?php
 /**
  * SavedUserTrait.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

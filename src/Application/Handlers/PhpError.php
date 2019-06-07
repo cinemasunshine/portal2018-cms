@@ -1,7 +1,7 @@
 <?php
 /**
  * Error.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -36,7 +36,7 @@ class PhpError extends BaseHandler
     
     /**
      *  Write to the error log
-     * 
+     *
      * @see Slim\Handlers\AbstractError
      *
      * @param \Exception|\Throwable $throwable

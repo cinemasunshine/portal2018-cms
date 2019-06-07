@@ -1,7 +1,7 @@
 <?php
 /**
  * MainBannerController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -36,7 +36,7 @@ class MainBannerController extends BaseController
     
     /**
      * list action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -70,7 +70,7 @@ class MainBannerController extends BaseController
     
     /**
      * new action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -83,7 +83,7 @@ class MainBannerController extends BaseController
     
     /**
      * create action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -121,7 +121,8 @@ class MainBannerController extends BaseController
             Entity\File::getBlobContainer(),
             $newName,
             fopen($image['tmp_name'], 'r'),
-            $options);
+            $options
+        );
         
         $file = new Entity\File();
         $file->setName($newName);
@@ -149,12 +150,13 @@ class MainBannerController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('main_banner_edit', [ 'id' => $mainBanner->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * edit action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -186,7 +188,7 @@ class MainBannerController extends BaseController
     
     /**
      * update action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -234,7 +236,8 @@ class MainBannerController extends BaseController
                 Entity\File::getBlobContainer(),
                 $newName,
                 fopen($image['tmp_name'], 'r'),
-                $options);
+                $options
+            );
             
             $file = new Entity\File();
             $file->setName($newName);
@@ -269,12 +272,13 @@ class MainBannerController extends BaseController
         
         $this->redirect(
             $this->router->pathFor('main_banner_edit', [ 'id' => $mainBanner->getId() ]),
-            303);
+            303
+        );
     }
     
     /**
      * delete action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -346,7 +350,6 @@ class MainBannerController extends BaseController
                 'count' => $specialSiteMainBannerDeleteCount ]);
             
             $this->em->getConnection()->commit();
-            
         } catch (\Exception $e) {
             $this->em->getConnection()->rollBack();
             throw $e;
@@ -355,7 +358,7 @@ class MainBannerController extends BaseController
     
     /**
      * publication action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -380,7 +383,7 @@ class MainBannerController extends BaseController
     
     /**
      * publication update action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -408,16 +411,14 @@ class MainBannerController extends BaseController
                 ->findOneById((int) $cleanData['theater_id']);
             $basePublication = new Entity\TheaterMainBanner();
             $basePublication->setTheater($targetEntity);
-            
-        } else if ($target === Form\MainBannerPublicationForm::TARGET_PAGE) {
+        } elseif ($target === Form\MainBannerPublicationForm::TARGET_PAGE) {
             /** @var Entity\Page $targetEntity */
             $targetEntity = $this->em
                 ->getRepository(Entity\Page::class)
                 ->findOneById((int) $cleanData['page_id']);
             $basePublication = new Entity\PageMainBanner();
             $basePublication->setPage($targetEntity);
-            
-        } else if ($target === Form\MainBannerPublicationForm::TARGET_SPESICAL_SITE) {
+        } elseif ($target === Form\MainBannerPublicationForm::TARGET_SPESICAL_SITE) {
             /** @var Entity\SpecialSite $targetEntity */
             $targetEntity = $this->em
                 ->getRepository(Entity\SpecialSite::class)

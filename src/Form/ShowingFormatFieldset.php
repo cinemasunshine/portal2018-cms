@@ -1,7 +1,7 @@
 <?php
 /**
  * ShowingFormatFieldset.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -65,7 +65,7 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
     
     /**
      * return inpu filter specification
-     * 
+     *
      * @return array
      */
     public function getInputFilterSpecification()

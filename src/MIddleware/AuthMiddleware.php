@@ -1,7 +1,7 @@
 <?php
 /**
  * AuthMiddleware.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -29,7 +29,8 @@ class AuthMiddleware extends AbstractMiddleware
         
         if (!$auth->isAuthenticated()) {
             return $response->withRedirect(
-                $this->container->get('router')->pathFor('login'));
+                $this->container->get('router')->pathFor('login')
+            );
         }
         
         $response = $next($request, $response);

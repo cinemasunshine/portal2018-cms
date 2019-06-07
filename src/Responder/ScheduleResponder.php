@@ -1,7 +1,7 @@
 <?php
 /**
  * ScheduleResponder.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

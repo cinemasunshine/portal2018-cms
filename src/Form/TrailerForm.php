@@ -1,7 +1,7 @@
 <?php
 /**
  * TrailerForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -39,7 +39,7 @@ class TrailerForm extends BaseForm
     
     /**
      * construct
-     * 
+     *
      * @param int           $type
      * @param EntityManager $em
      */

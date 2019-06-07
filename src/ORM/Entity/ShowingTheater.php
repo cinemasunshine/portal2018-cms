@@ -1,7 +1,7 @@
 <?php
 /**
  * ShowingTheater.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -13,7 +13,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * ShowingTheater entity class
- * 
+ *
  * @ORM\Entity
  * @ORM\Table(name="showing_theater", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -24,7 +24,7 @@ class ShowingTheater extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned"=true})
@@ -43,7 +43,7 @@ class ShowingTheater extends AbstractEntity
     
     /**
      * theater
-     * 
+     *
      * @var Theater
      * @ORM\ManyToOne(targetEntity="Theater")
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")

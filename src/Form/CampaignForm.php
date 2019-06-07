@@ -1,7 +1,7 @@
 <?php
 /**
  * CampaignForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -23,7 +23,7 @@ class CampaignForm extends BaseForm
     
     /**
      * construct
-     * 
+     *
      * @param int $type
      */
     public function __construct($type)

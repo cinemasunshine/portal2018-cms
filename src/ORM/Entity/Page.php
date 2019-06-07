@@ -1,7 +1,7 @@
 <?php
 /**
  * Page.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -15,19 +15,22 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * Page entity class
- * 
+ *
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\PageRepository")
  * @ORM\Table(name="page", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class Page extends AbstractEntity implements CampaignPublicationInterface, NewsPublicationInterface, MainBannerPublicationInterface
+class Page extends AbstractEntity implements
+    CampaignPublicationInterface,
+    NewsPublicationInterface,
+    MainBannerPublicationInterface
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="smallint", options={"unsigned"=true})
@@ -37,15 +40,15 @@ class Page extends AbstractEntity implements CampaignPublicationInterface, NewsP
     
     /**
      * name
-     * 
+     *
      * @var string
      * @ORM\Column(type="string", unique=true)
      */
     protected $name;
     
-    /** 
+    /**
      * name_ja
-     * 
+     *
      * @var string
      * @ORM\Column(type="string", name="name_ja")
      */
@@ -80,7 +83,7 @@ class Page extends AbstractEntity implements CampaignPublicationInterface, NewsP
     
     /**
      * construct
-     * 
+     *
      * @param int $id
      */
     public function __construct(int $id)

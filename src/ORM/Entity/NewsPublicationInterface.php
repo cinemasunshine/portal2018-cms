@@ -1,7 +1,7 @@
 <?php
 /**
  * NewsPublicationInterface.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

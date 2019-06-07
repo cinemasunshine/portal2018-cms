@@ -6,14 +6,26 @@
 
 ポータルサイト2018のCMS管理画面です。
 
+## システム要件
+
+- PHP: 7.2
+- MySQL: 5.7
 
 ## Docker
 
-Dockerをインストールすることで、すばやく動作環境を構築することができます。
+ローカル環境としてDockerが利用できます。
 
-※現状では開発環境としての利用のみを想定
+※ [Docker](https://www.docker.com/)をインストールしてください。
+
+※ 現状では開発環境としての利用のみを想定すてます。
+
+※ AzureはWindowsサーバですが、こちらはLinuxサーバです。
+
+※ StorageはAzureプラットフォームで別途作成してください。
 
 web: http://localhost:8000/
+
+phpmyadmin: http://localhost:8080/
 
 ### コマンド例
 
@@ -21,4 +33,20 @@ web: http://localhost:8000/
 
 ```sh
 $ docker-compose up
+```
+
+# その他
+## PHP CodeSniffer
+### コードチェック
+
+```sh
+$ vendor/bin/phpcs --standard=phpcs.xml
+```
+
+### 自動修正
+
+修正あれた箇所は適宜確認してください。
+
+```sh
+$ composer phpcs
 ```

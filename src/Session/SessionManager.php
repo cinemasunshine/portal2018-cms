@@ -1,7 +1,7 @@
 <?php
 /**
  * SessionManager.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -42,7 +42,7 @@ class SessionManager extends Base
      */
     public function getContainer(string $name = 'default')
     {
-        if (!isset($this->containers[$name])){
+        if (!isset($this->containers[$name])) {
             $this->containers[$name] = new Container($name);
         }
         

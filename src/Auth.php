@@ -1,7 +1,7 @@
 <?php
 /**
  * Auth.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -58,9 +58,9 @@ class Auth
     
     /**
      * logout
-     * 
+     *
      * @todo Session Container自体をclear、またはremoveする
-     * 
+     *
      * @return void
      */
     public function logout()

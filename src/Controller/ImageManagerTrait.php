@@ -1,7 +1,7 @@
 <?php
 /**
  * ImageManagerTrait.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -11,7 +11,7 @@ use Intervention\Image\ImageManager;
 
 /**
  * ImageManager trait
- * 
+ *
  * @link http://image.intervention.io/
  */
 trait ImageManagerTrait
@@ -49,7 +49,7 @@ trait ImageManagerTrait
      * resize image
      *
      * @link http://image.intervention.io/api/make
-     * 
+     *
      * @param mixed    $data   ファイルパスなど。make()を参照。
      * @param int|null $width
      * @param int|null $height

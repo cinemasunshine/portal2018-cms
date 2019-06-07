@@ -1,7 +1,7 @@
 <?php
 /**
  * NewsPublicationForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -32,7 +32,7 @@ class NewsPublicationForm extends BaseForm
     
     /**
      * construct
-     * 
+     *
      * @param string $target
      * @param EntityManager $em
      */
@@ -62,12 +62,12 @@ class NewsPublicationForm extends BaseForm
                 'name' => 'page_id',
                 'type' => 'Hidden',
             ]);
-        } else if ($this->target === self::TARGET_TEATER) {
+        } elseif ($this->target === self::TARGET_TEATER) {
             $this->add([
                 'name' => 'theater_id',
                 'type' => 'Hidden',
             ]);
-        } else if ($this->target === self::TARGET_SPESICAL_SITE) {
+        } elseif ($this->target === self::TARGET_SPESICAL_SITE) {
             $this->add([
                 'name' => 'special_site_id',
                 'type' => 'Hidden',
@@ -107,7 +107,7 @@ class NewsPublicationForm extends BaseForm
                     ],
                 ],
             ]);
-        } else if ($this->target === self::TARGET_TEATER) {
+        } elseif ($this->target === self::TARGET_TEATER) {
             $theaterIds = [];
             $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
             
@@ -127,7 +127,7 @@ class NewsPublicationForm extends BaseForm
                     ],
                 ],
             ]);
-        } else if ($this->target === self::TARGET_SPESICAL_SITE) {
+        } elseif ($this->target === self::TARGET_SPESICAL_SITE) {
             $specialSiteIds = [];
             $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
             

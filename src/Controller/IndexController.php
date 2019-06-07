@@ -1,7 +1,7 @@
 <?php
 /**
  * IndexController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -14,7 +14,7 @@ class IndexController extends BaseController
 {
     /**
      * index action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args

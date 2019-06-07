@@ -1,7 +1,7 @@
 <?php
 /**
  * CampaignRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -19,7 +19,7 @@ class CampaignRepository extends EntityRepository
 {
     /**
      * find for list page
-     * 
+     *
      * @param array $params
      * @param int   $page
      * @param int   $maxPerPage
@@ -81,7 +81,7 @@ class CampaignRepository extends EntityRepository
     public function findForListApi(string $name)
     {
         if (empty($name)) {
-           throw new \InvalidArgumentException('invalid "name".'); 
+            throw new \InvalidArgumentException('invalid "name".');
         }
         
         $qb = $this->createQueryBuilder('c');

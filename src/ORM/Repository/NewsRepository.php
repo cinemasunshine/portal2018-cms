@@ -1,7 +1,7 @@
 <?php
 /**
  * NewsRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -19,7 +19,7 @@ class NewsRepository extends EntityRepository
 {
     /**
      * find for list page
-     * 
+     *
      * @param array $params
      * @param int   $page
      * @param int   $maxPerPage
@@ -93,7 +93,7 @@ class NewsRepository extends EntityRepository
     public function findForListApi(string $headline)
     {
         if (empty($headline)) {
-           throw new \InvalidArgumentException('invalid "headline".'); 
+            throw new \InvalidArgumentException('invalid "headline".');
         }
         
         $qb = $this->createQueryBuilder('c');

@@ -1,7 +1,7 @@
 <?php
 /**
  * NewsController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -16,7 +16,7 @@ class NewsController extends BaseController
 {
     /**
      * list action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -56,7 +56,7 @@ class NewsController extends BaseController
     
     /**
      * return Blob URL
-     * 
+     *
      * @todo Eitity\Fileから取得できるようにしたい
      *
      * @param string $blob blob name
@@ -73,6 +73,7 @@ class NewsController extends BaseController
             $protocol,
             $settings['account']['name'],
             $container,
-            $blob);
+            $blob
+        );
     }
 }

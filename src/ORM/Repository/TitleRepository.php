@@ -1,7 +1,7 @@
 <?php
 /**
  * TitleRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -20,7 +20,7 @@ class TitleRepository extends EntityRepository
 {
     /**
      * find for list page
-     * 
+     *
      * @param array $params
      * @param int   $page
      * @param int   $maxPerPage
@@ -63,7 +63,7 @@ class TitleRepository extends EntityRepository
     public function findForListApi(string $name)
     {
         if (empty($name)) {
-           throw new \InvalidArgumentException('invalid "name".'); 
+            throw new \InvalidArgumentException('invalid "name".');
         }
         
         $qb = $this->createQueryBuilder('t');

@@ -1,7 +1,7 @@
 <?php
 /**
  * SoftDeleteTrait.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -9,7 +9,7 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
  * SoftDelete trait
- * 
+ *
  * 論理削除に関する機能。
  */
 trait SoftDeleteTrait
@@ -45,7 +45,7 @@ trait SoftDeleteTrait
     
     /**
      * is deleted
-     * 
+     *
      * alias getIsDeleted()
      *
      * @return bool

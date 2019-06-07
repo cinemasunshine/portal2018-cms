@@ -1,7 +1,7 @@
 <?php
 /**
  * SpecialSiteRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -19,7 +19,7 @@ class SpecialSiteRepository extends EntityRepository
 {
     /**
      * find
-     * 
+     *
      * @return SpecialSite[]
      */
     public function findActive()

@@ -1,7 +1,7 @@
 <?php
 /**
  * AdvanceTicketFindForm.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

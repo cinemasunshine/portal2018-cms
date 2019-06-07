@@ -1,7 +1,7 @@
 <?php
 /**
  * TheaterMeta.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -13,7 +13,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
  * TheaterMeta entity class
- * 
+ *
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\TheaterMetaRepository")
  * @ORM\Table(name="theater_meta", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -24,7 +24,7 @@ class TheaterMeta extends AbstractEntity
     
     /**
      * id
-     * 
+     *
      * @var int
      * @ORM\Id
      * @ORM\Column(type="smallint", options={"unsigned"=true})
@@ -34,7 +34,7 @@ class TheaterMeta extends AbstractEntity
     
     /**
      * theater
-     * 
+     *
      * @var Theater
      * @ORM\OneToOne(targetEntity="Theater")
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
@@ -43,7 +43,7 @@ class TheaterMeta extends AbstractEntity
     
     /**
      * opening_hours
-     * 
+     *
      * @var array|null
      * @ORM\Column(type="json", name="opening_hours")
      */

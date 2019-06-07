@@ -1,7 +1,7 @@
 <?php
 /**
  * AdminUserController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -34,7 +34,7 @@ class AdminUserController extends BaseController
     
     /**
      * list action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -56,7 +56,7 @@ class AdminUserController extends BaseController
     
     /**
      * new action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -70,7 +70,7 @@ class AdminUserController extends BaseController
     
     /**
      * create action
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
@@ -118,6 +118,7 @@ class AdminUserController extends BaseController
         // @todo 編集ページへリダイレクト
         $this->redirect(
             $this->router->pathFor('admin_user_list'),
-            303);
+            303
+        );
     }
 }

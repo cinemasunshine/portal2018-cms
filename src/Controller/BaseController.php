@@ -1,7 +1,7 @@
 <?php
 /**
  * BaseController.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -19,7 +19,7 @@ abstract class BaseController extends AbstractController
 {
     /**
      * pre execute
-     * 
+     *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @return void

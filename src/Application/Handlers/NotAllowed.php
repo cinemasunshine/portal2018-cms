@@ -1,7 +1,7 @@
 <?php
 /**
  * NotAllowed.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 

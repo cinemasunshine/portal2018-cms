@@ -1,7 +1,7 @@
 <?php
 /**
  * TimestampableTrait.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -9,7 +9,7 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
  * Timestampable trait
- * 
+ *
  * 作成日時、更新日時に関する機能。
  */
 trait TimestampableTrait
@@ -78,7 +78,7 @@ trait TimestampableTrait
     
     /**
      * persist
-     * 
+     *
      * @ORM\PrePersist
      * @return void
      */

@@ -1,7 +1,7 @@
 <?php
 /**
  * TheaterMetaRepository.php
- * 
+ *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -19,7 +19,7 @@ class TheaterMetaRepository extends EntityRepository
 {
     /**
      * find
-     * 
+     *
      * @return TheaterMeta[]
      */
     public function findActive()
