@@ -31,9 +31,14 @@ class Theater extends AbstractEntity implements
     const MASTER_VERSION_V1 = 1;
     const MASTER_VERSION_V2 = 2;
     
-    const STATUS_PRE_OPEN = 1;
-    const STATUS_OPEN     = 2;
-    const STATUS_CLOSED   = 3;
+    /**
+     * 劇場ステータス
+     * 
+     * 実際の劇場ではなく、システムにおける劇場のステータス。
+     */
+    const STATUS_PRIVATE  = 1; // 非公開。オープン準備中などポータルサイトには公開しないケース。
+    const STATUS_OPEN     = 2; // 劇場オープン。通常通り運用されてる状態。実際の劇場より先行して公開する期間も含める。
+    const STATUS_CLOSED   = 3; // 劇場閉館。実際の劇場が閉館した状態。
     
     /**
      * id
