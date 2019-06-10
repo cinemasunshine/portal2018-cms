@@ -22,26 +22,42 @@ class ShowingFormat extends AbstractEntity
 {
     use TimestampableTrait;
     
+    const SYSTEM_2D       = 1;
+    const SYSTEM_3D       = 2;
+    const SYSTEM_4DX      = 3;
+    const SYSTEM_4DX3D    = 4;
+    const SYSTEM_IMAX     = 5;
+    const SYSTEM_IMAX3D   = 6;
+    const SYSTEM_BESTIA   = 7;
+    const SYSTEM_BESTIA3D = 8;
+    const SYSTEM_BTSX     = 9;
+    const SYSTEM_SCREENX  = 10; // SASAKI-351
+    const SYSTEM_NONE     = 99;
+    
+    const VOICE_SUBTITLE = 1;
+    const VOICE_DUB = 2;
+    const VOICE_NONE = 3;
+    
     /** @var array */
     protected static $systemList = [
-        1  => '2D',
-        2  => '3D',
-        3  => '4DX',
-        4  => '4DX3D',
-        5  => 'IMAX',
-        6  => 'IMAX3D',
-        7  => 'BESTIA',
-        8  => 'BESTIA3D',
-        9  => 'dts-X',
-        10 => 'ScreenX', // SASAKI-351
-        99 => 'なし',
+        self::SYSTEM_2D        => '2D',
+        self::SYSTEM_3D        => '3D',
+        self::SYSTEM_4DX       => '4DX',
+        self::SYSTEM_4DX3D     => '4DX3D',
+        self::SYSTEM_IMAX      => 'IMAX',
+        self::SYSTEM_IMAX3D    => 'IMAX3D',
+        self::SYSTEM_BESTIA    => 'BESTIA',
+        self::SYSTEM_BESTIA3D  => 'BESTIA3D',
+        self::SYSTEM_BTSX      => 'dts-X',
+        self::SYSTEM_SCREENX   => 'ScreenX', // SASAKI-351
+        self::SYSTEM_NONE      => 'なし',
     ];
     
     /** @var array */
     protected static $voiceList = [
-        1 => '字幕',
-        2 => '吹替',
-        3 => 'なし', // SASAKI-297
+        self::VOICE_SUBTITLE => '字幕',
+        self::VOICE_DUB      => '吹替',
+        self::VOICE_NONE     => 'なし', // SASAKI-297
     ];
     
     /**
