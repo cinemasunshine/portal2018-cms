@@ -5,24 +5,28 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-use Cinemasunshine\PortalAdmin\Controller\AdminUserController;
-use Cinemasunshine\PortalAdmin\Controller\AuthController;
-use Cinemasunshine\PortalAdmin\Controller\AdvanceTicketController;
-use Cinemasunshine\PortalAdmin\Controller\CampaignController;
-use Cinemasunshine\PortalAdmin\Controller\IndexController;
-use Cinemasunshine\PortalAdmin\Controller\MainBannerController;
-use Cinemasunshine\PortalAdmin\Controller\NewsController;
-use Cinemasunshine\PortalAdmin\Controller\ScheduleController;
-use Cinemasunshine\PortalAdmin\Controller\TheaterMetaController;
-use Cinemasunshine\PortalAdmin\Controller\TitleController;
-use Cinemasunshine\PortalAdmin\Controller\TitleRankingController;
-use Cinemasunshine\PortalAdmin\Controller\TrailerController;
+use Cinemasunshine\PortalAdmin\Controller\{
+    AdminUserController,
+    AuthController,
+    AdvanceTicketController,
+    CampaignController,
+    IndexController,
+    MainBannerController,
+    NewsController,
+    ScheduleController,
+    TheaterMetaController,
+    TitleController,
+    TitleRankingController,
+    TrailerController
+};
 
-use Cinemasunshine\PortalAdmin\Controller\API\CampaignController as CampaignApiController;
-use Cinemasunshine\PortalAdmin\Controller\API\EditorController as EditorApiController;
-use Cinemasunshine\PortalAdmin\Controller\API\MainBannerController as MainBannerApiController;
-use Cinemasunshine\PortalAdmin\Controller\API\NewsController as NewsApiController;
-use Cinemasunshine\PortalAdmin\Controller\API\TitleController as TitleApiController;
+use Cinemasunshine\PortalAdmin\Controller\API\{
+    CampaignController as CampaignApiController,
+    EditorController as EditorApiController,
+    MainBannerController as MainBannerApiController,
+    NewsController as NewsApiController,
+    TitleController as TitleApiController
+};
 
 use Cinemasunshine\PortalAdmin\Middleware\AuthMiddleware;
 
