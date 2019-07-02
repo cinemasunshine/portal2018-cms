@@ -52,9 +52,9 @@ class BaseForm extends Form
      *
      * @param array $params
      * @param array $uploadedFiles
-     * @return void
+     * @return array
      */
-    public static function buildData(array $params, array $uploadedFiles)
+    public static function buildData(array $params, array $uploadedFiles): array
     {
         return array_merge_recursive(
             $params,
