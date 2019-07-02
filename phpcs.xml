@@ -8,6 +8,7 @@
     
     <!-- exclude-pattern -->
     <exclude-pattern>/src/ORM/Proxy/</exclude-pattern>
+    <exclude-pattern>/src/bootstrap.php</exclude-pattern>
     
     <!-- arg -->
     <arg name="report-summary"/>
