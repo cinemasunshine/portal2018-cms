@@ -18,4 +18,9 @@
     
     <!-- rule -->
     <rule ref="PSR2"/>
+    
+    <!-- use宣言のグループ化を許可する -->
+    <rule ref="PSR2.Namespaces.UseDeclaration.MultipleDeclarations">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
 </ruleset>
