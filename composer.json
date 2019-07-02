@@ -26,7 +26,8 @@
         "intervention/image": "^2.4"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.4"
+        "squizlabs/php_codesniffer": "^3.4",
+        "phpstan/phpstan": "^0.11.8"
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
