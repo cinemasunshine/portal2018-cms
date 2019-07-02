@@ -138,6 +138,6 @@ class TitleRankingController extends BaseController
             'message' => 'ランキング情報を更新しました。',
         ]);
         
-        return $this->redirect($this->router->pathFor('title_ranking_edit'), 303);
+        $this->redirect($this->router->pathFor('title_ranking_edit'), 303);
     }
 }

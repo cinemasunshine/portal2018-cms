@@ -458,6 +458,6 @@ class MainBannerController extends BaseController
             'message' => sprintf('%sの表示順を保存しました。', $targetEntity->getNameJa()),
         ]);
         
-        return $this->redirect($this->router->pathFor('main_banner_publication'), 303);
+        $this->redirect($this->router->pathFor('main_banner_publication'), 303);
     }
 }

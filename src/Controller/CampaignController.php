@@ -328,7 +328,7 @@ class CampaignController extends BaseController
             'message' => sprintf('キャンペーン情報「%s」を削除しました。', $campaign->getName()),
         ]);
         
-        return $this->redirect($this->router->pathFor('campaign_list'), 303);
+        $this->redirect($this->router->pathFor('campaign_list'), 303);
     }
     
     /**
@@ -482,6 +482,6 @@ class CampaignController extends BaseController
             'message' => sprintf('%sの表示順を保存しました。', $targetEntity->getNameJa()),
         ]);
         
-        return $this->redirect($this->router->pathFor('campaign_publication'), 303);
+        $this->redirect($this->router->pathFor('campaign_publication'), 303);
     }
 }
