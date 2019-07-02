@@ -68,9 +68,9 @@ class BaseForm extends Form
      * ネストされたfileの値をパースするために作成。
      *
      * @param array $uploadedFiles
-     * @return void
+     * @return array
      */
-    private static function parseUploadedFiles(array $uploadedFiles)
+    private static function parseUploadedFiles(array $uploadedFiles): array
     {
         $parsed = [];
         
