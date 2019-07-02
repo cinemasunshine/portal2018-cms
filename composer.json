@@ -31,6 +31,7 @@
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
-        "phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml"
+        "phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml",
+        "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon"
     }
 }
