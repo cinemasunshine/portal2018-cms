@@ -1,0 +1,7 @@
+parameters:
+	level: 0
+	bootstrap: %currentWorkingDirectory%/src/bootstrap.php
+	paths:
+		- %currentWorkingDirectory%/src
+	excludes_analyse:
+		- %currentWorkingDirectory%/src/ORM/Proxy/*

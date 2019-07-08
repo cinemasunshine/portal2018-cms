@@ -437,6 +437,6 @@ class TrailerController extends BaseController
             'message' => sprintf('予告動画「%s」を削除しました。', $trailer->getName()),
         ]);
         
-        return $this->redirect($this->router->pathFor('trailer_list'), 303);
+        $this->redirect($this->router->pathFor('trailer_list'), 303);
     }
 }

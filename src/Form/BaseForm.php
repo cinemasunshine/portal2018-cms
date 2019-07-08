@@ -52,9 +52,9 @@ class BaseForm extends Form
      *
      * @param array $params
      * @param array $uploadedFiles
-     * @return void
+     * @return array
      */
-    public static function buildData(array $params, array $uploadedFiles)
+    public static function buildData(array $params, array $uploadedFiles): array
     {
         return array_merge_recursive(
             $params,
@@ -68,9 +68,9 @@ class BaseForm extends Form
      * ネストされたfileの値をパースするために作成。
      *
      * @param array $uploadedFiles
-     * @return void
+     * @return array
      */
-    private static function parseUploadedFiles(array $uploadedFiles)
+    private static function parseUploadedFiles(array $uploadedFiles): array
     {
         $parsed = [];
         

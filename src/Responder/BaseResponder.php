@@ -18,6 +18,20 @@ abstract class BaseResponder extends AbstractResponder
     protected $view;
     
     /**
+     * factory
+     *
+     * @param string $name
+     * @param Twig   $view
+     * @return AbstractResponder
+     */
+    final public static function factory(string $name, Twig $view) : AbstractResponder
+    {
+        $className =  __NAMESPACE__  . '\\' . $name . 'Responder';
+        
+        return new $className($view);
+    }
+    
+    /**
      * contsruct
      *
      * @param Twig $view

@@ -360,6 +360,6 @@ class TitleController extends BaseController
             'message' => sprintf('作品「%s」を削除しました。', $title->getName()),
         ]);
         
-        return $this->redirect($this->router->pathFor('title_list'), 303);
+        $this->redirect($this->router->pathFor('title_list'), 303);
     }
 }
