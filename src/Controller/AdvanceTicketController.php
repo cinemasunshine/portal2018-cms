@@ -443,6 +443,6 @@ class AdvanceTicketController extends BaseController
             'message' => '前売券情報を削除しました。',
         ]);
         
-        return $this->redirect($this->router->pathFor('advance_ticket_list'), 303);
+        $this->redirect($this->router->pathFor('advance_ticket_list'), 303);
     }
 }

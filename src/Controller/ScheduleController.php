@@ -317,6 +317,6 @@ class ScheduleController extends BaseController
             'message' => sprintf('「%s」の上映情報を削除しました。', $schedule->getTitle()->getName()),
         ]);
         
-        return $this->redirect($this->router->pathFor('schedule_list'), 303);
+        $this->redirect($this->router->pathFor('schedule_list'), 303);
     }
 }

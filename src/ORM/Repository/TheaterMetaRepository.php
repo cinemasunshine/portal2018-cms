@@ -10,7 +10,7 @@ namespace Cinemasunshine\PortalAdmin\ORM\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-use Cinemasunshine\PortalAdmin\ORM\Entity\Theater;
+use Cinemasunshine\PortalAdmin\ORM\Entity\TheaterMeta;
 
 /**
  * TheaterMeta repository class
