@@ -49,8 +49,9 @@ abstract class BaseController extends AbstractController
     protected function getResponder() : Responder\AbstractResponder
     {
         $path = explode('\\', get_class($this));
-        $name = str_replace('Controller', '', array_pop($path));
+        $container = str_replace('Controller', '', array_pop($path));
+        $responder = Responder::class . '\\' . $container . 'Responder';
         
-        return Responder\BaseResponder::factory($name, $this->view);
+        return new $responder($this->view);
     }
 }
