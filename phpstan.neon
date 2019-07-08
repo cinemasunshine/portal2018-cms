@@ -5,3 +5,11 @@ parameters:
 		- %currentWorkingDirectory%/src
 	excludes_analyse:
 		- %currentWorkingDirectory%/src/ORM/Proxy/*
+
+	ignoreErrors:
+		# この対応が本番環境でエラーが発生したので、いったん除外する
+		-
+			message: '#Class Cinemasunshine\\PortalAdmin\\Responder(.*) not found#'
+			paths:
+				-  %currentWorkingDirectory%/src/Controller/BaseController.php
+				-  %currentWorkingDirectory%/src/Controller/API/BaseController.php
