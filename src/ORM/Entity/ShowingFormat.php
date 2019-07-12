@@ -28,9 +28,9 @@ class ShowingFormat extends AbstractEntity
     const SYSTEM_4DX3D            = 4;
     const SYSTEM_IMAX             = 5;
     const SYSTEM_IMAX3D           = 6;
-    const SYSTEM_BESTIA           = 7;
-    const SYSTEM_BESTIA3D         = 8;
-    const SYSTEM_BTSX             = 9;
+    // const SYSTEM_BESTIA           = 7; 削除 SASAKI-449
+    // const SYSTEM_BESTIA3D         = 8; 削除 SASAKI-449
+    // const SYSTEM_BTSX             = 9; 削除 SASAKI-449
     const SYSTEM_SCREENX          = 10; // SASAKI-351
     const SYSTEM_4DX_WITH_SCREENX = 11; // SASAKI-428
     const SYSTEM_NONE             = 99;
@@ -53,9 +53,6 @@ class ShowingFormat extends AbstractEntity
         self::SYSTEM_4DX3D            => '4DX3D',
         self::SYSTEM_IMAX             => 'IMAX',
         self::SYSTEM_IMAX3D           => 'IMAX3D',
-        self::SYSTEM_BESTIA           => 'BESTIA',
-        self::SYSTEM_BESTIA3D         => 'BESTIA3D',
-        self::SYSTEM_BTSX             => 'dts-X',
         self::SYSTEM_SCREENX          => 'ScreenX', // SASAKI-351
         self::SYSTEM_4DX_WITH_SCREENX => '4DX with ScreenX', // SASAKI-428
         self::SYSTEM_NONE             => 'なし',
