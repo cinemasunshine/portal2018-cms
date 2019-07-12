@@ -23,7 +23,21 @@
                 <div class="invalid-feedback">
                     {% for message in errors.system %}
                         {{ message }}
-                        {% if not loop.last %}<br />{% endif %}
+                        {% if not loop.last %}<br>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select name="formats[{{ index }}][sound]" class="form-control{% if errors.sound %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
+                    <option value=""></option>
+                {% for value, text in fieldset.getSoundChoices() %}
+                    <option value="{{ value }}" {{ value == values.sound ? 'selected' : '' }}>{{ text }}</option>
+                {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                    {% for message in errors.sound %}
+                        {{ message }}
+                        {% if not loop.last %}<br>{% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -37,7 +51,7 @@
                 <div class="invalid-feedback">
                     {% for message in errors.voice %}
                         {{ message }}
-                        {% if not loop.last %}<br />{% endif %}
+                        {% if not loop.last %}<br>{% endif %}
                     {% endfor %}
                 </div>
             </div>

@@ -62,6 +62,15 @@ class ShowingFormat extends AbstractEntity
     ];
     
     /** @var array */
+    protected static $soundList = [
+        self::SOUND_BESTIA        => 'BESTIA',
+        self::SOUND_DTSX          => 'dts-X',
+        self::SOUND_DOLBY_ATMOS   => 'dolbyatmos',
+        self::SOUND_GDC_IMMERSIVE => 'GDCイマーシブサウンド',
+        self::SOUND_NONE          => 'なし',
+    ];
+    
+    /** @var array */
     protected static $voiceList = [
         self::VOICE_SUBTITLE => '字幕',
         self::VOICE_DUB      => '吹替',
@@ -120,6 +129,16 @@ class ShowingFormat extends AbstractEntity
     public static function getSystemList()
     {
         return self::$systemList;
+    }
+    
+    /**
+     * return sound list
+     *
+     * @return array
+     */
+    public static function getSoundList()
+    {
+        return self::$soundList;
     }
     
     /**
