@@ -15,12 +15,18 @@ http_response_code(503);
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h4 class="pt-3">システムメンテナンスのお知らせ</h4>
-                <p>
-                    只今、システムメンテナンスを行っております。<br>
-                    大変ご迷惑おかけしますが、何卒ご理解いただけますようお願い申し上げます。
-                </p>
-                <p>終了時刻：○○時予定</p>
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="h4 pt-3">システムメンテナンスのお知らせ</h1>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            只今、システムメンテナンスを行っております。<br>
+                            大変ご迷惑おかけしますが、何卒ご理解いただけますようお願い申し上げます。
+                        </p>
+                        <p>終了予定時刻：15:00</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
