@@ -36,7 +36,7 @@ class AdvanceTicket extends AbstractEntity
     
     /** @var array */
     protected static $types = [
-        self::TYPE_MVTK  => 'ムビチケ',
+        self::TYPE_MVTK  => 'ムビチケカード',
         self::TYPE_PAPER => '紙券',
     ];
     
