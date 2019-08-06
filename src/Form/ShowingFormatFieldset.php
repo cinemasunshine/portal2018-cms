@@ -22,6 +22,9 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
     protected $systemChoices;
     
     /** @var array */
+    protected $soundChoices;
+    
+    /** @var array */
     protected $voiceChoices;
     
     /**
@@ -32,6 +35,7 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
         parent::__construct('showing');
         
         $this->systemChoices = ShowingFormat::getSystemList();
+        $this->soundChoices = ShowingFormat::getSoundList();
         $this->voiceChoices = ShowingFormat::getVoiceList();
         
         $this->setup();
@@ -50,6 +54,15 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
             'options' => [
                 'empty_option' => '',
                 'value_options' => $this->systemChoices,
+            ],
+        ]);
+        
+        $this->add([
+            'name' => 'sound',
+            'type' => 'Select',
+            'options' => [
+                'empty_option' => '',
+                'value_options' => $this->soundChoices,
             ],
         ]);
         
@@ -74,6 +87,9 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
             'system' => [
                 'required' => true,
             ],
+            'sound' => [
+                'required' => true,
+            ],
             'voice' => [
                 'required' => true,
             ],
@@ -88,6 +104,16 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
     public function getSystemChoices()
     {
         return $this->systemChoices;
+    }
+    
+    /**
+     * return sound choices
+     *
+     * @return array
+     */
+    public function getSoundChoices()
+    {
+        return $this->soundChoices;
     }
     
     /**

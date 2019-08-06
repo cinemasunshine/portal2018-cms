@@ -13,7 +13,8 @@
 <div class="card format" data-index="{{ index }}">
     <div class="card-body">
         <div class="form-group row">
-            <div class="col-md-3">
+            <div class="col-md-4">
+                <label class="col-form-label">上映</label>
                 <select name="formats[{{ index }}][system]" class="form-control{% if errors.system %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
                     <option value=""></option>
                 {% for value, text in fieldset.getSystemChoices() %}
@@ -23,11 +24,27 @@
                 <div class="invalid-feedback">
                     {% for message in errors.system %}
                         {{ message }}
-                        {% if not loop.last %}<br />{% endif %}
+                        {% if not loop.last %}<br>{% endif %}
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
+                <label class="col-form-label">音響</label>
+                <select name="formats[{{ index }}][sound]" class="form-control{% if errors.sound %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
+                    <option value=""></option>
+                {% for value, text in fieldset.getSoundChoices() %}
+                    <option value="{{ value }}" {{ value == values.sound ? 'selected' : '' }}>{{ text }}</option>
+                {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                    {% for message in errors.sound %}
+                        {{ message }}
+                        {% if not loop.last %}<br>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label class="col-form-label">音声</label>
                 <select name="formats[{{ index }}][voice]" class="form-control{% if errors.voice %} is-invalid{% elseif is_validated %} is-valid{% endif %}">
                     <option value=""></option>
                 {% for value, text in fieldset.getVoiceChoices() %}
@@ -37,11 +54,11 @@
                 <div class="invalid-feedback">
                     {% for message in errors.voice %}
                         {{ message }}
-                        {% if not loop.last %}<br />{% endif %}
+                        {% if not loop.last %}<br>{% endif %}
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2 d-flex align-items-center">
                 <button type="button" class="btn btn-danger btn-delete"><i class="icon-trash"></i></button>
             </div>
         </div>

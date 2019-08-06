@@ -137,6 +137,7 @@ class ScheduleController extends BaseController
             
             $format->setSchedule($schedule);
             $format->setSystem($formatData['system']);
+            $format->setSound($formatData['sound']);
             $format->setVoice($formatData['voice']);
         }
         
@@ -195,6 +196,7 @@ class ScheduleController extends BaseController
             /** @var Entity\ShowingFormat $showingFormat */
             $values['formats'][] = [
                 'system' => $showingFormat->getSystem(),
+                'sound' => $showingFormat->getSound(),
                 'voice' => $showingFormat->getVoice(),
             ];
         }
@@ -271,6 +273,7 @@ class ScheduleController extends BaseController
             
             $format->setSchedule($schedule);
             $format->setSystem($formatData['system']);
+            $format->setSound($formatData['sound']);
             $format->setVoice($formatData['voice']);
         }
         
