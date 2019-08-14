@@ -13,6 +13,14 @@
 - Azure App Service (Windows)
 - Azure Blob Storage
 
+## EditorConfig
+
+[EditorConfig](https://editorconfig.org/) でコーディングスタイルを定義しています。
+
+利用しているエディタやIDEにプラグインをインストールしてください。
+
+[Download a Plugin](https://editorconfig.org/#download)
+
 ## Docker
 
 ローカル環境としてDockerが利用できます。
