@@ -11,6 +11,7 @@
 - PHP: 7.2
 - MySQL: 5.7
 - Azure App Service (Windows)
+- Azure Blob Storage
 
 ## Docker
 
