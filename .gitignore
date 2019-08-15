@@ -6,7 +6,7 @@
 /cache
 /public/.htaccess
 /report/*
-/src/ORM/proxy
+/src/ORM/Proxy
 .env
 
 # composer
