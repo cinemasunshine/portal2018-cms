@@ -1,0 +1,66 @@
+# CircleCI configuration
+
+version: 2.1
+
+executors:
+  my_executor:
+    docker:
+      - image: circleci/php:7.2
+
+jobs:
+  build_dev:
+    working_directory: ~/workspace
+
+    executor: my_executor
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - composer-dev-{{ checksum "composer.lock" }}
+            - composer-
+
+      - run:
+          name: Composer install (with require-dev)
+          command: composer install --dev -n --prefer-dist
+
+      - save_cache:
+          key: composer-dev-{{ checksum "composer.lock" }}
+          paths:
+            - ./vendor
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  analysis:
+    working_directory: ~/workspace
+
+    executor: my_executor
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: PHP CodeSniffer
+          command: composer phpcs
+
+      - run:
+          name: PHPStan
+          command: composer phpstan > ./report/phpstan_result.txt
+
+      - store_artifacts:
+          path: ./report
+
+workflows:
+  version: 2
+
+  analysis:
+    jobs:
+      - build_dev
+      - analysis:
+          requires:
+            - build_dev
