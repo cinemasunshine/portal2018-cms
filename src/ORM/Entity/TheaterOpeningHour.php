@@ -19,36 +19,36 @@ class TheaterOpeningHour extends AbstractEntity
 {
     const TYPE_DATE = 1;
     const TYPE_TERM = 2;
-    
+
     /**
      * type
      *
      * @var int
      */
     protected $type;
-    
+
     /**
      * from_date
      *
      * @var \DateTime
      */
     protected $fromDate;
-    
+
     /**
      * to_date
      *
      * @var \DateTime|null
      */
     protected $toDate;
-    
+
     /**
      * time
      *
      * @var \DateTime
      */
     protected $time;
-    
-    
+
+
     /**
      * create
      *
@@ -57,23 +57,22 @@ class TheaterOpeningHour extends AbstractEntity
      */
     public static function create(array $array)
     {
-        $entity = new self;
+        $entity = new self();
         $entity->setType((int) $array['type']);
         $entity->setFromDate($array['from_date']);
         $entity->setToDate($array['to_date']);
         $entity->setTime($array['time']);
-        
+
         return $entity;
     }
-    
-    
+
     /**
      * construct
      */
     public function __construct()
     {
     }
-    
+
     /**
      * get type
      *
@@ -83,7 +82,7 @@ class TheaterOpeningHour extends AbstractEntity
     {
         return $this->type;
     }
-    
+
     /**
      * set type
      *
@@ -94,7 +93,7 @@ class TheaterOpeningHour extends AbstractEntity
     {
         $this->type = $type;
     }
-    
+
     /**
      * get from_date
      *
@@ -104,7 +103,7 @@ class TheaterOpeningHour extends AbstractEntity
     {
         return $this->fromDate;
     }
-    
+
     /**
      * set from_date
      *
@@ -119,7 +118,7 @@ class TheaterOpeningHour extends AbstractEntity
             $this->fromDate = new \DateTime($fromDate);
         }
     }
-    
+
     /**
      * get to_date
      *
@@ -129,7 +128,7 @@ class TheaterOpeningHour extends AbstractEntity
     {
         return $this->toDate;
     }
-    
+
     /**
      * set to_date
      *
@@ -144,7 +143,7 @@ class TheaterOpeningHour extends AbstractEntity
             $this->toDate = new \DateTime($toDate);
         }
     }
-    
+
     /**
      * get time
      *
@@ -154,7 +153,7 @@ class TheaterOpeningHour extends AbstractEntity
     {
         return $this->time;
     }
-    
+
     /**
      * set time
      *
@@ -169,7 +168,7 @@ class TheaterOpeningHour extends AbstractEntity
             $this->time = new \DateTime($time);
         }
     }
-    
+
     /**
      * to array
      *
@@ -183,7 +182,7 @@ class TheaterOpeningHour extends AbstractEntity
         $array['to_date'] = is_null($this->toDate)
                           ? null : $this->toDate->format('Y/m/d');
         $array['time'] = $this->time->format('H:i:s');
-        
+
         return $array;
     }
 }
