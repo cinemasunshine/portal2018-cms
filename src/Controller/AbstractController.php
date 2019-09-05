@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Cinemasunshine\PortalAdmin\Exception\RedirectException;
-use Cinemasunshine\PortalAdmin\Responder\AbstractResponder as Responder;
+use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
 
 /**
  * Abstract controller
@@ -31,7 +31,7 @@ abstract class AbstractController
 {
     /** @var ContainerInterface container */
     protected $container;
-    
+
     /**
      * data
      *
@@ -40,10 +40,10 @@ abstract class AbstractController
      * @var Collection
      */
     protected $data;
-    
+
     /** @var string */
     protected $actionName;
-    
+
     /**
      * construct
      *
@@ -54,7 +54,7 @@ abstract class AbstractController
         $this->container = $container;
         $this->data = new Collection();
     }
-    
+
     /**
      * execute
      *
@@ -77,12 +77,12 @@ abstract class AbstractController
         try {
             $this->logger->debug('Run preExecute().');
             $this->preExecute($request, $response);
-            
+
             $this->logger->debug('Run {method}().', [ 'method' => $actionMethod ]);
-            
+
             /** @var string|null */
             $method = $this->$actionMethod($request, $response, $args);
-            
+
             $this->logger->debug('Run postExecute().');
             $this->postExecute($request, $response);
         } catch (RedirectException $e) {
@@ -90,15 +90,15 @@ abstract class AbstractController
                 'url'    => $e->getUrl(),
                 'status' => $e->getStatus(),
             ]);
-            
+
             return $response->withRedirect($e->getUrl(), $e->getStatus());
         }
-        
+
         $this->logger->debug('Run buildResponse().');
-        
+
         return $this->buildResponse($response, $method);
     }
-    
+
     /**
      * pre execute
      *
@@ -110,7 +110,7 @@ abstract class AbstractController
      * @return void
      */
     abstract protected function preExecute($request, $response) : void;
-    
+
     /**
      * pre execute
      *
@@ -122,7 +122,7 @@ abstract class AbstractController
      * @return void
      */
     abstract protected function postExecute($request, $response) : void;
-    
+
     /**
      * redirect
      *
@@ -138,7 +138,7 @@ abstract class AbstractController
     {
         throw new RedirectException($url, $status);
     }
-    
+
     /**
      * build response
      *
@@ -149,16 +149,16 @@ abstract class AbstractController
     protected function buildResponse(Response $response, string $method = null) : Response
     {
         $responder = $this->getResponder();
-        
+
         if (empty($method)) {
             $method = $this->actionName;
         }
-        
+
         return $responder->$method($response, $this->data);
     }
-    
-    abstract protected function getResponder() : Responder;
-    
+
+    abstract protected function getResponder() : AbstractResponder;
+
     /**
      * call
      *
@@ -170,19 +170,19 @@ abstract class AbstractController
     public function __call($name, $argments)
     {
         $this->logger->debug('Call "{name}" action.', [ 'name' => $name ]);
-        
+
         $actionMethod = 'execute' . ucfirst($name);
-        
+
         // is_callable()は__call()があると常にtrueとなるので不可
         if (!method_exists($this, $actionMethod)) {
             throw new \LogicException(sprintf('The method "%s" dose not exist.', $name));
         }
-        
+
         $this->actionName = $name;
-        
+
         return $this->execute($actionMethod, $argments[0], $argments[1], $argments[2]);
     }
-    
+
     /**
      * __get
      *

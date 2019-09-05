@@ -20,15 +20,16 @@ $container = $app->getContainer();
  */
 $container['view'] = function ($container) {
     $settings = $container->get('settings')['view'];
-    
+
     $view = new \Slim\Views\Twig($settings['template_path'], $settings['settings']);
 
     // Instantiate and add Slim specific extension
-    $basePath = rtrim(str_ireplace('index.php', '', $container->get('request')->getUri()->getBasePath()), '/');
-    $view->addExtension(new Slim\Views\TwigExtension($container->get('router'), $basePath));
-    
+    $router = $container->get('router');
+    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
+
     // add Extension
-    $view->addExtension(new \Twig_Extension_Debug());
+    $view->addExtension(new \Twig\Extension\DebugExtension());
     $view->addExtension(new \Cinemasunshine\PortalAdmin\Twig\Extension\AzureStorageExtension($container));
 
     return $view;
@@ -44,21 +45,21 @@ $container['view'] = function ($container) {
 $container['logger'] = function ($container) {
     $settings = $container->get('settings')['logger'];
     $logger = new Monolog\Logger($settings['name']);
-    
+
     $logger->pushProcessor(new Monolog\Processor\PsrLogMessageProcessor());
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
     $logger->pushProcessor(new Monolog\Processor\IntrospectionProcessor());
     $logger->pushProcessor(new Monolog\Processor\WebProcessor());
     $logger->pushProcessor(new Monolog\Processor\MemoryUsageProcessor());
     $logger->pushProcessor(new Monolog\Processor\MemoryPeakUsageProcessor());
-    
+
     if (isset($settings['chrome_php'])) {
         $chromePhpSettings = $settings['chrome_php'];
         $logger->pushHandler(new Monolog\Handler\ChromePHPHandler(
             $chromePhpSettings['level']
         ));
     }
-    
+
     $azureBlobStorageSettings = $settings['azure_blob_storage'];
     $azureBlobStorageHandler = new Cinemasunshine\PortalAdmin\Logger\Handler\AzureBlobStorageHandler(
         $container->get('bc'),
@@ -66,13 +67,13 @@ $container['logger'] = function ($container) {
         $azureBlobStorageSettings['blob'],
         $azureBlobStorageSettings['level']
     );
-    
+
     $fingersCrossedSettings = $settings['fingers_crossed'];
     $logger->pushHandler(new Monolog\Handler\FingersCrossedHandler(
         $azureBlobStorageHandler,
         $fingersCrossedSettings['activation_strategy']
     ));
-    
+
     return $logger;
 };
 
@@ -83,7 +84,7 @@ $container['logger'] = function ($container) {
  */
 $container['em'] = function ($container) {
     $settings = $container->get('settings')['doctrine'];
-    
+
     /**
      * 第５引数について、他のアノテーションとの競合を避けるためSimpleAnnotationReaderは使用しない。
      * @Entity => @ORM\Entity などとしておく。
@@ -95,14 +96,14 @@ $container['em'] = function ($container) {
         null,
         false
     );
-    
+
     $config->setProxyDir(APP_ROOT . '/src/ORM/Proxy');
     $config->setProxyNamespace('Cinemasunshine\PortalAdmin\ORM\Proxy');
     $config->setAutoGenerateProxyClasses($settings['dev_mode']);
-    
+
     $logger = new \Cinemasunshine\PortalAdmin\Logger\DbalLogger($container->get('logger'));
     $config->setSQLLogger($logger);
-    
+
     return \Doctrine\ORM\EntityManager::create($settings['connection'], $config);
 };
 
@@ -113,7 +114,7 @@ $container['em'] = function ($container) {
  */
 $container['sm'] = function ($container) {
     $settings = $container->get('settings')['session'];
-    
+
     return new \Cinemasunshine\PortalAdmin\Session\SessionManager($settings);
 };
 
@@ -124,7 +125,7 @@ $container['sm'] = function ($container) {
  */
 $container['flash'] = function ($container) {
     $session = $container->get('sm')->getContainer('flash');
-    
+
     return new \Slim\Flash\Messages($session);
 };
 
@@ -152,7 +153,7 @@ $container['bc'] = function ($container) {
         $settings['account']['name'],
         $settings['account']['key']
     );
-    
+
     return \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobService($connectionString);
 };
 

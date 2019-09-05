@@ -11,8 +11,8 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use Cinemasunshine\PortalAdmin\Controller\AbstractController;
-use Cinemasunshine\PortalAdmin\Responder;
-use Cinemasunshine\PortalAdmin\Responder\API as ApiResponder;
+use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
+use Cinemasunshine\PortalAdmin\Responder\API\ResponderFactory;
 
 /**
  * Base controller
@@ -29,7 +29,7 @@ abstract class BaseController extends AbstractController
     protected function preExecute($request, $response) : void
     {
     }
-    
+
     /**
      * post execute
      *
@@ -40,18 +40,17 @@ abstract class BaseController extends AbstractController
     protected function postExecute($request, $response) : void
     {
     }
-    
+
     /**
      * get responder
      *
-     * @return Responder\AbstractResponder
+     * @return AbstractResponder
      */
-    protected function getResponder() : Responder\AbstractResponder
+    protected function getResponder() : AbstractResponder
     {
         $path = explode('\\', get_class($this));
-        $container = str_replace('Controller', '', array_pop($path));
-        $responder = ApiResponder::class . '\\' . $container . 'Responder';
-        
-        return new $responder($this->view);
+        $name = str_replace('Controller', '', array_pop($path));
+
+        return ResponderFactory::factory($name);
     }
 }

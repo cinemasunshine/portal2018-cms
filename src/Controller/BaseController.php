@@ -10,7 +10,8 @@ namespace Cinemasunshine\PortalAdmin\Controller;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 
-use Cinemasunshine\PortalAdmin\Responder;
+use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
+use Cinemasunshine\PortalAdmin\Responder\ResponderFactory;
 
 /**
  * Base controller
@@ -27,7 +28,7 @@ abstract class BaseController extends AbstractController
     protected function preExecute($request, $response) : void
     {
     }
-    
+
     /**
      * post execute
      *
@@ -40,18 +41,17 @@ abstract class BaseController extends AbstractController
         $this->data->set('user', $this->auth->getUser());
         $this->data->set('alerts', $this->flash->getMessage('alerts'));
     }
-    
+
     /**
      * get responder
      *
-     * @return Responder\AbstractResponder
+     * @return AbstractResponder
      */
-    protected function getResponder() : Responder\AbstractResponder
+    protected function getResponder() : AbstractResponder
     {
         $path = explode('\\', get_class($this));
-        $container = str_replace('Controller', '', array_pop($path));
-        $responder = Responder::class . '\\' . $container . 'Responder';
-        
-        return new $responder($this->view);
+        $name = str_replace('Controller', '', array_pop($path));
+
+        return ResponderFactory::factory($name, $this->view);
     }
 }

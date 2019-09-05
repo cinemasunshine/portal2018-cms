@@ -20,13 +20,16 @@ class AzureBlobStorageHandler extends AbstractProcessingHandler
 {
     /** @var BlobRestProxy */
     protected $client;
-    
+
     /** @var string */
     protected $container;
-    
+
     /** @var string */
     protected $blob;
-    
+
+    /** @var bool */
+    protected $isBlobCreated;
+
     /**
      * construct
      *
@@ -46,12 +49,11 @@ class AzureBlobStorageHandler extends AbstractProcessingHandler
         $this->client = $client;
         $this->container = $container;
         $this->blob = $blob;
-        
+        $this->isBlobCreated = false;
+
         parent::__construct($level, $bubble);
-        
-        $this->createBlob();
     }
-    
+
     /**
      * create blob
      *
@@ -65,16 +67,21 @@ class AzureBlobStorageHandler extends AbstractProcessingHandler
             if ($e->getCode() !== 404) {
                 throw $e;
             }
-            
+
             $this->client->createAppendBlob($this->container, $this->blob);
         }
     }
-    
+
     /**
      * {@inheritdoc}
      */
     protected function write(array $record)
     {
+        if (!$this->isBlobCreated) {
+            $this->createBlob();
+            $this->isBlobCreated = true;
+        }
+
         $this->client->appendBlock($this->container, $this->blob, $record['formatted']);
     }
 }
