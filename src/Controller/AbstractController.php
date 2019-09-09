@@ -24,6 +24,8 @@ use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
  * @property \Doctrine\ORM\EntityManager $em
  * @property \Slim\Flash\Messages $flash
  * @property \Monolog\Logger $logger
+ * @property-read \Slim\Router $router
+ * @property-read array $settings
  * @property \Cinemasunshine\PortalAdmin\Session\SessionManager $sm
  * @property \Slim\Views\Twig $view
  */
