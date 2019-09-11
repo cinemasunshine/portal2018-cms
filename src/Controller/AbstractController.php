@@ -19,13 +19,15 @@ use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
 /**
  * Abstract controller
  *
- * @property \Cinemasunshine\PortalAdmin\Auth $auth
- * @property \MicrosoftAzure\Storage\Blob\BlobRestProxy $bc
- * @property \Doctrine\ORM\EntityManager $em
- * @property \Slim\Flash\Messages $flash
- * @property \Monolog\Logger $logger
- * @property \Cinemasunshine\PortalAdmin\Session\SessionManager $sm
- * @property \Slim\Views\Twig $view
+ * @property-read \Cinemasunshine\PortalAdmin\Auth $auth
+ * @property-read \MicrosoftAzure\Storage\Blob\BlobRestProxy $bc
+ * @property-read \Doctrine\ORM\EntityManager $em
+ * @property-read \Slim\Flash\Messages $flash
+ * @property-read \Monolog\Logger $logger
+ * @property-read \Slim\Router $router
+ * @property-read array $settings
+ * @property-read \Cinemasunshine\PortalAdmin\Session\SessionManager $sm
+ * @property-read \Slim\Views\Twig $view
  */
 abstract class AbstractController
 {
