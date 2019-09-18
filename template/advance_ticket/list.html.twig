@@ -4,7 +4,6 @@
 
 {% block css %}
 <link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 {% endblock %}
 
 {% block javascript %}
@@ -75,7 +74,7 @@
                 </div>
             </form>
         </div>
-        
+
         <div class="card">
             <div class="card-header">
                 一覧
@@ -117,15 +116,15 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                
+
                 <hr>
-                
+
                 {% include 'include/pagination.html.twig' with {
                     'pagenater': pagenater,
                     'route_name': 'advance_ticket_list',
                     'params': params
                 } only %}
-                
+
             </div>
             <div class="card-footer">
                 {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件

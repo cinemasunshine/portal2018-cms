@@ -12,7 +12,6 @@
 
 {% block css %}
 <link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 {% endblock %}
 
 {% block javascript %}
@@ -114,7 +113,7 @@
                             {% if errors.public_end_dt %}
                                 {% set termErrors = termErrors|merge(errors.public_end_dt) %}
                             {% endif %}
-                            
+
                             {##
                              # エラーを表示するためのhidden
                              # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
@@ -135,7 +134,7 @@
                 </div>
             </form>
         </div>
-        
+
         <div class="card">
             <div class="card-header">
                 一覧
@@ -182,15 +181,15 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                
+
                 <hr>
-                
+
                 {% include 'include/pagination.html.twig' with {
                     'pagenater': pagenater,
                     'route_name': 'schedule_list',
                     'params': params
                 } only %}
-                
+
             </div>
             <div class="card-footer">
                 {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件

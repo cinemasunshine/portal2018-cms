@@ -5,7 +5,6 @@
 {% block css %}
 <link rel="stylesheet" href="/css/vendor/jquery.flexdatalist.min.css">
 <link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 {% endblock %}
 
 {% block javascript %}
@@ -41,7 +40,7 @@
                         入力エラーがあります。
                     </div>
                     {% endif %}
-                
+
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">劇場</label>
                     {% if user.isTheater() %}
@@ -65,7 +64,7 @@
                         </div>
                     {% endif %}
                     </div>
-                    
+
                     <div class="form-group row title">
                         <label class="col-md-3 col-form-label">作品名</label>
                         <div class="col-md-9">
@@ -129,21 +128,21 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card">
                         <div class="card-body">
                             {% for id in values.delete_tickets %}
                                 {# @see form.jsの削除処理 #}
                                 <input type="hidden" name="delete_tickets[]" value="{{ id }}">
                             {% endfor %}
-                            
+
                             <div id="tickets">
                             {% for index, ticket in values.tickets %}
                                 {% set advance_ticket = null %}
                                 {% if ticket.id %}
                                     {% set advance_ticket = advanceSale.getAdvanceTickets().get(ticket.id) %}
                                 {% endif %}
-                                
+
                                 {% include 'advance_ticket/include/fieldset_ticket.html.twig' with {
                                     index: loop.index0,
                                     form: form,
@@ -153,14 +152,14 @@
                                 } only %}
                             {% endfor %}
                             </div>
-                            
+
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-success btn-add-fieldset">前売券情報追加</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card-footer">
                     <button type="button" class="btn btn-link" onclick="location.href='{{ path_for('advance_ticket_list') }}'">一覧へ戻る</button>
                     <button type="submit" class="btn btn-primary">保存</button>
