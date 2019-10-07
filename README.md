@@ -43,7 +43,7 @@ web: http://localhost:8000/
 
 phpmyadmin: http://localhost:8080/
 
-### コマンド例
+### docker-compose コマンド例
 
 コンテナを作成し、起動する。
 
@@ -51,7 +51,19 @@ phpmyadmin: http://localhost:8080/
 $ docker-compose up
 ```
 
-## その他
+## アプリケーション コマンド
+
+```sh
+$ php bin/concole help
+```
+
+### viewキャッシュ削除
+
+```sh
+$ php bin/concole cache:clear:view
+```
+
+## その他 コマンド
 ### PHP CodeSniffer
 
 ```sh
