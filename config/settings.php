@@ -43,34 +43,34 @@ $getLoggerSetting = function ($isDebug) {
     $settings = [
         'name' => 'app',
     ];
-    
+
     if ($isDebug) {
         $settings['chrome_php'] = [
             'level' => \Monolog\Logger::DEBUG,
         ];
     }
-    
+
     $settings['fingers_crossed'] = [
         'activation_strategy' => \Monolog\Logger::ERROR,
     ];
-    
+
     $settings['azure_blob_storage'] = [
         'level' => \Monolog\Logger::INFO,
         'container' => 'admin-log',
         'blob' => date('Ymd') . '.log',
     ];
-    
+
     return $settings;
 };
 
 $settings['logger'] = $getLoggerSetting($isDebug);
 
 // doctrine
-$getDoctrineSetting = function () {
+$getDoctrineSetting = function ($isDebug) {
     $settings = [
-        'dev_mode' => (APP_ENV === 'dev'),
+        'dev_mode' => $isDebug,
         'metadata_dirs' => [APP_ROOT . '/src/ORM/Entity'],
-        
+
         'connection' => [
             'driver'   => 'pdo_mysql',
             'host'     => getenv('MYSQLCONNSTR_HOST'),
@@ -80,22 +80,22 @@ $getDoctrineSetting = function () {
             'password' => getenv('MYSQLCONNSTR_PASSWORD'),
             'charset'  => 'utf8mb4',
             'driverOptions'  => [],
-            
+
             // @link https://m-p.backlog.jp/view/SASAKI-246
             'serverVersion' => '5.7',
         ],
     ];
-    
+
     if (getenv('MYSQLCONNSTR_SSL') === 'true') {
         // https://docs.microsoft.com/ja-jp/azure/mysql/howto-configure-ssl
         $cafile = APP_ROOT . '/cert/BaltimoreCyberTrustRoot.crt.pem';
         $settings['connection']['driverOptions'][PDO::MYSQL_ATTR_SSL_CA] = $cafile;
     }
-    
+
     return $settings;
 };
 
-$settings['doctrine'] = $getDoctrineSetting();
+$settings['doctrine'] = $getDoctrineSetting($isDebug);
 
 
 // storage
