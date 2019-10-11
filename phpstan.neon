@@ -1,3 +1,7 @@
+includes:
+	- vendor/phpstan/phpstan-doctrine/extension.neon
+	- vendor/phpstan/phpstan-doctrine/rules.neon
+
 parameters:
 	level: 1
 	bootstrap: %currentWorkingDirectory%/src/bootstrap.php
@@ -5,3 +9,5 @@ parameters:
 		- %currentWorkingDirectory%/src
 	excludes_analyse:
 		- %currentWorkingDirectory%/src/ORM/Proxy/*
+	doctrine:
+		objectManagerLoader: %currentWorkingDirectory%/analysis/entity-manager.php
