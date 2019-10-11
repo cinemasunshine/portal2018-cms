@@ -25,7 +25,7 @@ class Campaign extends AbstractEntity
     use SavedUserTrait;
     use SoftDeleteTrait;
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -35,7 +35,7 @@ class Campaign extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * title
      *
@@ -44,7 +44,7 @@ class Campaign extends AbstractEntity
      * @ORM\JoinColumn(name="title_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $title;
-    
+
     /**
      * image
      *
@@ -53,7 +53,7 @@ class Campaign extends AbstractEntity
      * @ORM\JoinColumn(name="image_file_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $image;
-    
+
     /**
      * name
      *
@@ -61,7 +61,7 @@ class Campaign extends AbstractEntity
      * @ORM\Column(type="string")
      */
     protected $name;
-    
+
     /**
      * start_dt
      *
@@ -69,7 +69,7 @@ class Campaign extends AbstractEntity
      * @ORM\Column(type="datetime", name="start_dt")
      */
     protected $startDt;
-    
+
     /**
      * end_dt
      *
@@ -77,7 +77,7 @@ class Campaign extends AbstractEntity
      * @ORM\Column(type="datetime", name="end_dt")
      */
     protected $endDt;
-    
+
     /**
      * url
      *
@@ -85,7 +85,7 @@ class Campaign extends AbstractEntity
      * @ORM\Column(type="string")
      */
     protected $url;
-    
+
     /**
      * pages
      *
@@ -93,7 +93,7 @@ class Campaign extends AbstractEntity
      * @ORM\OneToMany(targetEntity="PageCampaign", mappedBy="campaign")
      */
     protected $pages;
-    
+
     /**
      * theaters
      *
@@ -101,7 +101,7 @@ class Campaign extends AbstractEntity
      * @ORM\OneToMany(targetEntity="TheaterCampaign", mappedBy="campaign")
      */
     protected $theaters;
-    
+
     /**
      * special_sites
      *
@@ -109,7 +109,7 @@ class Campaign extends AbstractEntity
      * @ORM\OneToMany(targetEntity="SpecialSiteCampaign", mappedBy="campaign")
      */
     protected $specialSites;
-    
+
     /**
      * construct
      */
@@ -119,7 +119,7 @@ class Campaign extends AbstractEntity
         $this->theaters = new ArrayCollection();
         $this->specialSites = new ArrayCollection();
     }
-    
+
     /**
      * get id
      *
@@ -129,7 +129,7 @@ class Campaign extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get title
      *
@@ -139,7 +139,7 @@ class Campaign extends AbstractEntity
     {
         return $this->title;
     }
-    
+
     /**
      * set title
      *
@@ -150,7 +150,7 @@ class Campaign extends AbstractEntity
     {
         $this->title = $title;
     }
-    
+
     /**
      * get image
      *
@@ -160,7 +160,7 @@ class Campaign extends AbstractEntity
     {
         return $this->image;
     }
-    
+
     /**
      * set image
      *
@@ -171,7 +171,7 @@ class Campaign extends AbstractEntity
     {
         $this->image = $image;
     }
-    
+
     /**
      * get name
      *
@@ -181,7 +181,7 @@ class Campaign extends AbstractEntity
     {
         return $this->name;
     }
-    
+
     /**
      * set name
      *
@@ -192,7 +192,7 @@ class Campaign extends AbstractEntity
     {
         $this->name = $name;
     }
-    
+
     /**
      * get start_dt
      *
@@ -202,7 +202,7 @@ class Campaign extends AbstractEntity
     {
         return $this->startDt;
     }
-    
+
     /**
      * set start_dt
      *
@@ -211,13 +211,13 @@ class Campaign extends AbstractEntity
      */
     public function setStartDt($startDt)
     {
-        if ($startDt instanceof \Datetime) {
+        if ($startDt instanceof \DateTime) {
             $this->startDt = $startDt;
         } else {
             $this->startDt = new \DateTime($startDt);
         }
     }
-    
+
     /**
      * get end_dt
      *
@@ -227,7 +227,7 @@ class Campaign extends AbstractEntity
     {
         return $this->endDt;
     }
-    
+
     /**
      * set end_dt
      *
@@ -236,13 +236,13 @@ class Campaign extends AbstractEntity
      */
     public function setEndDt($endDt)
     {
-        if ($endDt instanceof \Datetime) {
+        if ($endDt instanceof \DateTime) {
             $this->endDt = $endDt;
         } else {
             $this->endDt = new \DateTime($endDt);
         }
     }
-    
+
     /**
      * get url
      *
@@ -252,7 +252,7 @@ class Campaign extends AbstractEntity
     {
         return $this->url;
     }
-    
+
     /**
      * set url
      *
@@ -263,7 +263,7 @@ class Campaign extends AbstractEntity
     {
         $this->url = $url;
     }
-    
+
     /**
      * get pages
      *
@@ -273,7 +273,7 @@ class Campaign extends AbstractEntity
     {
         return $this->pages;
     }
-    
+
     /**
      * get theaters
      *
@@ -283,7 +283,7 @@ class Campaign extends AbstractEntity
     {
         return $this->theaters;
     }
-    
+
     /**
      * get special_site
      *
@@ -293,7 +293,7 @@ class Campaign extends AbstractEntity
     {
         return $this->specialSites;
     }
-    
+
     /**
      * get published target
      *
@@ -302,22 +302,22 @@ class Campaign extends AbstractEntity
     public function getPublishedTargets()
     {
         $publications = new ArrayCollection();
-        
+
         foreach ($this->getPages() as $pageCampaign) {
             /** @var PageCampaign $pageCampaign */
             $publications->add($pageCampaign->getPage());
         }
-        
+
         foreach ($this->getTheaters() as $theaterCampaign) {
             /** @var TheaterCampaign $theaterCampaign */
             $publications->add($theaterCampaign->getTheater());
         }
-        
+
         foreach ($this->getSpecialSite() as $specialSiteCampaign) {
             /** @var SpecialSiteCampaign $specialSiteCampaign */
             $publications->add($specialSiteCampaign->getSpecialSite());
         }
-        
+
         return $publications;
     }
 }

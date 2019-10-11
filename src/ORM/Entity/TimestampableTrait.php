@@ -21,7 +21,7 @@ trait TimestampableTrait
      * @ORM\Column(type="datetime", name="created_at")
      */
     protected $createdAt;
-    
+
     /**
      * updated_at
      *
@@ -29,7 +29,7 @@ trait TimestampableTrait
      * @ORM\Column(type="datetime", name="updated_at")
      */
     protected $updatedAt;
-    
+
     /**
      * get created_at
      *
@@ -39,7 +39,7 @@ trait TimestampableTrait
     {
         return $this->createdAt;
     }
-    
+
     /**
      * set created_at
      *
@@ -48,11 +48,11 @@ trait TimestampableTrait
      */
     public function setCreatedAt($createdAt)
     {
-        $this->createdAt = ($createdAt instanceof \Datetime)
+        $this->createdAt = ($createdAt instanceof \DateTime)
                         ? $createdAt
                         : new \DateTime($createdAt);
     }
-    
+
     /**
      * get updated_at
      *
@@ -62,7 +62,7 @@ trait TimestampableTrait
     {
         return $this->updatedAt;
     }
-    
+
     /**
      * set updated_at
      *
@@ -71,11 +71,11 @@ trait TimestampableTrait
      */
     public function setUpdatedAt($updatedAt)
     {
-        $this->updatedAt = ($updatedAt instanceof \Datetime)
+        $this->updatedAt = ($updatedAt instanceof \DateTime)
                         ? $updatedAt
                         : new \DateTime($updatedAt);
     }
-    
+
     /**
      * persist
      *
@@ -87,7 +87,7 @@ trait TimestampableTrait
         $this->setCreatedAt('now');
         $this->setUpdatedAt('now');
     }
-    
+
     /**
      * update
      *
