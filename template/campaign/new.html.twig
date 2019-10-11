@@ -5,7 +5,6 @@
 {% block css %}
 <link rel="stylesheet" href="/css/vendor/jquery.flexdatalist.min.css">
 <link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 {% endblock %}
 
 {% block javascript %}
@@ -40,7 +39,7 @@
                         入力エラーがあります。
                     </div>
                     {% endif %}
-                    
+
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">ID</label>
                         <div class="col-md-9">
@@ -94,7 +93,7 @@
                             {% if errors.end_dt %}
                                 {% set termErrors = termErrors|merge(errors.end_dt) %}
                             {% endif %}
-                            
+
                             {##
                              # エラーを表示するためのhidden
                              # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、

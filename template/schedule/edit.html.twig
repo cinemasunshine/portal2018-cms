@@ -13,7 +13,6 @@
 {% block css %}
 <link rel="stylesheet" href="/css/vendor/jquery.flexdatalist.min.css">
 <link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 {% endblock %}
 
 {% block javascript %}
@@ -40,7 +39,7 @@
                         入力エラーがあります。
                     </div>
                     {% endif %}
-                    
+
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">上映情報ID</label>
                         <div class="col-md-9">
@@ -88,7 +87,7 @@
                             {% if errors.public_end_dt %}
                                 {% set termErrors = termErrors|merge(errors.public_end_dt) %}
                             {% endif %}
-                            
+
                             {##
                              # エラーを表示するためのhidden
                              # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
@@ -121,7 +120,7 @@
                             {% if errors.end_date %}
                                 {% set termErrors = termErrors|merge(errors.end_date) %}
                             {% endif %}
-                            
+
                             {##
                              # エラーを表示するためのhidden
                              # input.is-invalidの隣に.invalid-feedbackがないと表示されないみたいだが、
@@ -148,7 +147,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         {% include 'include/form/field_multi_checkbox.html.twig' with {
                             label: '対象劇場',
@@ -160,7 +159,7 @@
                             with_assist: true,
                         } only %}
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">上映方式</label>
                         <div class="col-md-9">

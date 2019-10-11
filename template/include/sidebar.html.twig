@@ -2,144 +2,184 @@
     <nav class="sidebar-nav ps">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{ path_for('homepage') }}">ダッシュボード</a>
+                <a class="nav-link" href="{{ path_for('homepage') }}">
+                    <i class="nav-icon icon-speedometer"></i> ダッシュボード
+                </a>
             </li>
-            
+
         {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    作品マスター
+                    <i class="nav-icon icon-film"></i> 作品マスター
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('title_new') }}">新規追加</a>
+                        <a class="nav-link" href="{{ path_for('title_new') }}">
+                            <i class="nav-icon icon-plus"></i> 新規追加
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('title_list') }}">一覧</a>
+                        <a class="nav-link" href="{{ path_for('title_list') }}">
+                            <i class="nav-icon icon-list"></i> 一覧
+                        </a>
                     </li>
                 </ul>
             </li>
         {% endif %}
-            
+
         {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    上映情報
+                    <i class="nav-icon icon-calendar"></i> 上映情報
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('schedule_new') }}">新規追加</a>
+                        <a class="nav-link" href="{{ path_for('schedule_new') }}">
+                            <i class="nav-icon icon-plus"></i> 新規追加
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('schedule_list') }}">一覧</a>
+                        <a class="nav-link" href="{{ path_for('schedule_list') }}">
+                            <i class="nav-icon icon-list"></i> 一覧
+                        </a>
                     </li>
                 </ul>
             </li>
         {% endif %}
-            
+
         {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    ランキング情報
+                    <i class="nav-icon icon-trophy"></i> ランキング情報
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('title_ranking_edit') }}">ランキング情報更新</a>
+                        <a class="nav-link" href="{{ path_for('title_ranking_edit') }}">
+                            <i class="nav-icon icon-wrench"></i> 更新
+                        </a>
                     </li>
                 </ul>
             </li>
         {% endif %}
-            
+
         {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    予告動画
+                    <i class="nav-icon icon-social-youtube"></i> 予告動画
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('trailer_new') }}">新規追加</a>
+                        <a class="nav-link" href="{{ path_for('trailer_new') }}">
+                            <i class="nav-icon icon-plus"></i> 新規追加
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('trailer_list') }}">一覧</a>
+                        <a class="nav-link" href="{{ path_for('trailer_list') }}">
+                            <i class="nav-icon icon-list"></i> 一覧
+                        </a>
                     </li>
                 </ul>
             </li>
         {% endif %}
-            
+
         {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    メインバナー
+                    <i class="nav-icon icon-picture"></i> メインバナー
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('main_banner_new') }}">新規追加</a>
+                        <a class="nav-link" href="{{ path_for('main_banner_new') }}">
+                            <i class="nav-icon icon-plus"></i> 新規追加
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('main_banner_list') }}">一覧</a>
+                        <a class="nav-link" href="{{ path_for('main_banner_list') }}">
+                            <i class="nav-icon icon-list"></i> 一覧
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('main_banner_publication') }}">表示順管理</a>
+                        <a class="nav-link" href="{{ path_for('main_banner_publication') }}">
+                            <i class="nav-icon icon-wrench"></i> 表示順管理
+                        </a>
                     </li>
                 </ul>
             </li>
         {% endif %}
-            
+
         {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    キャンペーン情報
+                    <i class="nav-icon icon-volume-2"></i> キャンペーン情報
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('campaign_new') }}">新規追加</a>
+                        <a class="nav-link" href="{{ path_for('campaign_new') }}">
+                            <i class="nav-icon icon-plus"></i> 新規追加
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('campaign_list') }}">一覧</a>
+                        <a class="nav-link" href="{{ path_for('campaign_list') }}">
+                            <i class="nav-icon icon-list"></i> 一覧
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('campaign_publication') }}">表示順管理</a>
+                        <a class="nav-link" href="{{ path_for('campaign_publication') }}">
+                            <i class="nav-icon icon-wrench"></i> 表示順管理
+                        </a>
                     </li>
                 </ul>
             </li>
         {% endif %}
-            
+
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    NEWS・インフォメーション
+                    <i class="nav-icon icon-speech"></i> NEWS・インフォメーション
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('news_new') }}">新規追加</a>
+                        <a class="nav-link" href="{{ path_for('news_new') }}">
+                            <i class="nav-icon icon-plus"></i> 新規追加
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('news_list') }}">一覧</a>
+                        <a class="nav-link" href="{{ path_for('news_list') }}">
+                            <i class="nav-icon icon-list"></i> 一覧
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('news_publication') }}">表示順管理</a>
+                        <a class="nav-link" href="{{ path_for('news_publication') }}">
+                            <i class="nav-icon icon-wrench"></i> 表示順管理
+                        </a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    前売券情報
+                    <i class="nav-icon icon-star"></i> 前売券情報
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('advance_ticket_new') }}">新規追加</a>
+                        <a class="nav-link" href="{{ path_for('advance_ticket_new') }}">
+                            <i class="nav-icon icon-plus"></i> 新規追加
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('advance_ticket_list') }}">一覧</a>
+                        <a class="nav-link" href="{{ path_for('advance_ticket_list') }}">
+                            <i class="nav-icon icon-list"></i> 一覧
+                        </a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
-                    劇場情報
+                    <i class="nav-icon icon-camrecorder"></i> 劇場情報
                 </a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path_for('opening_hour') }}">開館時間管理</a>
+                        <a class="nav-link" href="{{ path_for('opening_hour') }}">
+                            <i class="nav-icon icon-clock"></i> 開館時間管理
+                        </a>
                     </li>
                 </ul>
             </li>
