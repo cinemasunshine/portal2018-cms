@@ -3,7 +3,7 @@ includes:
 	- vendor/phpstan/phpstan-doctrine/rules.neon
 
 parameters:
-	level: 1
+	level: 2
 	bootstrap: %currentWorkingDirectory%/src/bootstrap.php
 	paths:
 		- %currentWorkingDirectory%/src
