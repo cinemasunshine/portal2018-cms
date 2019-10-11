@@ -14,40 +14,40 @@ abstract class AbstractPaginator
 {
     /** @var int */
     protected $page = 1;
-    
+
     /** @var int */
     protected $maxPerPage = 0;
-    
+
     /** @var int */
     protected $lastPage = 1;
-    
+
     /** @var int */
     protected $numResults = 0;
-    
+
     /** @var int */
     protected $currentMaxLink = 1;
-    
+
     /** @var null|array */
     protected $resultsInPage = null;
-    
+
     /**
      * Returns the number of itenms in current page
      *
      * @return array
      */
     abstract public function getResultsInPage();
-    
+
     /**
      * Return the total number of items
      *
      * @return int
      */
     abstract public function getNumResults() : int;
-    
+
     /**
      * Returns an array of page numbers to use in pagination links.
      *
-     * @param  int $numlinks The maximum number of page numbers to return
+     * @param  int $numLinks The maximum number of page numbers to return
      *
      * @return array
      */
@@ -60,7 +60,7 @@ abstract class AbstractPaginator
         $begin = $tmp > 0 ? ($tmp > $limit ? $limit : $tmp) : 1;
 
         $i = (int) $begin;
-        
+
         while ($i < $begin + $numLinks && $i <= $this->lastPage) {
             $links[] = $i++;
         }
@@ -69,7 +69,7 @@ abstract class AbstractPaginator
 
         return $links;
     }
-    
+
     /**
      * Returns the current page.
      *
@@ -79,7 +79,7 @@ abstract class AbstractPaginator
     {
         return $this->page;
     }
-    
+
     /**
      * Returns the first page number.
      *
@@ -99,7 +99,7 @@ abstract class AbstractPaginator
     {
         return $this->lastPage;
     }
-    
+
     /**
      * Returns the next page.
      *
@@ -119,7 +119,7 @@ abstract class AbstractPaginator
     {
         return max($this->getPage() - 1, $this->getFirstPage());
     }
-    
+
     /**
      * Returns the maximum number of results per page.
      *
@@ -129,7 +129,7 @@ abstract class AbstractPaginator
     {
         return $this->maxPerPage;
     }
-    
+
     /**
      * Returns true if on the first page.
      *
@@ -149,7 +149,7 @@ abstract class AbstractPaginator
     {
         return $this->getPage() == $this->getLastPage();
     }
-    
+
     /**
      * Returns the first index on the current page.
      *
