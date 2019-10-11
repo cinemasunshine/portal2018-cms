@@ -8,8 +8,7 @@
 namespace Cinemasunshine\PortalAdmin\Responder;
 
 use Slim\Collection;
-
-use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\Response;
 
 /**
  * News responder
@@ -27,7 +26,7 @@ class NewsResponder extends BaseResponder
     {
         return $this->view->render($response, 'news/list.html.twig', $data->all());
     }
-    
+
     /**
      * new
      *
@@ -39,7 +38,7 @@ class NewsResponder extends BaseResponder
     {
         return $this->view->render($response, 'news/new.html.twig', $data->all());
     }
-    
+
     /**
      * edit
      *
@@ -51,7 +50,7 @@ class NewsResponder extends BaseResponder
     {
         return $this->view->render($response, 'news/edit.html.twig', $data->all());
     }
-    
+
     /**
      * publication
      *

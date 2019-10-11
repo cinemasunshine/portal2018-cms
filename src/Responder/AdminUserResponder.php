@@ -8,8 +8,7 @@
 namespace Cinemasunshine\PortalAdmin\Responder;
 
 use Slim\Collection;
-
-use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\Response;
 
 /**
  * AdminUser responder
@@ -27,7 +26,7 @@ class AdminUserResponder extends BaseResponder
     {
         return $this->view->render($response, 'admin_user/list.html.twig', $data->all());
     }
-    
+
     /**
      * new
      *
