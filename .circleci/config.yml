@@ -45,6 +45,14 @@ jobs:
           at: .
 
       - run:
+          name: create .env file
+          command: echo $ANALYSIS_DOTENV | base64 --decode > .env
+
+      # 確認用
+      # - store_artifacts:
+      #     path: ./.env
+
+      - run:
           name: PHP CodeSniffer
           command: composer phpcs
 
@@ -54,6 +62,10 @@ jobs:
 
       - store_artifacts:
           path: ./report
+
+      - run:
+          name: remove .env file
+          command: rm .env
 
 workflows:
   version: 2
