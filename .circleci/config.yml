@@ -65,7 +65,7 @@ jobs:
 
       - run:
           name: remove .env file
-          command: rm .env
+          command: rm -v ./.env
 
 workflows:
   version: 2
