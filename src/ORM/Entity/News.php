@@ -25,7 +25,7 @@ class News extends AbstractEntity
     use SavedUserTrait;
     use SoftDeleteTrait;
     use TimestampableTrait;
-    
+
     const CATEGORY_NEWS             = 1;
     const CATEGORY_INFO             = 2;
     const CATEGORY_IMAX             = 3;
@@ -33,7 +33,7 @@ class News extends AbstractEntity
     const CATEGORY_EVENT            = 5;
     const CATEGORY_SCREENX          = 6; // SASAKI-351
     const CATEGORY_4DX_WITH_SCREENX = 7; // SASAKI-432
-    
+
     /** @var array */
     public static $categories = [
         self::CATEGORY_NEWS             => 'NEWS',
@@ -44,7 +44,7 @@ class News extends AbstractEntity
         self::CATEGORY_EVENT            => 'イベント上映ニュース',
         self::CATEGORY_4DX_WITH_SCREENX => '4DX with ScreenXニュース'
     ];
-    
+
     /**
      * id
      *
@@ -54,7 +54,7 @@ class News extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * title
      *
@@ -63,7 +63,7 @@ class News extends AbstractEntity
      * @ORM\JoinColumn(name="title_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $title;
-    
+
     /**
      * image
      *
@@ -72,7 +72,7 @@ class News extends AbstractEntity
      * @ORM\JoinColumn(name="image_file_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $image;
-    
+
     /**
      * category
      *
@@ -80,7 +80,7 @@ class News extends AbstractEntity
      * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     protected $category;
-    
+
     /**
      * headline
      *
@@ -88,7 +88,7 @@ class News extends AbstractEntity
      * @ORM\Column(type="string")
      */
     protected $headline;
-    
+
     /**
      * body
      *
@@ -96,7 +96,7 @@ class News extends AbstractEntity
      * @ORM\Column(type="text")
      */
     protected $body;
-    
+
     /**
      * start_dt
      *
@@ -104,7 +104,7 @@ class News extends AbstractEntity
      * @ORM\Column(type="datetime", name="start_dt")
      */
     protected $startDt;
-    
+
     /**
      * end_dt
      *
@@ -112,7 +112,7 @@ class News extends AbstractEntity
      * @ORM\Column(type="datetime", name="end_dt")
      */
     protected $endDt;
-    
+
     /**
      * pages
      *
@@ -120,7 +120,7 @@ class News extends AbstractEntity
      * @ORM\OneToMany(targetEntity="PageNews", mappedBy="news")
      */
     protected $pages;
-    
+
     /**
      * theaters
      *
@@ -128,7 +128,7 @@ class News extends AbstractEntity
      * @ORM\OneToMany(targetEntity="TheaterNews", mappedBy="news")
      */
     protected $theaters;
-    
+
     /**
      * special_sites
      *
@@ -136,7 +136,7 @@ class News extends AbstractEntity
      * @ORM\OneToMany(targetEntity="SpecialSiteNews", mappedBy="news")
      */
     protected $specialSites;
-    
+
     /**
      * construct
      */
@@ -146,7 +146,7 @@ class News extends AbstractEntity
         $this->theaters = new ArrayCollection();
         $this->specialSites = new ArrayCollection();
     }
-    
+
     /**
      * get id
      *
@@ -156,7 +156,7 @@ class News extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get title
      *
@@ -166,7 +166,7 @@ class News extends AbstractEntity
     {
         return $this->title;
     }
-    
+
     /**
      * set title
      *
@@ -177,7 +177,7 @@ class News extends AbstractEntity
     {
         $this->title = $title;
     }
-    
+
     /**
      * get image
      *
@@ -187,7 +187,7 @@ class News extends AbstractEntity
     {
         return $this->image;
     }
-    
+
     /**
      * set image
      *
@@ -198,7 +198,7 @@ class News extends AbstractEntity
     {
         $this->image = $image;
     }
-    
+
     /**
      * get category
      *
@@ -208,7 +208,7 @@ class News extends AbstractEntity
     {
         return $this->category;
     }
-    
+
     /**
      * get category label
      *
@@ -218,7 +218,7 @@ class News extends AbstractEntity
     {
         return self::$categories[$this->getCategory()] ?? null;
     }
-    
+
     /**
      * set category
      *
@@ -229,7 +229,7 @@ class News extends AbstractEntity
     {
         $this->category = $category;
     }
-    
+
     /**
      * get headline
      *
@@ -239,7 +239,7 @@ class News extends AbstractEntity
     {
         return $this->headline;
     }
-    
+
     /**
      * set headline
      *
@@ -250,7 +250,7 @@ class News extends AbstractEntity
     {
         $this->headline = $headline;
     }
-    
+
     /**
      * get body
      *
@@ -260,7 +260,7 @@ class News extends AbstractEntity
     {
         return $this->body;
     }
-    
+
     /**
      * set body
      *
@@ -271,7 +271,7 @@ class News extends AbstractEntity
     {
         $this->body = $body;
     }
-    
+
     /**
      * get start_dt
      *
@@ -281,7 +281,7 @@ class News extends AbstractEntity
     {
         return $this->startDt;
     }
-    
+
     /**
      * set start_dt
      *
@@ -290,13 +290,13 @@ class News extends AbstractEntity
      */
     public function setStartDt($startDt)
     {
-        if ($startDt instanceof \Datetime) {
+        if ($startDt instanceof \DateTime) {
             $this->startDt = $startDt;
         } else {
             $this->startDt = new \DateTime($startDt);
         }
     }
-    
+
     /**
      * get end_dt
      *
@@ -306,7 +306,7 @@ class News extends AbstractEntity
     {
         return $this->endDt;
     }
-    
+
     /**
      * set end_dt
      *
@@ -315,13 +315,13 @@ class News extends AbstractEntity
      */
     public function setEndDt($endDt)
     {
-        if ($endDt instanceof \Datetime) {
+        if ($endDt instanceof \DateTime) {
             $this->endDt = $endDt;
         } else {
             $this->endDt = new \DateTime($endDt);
         }
     }
-    
+
     /**
      * get pages
      *
@@ -331,7 +331,7 @@ class News extends AbstractEntity
     {
         return $this->pages;
     }
-    
+
     /**
      * get theaters
      *
@@ -341,7 +341,7 @@ class News extends AbstractEntity
     {
         return $this->theaters;
     }
-    
+
     /**
      * get special_sites
      *
@@ -351,7 +351,7 @@ class News extends AbstractEntity
     {
         return $this->specialSites;
     }
-    
+
     /**
      * get published target
      *
@@ -360,22 +360,22 @@ class News extends AbstractEntity
     public function getPublishedTargets()
     {
         $publications = new ArrayCollection();
-        
+
         foreach ($this->getPages() as $pageNews) {
             /** @var PageNews $pageNews */
             $publications->add($pageNews->getPage());
         }
-        
+
         foreach ($this->getTheaters() as $theaterNews) {
             /** @var TheaterNews $theaterNews */
             $publications->add($theaterNews->getTheater());
         }
-        
+
         foreach ($this->getSpecialSites() as $specialSiteNews) {
             /** @var SpecialSiteNews $specialSiteNews */
             $publications->add($specialSiteNews->getSpecialSite());
         }
-        
+
         return $publications;
     }
 }

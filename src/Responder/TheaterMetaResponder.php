@@ -8,8 +8,7 @@
 namespace Cinemasunshine\PortalAdmin\Responder;
 
 use Slim\Collection;
-
-use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\Response;
 
 /**
  * TheaterMeta responder
@@ -27,7 +26,7 @@ class TheaterMetaResponder extends BaseResponder
     {
         return $this->view->render($response, 'theater_meta/opening_hour/list.html.twig', $data->all());
     }
-    
+
     /**
      * opening hour edit
      *

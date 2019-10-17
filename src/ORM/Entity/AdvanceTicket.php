@@ -22,38 +22,38 @@ class AdvanceTicket extends AbstractEntity
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
-    
+
     const TYPE_MVTK  = 1;
     const TYPE_PAPER = 2;
-    
+
     const SPECIAL_GIFT_STOCK_IN     = 1;
     const SPECIAL_GIFT_STOCK_FEW    = 2;
     const SPECIAL_GIFT_STOCK_NOT_IN = 3;
-    
+
     const STATUS_PRE_SALE = 1;
     const STATUS_SALE     = 2;
     const STATUS_SALE_END = 3;
-    
+
     /** @var array */
     protected static $types = [
         self::TYPE_MVTK  => 'ムビチケカード',
         self::TYPE_PAPER => '紙券',
     ];
-    
+
     /** @var array */
     protected static $specialGiftStockList = [
         self::SPECIAL_GIFT_STOCK_IN     => '有り',
         self::SPECIAL_GIFT_STOCK_FEW    => '残り僅か',
         self::SPECIAL_GIFT_STOCK_NOT_IN => '特典終了',
     ];
-    
+
     /** @var array */
     protected static $statusList = [
         self::STATUS_PRE_SALE => '販売予定',
         self::STATUS_SALE     => '販売中',
         self::STATUS_SALE_END => '販売終了',
     ];
-    
+
     /**
      * id
      *
@@ -63,7 +63,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * advance_sale
      *
@@ -72,7 +72,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\JoinColumn(name="advance_sale_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $advanceSale;
-    
+
     /**
      * publishing_start_dt
      *
@@ -80,7 +80,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\Column(type="datetime", name="publishing_start_dt")
      */
     protected $publishingStartDt;
-    
+
     /**
      * release_dt
      *
@@ -88,7 +88,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\Column(type="datetime", name="release_dt")
      */
     protected $releaseDt;
-    
+
     /**
      * release_dt_text
      *
@@ -96,7 +96,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\Column(type="string", name="release_dt_text", nullable=true)
      */
     protected $releaseDtText;
-    
+
     /**
      * is_sales_end
      *
@@ -104,7 +104,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\Column(type="boolean", name="is_sales_end")
      */
     protected $isSalesEnd;
-    
+
     /**
      * type
      *
@@ -112,7 +112,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     protected $type;
-    
+
     /**
      * price_text
      *
@@ -120,7 +120,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\Column(type="string", name="price_text", nullable=true)
      */
     protected $priceText;
-    
+
     /**
      * special_gift
      *
@@ -128,7 +128,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\Column(type="string", name="special_gift", nullable=true)
      */
     protected $specialGift;
-    
+
     /**
      * special_gift_stock
      *
@@ -136,7 +136,7 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\Column(type="smallint", name="special_gift_stock", nullable=true, options={"unsigned"=true})
      */
     protected $specialGiftStock;
-    
+
     /**
      * special_gift_image
      *
@@ -145,15 +145,15 @@ class AdvanceTicket extends AbstractEntity
      * @ORM\JoinColumn(name="special_gift_image", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $specialGiftImage;
-    
-    
+
+
     /**
      * construct
      */
     public function __construct()
     {
     }
-    
+
     /**
      * get id
      *
@@ -163,7 +163,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get advance_sale
      *
@@ -173,7 +173,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->advanceSale;
     }
-    
+
     /**
      * set advance_sale
      *
@@ -184,7 +184,7 @@ class AdvanceTicket extends AbstractEntity
     {
         $this->advanceSale = $advanceSale;
     }
-    
+
     /**
      * get publishing_start_dt
      *
@@ -194,7 +194,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->publishingStartDt;
     }
-    
+
     /**
      * set publishing_start_dt
      *
@@ -203,13 +203,13 @@ class AdvanceTicket extends AbstractEntity
      */
     public function setPublishingStartDt($publishingStartDt)
     {
-        if ($publishingStartDt instanceof \Datetime) {
+        if ($publishingStartDt instanceof \DateTime) {
             $this->publishingStartDt = $publishingStartDt;
         } else {
             $this->publishingStartDt = new \DateTime($publishingStartDt);
         }
     }
-    
+
     /**
      * get release_dt
      *
@@ -219,7 +219,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->releaseDt;
     }
-    
+
     /**
      * set release_dt
      *
@@ -228,13 +228,13 @@ class AdvanceTicket extends AbstractEntity
      */
     public function setReleaseDt($releaseDt)
     {
-        if ($releaseDt instanceof \Datetime) {
+        if ($releaseDt instanceof \DateTime) {
             $this->releaseDt = $releaseDt;
         } else {
             $this->releaseDt = new \DateTime($releaseDt);
         }
     }
-    
+
     /**
      * get release_dt_text
      *
@@ -244,7 +244,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->releaseDtText;
     }
-    
+
     /**
      * set release_dt_text
      *
@@ -255,7 +255,7 @@ class AdvanceTicket extends AbstractEntity
     {
         $this->releaseDtText = $releaseDtText;
     }
-    
+
     /**
      * get is_sales_end
      *
@@ -265,7 +265,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->isSalesEnd;
     }
-    
+
     /**
      * is salse end
      *
@@ -277,7 +277,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->getIsSalesEnd();
     }
-    
+
     /**
      * set is_salse_end
      *
@@ -288,7 +288,7 @@ class AdvanceTicket extends AbstractEntity
     {
         $this->isSalesEnd = $isSalesEnd;
     }
-    
+
     /**
      * get type
      *
@@ -298,7 +298,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->type;
     }
-    
+
     /**
      * get type label
      *
@@ -308,7 +308,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return self::$types[$this->getType()] ?? null;
     }
-    
+
     /**
      * set type
      *
@@ -319,7 +319,7 @@ class AdvanceTicket extends AbstractEntity
     {
         $this->type = $type;
     }
-    
+
     /**
      * get price_text
      *
@@ -329,7 +329,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->priceText;
     }
-    
+
     /**
      * set price_text
      *
@@ -340,7 +340,7 @@ class AdvanceTicket extends AbstractEntity
     {
         $this->priceText = $priceText;
     }
-    
+
     /**
      * get special_gift
      *
@@ -350,7 +350,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->specialGift;
     }
-    
+
     /**
      * set special_gift
      *
@@ -361,7 +361,7 @@ class AdvanceTicket extends AbstractEntity
     {
         $this->specialGift = $specialGift;
     }
-    
+
     /**
      * get special_gift_stock
      *
@@ -371,7 +371,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->specialGiftStock;
     }
-    
+
     /**
      * get special_gift_stock label
      *
@@ -381,7 +381,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return self::$specialGiftStockList[$this->getSpecialGiftStock()] ?? null;
     }
-    
+
     /**
      * set special_gift_stock
      *
@@ -392,7 +392,7 @@ class AdvanceTicket extends AbstractEntity
     {
         $this->specialGiftStock = $specialGiftStock ?: null;
     }
-    
+
     /**
      * get special_gift_image
      *
@@ -402,7 +402,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return $this->specialGiftImage;
     }
-    
+
     /**
      * set special_gift_image
      *
@@ -413,7 +413,7 @@ class AdvanceTicket extends AbstractEntity
     {
         $this->specialGiftImage = $specialGiftImage;
     }
-    
+
     /**
      * get status label
      *
@@ -424,24 +424,24 @@ class AdvanceTicket extends AbstractEntity
         if ($this->isSalseEnd()) {
             return self::$statusList[self::STATUS_SALE_END];
         }
-        
+
         $now = new \DateTime('now');
         $end = $this->getAdvanceSale()->getPublishingExpectedDate();
-        
+
         if ($end && $now > $end) {
             return self::$statusList[self::STATUS_SALE_END];
         }
-        
+
         $start = $this->getReleaseDt();
-        
+
         if ($now < $start) {
             return self::$statusList[self::STATUS_PRE_SALE];
         }
-        
+
         // 終了日（作品公開予定日）が設定されていなくても発売される
         return self::$statusList[self::STATUS_SALE];
     }
-    
+
     /**
      * return types
      *
@@ -451,7 +451,7 @@ class AdvanceTicket extends AbstractEntity
     {
         return self::$types;
     }
-    
+
     /**
      * return special gift stock list
      *
