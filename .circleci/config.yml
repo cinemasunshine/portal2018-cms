@@ -81,7 +81,7 @@ jobs:
 
       - run:
           name: Deploy to Azure
-          command: curl -X POST https://$DEV_AAS_USER:$DEV_AAS_PASSWORD@$DEV_AAS.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
+          command: curl -X POST https://$DEV_AAS_USER:$DEV_AAS_PASSWORD@ssk-portal2018-admin-win-dev.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
 
   deploy_to_test:
     working_directory: ~/workspace
@@ -93,7 +93,7 @@ jobs:
 
       - run:
           name: Deploy to Azure
-          command: curl -X POST https://$TEST_AAS_USER:$TEST_AAS_PASSWORD@$TEST_AAS.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
+          command: curl -X POST https://$TEST_AAS_USER:$TEST_AAS_PASSWORD@ssk-portal2018-admin-win-test.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
 
 workflows:
   version: 2
