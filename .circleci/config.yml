@@ -50,6 +50,14 @@ jobs:
           at: .
 
       - run:
+          name: create .env file
+          command: echo $ANALYSIS_DOTENV | base64 --decode > .env
+
+      # 確認用
+      # - store_artifacts:
+      #     path: ./.env
+
+      - run:
           name: PHP CodeSniffer
           command: composer phpcs
 
@@ -60,6 +68,10 @@ jobs:
       - store_artifacts:
           path: ./report
 
+      - run:
+          name: remove .env file
+          command: rm -v ./.env
+
   deploy_to_dev:
     working_directory: ~/workspace
     executor: my_executor
@@ -69,7 +81,7 @@ jobs:
 
       - run:
           name: Deploy to Azure
-          command: curl -X POST https://$DEV_AAS_USER:$DEV_AAS_PASSWORD@$DEV_AAS.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
+          command: curl -X POST https://$DEV_AAS_USER:$DEV_AAS_PASSWORD@ssk-portal2018-admin-win-dev.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
 
   deploy_to_test:
     working_directory: ~/workspace
@@ -81,7 +93,7 @@ jobs:
 
       - run:
           name: Deploy to Azure
-          command: curl -X POST https://$TEST_AAS_USER:$TEST_AAS_PASSWORD@$TEST_AAS.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
+          command: curl -X POST https://$TEST_AAS_USER:$TEST_AAS_PASSWORD@ssk-portal2018-admin-win-test.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
 
 workflows:
   version: 2

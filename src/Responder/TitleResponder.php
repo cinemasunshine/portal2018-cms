@@ -8,8 +8,7 @@
 namespace Cinemasunshine\PortalAdmin\Responder;
 
 use Slim\Collection;
-
-use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\Response;
 
 /**
  * Title responder
@@ -27,7 +26,7 @@ class TitleResponder extends BaseResponder
     {
         return $this->view->render($response, 'title/list.html.twig', $data->all());
     }
-    
+
     /**
      * new
      *
@@ -39,7 +38,7 @@ class TitleResponder extends BaseResponder
     {
         return $this->view->render($response, 'title/new.html.twig', $data->all());
     }
-    
+
     /**
      * edit
      *

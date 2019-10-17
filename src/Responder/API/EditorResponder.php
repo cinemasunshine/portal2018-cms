@@ -8,8 +8,7 @@
 namespace Cinemasunshine\PortalAdmin\Responder\API;
 
 use Slim\Collection;
-
-use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\Response;
 
 /**
  * Editor responder

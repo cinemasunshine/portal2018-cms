@@ -8,8 +8,7 @@
 namespace Cinemasunshine\PortalAdmin\Responder;
 
 use Slim\Collection;
-
-use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\Response;
 
 /**
  * AdvanceTicket responder
@@ -27,7 +26,7 @@ class AdvanceTicketResponder extends BaseResponder
     {
         return $this->view->render($response, 'advance_ticket/list.html.twig', $data->all());
     }
-    
+
     /**
      * new
      *
@@ -39,7 +38,7 @@ class AdvanceTicketResponder extends BaseResponder
     {
         return $this->view->render($response, 'advance_ticket/new.html.twig', $data->all());
     }
-    
+
     /**
      * edit
      *

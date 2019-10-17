@@ -1,6 +1,6 @@
 <?php
 /**
- * index.php
+ * bootstrap.php
  *
  * @author Atsushi Okui <okui@motionpicture.jp>
  *

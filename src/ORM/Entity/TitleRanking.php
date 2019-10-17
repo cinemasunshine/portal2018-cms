@@ -21,7 +21,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 class TitleRanking extends AbstractEntity
 {
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -31,7 +31,7 @@ class TitleRanking extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * from_date
      *
@@ -39,7 +39,7 @@ class TitleRanking extends AbstractEntity
      * @ORM\Column(type="date", name="from_date", nullable=true)
      */
     protected $fromDate;
-    
+
     /**
      * to_date
      *
@@ -47,7 +47,7 @@ class TitleRanking extends AbstractEntity
      * @ORM\Column(type="date", name="to_date", nullable=true)
      */
     protected $toDate;
-    
+
     /**
      * rank1_title
      *
@@ -56,7 +56,7 @@ class TitleRanking extends AbstractEntity
      * @ORM\JoinColumn(name="rank1_title_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $rank1Title;
-    
+
     /**
      * rank2_title
      *
@@ -65,7 +65,7 @@ class TitleRanking extends AbstractEntity
      * @ORM\JoinColumn(name="rank2_title_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $rank2Title;
-    
+
     /**
      * rank3_title
      *
@@ -74,7 +74,7 @@ class TitleRanking extends AbstractEntity
      * @ORM\JoinColumn(name="rank3_title_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $rank3Title;
-    
+
     /**
      * rank4_title
      *
@@ -83,7 +83,7 @@ class TitleRanking extends AbstractEntity
      * @ORM\JoinColumn(name="rank4_title_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $rank4Title;
-    
+
     /**
      * rank5_title
      *
@@ -92,14 +92,14 @@ class TitleRanking extends AbstractEntity
      * @ORM\JoinColumn(name="rank5_title_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $rank5Title;
-    
+
     /**
      * construct
      */
     public function __construct()
     {
     }
-    
+
     /**
      * get id
      *
@@ -109,7 +109,7 @@ class TitleRanking extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get from_date
      *
@@ -119,7 +119,7 @@ class TitleRanking extends AbstractEntity
     {
         return $this->fromDate;
     }
-    
+
     /**
      * set from_date
      *
@@ -128,13 +128,13 @@ class TitleRanking extends AbstractEntity
      */
     public function setFromDate($fromDate)
     {
-        if (is_null($fromDate) || $fromDate instanceof \Datetime) {
+        if (is_null($fromDate) || $fromDate instanceof \DateTime) {
             $this->fromDate = $fromDate;
         } else {
             $this->fromDate = new \DateTime($fromDate);
         }
     }
-    
+
     /**
      * get to_date
      *
@@ -144,7 +144,7 @@ class TitleRanking extends AbstractEntity
     {
         return $this->toDate;
     }
-    
+
     /**
      * set to_date
      *
@@ -153,13 +153,13 @@ class TitleRanking extends AbstractEntity
      */
     public function setToDate($toDate)
     {
-        if (is_null($toDate) || $toDate instanceof \Datetime) {
+        if (is_null($toDate) || $toDate instanceof \DateTime) {
             $this->toDate = $toDate;
         } else {
             $this->toDate = new \DateTime($toDate);
         }
     }
-    
+
     /**
      * get rank1_title
      *
@@ -169,7 +169,7 @@ class TitleRanking extends AbstractEntity
     {
         return $this->rank1Title;
     }
-    
+
     /**
      * set rank1_title
      *
@@ -179,7 +179,7 @@ class TitleRanking extends AbstractEntity
     {
         $this->rank1Title = $title;
     }
-    
+
     /**
      * get rank2_title
      *
@@ -189,7 +189,7 @@ class TitleRanking extends AbstractEntity
     {
         return $this->rank2Title;
     }
-    
+
     /**
      * set rank2_title
      *
@@ -200,7 +200,7 @@ class TitleRanking extends AbstractEntity
     {
         $this->rank2Title = $title;
     }
-    
+
     /**
      * get rank3_title
      *
@@ -210,7 +210,7 @@ class TitleRanking extends AbstractEntity
     {
         return $this->rank3Title;
     }
-    
+
     /**
      * set rank3_title
      *
@@ -221,7 +221,7 @@ class TitleRanking extends AbstractEntity
     {
         $this->rank3Title = $title;
     }
-    
+
     /**
      * get rank4_title
      *
@@ -231,7 +231,7 @@ class TitleRanking extends AbstractEntity
     {
         return $this->rank4Title;
     }
-    
+
     /**
      * set rank4_title
      *
@@ -242,7 +242,7 @@ class TitleRanking extends AbstractEntity
     {
         $this->rank4Title = $title;
     }
-    
+
     /**
      * get rank5_title
      *
@@ -252,7 +252,7 @@ class TitleRanking extends AbstractEntity
     {
         return $this->rank5Title;
     }
-    
+
     /**
      * set rank5_title
      *
@@ -263,7 +263,7 @@ class TitleRanking extends AbstractEntity
     {
         $this->rank5Title = $title;
     }
-    
+
     /**
      * get rank
      *
@@ -287,7 +287,7 @@ class TitleRanking extends AbstractEntity
             throw new \InvalidArgumentException('invalid "rank".');
         }
     }
-    
+
     /**
      * set rank
      *

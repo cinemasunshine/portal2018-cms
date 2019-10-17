@@ -25,7 +25,7 @@ class Schedule extends AbstractEntity
     use SavedUserTrait;
     use SoftDeleteTrait;
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -35,7 +35,7 @@ class Schedule extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * title
      *
@@ -44,7 +44,7 @@ class Schedule extends AbstractEntity
      * @ORM\JoinColumn(name="title_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $title;
-    
+
     /**
      * start_date
      *
@@ -52,7 +52,7 @@ class Schedule extends AbstractEntity
      * @ORM\Column(type="date", nullable=false, name="start_date")
      */
     protected $startDate;
-    
+
     /**
      * end_date
      *
@@ -60,7 +60,7 @@ class Schedule extends AbstractEntity
      * @ORM\Column(type="date", nullable=false, name="end_date")
      */
     protected $endDate;
-    
+
     /**
      * public_start_dt
      *
@@ -68,7 +68,7 @@ class Schedule extends AbstractEntity
      * @ORM\Column(type="datetime", nullable=false, name="public_start_dt")
      */
     protected $publicStartDt;
-    
+
     /**
      * public_end_dt
      *
@@ -76,7 +76,7 @@ class Schedule extends AbstractEntity
      * @ORM\Column(type="datetime", nullable=false, name="public_end_dt")
      */
     protected $publicEndDt;
-    
+
     /**
      * remark
      *
@@ -84,7 +84,7 @@ class Schedule extends AbstractEntity
      * @ORM\Column(type="text")
      */
     protected $remark;
-    
+
     /**
      * showing_formats
      *
@@ -92,7 +92,7 @@ class Schedule extends AbstractEntity
      * @ORM\OneToMany(targetEntity="ShowingFormat", mappedBy="schedule", orphanRemoval=true)
      */
     protected $showingFormats;
-    
+
     /**
      * showing_theaters
      *
@@ -100,7 +100,7 @@ class Schedule extends AbstractEntity
      * @ORM\OneToMany(targetEntity="ShowingTheater", mappedBy="schedule", orphanRemoval=true)
      */
     protected $showingTheaters;
-    
+
     /**
      * construct
      */
@@ -109,7 +109,7 @@ class Schedule extends AbstractEntity
         $this->showingFormats = new ArrayCollection();
         $this->showingTheaters = new ArrayCollection();
     }
-    
+
     /**
      * get id
      *
@@ -119,7 +119,7 @@ class Schedule extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get title
      *
@@ -129,7 +129,7 @@ class Schedule extends AbstractEntity
     {
         return $this->title;
     }
-    
+
     /**
      * set title
      *
@@ -140,7 +140,7 @@ class Schedule extends AbstractEntity
     {
         $this->title = $title;
     }
-    
+
     /**
      * get start_date
      *
@@ -150,7 +150,7 @@ class Schedule extends AbstractEntity
     {
         return $this->startDate;
     }
-    
+
     /**
      * set start_date
      *
@@ -159,13 +159,13 @@ class Schedule extends AbstractEntity
      */
     public function setStartDate($startDate)
     {
-        if ($startDate instanceof \Datetime) {
+        if ($startDate instanceof \DateTime) {
             $this->startDate = $startDate;
         } else {
             $this->startDate = new \DateTime($startDate);
         }
     }
-    
+
     /**
      * get end_date
      *
@@ -175,7 +175,7 @@ class Schedule extends AbstractEntity
     {
         return $this->endDate;
     }
-    
+
     /**
      * set end_date
      *
@@ -184,13 +184,13 @@ class Schedule extends AbstractEntity
      */
     public function setEndDate($endDate)
     {
-        if ($endDate instanceof \Datetime) {
+        if ($endDate instanceof \DateTime) {
             $this->endDate = $endDate;
         } else {
             $this->endDate = new \DateTime($endDate);
         }
     }
-    
+
     /**
      * get public_start_dt
      *
@@ -200,7 +200,7 @@ class Schedule extends AbstractEntity
     {
         return $this->publicStartDt;
     }
-    
+
     /**
      * set public_start_dt
      *
@@ -209,13 +209,13 @@ class Schedule extends AbstractEntity
      */
     public function setPublicStartDt($publicStartDt)
     {
-        if ($publicStartDt instanceof \Datetime) {
+        if ($publicStartDt instanceof \DateTime) {
             $this->publicStartDt = $publicStartDt;
         } else {
             $this->publicStartDt = new \DateTime($publicStartDt);
         }
     }
-    
+
     /**
      * get public_end_dt
      *
@@ -225,7 +225,7 @@ class Schedule extends AbstractEntity
     {
         return $this->publicEndDt;
     }
-    
+
     /**
      * set public_end_dt
      *
@@ -234,13 +234,13 @@ class Schedule extends AbstractEntity
      */
     public function setPublicEndDt($publicEndDt)
     {
-        if ($publicEndDt instanceof \Datetime) {
+        if ($publicEndDt instanceof \DateTime) {
             $this->publicEndDt = $publicEndDt;
         } else {
             $this->publicEndDt = new \DateTime($publicEndDt);
         }
     }
-    
+
     /**
      * get remark
      *
@@ -250,7 +250,7 @@ class Schedule extends AbstractEntity
     {
         return $this->remark;
     }
-    
+
     /**
      * set remark
      *
@@ -261,7 +261,7 @@ class Schedule extends AbstractEntity
     {
         $this->remark = $remark;
     }
-    
+
     /**
      * get showing_formats
      *
@@ -271,7 +271,7 @@ class Schedule extends AbstractEntity
     {
         return $this->showingFormats;
     }
-    
+
     /**
      * set showing_formats
      *
@@ -282,7 +282,7 @@ class Schedule extends AbstractEntity
     {
         $this->showingFormats = $showingFormats;
     }
-    
+
     /**
      * get showing_theaters
      *
@@ -292,7 +292,7 @@ class Schedule extends AbstractEntity
     {
         return $this->showingTheaters;
     }
-    
+
     /**
      * set showing_theaters
      *
