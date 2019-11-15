@@ -9,7 +9,7 @@ executors:
 
 jobs:
   build_development:
-    working_directory: ~/workspace
+    working_directory: ~/development
     executor: my_executor
 
     steps:
@@ -41,8 +41,48 @@ jobs:
           paths:
             - .
 
+  build_production:
+    working_directory: ~/production
+    executor: my_executor
+
+    steps:
+      - checkout
+      - update_php
+
+      - restore_cache:
+          keys:
+            - composer-{{ checksum "composer.lock" }}
+            - composer-
+
+      - run:
+          name: Composer install
+          command: |
+            composer config http-basic.m-p.backlog.jp $BACKLOG_USER $BACKLOG_PASSWORD
+            composer install --no-dev -n --prefer-dist
+
+      - save_cache:
+          key: composer-{{ checksum "composer.lock" }}
+          paths:
+            - ./vendor
+
+      - run:
+          name: Generate ORM proxies
+          command: vendor/bin/doctrine orm:generate-proxies
+
+      - run:
+          name: ZIP archive
+          command: zip -r production_app.zip . -x \*.git\* \*.circleci\* \*docker\* \*report\* .gitignore composer.\* auth.json docker-compose.yml phpcs.xml phpstan.neon .editorconfig \*.env \*.user.ini public/sample.Web.config
+
+      - store_artifacts:
+          path: ./production_app.zip
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
   analysis:
-    working_directory: ~/workspace
+    working_directory: ~/development
     executor: my_executor
 
     steps:
@@ -73,7 +113,7 @@ jobs:
           command: rm -v ./.env
 
   deploy_to_dev:
-    working_directory: ~/workspace
+    working_directory: ~/development
     executor: my_executor
     steps:
       - attach_workspace:
@@ -84,7 +124,7 @@ jobs:
           command: curl -X POST https://$DEV_AAS_USER:$DEV_AAS_PASSWORD@ssk-portal2018-admin-win-dev.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
 
   deploy_to_test:
-    working_directory: ~/workspace
+    working_directory: ~/development
     executor: my_executor
 
     steps:
@@ -94,6 +134,18 @@ jobs:
       - run:
           name: Deploy to Azure
           command: curl -X POST https://$TEST_AAS_USER:$TEST_AAS_PASSWORD@ssk-portal2018-admin-win-test.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
+
+  deploy_to_prod:
+    working_directory: ~/production
+    executor: my_executor
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Deploy to Azure
+          command: echo "TODO"
 
 workflows:
   version: 2
@@ -126,3 +178,28 @@ workflows:
       - deploy_to_test:
           requires:
             - deploy_to_test_approval
+
+  deploy_production:
+    jobs:
+    - build_development:
+        filters:
+          branches:
+            # only: master
+            only: feature/SASAKI-513
+
+    - analysis:
+        requires:
+          - build_development
+
+    - build_production:
+        requires:
+          - analysis
+
+    - deploy_approval:
+        type: approval
+        requires:
+          - build_production
+
+    - deploy_to_prod:
+        requires:
+          - deploy_approval
