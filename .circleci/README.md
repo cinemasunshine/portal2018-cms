@@ -4,14 +4,7 @@
 
 ## Environment Variables
 
-Settings > cinemasunshine > portal2018 > Environment Variables
-
-### Composer
-
-| Name | Value |
-|:---|:---|
-|BACKLOG_USER |backlogのユーザ（プロジェクトSASAKIの権限が必要） |
-|BACKLOG_PASSWORD |backlogユーザのパスワード |
+Settings > cinemasunshine > portal2018-cms > Environment Variables
 
 ### コード解析
 
