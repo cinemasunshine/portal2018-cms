@@ -47,7 +47,6 @@ jobs:
 
     steps:
       - checkout
-      - update_php
 
       - restore_cache:
           keys:
