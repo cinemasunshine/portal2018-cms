@@ -146,7 +146,7 @@ jobs:
 
       - run:
           name: Deploy to Azure
-          command: echo "TODO"
+          command: curl -X POST https://$TMP_AAS_USER:$TMP_AAS_PASSWORD@ssk-portal2018-admin-win-prod-citest.scm.azurewebsites.net/api/zipdeploy -T production_app.zip
 
 workflows:
   version: 2
