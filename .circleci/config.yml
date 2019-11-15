@@ -63,6 +63,10 @@ jobs:
             - ./vendor
 
       - run:
+          name: Create .env file
+          command: echo $CI_DOTENV | base64 --decode > .env
+
+      - run:
           name: Generate ORM proxies
           command: vendor/bin/doctrine orm:generate-proxies
 
@@ -87,8 +91,8 @@ jobs:
           at: .
 
       - run:
-          name: create .env file
-          command: echo $ANALYSIS_DOTENV | base64 --decode > .env
+          name: Create .env file
+          command: echo $CI_DOTENV | base64 --decode > .env
 
       # 確認用
       # - store_artifacts:
