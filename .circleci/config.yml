@@ -71,6 +71,10 @@ jobs:
           command: vendor/bin/doctrine orm:generate-proxies
 
       - run:
+          name: Remove .env file
+          command: rm -v ./.env
+
+      - run:
           name: ZIP archive
           command: zip -r production_app.zip . -x \*.git\* \*.circleci\* \*analysis\* \*docker\* \*report\* .gitignore composer.\* docker-compose.yml phpcs.xml phpstan.neon .editorconfig \*.env \*.user.ini public/sample.htaccess public/sample.Web.config
 
@@ -110,7 +114,7 @@ jobs:
           path: ./report
 
       - run:
-          name: remove .env file
+          name: Remove .env file
           command: rm -v ./.env
 
   deploy_to_dev:
