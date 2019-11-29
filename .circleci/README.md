@@ -17,7 +17,7 @@ Settings > cinemasunshine > portal2018 > Environment Variables
 
 | Name | Value |
 |:---|:---|
-|ANALYSIS_DOTENV |.envファイルの設定をbase64エンコードした文字列 |
+|CI_DOTENV |.envファイルの設定をbase64エンコードした文字列 |
 
 #### Windowsでのbase64エンコード
 
@@ -41,5 +41,7 @@ Settings > cinemasunshine > portal2018 > Environment Variables
 |DEV_AAS_PASSWORD |開発環境デプロイユーザのパスワード |
 |TEST_AAS_USER |開発環境デプロイユーザ |
 |TEST_AAS_PASSWORD |開発環境デプロイユーザのパスワード |
+|PROD_AAS_USER |運用環境デプロイユーザ |
+|PROD_AAS_PASSWORD |運用環境デプロイユーザのパスワード |
 
 デプロイユーザとパスワードはAzure App Serviceのプロパティ > デプロイの開始URL
