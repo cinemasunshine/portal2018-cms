@@ -150,7 +150,7 @@ jobs:
 
       - run:
           name: Deploy to Azure
-          command: curl -X POST https://$TMP_AAS_USER:$TMP_AAS_PASSWORD@ssk-portal2018-admin-win-prod-citest.scm.azurewebsites.net/api/zipdeploy -T production_app.zip
+          command: curl -X POST https://$PROD_AAS_USER:$PROD_AAS_PASSWORD@ssk-portal2018-admin-win-prod.scm.azurewebsites.net/api/zipdeploy -T production_app.zip
 
 workflows:
   version: 2
@@ -189,8 +189,7 @@ workflows:
     - build_development:
         filters:
           branches:
-            # only: master
-            only: feature/SASAKI-513
+            only: master
 
     - analysis:
         requires:
