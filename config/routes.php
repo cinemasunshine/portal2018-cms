@@ -13,6 +13,7 @@ use Cinemasunshine\PortalAdmin\Controller\{
     IndexController,
     MainBannerController,
     NewsController,
+    OyakoCinemaController,
     ScheduleController,
     TheaterMetaController,
     TitleController,
@@ -36,7 +37,7 @@ $app->get('/logout', AuthController::class . ':logout')->setName('logout');
 
 $app->group('', function () {
     $this->get('/', IndexController::class . ':index')->setName('homepage');
-    
+
     $this->group('/title', function () {
         $this->get('/list', TitleController::class . ':list')->setName('title_list');
         $this->get('/new', TitleController::class . ':new')->setName('title_new');
@@ -45,7 +46,7 @@ $app->group('', function () {
         $this->post('/{id}/update', TitleController::class . ':update')->setName('title_update');
         $this->get('/{id}/delete', TitleController::class . ':delete')->setName('title_delete');
     });
-    
+
     $this->group('/schedule', function () {
         $this->get('/list', ScheduleController::class . ':list')->setName('schedule_list');
         $this->get('/new', ScheduleController::class . ':new')->setName('schedule_new');
@@ -54,12 +55,16 @@ $app->group('', function () {
         $this->post('/{id}/update', ScheduleController::class . ':update')->setName('schedule_update');
         $this->get('/{id}/delete', ScheduleController::class . ':delete')->setName('schedule_delete');
     });
-    
+
+    $this->group('/oyako_cinema', function () {
+        $this->get('', OyakoCinemaController::class . ':index')->setName('oyako_cinema');
+    });
+
     $this->group('/title_ranking', function () {
         $this->get('/edit', TitleRankingController::class . ':edit')->setName('title_ranking_edit');
         $this->post('/update', TitleRankingController::class . ':update')->setName('title_ranking_update');
     });
-    
+
     $this->group('/trailer', function () {
         $this->get('/list', TrailerController::class . ':list')->setName('trailer_list');
         $this->get('/new', TrailerController::class . ':new')->setName('trailer_new');
@@ -68,7 +73,7 @@ $app->group('', function () {
         $this->post('/{id}/update', TrailerController::class . ':update')->setName('trailer_update');
         $this->get('/{id}/delete', TrailerController::class . ':delete')->setName('trailer_delete');
     });
-    
+
     $this->group('/main_banner', function () {
         $this->get('/publication', MainBannerController::class . ':publication')->setName('main_banner_publication');
         $this
@@ -81,7 +86,7 @@ $app->group('', function () {
         $this->post('/{id}/update', MainBannerController::class . ':update')->setName('main_banner_update');
         $this->get('/{id}/delete', MainBannerController::class . ':delete')->setName('main_banner_delete');
     });
-    
+
     $this->group('/campaign', function () {
         $this->get('/publication', CampaignController::class . ':publication')->setName('campaign_publication');
         $this
@@ -94,7 +99,7 @@ $app->group('', function () {
         $this->post('/{id}/update', CampaignController::class . ':update')->setName('campaign_update');
         $this->get('/{id}/delete', CampaignController::class . ':delete')->setName('campaign_delete');
     });
-    
+
     $this->group('/news', function () {
         $this->get('/publication', NewsController::class . ':publication')->setName('news_publication');
         $this
@@ -107,7 +112,7 @@ $app->group('', function () {
         $this->post('/{id}/update', NewsController::class . ':update')->setName('news_update');
         $this->get('/{id}/delete', NewsController::class . ':delete')->setName('news_delete');
     });
-    
+
     $this->group('/advance_ticket', function () {
         $this->get('/list', AdvanceTicketController::class . ':list')->setName('advance_ticket_list');
         $this->get('/new', AdvanceTicketController::class . ':new')->setName('advance_ticket_new');
@@ -116,7 +121,7 @@ $app->group('', function () {
         $this->post('/{id}/update', AdvanceTicketController::class . ':update')->setName('advance_ticket_update');
         $this->get('/{id}/delete', AdvanceTicketController::class . ':delete')->setName('advance_ticket_delete');
     });
-    
+
     $this->group('/theater', function () {
         $this->get('/opening-hour', TheaterMetaController::class . ':openingHour')->setName('opening_hour');
         $this
@@ -126,31 +131,31 @@ $app->group('', function () {
             ->post('/{id}/opening-hour/update', TheaterMetaController::class . ':openingHourUpdate')
             ->setName('opening_hour_update');
     });
-    
+
     $this->group('/admin_user', function () {
         $this->get('/list', AdminUserController::class . ':list')->setName('admin_user_list');
         $this->get('/new', AdminUserController::class . ':new')->setName('admin_user_new');
         $this->post('/create', AdminUserController::class . ':create')->setName('admin_user_create');
     });
-    
+
     $this->group('/api', function () {
         $this->group('/title', function () {
             $this->get('/list', TitleApiController::class . ':list');
             $this->get('/autocomplete', TitleApiController::class . ':autocomplete');
         });
-        
+
         $this->group('/main_banner', function () {
             $this->get('/list', MainBannerApiController::class . ':list');
         });
-        
+
         $this->group('/campaign', function () {
             $this->get('/list', CampaignApiController::class . ':list');
         });
-        
+
         $this->group('/news', function () {
             $this->get('/list', NewsApiController::class . ':list');
         });
-        
+
         $this->group('/editor', function () {
             $this->post('/upload', EditorApiController::class . ':upload');
         });
