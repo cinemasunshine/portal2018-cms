@@ -50,6 +50,16 @@
         {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-people"></i> おやこシネマ
+                </a>
+                <ul class="nav-dropdown-items">
+                </ul>
+            </li>
+        {% endif %}
+
+        {% if not user.isTheater() %}
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
                     <i class="nav-icon icon-trophy"></i> ランキング情報
                 </a>
                 <ul class="nav-dropdown-items">
