@@ -82,4 +82,32 @@ class OyakoCinemaSchedule extends AbstractEntity
     {
         $this->oyakoCinemaTitle = $oyakoCinemaTitle;
     }
+
+    /**
+     * get date
+     *
+     * @return \DateTime
+     */
+    public function getDate(): \DateTime
+    {
+        return $this->date;
+    }
+
+    /**
+     * set date
+     *
+     * @param \DateTime|string $date
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    public function setDate($date)
+    {
+        if ($date instanceof \DateTime) {
+            $this->date = $date;
+        } elseif (is_string($date)) {
+            $this->date = new \DateTime($date);
+        } else {
+            throw new \InvalidArgumentException('Invalid argument type.');
+        }
+    }
 }

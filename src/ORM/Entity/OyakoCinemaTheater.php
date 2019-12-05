@@ -83,4 +83,25 @@ class OyakoCinemaTheater extends AbstractEntity
     {
         $this->oyakoCinemaSchedule = $oyakoCinemaSchedule;
     }
+
+    /**
+     * get theater
+     *
+     * @return Theater
+     */
+    public function getTheater(): Theater
+    {
+        return $this->theater;
+    }
+
+    /**
+     * set theater
+     *
+     * @param Theater $theater
+     * @return void
+     */
+    public function setTheater(Theater $theater)
+    {
+        $this->theater = $theater;
+    }
 }
