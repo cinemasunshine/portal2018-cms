@@ -43,6 +43,26 @@ class OyakoCinemaController extends BaseController
     }
 
     /**
+     * list action
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeList($request, $response, $args)
+    {
+        $page = (int) $request->getParam('p', 1);
+        $this->data->set('page', $page);
+
+        /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
+        $pagenater = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
+            ->findForList($page);
+
+        $this->data->set('pagenater', $pagenater);
+    }
+
+    /**
      * new action
      *
      * @param \Slim\Http\Request  $request

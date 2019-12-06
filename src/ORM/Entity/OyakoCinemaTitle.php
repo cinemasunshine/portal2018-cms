@@ -7,12 +7,14 @@
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * OyakoCinemaTitle entity class
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\OyakoCinemaTitleRepository")
  * @ORM\Table(name="oyako_cinema_title", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
@@ -50,10 +52,19 @@ class OyakoCinemaTitle extends AbstractEntity
     protected $titleUrl;
 
     /**
+     * oyako_cinema_schedules
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="OyakoCinemaSchedule", mappedBy="oyakoCinemaTitle", orphanRemoval=true)
+     */
+    protected $oyakoCinemaSchedules;
+
+    /**
      * construct
      */
     public function __construct()
     {
+        $this->oyakoCinemaSchedules = new ArrayCollection();
     }
 
     /**
@@ -106,5 +117,15 @@ class OyakoCinemaTitle extends AbstractEntity
     public function setTitleUrl(string $titleUrl)
     {
         $this->titleUrl = $titleUrl;
+    }
+
+    /**
+     * get oyako_cinema_schedules
+     *
+     * @return Collection
+     */
+    public function getOyakoCinemaSchedules(): Collection
+    {
+        return $this->oyakoCinemaSchedules;
     }
 }
