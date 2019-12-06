@@ -9,6 +9,7 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -126,6 +127,9 @@ class OyakoCinemaTitle extends AbstractEntity
      */
     public function getOyakoCinemaSchedules(): Collection
     {
-        return $this->oyakoCinemaSchedules;
+        $criteria = Criteria::create()
+            ->orderBy([ 'date' => Criteria::ASC ]);
+
+        return $this->oyakoCinemaSchedules->matching($criteria);
     }
 }
