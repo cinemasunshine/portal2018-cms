@@ -1,0 +1,114 @@
+<?php
+/**
+ * OyakoCinemaScheduleFieldset.php
+ *
+ * @author Atsushi Okui <okui@motionpicture.jp>
+ */
+
+namespace Cinemasunshine\PortalAdmin\Form;
+
+use Cinemasunshine\PortalAdmin\ORM\Entity\Theater;
+use Doctrine\ORM\EntityManager;
+use Zend\Form\Fieldset;
+use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\Validator;
+
+/**
+ * OyakoCinemaSchedule fieldset class
+ */
+class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProviderInterface
+{
+    /** @var EntityManager */
+    protected $em;
+
+    /** @var array */
+    protected $theaterChoices;
+
+    /**
+     * construct
+     *
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+        $this->theaterChoices = [];
+
+        parent::__construct('schedules');
+
+        $this->setup();
+    }
+
+    /**
+     * setup
+     *
+     * @return void
+     */
+    protected function setup()
+    {
+        $this->add([
+            'name' => 'id',
+            'type' => 'Hidden',
+        ]);
+
+        $this->add([
+            'name' => 'date',
+            'type' => 'Text', // Datepickerを入れるのでtextにする
+        ]);
+
+        $theaters = $this->em->getRepository(Theater::class)->findActive();
+
+        foreach ($theaters as $theater) {
+            /** @var Theater $theater */
+            $this->theaterChoices[$theater->getId()] = $theater->getNameJa();
+        }
+
+        $this->add([
+            'name' => 'theater',
+            'type' => 'MultiCheckbox',
+            'options' => [
+                'value_options' => $this->theaterChoices,
+            ],
+        ]);
+    }
+
+    /**
+     * return inpu filter specification
+     *
+     * @return array
+     */
+    public function getInputFilterSpecification()
+    {
+        $specification = [
+            'id' => [
+                'required' => false,
+            ],
+            'date' => [
+                'required' => true,
+                'validators' => [
+                    [
+                        'name' => Validator\Date::class,
+                        'options' => [
+                            'format' => 'Y/m/d',
+                        ],
+                    ],
+                ],
+            ],
+            'theater' => [
+                'required' => true,
+            ],
+        ];
+
+        return $specification;
+    }
+
+    /**
+     * return theater choices
+     *
+     * @return array
+     */
+    public function getTheaterChoices()
+    {
+        return $this->theaterChoices;
+    }
+}

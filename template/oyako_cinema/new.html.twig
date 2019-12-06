@@ -1,0 +1,117 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}新規追加 | おやこシネマ{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/vendor/jquery.flexdatalist.min.css">
+<link rel="stylesheet" href="/css/vendor/jquery.datetimepicker.min.css">
+{% endblock %}
+
+{% block javascript %}
+<script src="/js/vendor/jquery.flexdatalist.min.js"></script>
+<script src="/js/vendor/jquery.datetimepicker.full.min.js"></script>
+<script src="/js/vendor/jsrender.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/form.js?v=20181009"></script>
+<script src="/js/modal/select-title.js?v=20180919"></script>
+<script src="/js/oyako_cinema/form.js"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">おやこシネマ</li>
+    <li class="breadcrumb-item active">新規追加</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form name="oyako_cinema" method="post" action="{{ path_for('oyako_cinema_create') }}">
+                <div class="card-header">
+                    新規追加
+                </div>
+                <div class="card-body">
+
+                {% if errors %}
+                    <div class="alert alert-danger" role="alert">
+                        入力エラーがあります。
+                    </div>
+                {% endif %}
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">おやこシネマID</label>
+                        <div class="col-md-9">
+                            <p class="form-control-static">&nbsp;</p>
+                            <span class="help-block">※自動でIDが付与されます。</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row title">
+                        <label class="col-md-3 col-form-label">該当作品</label>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="form-control-static title-name">{{ values.title_name }}</p>
+                                    <input type="hidden" name="title_name" value="{{ values.title_name }}">
+                                    <input type="hidden" name="title_id" class="form-control{% if errors.title_id %} is-invalid{% endif %}" value="{{ values.title_id }}">
+                                    <div class="invalid-feedback">
+                                        {% for message in errors.title_id %}
+                                            {{ message }}
+                                            {% if not loop.last %}<br />{% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">作品詳細URL</label>
+                        <div class="col-md-9">
+                            <input type="url" name="title_url" class="form-control{% if errors.title_url %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.title_url }}">
+                            <div class="invalid-feedback">
+                                {% for message in errors.title_url %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row field-schedule">
+                        <script>
+                        var theaterChoices = {{ form.getScheduleFieldset().getTheaterChoices()|json_encode|raw }}
+                        var defaultSchedules = {{ values.schedules|json_encode|raw }};
+                        </script>
+                        <label class="col-md-3 col-form-label">開催日</label>
+                        <div class="col-md-9">
+                            <div id="schedules-wrap">
+                            </div>
+                            <button type="button" class="btn btn-success btn-add">開催日追加</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-link" onclick="location.href='#'">一覧へ戻る</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'include/modal/select_title.html.twig' only %}
+
+{% include 'oyako_cinema/include/fieldset_schedule.html.twig' only %}
+
+{% include 'oyako_cinema/include/modal_schedule.html.twig' with {
+    theaterChoices: form.getScheduleFieldset().getTheaterChoices(),
+} only %}
+{% endblock %}

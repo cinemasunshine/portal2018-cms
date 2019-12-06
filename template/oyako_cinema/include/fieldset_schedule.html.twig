@@ -1,0 +1,37 @@
+{##
+ # おやこシネマ スケジュール fieldset
+ #
+ # jsrenderのテンプレートとして使用する。
+ #}
+{% verbatim %}
+<script id="scheduleFiledsetTmpl" type="text/x-jsrender">
+<div class="card schedule" data-index="{{:index}}">
+    <div class="card-header">
+        <div class="card-header-actions">
+            <button type="button" class="card-header-action btn btn-success btn-edit"><i class="icon-settings"></i></button>
+            <button type="button" class="card-header-action btn btn-danger btn-delete"><i class="icon-trash"></i></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">開催日</label>
+            <div class="col-md-9">
+                <p class="form-control-static">{{:date}}</p>
+                <input type="hidden" name="schedules[i{{:index}}][date]" value="{{:date}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">劇場</label>
+            <div class="col-md-9">
+                <p class="form-control-static">
+                    {{for theaters}}{{if #index > 0 }}、{{/if}}{{:name}}{{/for}}
+                </p>
+            {{for theaters ~scheduleIndex=index}}
+                <input type="hidden" name="schedules[i{{:~scheduleIndex}}][theater][]" value="{{:id}}">
+            {{/for}}
+            </div>
+        </div>
+    </div>
+</div>
+</script>
+{% endverbatim %}
