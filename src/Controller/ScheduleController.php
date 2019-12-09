@@ -24,14 +24,14 @@ class ScheduleController extends BaseController
     protected function preExecute($request, $response): void
     {
         $user = $this->auth->getUser();
-        
+
         if ($user->isTheater()) {
             throw new ForbiddenException();
         }
-        
+
         parent::preExecute($request, $response);
     }
-    
+
     /**
      * list action
      *
@@ -44,13 +44,13 @@ class ScheduleController extends BaseController
     {
         $page = (int) $request->getParam('p', 1);
         $this->data->set('page', $page);
-        
+
         $form = new Form\ScheduleFindForm();
         $this->data->set('form', $form);
-        
+
         $form->setData($request->getParams());
         $cleanValues = [];
-        
+
         if ($form->isValid()) {
             $cleanValues = $form->getData();
             $values = $cleanValues;
@@ -58,16 +58,16 @@ class ScheduleController extends BaseController
             $values = $request->getParams();
             $this->data->set('errors', $form->getMessages());
         }
-        
+
         $this->data->set('values', $values);
         $this->data->set('params', $cleanValues);
-        
+
         /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\Schedule::class)->findForList($cleanValues, $page);
-        
+
         $this->data->set('pagenater', $pagenater);
     }
-    
+
     /**
      * new action
      *
@@ -80,7 +80,7 @@ class ScheduleController extends BaseController
     {
         $this->data->set('form', new Form\ScheduleForm(Form\ScheduleForm::TYPE_NEW, $this->em));
     }
-    
+
     /**
      * create action
      *
@@ -93,24 +93,24 @@ class ScheduleController extends BaseController
     {
         $form = new Form\ScheduleForm(Form\ScheduleForm::TYPE_NEW, $this->em);
         $form->setData($request->getParams());
-        
+
         if (!$form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
             $this->data->set('is_validated', true);
-            
+
             return 'new';
         }
-        
+
         $cleanData = $form->getData();
-        
+
         $schedule = new Entity\Schedule();
         $this->em->persist($schedule);
-        
+
         $title =  $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
         $schedule->setTitle($title);
-        
+
         $schedule->setStartDate($cleanData['start_date']);
         $schedule->setEndDate($cleanData['end_date']);
         $schedule->setPublicStartDt($cleanData['public_start_dt']);
@@ -118,42 +118,42 @@ class ScheduleController extends BaseController
         $schedule->setRemark($cleanData['remark']);
         $schedule->setCreatedUser($this->auth->getUser());
         $schedule->setUpdatedUser($this->auth->getUser());
-        
+
         $theaters = $this->em->getRepository(Entity\Theater::class)->findByIds($cleanData['theater']);
-        
+
         foreach ($theaters as $theater) {
             /** @var Entity\Theater $theater */
-            
+
             $showingTheater = new Entity\ShowingTheater();
             $this->em->persist($showingTheater);
-            
+
             $showingTheater->setSchedule($schedule);
             $showingTheater->setTheater($theater);
         }
-        
+
         foreach ($cleanData['formats'] as $formatData) {
             $format = new Entity\ShowingFormat();
             $this->em->persist($format);
-            
+
             $format->setSchedule($schedule);
             $format->setSystem($formatData['system']);
             $format->setSound($formatData['sound']);
             $format->setVoice($formatData['voice']);
         }
-        
+
         $this->em->flush();
-        
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('「%s」の上映情報を追加しました。', $schedule->getTitle()->getName()),
         ]);
-        
+
         $this->redirect(
             $this->router->pathFor('schedule_edit', [ 'id' => $schedule->getId() ]),
             303
         );
     }
-    
+
     /**
      * edit action
      *
@@ -165,15 +165,15 @@ class ScheduleController extends BaseController
     public function executeEdit($request, $response, $args)
     {
         $schedule = $this->em->getRepository(Entity\Schedule::class)->findOneById($args['id']);
-        
+
         if (is_null($schedule)) {
             throw new NotFoundException($request, $response);
         }
-        
+
         /**@var Entity\Schedule $schedule */
-        
+
         $this->data->set('schedule', $schedule);
-        
+
         $values = [
             'id' => $schedule->getId(),
             'title_id' => $schedule->getTitle()->getId(),
@@ -186,12 +186,12 @@ class ScheduleController extends BaseController
             'theater' => [],
             'formats' => [],
         ];
-        
+
         foreach ($schedule->getShowingTheaters() as $showingTheater) {
             /** @var Entity\ShowingTheater $showingTheater */
             $values['theater'][] = $showingTheater->getTheater()->getId();
         }
-        
+
         foreach ($schedule->getShowingFormats() as $showingFormat) {
             /** @var Entity\ShowingFormat $showingFormat */
             $values['formats'][] = [
@@ -200,12 +200,12 @@ class ScheduleController extends BaseController
                 'voice' => $showingFormat->getVoice(),
             ];
         }
-        
+
         $this->data->set('values', $values);
-        
+
         $this->data->set('form', new Form\ScheduleForm(Form\ScheduleForm::TYPE_EDIT, $this->em));
     }
-    
+
     /**
      * update action
      *
@@ -217,79 +217,79 @@ class ScheduleController extends BaseController
     public function executeUpdate($request, $response, $args)
     {
         $schedule = $this->em->getRepository(Entity\Schedule::class)->findOneById($args['id']);
-        
+
         if (is_null($schedule)) {
             throw new NotFoundException($request, $response);
         }
-        
+
         /**@var Entity\Schedule $schedule */
-        
+
         $form = new Form\ScheduleForm(Form\ScheduleForm::TYPE_EDIT, $this->em);
         $form->setData($request->getParams());
-        
+
         if (!$form->isValid()) {
             $this->data->set('schedule', $schedule);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
             $this->data->set('is_validated', true);
-            
+
             return 'edit';
         }
-        
+
         $cleanData = $form->getData();
-        
-        
+
+
         $title =  $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
         $schedule->setTitle($title);
-        
+
         $schedule->setStartDate($cleanData['start_date']);
         $schedule->setEndDate($cleanData['end_date']);
         $schedule->setPublicStartDt($cleanData['public_start_dt']);
         $schedule->setPublicEndDt($cleanData['public_end_dt']);
         $schedule->setRemark($cleanData['remark']);
         $schedule->setUpdatedUser($this->auth->getUser());
-        
+
         $schedule->getShowingTheaters()->clear();
-        
+
         $theaters = $this->em->getRepository(Entity\Theater::class)->findByIds($cleanData['theater']);
-        
+
         foreach ($theaters as $theater) {
             /** @var Entity\Theater $theater */
-            
+
             $showingTheater = new Entity\ShowingTheater();
             $this->em->persist($showingTheater);
-            
+
             $showingTheater->setSchedule($schedule);
             $showingTheater->setTheater($theater);
         }
-        
-        
+
+
         $schedule->getShowingFormats()->clear();
-        
+
         foreach ($cleanData['formats'] as $formatData) {
             $format = new Entity\ShowingFormat();
             $this->em->persist($format);
-            
+
             $format->setSchedule($schedule);
             $format->setSystem($formatData['system']);
             $format->setSound($formatData['sound']);
             $format->setVoice($formatData['voice']);
         }
-        
+
         $this->em->flush();
-        
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
-            'message' => sprintf('「%s」の上映情報を追加しました。', $schedule->getTitle()->getName()),
+            'message' => sprintf('「%s」の上映情報を編集しました。', $schedule->getTitle()->getName()),
         ]);
-        
+
         $this->redirect(
             $this->router->pathFor('schedule_edit', [ 'id' => $schedule->getId() ]),
             303
         );
     }
-    
+
     /**
      * delete action
      *
@@ -301,25 +301,25 @@ class ScheduleController extends BaseController
     public function executeDelete($request, $response, $args)
     {
         $schedule = $this->em->getRepository(Entity\Schedule::class)->findOneById($args['id']);
-        
+
         if (is_null($schedule)) {
             throw new NotFoundException($request, $response);
         }
-        
+
         /**@var Entity\Schedule $schedule */
-        
+
         $schedule->setIsDeleted(true);
         $schedule->setUpdatedUser($this->auth->getUser());
-        
+
         // 関連データの処理はイベントで対応する
-        
+
         $this->em->flush();
-        
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('「%s」の上映情報を削除しました。', $schedule->getTitle()->getName()),
         ]);
-        
+
         $this->redirect($this->router->pathFor('schedule_list'), 303);
     }
 }
