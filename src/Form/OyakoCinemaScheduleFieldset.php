@@ -47,11 +47,6 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
     protected function setup()
     {
         $this->add([
-            'name' => 'id',
-            'type' => 'Hidden',
-        ]);
-
-        $this->add([
             'name' => 'date',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
@@ -80,9 +75,6 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
     public function getInputFilterSpecification()
     {
         $specification = [
-            'id' => [
-                'required' => false,
-            ],
             'date' => [
                 'required' => true,
                 'validators' => [

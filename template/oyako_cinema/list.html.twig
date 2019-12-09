@@ -37,7 +37,11 @@
                     {% for oyakoCinemaTitle in pagenater.getResultsInPage() %}
                         <tr>
                             <th>{{  oyakoCinemaTitle.getId() }}</th>
-                            <th>{{  oyakoCinemaTitle.getTitle().getName() }}</th>
+                            <th>
+                                <a href="{{ path_for('oyako_cinema_edit', { id: oyakoCinemaTitle.getId() }) }}">
+                                    {{  oyakoCinemaTitle.getTitle().getName() }}
+                                </a>
+                            </th>
                             <th>
                             {% for oyakoCinemaSchedule in oyakoCinemaTitle.getOyakoCinemaSchedules() %}
                                 {{ oyakoCinemaSchedule.getDate().format('Y/m/d') }}

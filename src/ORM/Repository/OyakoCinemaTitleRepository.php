@@ -7,6 +7,7 @@
 
 namespace Cinemasunshine\PortalAdmin\ORM\Repository;
 
+use Cinemasunshine\PortalAdmin\ORM\Entity\OyakoCinemaTitle;
 use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
 use Doctrine\ORM\EntityRepository;
 
@@ -32,5 +33,22 @@ class OyakoCinemaTitleRepository extends EntityRepository
         $query = $qb->getQuery();
 
         return new DoctrinePaginator($query, $page, $maxPerPage);
+    }
+
+    /**
+     * find one by id
+     *
+     * @param int $id
+     * @return OyakoCinemaTitle|null
+     */
+    public function findOneById(int $id): ?OyakoCinemaTitle
+    {
+        $qb = $this->createQueryBuilder('oct');
+        $qb
+            ->where('oct.id = :id')
+            ->andWhere('oct.isDeleted = false')
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

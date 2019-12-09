@@ -132,4 +132,14 @@ class OyakoCinemaTitle extends AbstractEntity
 
         return $this->oyakoCinemaSchedules->matching($criteria);
     }
+
+    /**
+     * clear oyako_cinema_schedules
+     *
+     * @return void
+     */
+    public function clearOyakoCinemaSchedules()
+    {
+        $this->oyakoCinemaSchedules->clear();
+    }
 }

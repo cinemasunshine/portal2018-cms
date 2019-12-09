@@ -7,6 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,10 +48,19 @@ class OyakoCinemaSchedule extends AbstractEntity
     protected $date;
 
     /**
+     * oyako_cinema_theaters
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="OyakoCinemaTheater", mappedBy="oyakoCinemaSchedule", orphanRemoval=true)
+     */
+    protected $oyakoCinemaTheaters;
+
+    /**
      * construct
      */
     public function __construct()
     {
+        $this->oyakoCinemaTheaters = new ArrayCollection();
     }
 
     /**
@@ -109,5 +120,15 @@ class OyakoCinemaSchedule extends AbstractEntity
         } else {
             throw new \InvalidArgumentException('Invalid argument type.');
         }
+    }
+
+    /**
+     * get oyako_cinema_theaters
+     *
+     * @return Collection
+     */
+    public function getOyakoCinemaTheaters(): Collection
+    {
+        return $this->oyakoCinemaTheaters;
     }
 }
