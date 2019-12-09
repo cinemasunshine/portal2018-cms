@@ -108,9 +108,8 @@ class OyakoCinemaController extends BaseController
             'message' => sprintf('「%s」のおやこシネマ情報を追加しました。', $oyakoCinemaTitle->getTitle()->getName()),
         ]);
 
-        // @todo おやこシネマ編集へリダイレクト
         $this->redirect(
-            $this->router->pathFor('homepage'),
+            $this->router->pathFor('oyako_cinema_edit', [ 'id' => $oyakoCinemaTitle->getId() ]),
             303
         );
     }
