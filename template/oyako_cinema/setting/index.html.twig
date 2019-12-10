@@ -35,7 +35,7 @@
                             <th>{{ theater.getNameJa() }}</th>
                             <th>{{ theaterMeta.getOyakoCinemaUrl() }}</th>
                             <th>
-                                <a href="#" class="btn btn-sm btn-success" role="button">編集</a>
+                                <a href="{{ path_for('oyako_cinema_setting_edit', { id: theater.getId() }) }}" class="btn btn-sm btn-success" role="button">編集</a>
                             </th>
                         </tr>
                     {% endfor %}

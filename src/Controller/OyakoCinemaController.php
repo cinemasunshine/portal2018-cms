@@ -9,6 +9,7 @@ namespace Cinemasunshine\PortalAdmin\Controller;
 
 use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
 use Cinemasunshine\PortalAdmin\Form\OyakoCinemaForm as Form;
+use Cinemasunshine\PortalAdmin\Form\OyakoCinemaSettingForm as SettingForm;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 use Slim\Exception\NotFoundException;
 
@@ -337,5 +338,90 @@ class OyakoCinemaController extends BaseController
         $theaterMetas = $this->em->getRepository(Entity\TheaterMeta::class)->findActive();
 
         $this->data->set('theaterMetas', $theaterMetas);
+    }
+
+    /**
+     * setting edit action
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeSettingEdit($request, $response, $args)
+    {
+        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
+
+        if (is_null($theater)) {
+            throw new NotFoundException($request, $response);
+        }
+
+        /**@var Entity\Theater $theater */
+
+        $this->data->set('theater', $theater);
+
+        $values = [
+            'oyako_cinema_url' => $theater->getMeta()->getOyakoCinemaUrl(),
+        ];
+
+        $this->data->set('values', $values);
+    }
+
+    /**
+     * setting update action
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeSettingUpdate($request, $response, $args)
+    {
+        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
+
+        if (is_null($theater)) {
+            throw new NotFoundException($request, $response);
+        }
+
+        /**@var Entity\Theater $theater */
+
+        $form = new SettingForm();
+        $form->setData($request->getParams());
+
+        if (!$form->isValid()) {
+            $this->data->set('theater', $theater);
+            $this->data->set('values', $request->getParams());
+            $this->data->set('errors', $form->getMessages());
+            $this->data->set('is_validated', true);
+
+            return 'settingEdit';
+        }
+
+        $cleanData = $form->getData();
+
+        $this->doSettingUpdate($theater->getMeta(), $cleanData);
+
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('「%s」の劇場リンク設定を編集しました。', $theater->getNameJa()),
+        ]);
+
+        $this->redirect(
+            $this->router->pathFor('oyako_cinema_setting_edit', [ 'id' => $theater->getId() ]),
+            303
+        );
+    }
+
+    /**
+     * do setting update
+     *
+     * @param Entity\TheaterMeta $theaterMeta
+     * @param array $data
+     * @return void
+     */
+    protected function doSettingUpdate(Entity\TheaterMeta $theaterMeta, array $data)
+    {
+        $theaterMeta->setOyakoCinemaUrl($data['oyako_cinema_url']);
+        $this->em->flush();
     }
 }

@@ -62,4 +62,16 @@ class OyakoCinemaResponder extends BaseResponder
     {
         return $this->view->render($response, 'oyako_cinema/setting/index.html.twig', $data->all());
     }
+
+    /**
+     * setting edit
+     *
+     * @param Response   $response
+     * @param Collection $data
+     * @return Response
+     */
+    public function settingEdit(Response $response, Collection $data)
+    {
+        return $this->view->render($response, 'oyako_cinema/setting/edit.html.twig', $data->all());
+    }
 }
