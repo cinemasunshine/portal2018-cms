@@ -21,7 +21,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 class TheaterMeta extends AbstractEntity
 {
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -31,7 +31,7 @@ class TheaterMeta extends AbstractEntity
      * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $id;
-    
+
     /**
      * theater
      *
@@ -40,7 +40,7 @@ class TheaterMeta extends AbstractEntity
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $theater;
-    
+
     /**
      * opening_hours
      *
@@ -48,7 +48,7 @@ class TheaterMeta extends AbstractEntity
      * @ORM\Column(type="json", name="opening_hours")
      */
     protected $openingHours;
-    
+
     /**
      * twitter
      *
@@ -56,7 +56,7 @@ class TheaterMeta extends AbstractEntity
      * @ORM\Column(type="string", nullable=true)
      */
     protected $twitter;
-    
+
     /**
      * facebook
      *
@@ -64,7 +64,15 @@ class TheaterMeta extends AbstractEntity
      * @ORM\Column(type="string", nullable=true)
      */
     protected $facebook;
-    
+
+    /**
+     * oyako_cinema_url
+     *
+     * @var string|null
+     * @ORM\Column(type="string", name="oyako_cinema_url", nullable=true)
+     */
+    protected $oyakoCinemaUrl;
+
     /**
      * construct
      */
@@ -72,7 +80,7 @@ class TheaterMeta extends AbstractEntity
     {
         $this->openingHours = [];
     }
-    
+
     /**
      * get id
      *
@@ -82,7 +90,7 @@ class TheaterMeta extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get theater
      *
@@ -92,7 +100,7 @@ class TheaterMeta extends AbstractEntity
     {
         return $this->theater;
     }
-    
+
     /**
      * set theater
      *
@@ -103,7 +111,7 @@ class TheaterMeta extends AbstractEntity
     {
         $this->theater = $theater;
     }
-    
+
     /**
      * get opening_hours
      *
@@ -112,16 +120,16 @@ class TheaterMeta extends AbstractEntity
     public function getOpeningHours()
     {
         $hours = [];
-        
+
         if (is_array($this->openingHours)) {
             foreach ($this->openingHours as $hour) {
                 $hours[] = TheaterOpeningHour::create($hour);
             }
         }
-        
+
         return $hours;
     }
-    
+
     /**
      * set opening_hours
      *
@@ -131,15 +139,15 @@ class TheaterMeta extends AbstractEntity
     public function setOpeningHours(array $openingHours)
     {
         $hours = [];
-        
+
         foreach ($openingHours as $hour) {
             /** @var TheaterOpeningHour $hour */
             $hours[] = $hour->toArray();
         }
-        
+
         $this->openingHours = $hours;
     }
-    
+
     /**
      * get twitter
      *
@@ -149,7 +157,7 @@ class TheaterMeta extends AbstractEntity
     {
         return $this->twitter;
     }
-    
+
     /**
      * set twitter
      *
@@ -160,7 +168,7 @@ class TheaterMeta extends AbstractEntity
     {
         $this->twitter = $twitter;
     }
-    
+
     /**
      * get facebook
      *
@@ -170,7 +178,7 @@ class TheaterMeta extends AbstractEntity
     {
         return $this->facebook;
     }
-    
+
     /**
      * set facebook
      *
@@ -180,5 +188,26 @@ class TheaterMeta extends AbstractEntity
     public function setFacebook(?string $facebook)
     {
         $this->facebook = $facebook;
+    }
+
+    /**
+     * get oyako_cinema_url
+     *
+     * @return string|null
+     */
+    public function getOyakoCinemaUrl(): ?string
+    {
+        return $this->oyakoCinemaUrl;
+    }
+
+    /**
+     * set oyako_cinema_url
+     *
+     * @param string|null $oyakoCinemaUrl
+     * @return void
+     */
+    public function setOyakoCinemaUrl(?string $oyakoCinemaUrl)
+    {
+        $this->oyakoCinemaUrl = $oyakoCinemaUrl;
     }
 }
