@@ -292,4 +292,47 @@ class OyakoCinemaController extends BaseController
 
         $this->em->flush();
     }
+
+    /**
+     * delete action
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeDelete($request, $response, $args)
+    {
+        $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
+            ->findOneById($args['id']);
+
+        if (is_null($oyakoCinemaTitle)) {
+            throw new NotFoundException($request, $response);
+        }
+
+        /**@var Entity\OyakoCinemaTitle $oyakoCinemaTitle */
+
+        $this->doDelete($oyakoCinemaTitle);
+
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('「%s」のおやこシネマ情報を削除しました。', $oyakoCinemaTitle->getTitle()->getName()),
+        ]);
+
+        $this->redirect($this->router->pathFor('oyako_cinema_list'), 303);
+    }
+
+    /**
+     * do delete
+     *
+     * @param Entity\OyakoCinemaTitle $oyakoCinemaTitle
+     * @return void
+     */
+    protected function doDelete(Entity\OyakoCinemaTitle $oyakoCinemaTitle)
+    {
+        $oyakoCinemaTitle->setIsDeleted(true);
+        $oyakoCinemaTitle->setUpdatedUser($this->auth->getUser());
+
+        $this->em->flush();
+    }
 }

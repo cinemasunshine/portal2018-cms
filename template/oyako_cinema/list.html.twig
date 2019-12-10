@@ -49,7 +49,7 @@
                             {% endfor %}
                             </th>
                             <th>
-                                <a href="#" class="btn btn-sm btn-danger confirm-delete" role="button">削除</a>
+                                <a href="{{ path_for('oyako_cinema_delete', { id: oyakoCinemaTitle.getId() }) }}" class="btn btn-sm btn-danger confirm-delete" role="button">削除</a>
                             </th>
                         </tr>
                     {% endfor %}
