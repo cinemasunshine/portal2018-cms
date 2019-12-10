@@ -57,7 +57,6 @@ $app->group('', function () {
     });
 
     $this->group('/oyako_cinema', function () {
-        $this->get('', OyakoCinemaController::class . ':index')->setName('oyako_cinema');
         $this->get('/list', OyakoCinemaController::class . ':list')->setName('oyako_cinema_list');
         $this->get('/new', OyakoCinemaController::class . ':new')->setName('oyako_cinema_new');
         $this->post('/create', OyakoCinemaController::class . ':create')->setName('oyako_cinema_create');
