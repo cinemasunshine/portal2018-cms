@@ -323,4 +323,19 @@ class OyakoCinemaController extends BaseController
 
         $this->em->flush();
     }
+
+    /**
+     * setting action
+     *
+     * @param \Slim\Http\Request  $request
+     * @param \Slim\Http\Response $response
+     * @param array               $args
+     * @return string|void
+     */
+    public function executeSetting($request, $response, $args)
+    {
+        $theaterMetas = $this->em->getRepository(Entity\TheaterMeta::class)->findActive();
+
+        $this->data->set('theaterMetas', $theaterMetas);
+    }
 }
