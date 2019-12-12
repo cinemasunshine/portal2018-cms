@@ -92,6 +92,12 @@ class OyakoCinemaForm extends BaseForm
             'required' => true,
         ]);
 
+        // fieldsetのInputFilterが消えてしまう？ようなので設定しない
+        // $inputFilter->add([
+        //     'name' => 'schedules',
+        //     'required' => true,
+        // ]);
+
         $this->setInputFilter($inputFilter);
     }
 

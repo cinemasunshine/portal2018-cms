@@ -193,6 +193,13 @@ $(function(){
         $scheduleModal.trigger('new-schedule.cs.oyako', [disabledDates]);
     });
 
+    $form.on('submit', function () {
+        if ($schedulesWrap.find('.schedule').length === 0) {
+            alert('開催日を追加してください。');
+            return false;
+        }
+    });
+
     /**
      * execute
      */
