@@ -129,7 +129,7 @@ class OyakoCinemaController extends BaseController
             $oyakoCinemaSchedule->setDate($scheduleData['date']);
 
             $theaters = $this->em->getRepository(Entity\Theater::class)
-                ->findByIds($scheduleData['theater']);
+                ->findByIds($scheduleData['theaters']);
 
             foreach ($theaters as $theater) {
                 $oyakoCinemaTheater = new Entity\OyakoCinemaTheater();
@@ -178,12 +178,12 @@ class OyakoCinemaController extends BaseController
             /** @var Entity\OyakoCinemaSchedule $oyakoCinemaSchedule */
             $scheduleValue = [
                 'date' => $oyakoCinemaSchedule->getDate()->format('Y/m/d'),
-                'theater' => [],
+                'theaters' => [],
             ];
 
             foreach ($oyakoCinemaSchedule->getOyakoCinemaTheaters() as $oyakoCinemaTheater) {
                 /** @var Entity\OyakoCinemaTheater $oyakoCinemaTheater */
-                $scheduleValue['theater'][] = $oyakoCinemaTheater->getTheater()->getId();
+                $scheduleValue['theaters'][] = $oyakoCinemaTheater->getTheater()->getId();
             }
 
             $values['schedules'][] = $scheduleValue;
@@ -268,7 +268,7 @@ class OyakoCinemaController extends BaseController
             $oyakoCinemaSchedule->setDate($scheduleData['date']);
 
             $theaters = $this->em->getRepository(Entity\Theater::class)
-                ->findByIds($scheduleData['theater']);
+                ->findByIds($scheduleData['theaters']);
 
             foreach ($theaters as $theater) {
                 $oyakoCinemaTheater = new Entity\OyakoCinemaTheater();

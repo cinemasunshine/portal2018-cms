@@ -59,7 +59,7 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
         }
 
         $this->add([
-            'name' => 'theater',
+            'name' => 'theaters',
             'type' => 'MultiCheckbox',
             'options' => [
                 'value_options' => $this->theaterChoices,
@@ -86,7 +86,7 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
                     ],
                 ],
             ],
-            'theater' => [
+            'theaters' => [
                 'required' => true,
             ],
         ];

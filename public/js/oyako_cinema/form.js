@@ -44,7 +44,7 @@ $(function(){
         $form.find('input[name="date"]').val('').prop('disabled', false);
         $form.find('input[name="date"]').datetimepicker('setOptions', { disabledDates: disabledDates })
 
-        $form.find('input[name="theater[]"]').prop('checked', false);
+        $form.find('input[name="theaters[]"]').prop('checked', false);
 
         $(this).find('.modal-footer .btn-success').hide();
         $(this).find('.modal-footer .btn-create').show();
@@ -62,10 +62,10 @@ $(function(){
         // initialize form
         $form.find('input[name="index"]').val(index);
         $form.find('input[name="date"]').val(date).prop('disabled', true);
-        $form.find('input[name="theater[]"]').prop('checked', false);
+        $form.find('input[name="theaters[]"]').prop('checked', false);
 
         $.each(theaters, function (i, theater) {
-            $form.find('input[name="theater[]"][value="' + theater + '"]').prop('checked', true);
+            $form.find('input[name="theaters[]"][value="' + theater + '"]').prop('checked', true);
         });
 
         $(this).find('.modal-footer .btn-success').hide();
@@ -95,7 +95,7 @@ $(function(){
 
         var theaters = [];
 
-        $form.find('input[name="theater[]"]:checked').each(function(i, input) {
+        $form.find('input[name="theaters[]"]:checked').each(function(i, input) {
             let theater = {};
             theater.id = $(this).val();
             theater.name = $(this).next('label').text();
@@ -118,7 +118,7 @@ $(function(){
         var date = $form.find('input[name="date"]').val();
         var theaters = [];
 
-        $form.find('input[name="theater[]"]:checked').each(function(i, input) {
+        $form.find('input[name="theaters[]"]:checked').each(function(i, input) {
             let theater = {};
             theater.id = $(this).val();
             theater.name = $(this).next('label').text();
@@ -165,7 +165,7 @@ $(function(){
         var index = $schedule.data('index');
         var date = $schedule.find('input[name*="[date]"]').val();
         var theaters = [];
-        $schedule.find('input[name*="[theater]"]').each(function () {
+        $schedule.find('input[name*="[theaters]"]').each(function () {
             theaters.push($(this).val());
         });
 
@@ -201,7 +201,7 @@ $(function(){
         $.each(defaultSchedules, function (i, schedule) {
             var theaters = [];
 
-            $.each(schedule.theater, function (i, id) {
+            $.each(schedule.theaters, function (i, id) {
                 var theater = {
                     id: id,
                     name: theaterChoices[id],

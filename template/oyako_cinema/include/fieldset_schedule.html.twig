@@ -27,7 +27,7 @@
                     {{for theaters}}{{if #index > 0 }}、{{/if}}{{:name}}{{/for}}
                 </p>
             {{for theaters ~scheduleIndex=index}}
-                <input type="hidden" name="schedules[i{{:~scheduleIndex}}][theater][]" value="{{:id}}">
+                <input type="hidden" name="schedules[i{{:~scheduleIndex}}][theaters][]" value="{{:id}}">
             {{/for}}
             </div>
         </div>
