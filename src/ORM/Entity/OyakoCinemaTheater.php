@@ -41,7 +41,7 @@ class OyakoCinemaTheater extends AbstractEntity
      * theater
      *
      * @var Theater
-     * @ORM\ManyToOne(targetEntity="Theater")
+     * @ORM\ManyToOne(targetEntity="Theater", fetch="EAGER")
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $theater;
