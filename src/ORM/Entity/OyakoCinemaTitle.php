@@ -56,7 +56,12 @@ class OyakoCinemaTitle extends AbstractEntity
      * oyako_cinema_schedules
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="OyakoCinemaSchedule", mappedBy="oyakoCinemaTitle", orphanRemoval=true, fetch="EAGER")
+     * @ORM\OneToMany(
+     *     targetEntity="OyakoCinemaSchedule",
+     *     mappedBy="oyakoCinemaTitle",
+     *     orphanRemoval=true,
+     *     fetch="EAGER"
+     * )
      */
     protected $oyakoCinemaSchedules;
 

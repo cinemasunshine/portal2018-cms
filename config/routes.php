@@ -66,8 +66,10 @@ $app->group('', function () {
 
         $this->group('/setting', function () {
             $this->get('/list', OyakoCinemaController::class . ':setting')->setName('oyako_cinema_setting');
-            $this->get('/{id}/edit', OyakoCinemaController::class . ':settingEdit')->setName('oyako_cinema_setting_edit');
-            $this->post('/{id}/update', OyakoCinemaController::class . ':settingUpdate')->setName('oyako_cinema_setting_update');
+            $this->get('/{id}/edit', OyakoCinemaController::class . ':settingEdit')
+                ->setName('oyako_cinema_setting_edit');
+            $this->post('/{id}/update', OyakoCinemaController::class . ':settingUpdate')
+                ->setName('oyako_cinema_setting_update');
         });
     });
 
