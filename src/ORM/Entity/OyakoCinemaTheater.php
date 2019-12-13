@@ -32,7 +32,7 @@ class OyakoCinemaTheater extends AbstractEntity
      * oyako_cinema_schedule
      *
      * @var OyakoCinemaSchedule
-     * @ORM\ManyToOne(targetEntity="OyakoCinemaSchedule")
+     * @ORM\ManyToOne(targetEntity="OyakoCinemaSchedule", inversedBy="oyakoCinemaTheaters")
      * @ORM\JoinColumn(name="oyako_cinema_schedule_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $oyakoCinemaSchedule;
