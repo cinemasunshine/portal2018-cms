@@ -26,23 +26,23 @@ class News extends AbstractEntity
     use SoftDeleteTrait;
     use TimestampableTrait;
 
-    const CATEGORY_NEWS             = 1;
-    const CATEGORY_INFO             = 2;
-    const CATEGORY_IMAX             = 3;
-    const CATEGORY_4DX              = 4;
-    const CATEGORY_EVENT            = 5;
-    const CATEGORY_SCREENX          = 6; // SASAKI-351
-    const CATEGORY_4DX_WITH_SCREENX = 7; // SASAKI-432
+    const CATEGORY_NEWS       = 1;
+    const CATEGORY_INFO       = 2;
+    const CATEGORY_IMAX       = 3;
+    const CATEGORY_4DX        = 4;
+    const CATEGORY_EVENT      = 5;
+    const CATEGORY_SCREENX    = 6; // SASAKI-351
+    const CATEGORY_4DX_SCREEN = 7; // SASAKI-432、SASAKI-525
 
     /** @var array */
     public static $categories = [
-        self::CATEGORY_NEWS             => 'NEWS',
-        self::CATEGORY_INFO             => 'インフォメーション',
-        self::CATEGORY_IMAX             => 'IMAXニュース',
-        self::CATEGORY_4DX              => '4DXニュース',
-        self::CATEGORY_SCREENX          => 'ScreenXニュース',
-        self::CATEGORY_EVENT            => 'イベント上映ニュース',
-        self::CATEGORY_4DX_WITH_SCREENX => '4DX with ScreenXニュース'
+        self::CATEGORY_NEWS       => 'NEWS',
+        self::CATEGORY_INFO       => 'インフォメーション',
+        self::CATEGORY_IMAX       => 'IMAXニュース',
+        self::CATEGORY_4DX        => '4DXニュース',
+        self::CATEGORY_SCREENX    => 'ScreenXニュース',
+        self::CATEGORY_EVENT      => 'イベント上映ニュース',
+        self::CATEGORY_4DX_SCREEN => '4DX SCREENニュース',
     ];
 
     /**
