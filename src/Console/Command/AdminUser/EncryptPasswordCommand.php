@@ -10,7 +10,8 @@ declare(strict_types=1);
 namespace Cinemasunshine\PortalAdmin\Console\Command\AdminUser;
 
 use Cinemasunshine\PortalAdmin\Console\Command\BaseCommand;
-
+use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -29,6 +30,7 @@ final class EncryptPasswordCommand extends BaseCommand
      */
     protected function configure()
     {
+        $this->addArgument('password', InputArgument::REQUIRED, 'Plain text.');
     }
 
     /**
@@ -36,6 +38,21 @@ final class EncryptPasswordCommand extends BaseCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('TODO');
+        $password = $input->getArgument('password');
+        $output->writeln('plain: ' . $password);
+
+        $encryptedPassword = $this->encryptPassword($password);
+        $output->writeln('encrypted: ' . $encryptedPassword);
+    }
+
+    /**
+     * encrypt password
+     *
+     * @param string $password plain text
+     * @return string encrypted password
+     */
+    protected function encryptPassword(string $password): string
+    {
+        return AdminUser::encryptPassword($password);
     }
 }
