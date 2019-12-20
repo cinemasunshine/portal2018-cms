@@ -95,6 +95,15 @@ $ vendor/bin/doctrine orm:generate-proxies
 
 [wiki](https://m-p.backlog.jp/alias/wiki/568643)
 
+#### 管理ユーザのパスワード
+
+コンソールコマンドから任意のパスワードを暗号化し、
+マスターデータSQLのadmin_user.passwordに設定します。
+
+```sh
+$ bin/console admin-user:encrypt-psw <password>
+```
+
 ### ７．その他
 
 #### .htaccess または Web.config
