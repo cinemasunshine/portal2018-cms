@@ -30,6 +30,10 @@ final class EncryptPasswordCommand extends BaseCommand
      */
     protected function configure()
     {
+        // Description & Help
+        $this->setDescription('Password encrypt for admin user.');
+
+        // Argument & option
         $this->addArgument('password', InputArgument::REQUIRED, 'Plain text.');
     }
 
