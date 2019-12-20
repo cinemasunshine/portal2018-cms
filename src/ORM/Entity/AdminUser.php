@@ -22,18 +22,18 @@ class AdminUser extends AbstractEntity
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
-    
+
     const GROUP_MASTER  = 1;
     const GROUP_MANAGER = 2;
     const GROUP_THEATER = 3;
-    
+
     /** @var array */
     protected static $groups = [
         self::GROUP_MASTER  => 'マスター',
         self::GROUP_MANAGER => 'マネージャー',
         self::GROUP_THEATER => '劇場',
     ];
-    
+
     /**
      * id
      *
@@ -43,7 +43,7 @@ class AdminUser extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * name
      *
@@ -51,7 +51,7 @@ class AdminUser extends AbstractEntity
      * @ORM\Column(type="string", unique=true)
      */
     protected $name;
-    
+
     /**
      * display_name
      *
@@ -59,7 +59,7 @@ class AdminUser extends AbstractEntity
      * @ORM\Column(type="string", name="display_name")
      */
     protected $displayName;
-    
+
     /**
      * password
      *
@@ -67,7 +67,7 @@ class AdminUser extends AbstractEntity
      * @ORM\Column(type="string", length=60, options={"fixed":true})
      */
     protected $password;
-    
+
     /**
      * group
      *
@@ -75,7 +75,7 @@ class AdminUser extends AbstractEntity
      * @ORM\Column(type="smallint", name="`group`", options={"unsigned"=true})
      */
     protected $group;
-    
+
     /**
      * theater
      *
@@ -84,7 +84,7 @@ class AdminUser extends AbstractEntity
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $theater;
-    
+
     /**
      * return groups
      *
@@ -94,7 +94,18 @@ class AdminUser extends AbstractEntity
     {
         return self::$groups;
     }
-    
+
+    /**
+     * encrypt password
+     *
+     * @param string $password
+     * @return string encrypted password
+     */
+    public static function encryptPassword(string $password): string
+    {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
     /**
      * get id
      *
@@ -104,7 +115,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get name
      *
@@ -114,7 +125,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->name;
     }
-    
+
     /**
      * set name
      *
@@ -125,7 +136,7 @@ class AdminUser extends AbstractEntity
     {
         $this->name = $name;
     }
-    
+
     /**
      * get display_name
      *
@@ -135,7 +146,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->displayName;
     }
-    
+
     /**
      * set display_name
      *
@@ -146,7 +157,7 @@ class AdminUser extends AbstractEntity
     {
         $this->displayName = $displayName;
     }
-    
+
     /**
      * get password
      *
@@ -156,7 +167,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->password;
     }
-    
+
     /**
      * set password
      *
@@ -165,9 +176,9 @@ class AdminUser extends AbstractEntity
      */
     public function setPassword(string $password)
     {
-        $this->password = password_hash($password, PASSWORD_BCRYPT);
+        $this->password = self::encryptPassword($password);
     }
-    
+
     /**
      * get group
      *
@@ -177,7 +188,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->group;
     }
-    
+
     /**
      * get group label
      *
@@ -187,7 +198,7 @@ class AdminUser extends AbstractEntity
     {
         return self::$groups[$this->getGroup()] ?? null;
     }
-    
+
     /**
      * set group
      *
@@ -198,7 +209,7 @@ class AdminUser extends AbstractEntity
     {
         $this->group = $group;
     }
-    
+
     /**
      * is group
      *
@@ -209,7 +220,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->getGroup() === $group;
     }
-    
+
     /**
      * is master group
      *
@@ -219,7 +230,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->isGroup(self::GROUP_MASTER);
     }
-    
+
     /**
      * is manager group
      *
@@ -229,7 +240,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->isGroup(self::GROUP_MANAGER);
     }
-    
+
     /**
      * is theater group
      *
@@ -239,7 +250,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->isGroup(self::GROUP_THEATER);
     }
-    
+
     /**
      * get theater
      *
@@ -249,7 +260,7 @@ class AdminUser extends AbstractEntity
     {
         return $this->theater;
     }
-    
+
     /**
      * set theater
      *
