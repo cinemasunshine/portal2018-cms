@@ -51,16 +51,10 @@ phpmyadmin: http://localhost:8080/
 $ docker-compose up
 ```
 
-## アプリケーション コマンド
+## アプリケーション コンソール コマンド
 
 ```sh
 $ php bin/concole help
-```
-
-### viewキャッシュ削除
-
-```sh
-$ php bin/concole cache:clear:view
 ```
 
 ## その他 コマンド
