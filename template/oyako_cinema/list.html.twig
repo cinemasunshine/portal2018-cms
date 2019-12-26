@@ -1,0 +1,74 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}一覧 | おやこシネマ{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">おやこシネマ</li>
+    <li class="breadcrumb-item active">一覧</li>
+</ol>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>作品名</th>
+                            <th>開催日</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for oyakoCinemaTitle in pagenater.getResultsInPage() %}
+                        <tr>
+                            <th>{{  oyakoCinemaTitle.getId() }}</th>
+                            <th>
+                                <a href="{{ path_for('oyako_cinema_edit', { id: oyakoCinemaTitle.getId() }) }}">
+                                    {{  oyakoCinemaTitle.getTitle().getName() }}
+                                </a>
+                            </th>
+                            <th>
+                            {% for oyakoCinemaSchedule in oyakoCinemaTitle.getOyakoCinemaSchedules() %}
+                                {{ oyakoCinemaSchedule.getDate().format('Y/m/d') }}
+                                {% if not loop.last %}、{% endif %}
+                            {% endfor %}
+                            </th>
+                            <th>
+                                <a href="{{ path_for('oyako_cinema_delete', { id: oyakoCinemaTitle.getId() }) }}" class="btn btn-sm btn-danger confirm-delete" role="button">削除</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <hr>
+
+                {% include 'include/pagination.html.twig' with {
+                    'pagenater': pagenater,
+                    'route_name': 'oyako_cinema_list',
+                    'params': []
+                } only %}
+
+            </div>
+            <div class="card-footer">
+                {{ pagenater.getFirstIndice() }}-{{ pagenater.getLastIndice() }} / {{ pagenater.getNumResults() }} 件
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -50,6 +50,31 @@
         {% if not user.isTheater() %}
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
+                    <i class="nav-icon icon-people"></i> おやこシネマ
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path_for('oyako_cinema_new') }}">
+                            <i class="nav-icon icon-plus"></i> 新規追加
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path_for('oyako_cinema_list') }}">
+                            <i class="nav-icon icon-list"></i> 一覧
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path_for('oyako_cinema_setting') }}">
+                            <i class="nav-icon icon-wrench"></i> 劇場リンク設定
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
+
+        {% if not user.isTheater() %}
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#">
                     <i class="nav-icon icon-trophy"></i> ランキング情報
                 </a>
                 <ul class="nav-dropdown-items">

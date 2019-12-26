@@ -1,0 +1,48 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}劇場リンク設定 | おやこシネマ{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">おやこシネマ</li>
+    <li class="breadcrumb-item active">劇場リンク設定</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                劇場一覧
+            </div>
+            <div class="card-body">
+                <table class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>劇場</th>
+                            <th>URL</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for theaterMeta in theaterMetas %}
+                        {% set theater = theaterMeta.getTheater() %}
+                        <tr>
+                            <th>{{ theater.getId() }}</th>
+                            <th>{{ theater.getNameJa() }}</th>
+                            <th>{{ theaterMeta.getOyakoCinemaUrl() }}</th>
+                            <th>
+                                <a href="{{ path_for('oyako_cinema_setting_edit', { id: theater.getId() }) }}" class="btn btn-sm btn-success" role="button">編集</a>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
