@@ -1,0 +1,49 @@
+<div class="modal" id="oyakoCinemaScheduleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="h4 modal-title"></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {# Enterキーによる送信を防ぐためformタグは使わない #}
+                <div class="form">
+                    <input type="hidden" name="index" value="">
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">日付</label>
+                        <div class="col-md-5 input-group">
+                            <input type="text" name="date" class="form-control datepicker" autocomplete="off">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="icon-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {% include 'include/form/field_multi_checkbox.html.twig' with {
+                            label: '劇場',
+                            name: 'theaters',
+                            choices: theaterChoices,
+                            value: [],
+                            error: [],
+                            is_validated: false,
+                            with_assist: true,
+                        } only %}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-create">追加</button>
+                <button type="button" class="btn btn-success btn-update">更新</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+            </div>
+        </div>
+    </div>
+</div>

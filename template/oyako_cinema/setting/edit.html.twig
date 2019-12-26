@@ -1,0 +1,44 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}編集 | 劇場リンク設定 | おやこシネマ{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">ダッシュボード</li>
+    <li class="breadcrumb-item">おやこシネマ</li>
+    <li class="breadcrumb-item">劇場リンク設定</li>
+    <li class="breadcrumb-item active">編集</li>
+</ol>
+{% endblock %}
+
+{% block container %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <form name="opening_hour" method="post" action="{{ path_for('oyako_cinema_setting_update', { id: theater.getId() }) }}">
+                <div class="card-header">
+                    {{ theater.getNameJa() }}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">リンク先URL</label>
+                        <div class="col-md-9">
+                            <input type="url" name="oyako_cinema_url" class="form-control{% if errors.oyako_cinema_url %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.oyako_cinema_url }}">
+                            <div class="invalid-feedback">
+                                {% for message in errors.oyako_cinema_url %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-link" onclick="location.href='{{ path_for('oyako_cinema_setting') }}'">一覧へ戻る</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
