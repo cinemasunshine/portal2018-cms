@@ -21,43 +21,43 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 class ShowingFormat extends AbstractEntity
 {
     use TimestampableTrait;
-    
-    const SYSTEM_2D               = 1;
-    const SYSTEM_3D               = 2;
-    const SYSTEM_4DX              = 3;
-    const SYSTEM_4DX3D            = 4;
-    const SYSTEM_IMAX             = 5;
-    const SYSTEM_IMAX3D           = 6;
+
+    const SYSTEM_2D         = 1;
+    const SYSTEM_3D         = 2;
+    const SYSTEM_4DX        = 3;
+    const SYSTEM_4DX3D      = 4;
+    const SYSTEM_IMAX       = 5;
+    const SYSTEM_IMAX3D     = 6;
     // const SYSTEM_BESTIA           = 7; 削除 SASAKI-449
     // const SYSTEM_BESTIA3D         = 8; 削除 SASAKI-449
     // const SYSTEM_BTSX             = 9; 削除 SASAKI-449
-    const SYSTEM_SCREENX          = 10; // SASAKI-351
-    const SYSTEM_4DX_WITH_SCREENX = 11; // SASAKI-428
-    const SYSTEM_NONE             = 99;
-    
+    const SYSTEM_SCREENX    = 10; // SASAKI-351
+    const SYSTEM_4DX_SCREEN = 11; // SASAKI-428、SASAKI-525
+    const SYSTEM_NONE       = 99;
+
     const SOUND_BESTIA        = 1;
     const SOUND_DTSX          = 2;
     const SOUND_DOLBY_ATMOS   = 3;
     const SOUND_GDC_IMMERSIVE = 4;
     const SOUND_NONE          = 99;
-    
+
     const VOICE_SUBTITLE = 1;
     const VOICE_DUB = 2;
     const VOICE_NONE = 3;
-    
+
     /** @var array */
     protected static $systemList = [
-        self::SYSTEM_2D               => '2D',
-        self::SYSTEM_3D               => '3D',
-        self::SYSTEM_4DX              => '4DX',
-        self::SYSTEM_4DX3D            => '4DX3D',
-        self::SYSTEM_IMAX             => 'IMAX',
-        self::SYSTEM_IMAX3D           => 'IMAX3D',
-        self::SYSTEM_SCREENX          => 'ScreenX', // SASAKI-351
-        self::SYSTEM_4DX_WITH_SCREENX => '4DX with ScreenX', // SASAKI-428
-        self::SYSTEM_NONE             => 'なし',
+        self::SYSTEM_2D         => '2D',
+        self::SYSTEM_3D         => '3D',
+        self::SYSTEM_4DX        => '4DX',
+        self::SYSTEM_4DX3D      => '4DX3D',
+        self::SYSTEM_IMAX       => 'IMAX',
+        self::SYSTEM_IMAX3D     => 'IMAX3D',
+        self::SYSTEM_SCREENX    => 'ScreenX', // SASAKI-351
+        self::SYSTEM_4DX_SCREEN => '4DX SCREEN', // SASAKI-428、SASAKI-525
+        self::SYSTEM_NONE       => 'なし',
     ];
-    
+
     /** @var array */
     protected static $soundList = [
         self::SOUND_BESTIA        => 'BESTIA',
@@ -66,14 +66,14 @@ class ShowingFormat extends AbstractEntity
         self::SOUND_GDC_IMMERSIVE => 'GDCイマーシブサウンド',
         self::SOUND_NONE          => 'なし',
     ];
-    
+
     /** @var array */
     protected static $voiceList = [
         self::VOICE_SUBTITLE => '字幕',
         self::VOICE_DUB      => '吹替',
         self::VOICE_NONE     => 'なし', // SASAKI-297
     ];
-    
+
     /**
      * id
      *
@@ -83,7 +83,7 @@ class ShowingFormat extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * schedule
      *
@@ -92,7 +92,7 @@ class ShowingFormat extends AbstractEntity
      * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $schedule;
-    
+
     /**
      * system
      *
@@ -100,7 +100,7 @@ class ShowingFormat extends AbstractEntity
      * @ORM\Column(type="smallint", nullable=false, options={"unsigned"=true})
      */
     protected $system;
-    
+
     /**
      * sound
      *
@@ -108,7 +108,7 @@ class ShowingFormat extends AbstractEntity
      * @ORM\Column(type="smallint", nullable=false, options={"unsigned"=true})
      */
     protected $sound;
-    
+
     /**
      * voice
      *
@@ -116,8 +116,8 @@ class ShowingFormat extends AbstractEntity
      * @ORM\Column(type="smallint", nullable=false, options={"unsigned"=true})
      */
     protected $voice;
-    
-    
+
+
     /**
      * return system list
      *
@@ -127,7 +127,7 @@ class ShowingFormat extends AbstractEntity
     {
         return self::$systemList;
     }
-    
+
     /**
      * return sound list
      *
@@ -137,7 +137,7 @@ class ShowingFormat extends AbstractEntity
     {
         return self::$soundList;
     }
-    
+
     /**
      * return voice list
      *
@@ -147,15 +147,15 @@ class ShowingFormat extends AbstractEntity
     {
         return self::$voiceList;
     }
-    
-    
+
+
     /**
      * construct
      */
     public function __construct()
     {
     }
-    
+
     /**
      * get id
      *
@@ -165,7 +165,7 @@ class ShowingFormat extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get schedule
      *
@@ -175,7 +175,7 @@ class ShowingFormat extends AbstractEntity
     {
         return $this->schedule;
     }
-    
+
     /**
      * schedule
      *
@@ -186,7 +186,7 @@ class ShowingFormat extends AbstractEntity
     {
         $this->schedule = $schedule;
     }
-    
+
     /**
      * get system
      *
@@ -196,7 +196,7 @@ class ShowingFormat extends AbstractEntity
     {
         return $this->system;
     }
-    
+
     /**
      * get system label
      *
@@ -206,7 +206,7 @@ class ShowingFormat extends AbstractEntity
     {
         return self::$systemList[$this->getSystem()] ?? null;
     }
-    
+
     /**
      * set system
      *
@@ -217,7 +217,7 @@ class ShowingFormat extends AbstractEntity
     {
         $this->system = $system;
     }
-    
+
     /**
      * get sound
      *
@@ -227,7 +227,7 @@ class ShowingFormat extends AbstractEntity
     {
         return $this->sound;
     }
-    
+
     /**
      * set sound
      *
@@ -238,7 +238,7 @@ class ShowingFormat extends AbstractEntity
     {
         $this->sound = $sound;
     }
-    
+
     /**
      * get voice
      *
@@ -248,7 +248,7 @@ class ShowingFormat extends AbstractEntity
     {
         return $this->voice;
     }
-    
+
     /**
      * get voice label
      *
@@ -258,7 +258,7 @@ class ShowingFormat extends AbstractEntity
     {
         return self::$voiceList[$this->getVoice()] ?? null;
     }
-    
+
     /**
      * set voice
      *
