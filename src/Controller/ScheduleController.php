@@ -143,6 +143,11 @@ class ScheduleController extends BaseController
 
         $this->em->flush();
 
+        $this->logger->info('Created Schedule "{id}"', [
+            'id' => $schedule->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('「%s」の上映情報を追加しました。', $schedule->getTitle()->getName()),
@@ -279,6 +284,11 @@ class ScheduleController extends BaseController
 
         $this->em->flush();
 
+        $this->logger->info('Updated Schedule "{id}"', [
+            'id' => $schedule->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('「%s」の上映情報を編集しました。', $schedule->getTitle()->getName()),
@@ -314,6 +324,11 @@ class ScheduleController extends BaseController
         // 関連データの処理はイベントで対応する
 
         $this->em->flush();
+
+        $this->logger->info('Deleted Schedule "{id}"', [
+            'id' => $schedule->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
 
         $this->flash->addMessage('alerts', [
             'type'    => 'info',

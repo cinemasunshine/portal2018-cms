@@ -92,6 +92,11 @@ class OyakoCinemaController extends BaseController
 
         $oyakoCinemaTitle = $this->doCleate($cleanData);
 
+        $this->logger->info('Created OyakoCinema "{id}"', [
+            'id' => $oyakoCinemaTitle->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('「%s」のおやこシネマ情報を追加しました。', $oyakoCinemaTitle->getTitle()->getName()),
@@ -231,6 +236,11 @@ class OyakoCinemaController extends BaseController
 
         $this->doUpdate($oyakoCinemaTitle, $cleanData);
 
+        $this->logger->info('Updated OyakoCinema "{id}"', [
+            'id' => $oyakoCinemaTitle->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('「%s」のおやこシネマ情報を編集しました。', $oyakoCinemaTitle->getTitle()->getName()),
@@ -302,6 +312,11 @@ class OyakoCinemaController extends BaseController
         /**@var Entity\OyakoCinemaTitle $oyakoCinemaTitle */
 
         $this->doDelete($oyakoCinemaTitle);
+
+        $this->logger->info('Deleted OyakoCinema "{id}"', [
+            'id' => $oyakoCinemaTitle->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
 
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
@@ -400,6 +415,11 @@ class OyakoCinemaController extends BaseController
         $cleanData = $form->getData();
 
         $this->doSettingUpdate($theater->getMeta(), $cleanData);
+
+        $this->logger->info('Updated OyakoCinema settings', [
+            'theater' => $theater->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
 
         $this->flash->addMessage('alerts', [
             'type'    => 'info',

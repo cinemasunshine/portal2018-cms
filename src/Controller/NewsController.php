@@ -18,7 +18,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
 class NewsController extends BaseController
 {
     use ImageManagerTrait;
-    
+
     /**
      * list action
      *
@@ -30,11 +30,11 @@ class NewsController extends BaseController
     public function executeList($request, $response, $args)
     {
         $page = (int) $request->getParam('p', 1);
-        
+
         $form = new Form\NewsFindForm($this->em);
         $form->setData($request->getParams());
         $cleanValues = [];
-        
+
         if ($form->isValid()) {
             $cleanValues = $form->getData();
             $values = $cleanValues;
@@ -42,24 +42,24 @@ class NewsController extends BaseController
             $values = $request->getParams();
             $this->data->set('errors', $form->getMessages());
         }
-        
+
         $user = $this->auth->getUser();
-        
+
         if ($user->isTheater()) {
             // ひとまず検索のパラメータとして扱う
             $cleanValues['user'] = $user->getId();
         }
-        
+
         $this->data->set('form', $form);
         $this->data->set('values', $values);
         $this->data->set('params', $cleanValues);
-        
+
         /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\News::class)->findForList($cleanValues, $page);
-        
+
         $this->data->set('pagenater', $pagenater);
     }
-    
+
     /**
      * new action
      *
@@ -73,7 +73,7 @@ class NewsController extends BaseController
         $form = new Form\NewsForm(Form\NewsForm::TYPE_NEW);
         $this->data->set('form', $form);
     }
-    
+
     /**
      * create action
      *
@@ -86,31 +86,31 @@ class NewsController extends BaseController
     {
         // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
-        
+
         $form = new Form\NewsForm(Form\NewsForm::TYPE_NEW);
         $form->setData($params);
-        
+
         if (!$form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
             $this->data->set('is_validated', true);
-            
+
             return 'new';
         }
-        
+
         $cleanData = $form->getData();
-        
+
         $image = $cleanData['image'];
         $file = null;
-        
+
         if ($image['name']) {
             // rename
             $newName = Entity\File::createName($image['name']);
-            
+
             // SASAKI-245
             $imageStream = $this->resizeImage($image['tmp_name'], 1200, 600);
-            
+
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
             $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
@@ -121,25 +121,25 @@ class NewsController extends BaseController
                 $imageStream,
                 $options
             );
-            
+
             $file = new Entity\File();
             $file->setName($newName);
             $file->setOriginalName($image['name']);
             $file->setMimeType($image['type']);
             $file->setSize($imageStream->getSize());
-            
+
             $this->em->persist($file);
         }
-        
+
         // title
         $title = null;
-        
+
         if ($cleanData['title_id']) {
             $title =  $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
         }
-        
+
         $news = new Entity\News();
-        
+
         $news->setTitle($title);
         $news->setImage($file);
         $news->setCategory((int) $cleanData['category']);
@@ -149,21 +149,26 @@ class NewsController extends BaseController
         $news->setBody($cleanData['body']);
         $news->setCreatedUser($this->auth->getUser());
         $news->setUpdatedUser($this->auth->getUser());
-        
+
         $this->em->persist($news);
         $this->em->flush();
-        
+
+        $this->logger->info('Created News "{id}"', [
+            'id' => $news->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('NEWS・インフォメーション「%s」を追加しました。', $news->getHeadline()),
         ]);
-        
+
         $this->redirect(
             $this->router->pathFor('news_edit', [ 'id' => $news->getId() ]),
             303
         );
     }
-    
+
     /**
      * edit action
      *
@@ -175,15 +180,15 @@ class NewsController extends BaseController
     public function executeEdit($request, $response, $args)
     {
         $news = $this->em->getRepository(Entity\News::class)->findOneById($args['id']);
-        
+
         if (is_null($news)) {
             throw new NotFoundException($request, $response);
         }
-        
+
         /**@var Entity\News $news */
-        
+
         $this->data->set('news', $news);
-        
+
         $values = [
             'id'         => $news->getId(),
             'title_id'   => null,
@@ -194,18 +199,18 @@ class NewsController extends BaseController
             'headline'   => $news->getHeadline(),
             'body'       => $news->getBody(),
         ];
-        
+
         if ($news->getTitle()) {
             $values['title_id']   = $news->getTitle()->getId();
             $values['title_name'] = $news->getTitle()->getName();
         }
-        
+
         $this->data->set('values', $values);
-        
+
         $form = new Form\NewsForm(Form\NewsForm::TYPE_EDIT);
         $this->data->set('form', $form);
     }
-    
+
     /**
      * update action
      *
@@ -217,52 +222,52 @@ class NewsController extends BaseController
     public function executeUpdate($request, $response, $args)
     {
         $news = $this->em->getRepository(Entity\News::class)->findOneById($args['id']);
-        
+
         if (is_null($news)) {
             throw new NotFoundException($request, $response);
         }
-        
+
         /**@var Entity\News $news */
-        
+
         // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
-        
+
         $form = new Form\NewsForm(Form\NewsForm::TYPE_EDIT);
         $form->setData($params);
-        
+
         if (!$form->isValid()) {
             $this->data->set('news', $news);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
             $this->data->set('is_validated', true);
-            
+
             return 'edit';
         }
-        
+
         $cleanData = $form->getData();
-        
+
         $image = $cleanData['image'];
         $isDeleteImage = $cleanData['delete_image'] || $image['name'];
-        
+
         if ($isDeleteImage && $news->getImage()) {
             // @todo preUpdateで出来ないか？ hasChangedField()
             $oldImage = $news->getImage();
             $this->em->remove($oldImage);
-            
+
             // @todo postRemoveイベントへ
             $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
-            
+
             $news->setImage(null);
         }
-        
+
         if ($image['name']) {
             // rename
             $newName = Entity\File::createName($image['name']);
-            
+
             // SASAKI-245
             $imageStream = $this->resizeImage($image['tmp_name'], 1200, 600);
-            
+
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
             $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
@@ -273,58 +278,63 @@ class NewsController extends BaseController
                 $imageStream,
                 $options
             );
-            
+
             $file = new Entity\File();
             $file->setName($newName);
             $file->setOriginalName($image['name']);
             $file->setMimeType($image['type']);
             $file->setSize($imageStream->getSize());
-            
+
             $this->em->persist($file);
-            
+
             $oldImage = $news->getImage();
-            
+
             if ($oldImage) {
                 // @todo preUpdateで出来ないか？ hasChangedField()
                 $this->em->remove($oldImage);
-                
+
                 // @todo postRemoveイベントへ
                 $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
             }
-            
+
             $news->setImage($file);
         }
-        
-        
+
+
         $title = null;
-        
+
         if ($cleanData['title_id']) {
             $title =  $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
         }
-        
+
         $news->setTitle($title);
-        
+
         $news->setCategory((int) $cleanData['category']);
         $news->setStartDt($cleanData['start_dt']);
         $news->setEndDt($cleanData['end_dt']);
         $news->setHeadline($cleanData['headline']);
         $news->setBody($cleanData['body']);
         $news->setUpdatedUser($this->auth->getUser());
-        
+
         $this->em->persist($news);
         $this->em->flush();
-        
+
+        $this->logger->info('Updated News "{id}"', [
+            'id' => $news->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('NEWS・インフォメーション「%s」を編集しました。', $news->getHeadline()),
         ]);
-        
+
         $this->redirect(
             $this->router->pathFor('news_edit', [ 'id' => $news->getId() ]),
             303
         );
     }
-    
+
     /**
      * delete action
      *
@@ -336,25 +346,28 @@ class NewsController extends BaseController
     public function executeDelete($request, $response, $args)
     {
         $news = $this->em->getRepository(Entity\News::class)->findOneById($args['id']);
-        
+
         if (is_null($news)) {
             throw new NotFoundException($request, $response);
         }
-        
+
         /**@var Entity\News $news */
-        
+
         $this->doDelete($news);
-        
-        $this->logger->info('Delete "News".', [ 'id' => $news->getId() ]);
-        
+
+        $this->logger->info('Deleted News "{id}"', [
+            'id' => $news->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('NEWS・インフォメーション「%s」を削除しました。', $news->getHeadline()),
         ]);
-        
+
         $this->redirect($this->router->pathFor('news_list'), 303);
     }
-    
+
     /**
      * do delete
      *
@@ -364,48 +377,48 @@ class NewsController extends BaseController
     protected function doDelete(Entity\News $news)
     {
         $this->em->getConnection()->beginTransaction();
-        
+
         try {
             $news->setIsDeleted(true);
             $news->setUpdatedUser($this->auth->getUser());
-            
+
             $this->logger->debug('Soft delete "News".', [
                 'id' => $news->getId() ]);
-            
+
             $this->em->flush();
-            
-            
+
+
             $pageNewsDeleteCount = $this->em
                 ->getRepository(Entity\PageNews::class)
                 ->deleteByNews($news);
-            
+
             $this->logger->debug('Delete "PageNews"', [
                 'count' => $pageNewsDeleteCount ]);
-            
-            
+
+
             $theaterNewsDeleteCount = $this->em
                 ->getRepository(Entity\TheaterNews::class)
                 ->deleteByNews($news);
-            
+
             $this->logger->debug('Delete "TheaterNews"', [
                 'count' => $theaterNewsDeleteCount ]);
-            
-            
+
+
             $specialSitesNewsDeleteCount = $this->em
                 ->getRepository(Entity\SpecialSiteNews::class)
                 ->deleteByNews($news);
-            
+
             $this->logger->debug('Delete "SpecialSiteNews"', [
                 'count' => $specialSitesNewsDeleteCount ]);
-            
-            
+
+
             $this->em->getConnection()->commit();
         } catch (\Exception $e) {
             $this->em->getConnection()->rollBack();
             throw $e;
         }
     }
-    
+
     /**
      * publication action
      *
@@ -417,25 +430,25 @@ class NewsController extends BaseController
     public function executePublication($request, $response, $args)
     {
         $user = $this->auth->getUser();
-        
+
         /** @var Entity\Page[] $pages */
         $pages = [];
-        
+
         /** @var Entity\SpecialSite[] $specialSites */
         $specialSites = [];
-        
+
         if (!$user->isTheater()) {
             $pages = $this->em->getRepository(Entity\Page::class)->findActive();
             $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
         }
-        
+
         $this->data->set('pages', $pages);
         $this->data->set('specialSites', $specialSites);
-        
+
         $theaterRepository = $this->em->getRepository(Entity\Theater::class);
-        
+
         /** @var Entity\Theater[] $theaters */
-        
+
         if ($user->isTheater()) {
             $theaters = [
                 $theaterRepository->findOneById($user->getTheater()->getId())
@@ -443,10 +456,10 @@ class NewsController extends BaseController
         } else {
             $theaters = $theaterRepository->findActive();
         }
-        
+
         $this->data->set('theaters', $theaters);
     }
-    
+
     /**
      * publication update action
      *
@@ -458,18 +471,18 @@ class NewsController extends BaseController
     public function executePublicationUpdate($request, $response, $args)
     {
         $target = $args['target'];
-        
+
         $form = new Form\NewsPublicationForm($target, $this->em);
         $form->setData($request->getParams());
-        
+
         if (!$form->isValid()) {
             throw new \LogicException('invalid parameters.');
         }
-        
+
         $cleanData = $form->getData();
         $targetEntity = null;
         $basePublication = null;
-        
+
         if ($target === Form\NewsPublicationForm::TARGET_TEATER) {
             /** @var Entity\Theater $targetEntity */
             $targetEntity = $this->em
@@ -492,38 +505,43 @@ class NewsController extends BaseController
             $basePublication = new Entity\SpecialSiteNews();
             $basePublication->setSpecialSite($targetEntity);
         }
-        
+
         // いったん削除する
         $targetEntity->getNewsList()->clear();
-        
+
         foreach ($cleanData['news_list'] as $newsData) {
             $publication = clone $basePublication;
-            
+
             $news = $this->em
                 ->getRepository(Entity\News::class)
                 ->findOneById((int) $newsData['news_id']);
-            
+
             if (!$news) {
                 // @todo formで検証したい
                 throw new \LogicException('invalid news.');
             }
-            
+
             /** @var Entity\News $news */
-            
+
             $publication->setNews($news);
             $publication->setDisplayOrder((int) $newsData['display_order']);
-            
+
             $this->em->persist($publication);
         }
-        
+
         $this->em->flush();
-        
-        
+
+        $this->logger->info('Updated News display order ', [
+            'target' => $target,
+            'target_id' => $targetEntity->getId(),
+            'admin_user' => $this->auth->getUser()->getId(),
+        ]);
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('%sの表示順を保存しました。', $targetEntity->getNameJa()),
         ]);
-        
+
         $this->redirect($this->router->pathFor('news_publication'), 303);
     }
 }
