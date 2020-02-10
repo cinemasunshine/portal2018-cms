@@ -68,10 +68,10 @@ $container['logger'] = function ($container) {
         $azureBlobStorageSettings['level']
     );
 
-    $fingersCrossedSettings = $settings['fingers_crossed'];
-    $logger->pushHandler(new Monolog\Handler\FingersCrossedHandler(
+    $bufferSettings = $settings['buffer'];
+    $logger->pushHandler(new Monolog\Handler\BufferHandler(
         $azureBlobStorageHandler,
-        $fingersCrossedSettings['activation_strategy']
+        $bufferSettings['limit']
     ));
 
     return $logger;

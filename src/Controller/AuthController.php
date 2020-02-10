@@ -61,6 +61,11 @@ class AuthController extends BaseController
 
         $user = $this->auth->getUser();
 
+        $this->logger->info('User "{name}" login.', [
+            'id'   => $user->getId(),
+            'name' => $user->getName(),
+        ]);
+
         $this->flash->addMessage('alerts', [
             'type'    => 'info',
             'message' => sprintf('ようこそ、 %s さん！', $user->getDisplayName()),
@@ -79,7 +84,14 @@ class AuthController extends BaseController
      */
     public function executeLogout($request, $response, $args)
     {
+        $user = $this->auth->getUser();
+
         $this->auth->logout();
+
+        $this->logger->info('User "{name}" logout.', [
+            'id'   => $user->getId(),
+            'name' => $user->getName(),
+        ]);
 
         $this->flash->addMessage('alerts', [
             'type'    => 'info',

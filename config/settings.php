@@ -50,8 +50,8 @@ $getLoggerSetting = function ($isDebug) {
         ];
     }
 
-    $settings['fingers_crossed'] = [
-        'activation_strategy' => \Monolog\Logger::ERROR,
+    $settings['buffer'] = [
+        'limit' => 0, // ひとまず無制限とする
     ];
 
     $settings['azure_blob_storage'] = [
