@@ -123,12 +123,19 @@ class TitleController extends BaseController
             // @todo storageと同期するような仕組みをFileへ
             $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
             $options->setContentType($image['type']);
-            $this->bc->createBlockBlob(
+            $createBlobResult = $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),
                 $newName,
                 $imageStream,
                 $options
             );
+
+            $this->logger->info('Created Blob', [
+                'e_tag' => $createBlobResult->getETag(),
+                'last_modified' => $createBlobResult->getLastModified(),
+                'content_md5' => $createBlobResult->getContentMD5(),
+                'request_server_encrypted' => $createBlobResult->getRequestServerEncrypted(),
+            ]);
 
             $file = new Entity\File();
             $file->setName($newName);
@@ -273,7 +280,15 @@ class TitleController extends BaseController
             // @todo postRemoveイベントへ
             $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
 
+            $this->logger->info('Deleted Blob', [
+                'name' => $oldImage->getName(),
+            ]);
+
             $title->setImage(null);
+
+            $this->logger->info('Deleted File "{id}"', [
+                'id' => $oldImage->getId(),
+            ]);
         }
 
         if ($image['name']) {
@@ -287,12 +302,19 @@ class TitleController extends BaseController
             // @todo storageと同期するような仕組みをFileへ
             $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
             $options->setContentType($image['type']);
-            $this->bc->createBlockBlob(
+            $createBlobResult = $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),
                 $newName,
                 $imageStream,
                 $options
             );
+
+            $this->logger->info('Created Blob', [
+                'e_tag' => $createBlobResult->getETag(),
+                'last_modified' => $createBlobResult->getLastModified(),
+                'content_md5' => $createBlobResult->getContentMD5(),
+                'request_server_encrypted' => $createBlobResult->getRequestServerEncrypted(),
+            ]);
 
             $file = new Entity\File();
             $file->setName($newName);
