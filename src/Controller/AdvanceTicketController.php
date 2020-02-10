@@ -177,8 +177,8 @@ class AdvanceTicketController extends BaseController
 
         $this->em->flush();
 
-        $this->logger->info('Created AdvanceTicket "{id}"', [
-            'id' => $advanceTicket->getId(),
+        $this->logger->info('Created AdvanceSale "{id}"', [
+            'id' => $advanceSale->getId(),
             'admin_user' => $this->auth->getUser()->getId(),
         ]);
 
@@ -399,8 +399,8 @@ class AdvanceTicketController extends BaseController
 
         $this->em->flush();
 
-        $this->logger->info('Updated AdvanceTicket "{id}"', [
-            'id' => $advanceTicket->getId(),
+        $this->logger->info('Updated AdvanceSale "{id}"', [
+            'id' => $advanceSale->getId(),
             'admin_user' => $this->auth->getUser()->getId(),
         ]);
 
@@ -448,8 +448,8 @@ class AdvanceTicketController extends BaseController
 
         $this->em->flush();
 
-        $this->logger->info('Deleted AdvanceTicket "{id}"', [
-            'id' => $advanceTicket->getId(),
+        $this->logger->info('Deleted AdvanceSale "{id}"', [
+            'id' => $advanceSale->getId(),
             'admin_user' => $this->auth->getUser()->getId(),
         ]);
 
