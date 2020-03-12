@@ -165,14 +165,9 @@ workflows:
           requires:
             - build_development
 
-      - deploy_to_dev_approval:
-          type: approval
-          requires:
-            # - analysis
-            - build_development
       - deploy_to_dev:
           requires:
-            - deploy_to_dev_approval
+            - build_development
 
   deploy_development_feature:
     jobs:
