@@ -159,7 +159,7 @@ workflows:
       - build_development:
           filters:
             branches:
-              ignore: master
+              only: develop
 
       - analysis:
           requires:
