@@ -68,8 +68,11 @@ Azure Web Appsのアプリケーション設定で設定する場合は **MYSQLC
 |MYSQLCONNSTR_USER|[user name]|MySQLのユーザ名|
 |MYSQLCONNSTR_PASSWORD|[user password]|MySQLのユーザパスワード|
 |MYSQLCONNSTR_SSL|'true' or 'false'|MySQLにSSL接続するか|
+|CUSTOMCONNSTR_STORAGE_SECURE|'true' or 'false'|HTTPS接続するか。デフォルト: true|
 |CUSTOMCONNSTR_STORAGE_NAME|[storage name]|Azure Storage名|
 |CUSTOMCONNSTR_STORAGE_KEY|[storage access key]|Azure Sotrageのアクセスキー|
+|CUSTOMCONNSTR_STORAGE_BLOB_ENDPOINT|[Blob endpoint]]|オプション|
+|CUSTOMCONNSTR_STORAGE_PUBLIC_ENDOPOINT|[storage access key]|オプション|
 
 ### ５．Doctrine
 
