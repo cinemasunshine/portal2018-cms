@@ -99,7 +99,7 @@ $settings['doctrine'] = $getDoctrineSetting($isDebug);
 
 
 // storage
-$getStorageSettings = function() {
+$getStorageSettings = function () {
     $settings = [
         'account_name' => getenv('CUSTOMCONNSTR_STORAGE_NAME'),
         'account_key' => getenv('CUSTOMCONNSTR_STORAGE_KEY'),
