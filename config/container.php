@@ -30,7 +30,11 @@ $container['view'] = function ($container) {
 
     // add Extension
     $view->addExtension(new \Twig\Extension\DebugExtension());
-    $view->addExtension(new \Cinemasunshine\PortalAdmin\Twig\Extension\AzureStorageExtension($container));
+
+    $view->addExtension(new \Cinemasunshine\PortalAdmin\Twig\Extension\AzureStorageExtension(
+        $container->get('bc'),
+        $container->get('settings')['storage']['public_endpoint']
+    ));
 
     return $view;
 };
