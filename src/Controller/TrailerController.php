@@ -18,8 +18,6 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class TrailerController extends BaseController
 {
-    use ImageManagerTrait;
-
     /**
      * {@inheritDoc}
      */

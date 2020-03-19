@@ -1,24 +1,24 @@
 <?php
 /**
- * ImageManagerTrait.php
+ * ImageResize.php
  *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace Cinemasunshine\PortalAdmin\Controller\Traits;
 
 use Intervention\Image\ImageManager;
 
 /**
- * ImageManager trait
+ * ImageResize trait
  *
  * @link http://image.intervention.io/
  */
-trait ImageManagerTrait
+trait ImageResize
 {
     /** @var ImageManager */
     private $imageManager;
-    
+
     /**
      * create ImageManager
      *
@@ -30,7 +30,7 @@ trait ImageManagerTrait
             'driver' => 'gd',
         ]);
     }
-    
+
     /**
      * return ImageManager
      *
@@ -41,10 +41,10 @@ trait ImageManagerTrait
         if (!$this->imageManager) {
             $this->createImageManager();
         }
-        
+
         return $this->imageManager;
     }
-    
+
     /**
      * resize image
      *
@@ -64,13 +64,13 @@ trait ImageManagerTrait
                 $constraint->aspectRatio(); // アスペクト比を固定
                 $constraint->upsize(); // アップサイズしない
             });
-        
+
         /**
          * テンポラリファイルかつWindows環境の場合、そのままsave()するとエラーが発生する。
          * > Encoding format (tmp) is not supported.
          */
         // $image->save();
-        
+
         // 上記の問題もあり、ここでは保存せずにストリームオブジェクトを返す
         return $image->stream();
     }
