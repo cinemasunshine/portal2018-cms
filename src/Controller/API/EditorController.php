@@ -7,6 +7,7 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller\API;
 
+use Cinemasunshine\PortalAdmin\Controller\Traits\AzureBlobStorage;
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\Form\API as ApiForm;
 
@@ -15,6 +16,8 @@ use Cinemasunshine\PortalAdmin\Form\API as ApiForm;
  */
 class EditorController extends BaseController
 {
+    use AzureBlobStorage;
+
     /**
      * Blob Container name
      *
@@ -70,7 +73,7 @@ class EditorController extends BaseController
             $options
         );
 
-        $url = $this->createBlobUrl($this->blobContainer, $blobName);
+        $url = $this->getBlobUrl($this->blobContainer, $blobName);
 
         $data = [
             'name' => $blobName,
@@ -78,25 +81,5 @@ class EditorController extends BaseController
         ];
 
         $this->data->set('data', $data);
-    }
-
-    /**
-     * create Blob URL
-     *
-     * Blobへのpublicアクセスを許可する必要があります。
-     *
-     * @param string $container
-     * @param string $blob
-     * @return string
-     */
-    protected function createBlobUrl(string $container, string $blob)
-    {
-        $publicEndpoint = $this->settings['storage']['public_endpoint'];
-
-        if ($publicEndpoint) {
-            return sprintf('%s/%s/%s', $publicEndpoint, $container, $blob);
-        }
-
-        return $this->bc->getBlobUrl($container, $blob);
     }
 }

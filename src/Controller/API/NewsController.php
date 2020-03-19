@@ -7,6 +7,7 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller\API;
 
+use Cinemasunshine\PortalAdmin\Controller\Traits\AzureBlobStorage;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
@@ -14,6 +15,8 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class NewsController extends BaseController
 {
+    use AzureBlobStorage;
+
     /**
      * list action
      *
@@ -26,22 +29,25 @@ class NewsController extends BaseController
     {
         $headline = $request->getParam('headline');
         $data = [];
-        
+
         if (!empty($headline)) {
             $newsList = $this->em
                 ->getRepository(Entity\News::class)
                 ->findForListApi($headline);
-            
-                
+
+
             foreach ($newsList as $news) {
                 /** @var Entity\News $news */
-                
+
                 $image = null;
-                
+
                 if ($news->getImage()) {
-                    $image = $this->getBlobUrl($news->getImage()->getName());
+                    $image = $this->getBlobUrl(
+                        Entity\File::getBlobContainer(),
+                        $news->getImage()->getName()
+                    );
                 }
-                
+
                 $data[] = [
                     'id'             => $news->getId(),
                     'headline'       => $news->getHeadline(),
@@ -50,30 +56,7 @@ class NewsController extends BaseController
                 ];
             }
         }
-        
+
         $this->data->set('data', $data);
-    }
-    
-    /**
-     * return Blob URL
-     *
-     * @todo Eitity\Fileから取得できるようにしたい
-     *
-     * @param string $blob blob name
-     * @return string
-     */
-    protected function getBlobUrl(string $blob)
-    {
-        $settings = $this->settings['storage'];
-        $protocol = $settings['secure'] ? 'https' : 'http';
-        $container = Entity\File::getBlobContainer();
-        
-        return sprintf(
-            '%s://%s.blob.core.windows.net/%s/%s',
-            $protocol,
-            $settings['account']['name'],
-            $container,
-            $blob
-        );
     }
 }
