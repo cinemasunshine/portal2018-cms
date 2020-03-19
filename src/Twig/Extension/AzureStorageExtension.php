@@ -19,19 +19,19 @@ class AzureStorageExtension extends AbstractExtension
     /** @var BlobRestProxy $client */
     protected $client;
 
-    /** @var string|null $publicUrl */
-    protected $publicUrl;
+    /** @var string|null $publicEndpoint */
+    protected $publicEndpoint;
 
     /**
      * construct
      *
      * @param BlobRestProxy $client
-     * @param string|null $publicUrl
+     * @param string|null $publicEndpoint
      */
-    public function __construct(BlobRestProxy $client, $publicUrl = null)
+    public function __construct(BlobRestProxy $client, $publicEndpoint = null)
     {
         $this->client = $client;
-        $this->publicUrl = $publicUrl;
+        $this->publicEndpoint = $publicEndpoint;
     }
 
     /**
@@ -57,8 +57,8 @@ class AzureStorageExtension extends AbstractExtension
      */
     public function blobUrl(string $container, string $blob)
     {
-        if ($this->publicUrl) {
-            return sprintf('%s/%s/%s', $this->publicUrl, $container, $blob);
+        if ($this->publicEndpoint) {
+            return sprintf('%s/%s/%s', $this->publicEndpoint, $container, $blob);
         }
 
         return $this->client->getBlobUrl($container, $blob);
