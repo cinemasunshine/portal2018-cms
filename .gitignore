@@ -17,6 +17,7 @@ composer.bat
 # docker
 /docker/mysql/data
 /docker/phpmyadmin/sessions
+/docker/storage/data
 
 # git
 !.gitkeep

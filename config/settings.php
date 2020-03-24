@@ -99,12 +99,24 @@ $settings['doctrine'] = $getDoctrineSetting($isDebug);
 
 
 // storage
-$settings['storage'] = [
-    'secure'  => true,
-    'account' => [
-        'name' => getenv('CUSTOMCONNSTR_STORAGE_NAME'),
-        'key'  => getenv('CUSTOMCONNSTR_STORAGE_KEY'),
-    ],
-];
+$getStorageSettings = function () {
+    $settings = [
+        'account_name' => getenv('CUSTOMCONNSTR_STORAGE_NAME'),
+        'account_key' => getenv('CUSTOMCONNSTR_STORAGE_KEY'),
+    ];
+
+    $secure = getenv('CUSTOMCONNSTR_STORAGE_SECURE');
+    $settings['secure'] = ($secure === 'false') ? false : true;
+
+    $blobEndpoint = getenv('CUSTOMCONNSTR_STORAGE_BLOB_ENDPOINT');
+    $settings['blob_endpoint'] = ($blobEndpoint) ?: null;
+
+    $publicEndpoint = getenv('CUSTOMCONNSTR_STORAGE_PUBLIC_ENDOPOINT');
+    $settings['public_endpoint'] = ($publicEndpoint) ?: null;
+
+    return $settings;
+};
+
+$settings['storage'] = $getStorageSettings();
 
 return $settings;

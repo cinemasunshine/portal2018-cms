@@ -7,6 +7,7 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller\API;
 
+use Cinemasunshine\PortalAdmin\Controller\Traits\AzureBlobStorage;
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\Form\API as ApiForm;
 
@@ -15,13 +16,15 @@ use Cinemasunshine\PortalAdmin\Form\API as ApiForm;
  */
 class EditorController extends BaseController
 {
+    use AzureBlobStorage;
+
     /**
      * Blob Container name
      *
      * @var string
      */
     protected $blobContainer = 'editor';
-    
+
     /**
      * upload action
      *
@@ -34,32 +37,32 @@ class EditorController extends BaseController
     {
         // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
-        
+
         $form = new ApiForm\EditorUploadForm();
         $form->setData($params);
-        
+
         if (!$form->isValid()) {
             $errors = [];
             $messages = $form->getMessages()['file'];
-            
+
             foreach ($messages as $message) {
                 $errors[] = [
                     'title' => $message,
                 ];
             }
-            
+
             $this->data->set('errors', $errors);
             return;
         }
-        
+
         $cleanData = $form->getData();
-        
+
         $file = $cleanData['file'];
-        
+
         // rename
         $info = pathinfo($file['name']);
         $blobName = md5(uniqid('', true)) . '.' . $info['extension'];
-        
+
         // upload storage
         $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
         $options->setContentType($file['type']);
@@ -69,37 +72,14 @@ class EditorController extends BaseController
             fopen($file['tmp_name'], 'r'),
             $options
         );
-        
-        $url = $this->createBlobUrl($this->blobContainer, $blobName);
-        
+
+        $url = $this->getBlobUrl($this->blobContainer, $blobName);
+
         $data = [
             'name' => $blobName,
             'url'  => $url,
         ];
-        
+
         $this->data->set('data', $data);
-    }
-    
-    /**
-     * create Blob URL
-     *
-     * Blobへのpublicアクセスを許可する必要があります。
-     *
-     * @param string $container
-     * @param string $blob
-     * @return string
-     */
-    protected function createBlobUrl(string $container, string $blob)
-    {
-        $settings = $this->container->get('settings')['storage'];
-        $protocol = $settings['secure'] ? 'https' : 'http';
-        
-        return sprintf(
-            '%s://%s.blob.core.windows.net/%s/%s',
-            $protocol,
-            $settings['account']['name'],
-            $container,
-            $blob
-        );
     }
 }

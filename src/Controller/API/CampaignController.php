@@ -7,6 +7,7 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller\API;
 
+use Cinemasunshine\PortalAdmin\Controller\Traits\AzureBlobStorage;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
@@ -14,6 +15,8 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class CampaignController extends BaseController
 {
+    use AzureBlobStorage;
+
     /**
      * list action
      *
@@ -26,48 +29,28 @@ class CampaignController extends BaseController
     {
         $name = $request->getParam('name');
         $data = [];
-        
+
         if (!empty($name)) {
             $campaigns = $this->em
                 ->getRepository(Entity\Campaign::class)
                 ->findForListApi($name);
-            
-                
+
+
             foreach ($campaigns as $campaign) {
                 /** @var Entity\Campaign $campaign */
-                
+
                 $data[] = [
                     'id'    => $campaign->getId(),
                     'name'  => $campaign->getName(),
-                    'image' => $this->getBlobUrl($campaign->getImage()->getName()),
+                    'image' => $this->getBlobUrl(
+                        Entity\File::getBlobContainer(),
+                        $campaign->getImage()->getName()
+                    ),
                     'url'   => $campaign->getUrl(),
                 ];
             }
         }
-        
+
         $this->data->set('data', $data);
-    }
-    
-    /**
-     * return Blob URL
-     *
-     * @todo Eitity\Fileから取得できるようにしたい
-     *
-     * @param string $blob blob name
-     * @return string
-     */
-    protected function getBlobUrl(string $blob)
-    {
-        $settings = $this->settings['storage'];
-        $protocol = $settings['secure'] ? 'https' : 'http';
-        $container = Entity\File::getBlobContainer();
-        
-        return sprintf(
-            '%s://%s.blob.core.windows.net/%s/%s',
-            $protocol,
-            $settings['account']['name'],
-            $container,
-            $blob
-        );
     }
 }

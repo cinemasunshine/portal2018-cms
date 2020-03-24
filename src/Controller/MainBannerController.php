@@ -18,8 +18,6 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class MainBannerController extends BaseController
 {
-    use ImageManagerTrait;
-
     /**
      * {@inheritDoc}
      */

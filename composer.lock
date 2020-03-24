@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "738f27bb5ab24391830bd3cf70a6b8c4",
+    "content-hash": "de62c0ec2bf3ef35e007bd8bc102d3f0",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -35,6 +35,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
+            "abandoned": "psr/container",
             "time": "2017-02-14T19:40:03+00:00"
         },
         {
@@ -1146,20 +1147,20 @@
         },
         {
             "name": "microsoft/azure-storage-blob",
-            "version": "1.2.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Azure/azure-storage-blob-php.git",
-                "reference": "6a89f277e876056cc80bd867f7d6104557ee26a4"
+                "reference": "6a333cd28a3742c3e99e79042dc6510f9f917919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Azure/azure-storage-blob-php/zipball/6a89f277e876056cc80bd867f7d6104557ee26a4",
-                "reference": "6a89f277e876056cc80bd867f7d6104557ee26a4",
+                "url": "https://api.github.com/repos/Azure/azure-storage-blob-php/zipball/6a333cd28a3742c3e99e79042dc6510f9f917919",
+                "reference": "6a333cd28a3742c3e99e79042dc6510f9f917919",
                 "shasum": ""
             },
             "require": {
-                "microsoft/azure-storage-common": "~1.2.0",
+                "microsoft/azure-storage-common": "~1.4",
                 "php": ">=5.6.0"
             },
             "type": "library",
@@ -1186,20 +1187,20 @@
                 "sdk",
                 "storage"
             ],
-            "time": "2018-08-02T11:05:31+00:00"
+            "time": "2020-01-02T07:18:59+00:00"
         },
         {
             "name": "microsoft/azure-storage-common",
-            "version": "1.2.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Azure/azure-storage-common-php.git",
-                "reference": "5a721c15a4eba9233e423203bee168e47c7f8682"
+                "reference": "be4df800761d0d0fa91a9460c7f42517197d57a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Azure/azure-storage-common-php/zipball/5a721c15a4eba9233e423203bee168e47c7f8682",
-                "reference": "5a721c15a4eba9233e423203bee168e47c7f8682",
+                "url": "https://api.github.com/repos/Azure/azure-storage-common-php/zipball/be4df800761d0d0fa91a9460c7f42517197d57a0",
+                "reference": "be4df800761d0d0fa91a9460c7f42517197d57a0",
                 "shasum": ""
             },
             "require": {
@@ -1230,7 +1231,7 @@
                 "sdk",
                 "storage"
             ],
-            "time": "2018-08-02T10:54:53+00:00"
+            "time": "2020-01-02T07:15:54+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2243,6 +2244,7 @@
                 "escaper",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-escaper",
             "time": "2018-04-25T15:48:53+00:00"
         },
         {
@@ -2297,6 +2299,7 @@
                 "events",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-eventmanager",
             "time": "2018-04-25T15:33:34+00:00"
         },
         {
@@ -2360,6 +2363,7 @@
                 "filter",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-filter",
             "time": "2018-04-11T16:20:04+00:00"
         },
         {
@@ -2438,6 +2442,7 @@
                 "form",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-form",
             "time": "2018-05-16T18:49:44+00:00"
         },
         {
@@ -2501,6 +2506,7 @@
                 "hydrator",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-hydrator",
             "time": "2018-04-30T21:22:14+00:00"
         },
         {
@@ -2569,6 +2575,7 @@
                 "i18n",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-i18n",
             "time": "2018-05-16T16:39:13+00:00"
         },
         {
@@ -2615,6 +2622,7 @@
                 "translations",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-i18n-resources",
             "time": "2018-04-30T14:47:38+00:00"
         },
         {
@@ -2668,6 +2676,7 @@
                 "inputfilter",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-inputfilter",
             "time": "2018-05-14T17:38:03+00:00"
         },
         {
@@ -2736,6 +2745,7 @@
                 "servicemanager",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-servicemanager",
             "time": "2018-01-29T16:48:37+00:00"
         },
         {
@@ -2803,6 +2813,7 @@
                 "session",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-session",
             "time": "2018-02-22T16:33:54+00:00"
         },
         {
@@ -2849,6 +2860,7 @@
                 "stdlib",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-stdlib",
             "time": "2018-08-28T21:34:05+00:00"
         },
         {
@@ -2896,6 +2908,7 @@
                 "uri",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-uri",
             "time": "2018-04-30T13:40:08+00:00"
         },
         {
@@ -2967,6 +2980,7 @@
                 "validator",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-validator",
             "time": "2018-02-01T17:05:33+00:00"
         }
     ],

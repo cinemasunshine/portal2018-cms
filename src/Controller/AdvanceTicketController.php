@@ -7,18 +7,15 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
-use Slim\Exception\NotFoundException;
-
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
+use Slim\Exception\NotFoundException;
 
 /**
  * AdvanceTicket controller
  */
 class AdvanceTicketController extends BaseController
 {
-    use ImageManagerTrait;
-
     /**
      * list action
      *
