@@ -109,57 +109,50 @@ class TitleController extends BaseController
 
         $cleanData = $form->getData();
 
-        $image = $cleanData['image'];
+        $title = $this->doCreate($cleanData);
+
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('作品「%s」を追加しました。', $title->getName()),
+        ]);
+
+        $this->redirect(
+            $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
+            303
+        );
+    }
+
+    /**
+     * do create
+     *
+     * @param array $data
+     * @return void
+     */
+    protected function doCreate(array $data): Entity\Title
+    {
+        $image = $data['image'];
         $file = null;
 
         if ($image['name']) {
-            // rename
-            $newName = Entity\File::createName($image['name']);
-
-            // SASAKI-245
-            $imageStream = $this->resizeImage($image['tmp_name'], null, 1920);
-
-            // upload storage
-            // @todo storageと同期するような仕組みをFileへ
-            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
-            $options->setContentType($image['type']);
-            $createBlobResult = $this->bc->createBlockBlob(
-                Entity\File::getBlobContainer(),
-                $newName,
-                $imageStream,
-                $options
-            );
-
-            $this->logger->info('Created Blob', [
-                'e_tag' => $createBlobResult->getETag(),
-                'last_modified' => $createBlobResult->getLastModified(),
-                'content_md5' => $createBlobResult->getContentMD5(),
-                'request_server_encrypted' => $createBlobResult->getRequestServerEncrypted(),
-            ]);
-
-            $file = new Entity\File();
-            $file->setName($newName);
-            $file->setOriginalName($image['name']);
-            $file->setMimeType($image['type']);
-            $file->setSize($imageStream->getSize());
+            $file = $this->uploadImage($image);
 
             $this->em->persist($file);
         }
 
         $title = new Entity\Title();
         $title->setImage($file);
-        $title->setName($cleanData['name']);
-        $title->setNameKana($cleanData['name_kana']);
-        $title->setNameOriginal($cleanData['name_original']);
-        $title->setCredit($cleanData['credit']);
-        $title->setCatchcopy($cleanData['catchcopy']);
-        $title->setIntroduction($cleanData['introduction']);
-        $title->setDirector($cleanData['director']);
-        $title->setCast($cleanData['cast']);
-        $title->setPublishingExpectedDate($cleanData['publishing_expected_date']);
-        $title->setOfficialSite($cleanData['official_site']);
-        $title->setRating((int) $cleanData['rating']);
-        $title->setUniversal($cleanData['universal'] ?? []);
+        $title->setName($data['name']);
+        $title->setNameKana($data['name_kana']);
+        $title->setNameOriginal($data['name_original']);
+        $title->setCredit($data['credit']);
+        $title->setCatchcopy($data['catchcopy']);
+        $title->setIntroduction($data['introduction']);
+        $title->setDirector($data['director']);
+        $title->setCast($data['cast']);
+        $title->setPublishingExpectedDate($data['publishing_expected_date']);
+        $title->setOfficialSite($data['official_site']);
+        $title->setRating((int) $data['rating']);
+        $title->setUniversal($data['universal'] ?? []);
         $title->setCreatedUser($this->auth->getUser());
         $title->setUpdatedUser($this->auth->getUser());
 
@@ -171,15 +164,58 @@ class TitleController extends BaseController
             'admin_user' => $this->auth->getUser()->getId(),
         ]);
 
-        $this->flash->addMessage('alerts', [
-            'type'    => 'info',
-            'message' => sprintf('作品「%s」を追加しました。', $title->getName()),
+        return $title;
+    }
+
+    /**
+     * resize title image
+     *
+     * @param string $path
+     * @return \GuzzleHttp\Psr7\Stream
+     */
+    protected function resizeTitleImage(string $path)
+    {
+        // SASAKI-245
+        return $this->resizeImage($path, null, 1920);
+    }
+
+    /**
+     * upload image
+     *
+     * @param array $image
+     * @return Entity\File
+     */
+    protected function uploadImage(array $image): Entity\File
+    {
+        $newName = Entity\File::createName($image['name']);
+
+        $imageStream = $this->resizeTitleImage($image['tmp_name']);
+
+        // upload storage
+        // @todo storageと同期するような仕組みをFileへ
+        $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+        $options->setContentType($image['type']);
+        $createBlobResult = $this->bc->createBlockBlob(
+            Entity\File::getBlobContainer(),
+            $newName,
+            $imageStream,
+            $options
+        );
+
+        $this->logger->info('Created Blob', [
+            'e_tag' => $createBlobResult->getETag(),
+            'last_modified' => $createBlobResult->getLastModified(),
+            'content_md5' => $createBlobResult->getContentMD5(),
+            'request_server_encrypted' => $createBlobResult->getRequestServerEncrypted(),
         ]);
 
-        $this->redirect(
-            $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
-            303
-        );
+        $file = new Entity\File();
+        $file->setName($newName);
+        $file->setOriginalName($image['name']);
+        $file->setMimeType($image['type']);
+        $file->setSize($imageStream->getSize());
+
+        return $file;
     }
 
     /**
@@ -269,8 +305,30 @@ class TitleController extends BaseController
 
         $cleanData = $form->getData();
 
-        $image = $cleanData['image'];
-        $isDeleteImage = $cleanData['delete_image'] || $image['name'];
+        $this->doUpdate($title, $cleanData);
+
+        $this->flash->addMessage('alerts', [
+            'type'    => 'info',
+            'message' => sprintf('作品「%s」を編集しました。', $title->getName()),
+        ]);
+
+        $this->redirect(
+            $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
+            303
+        );
+    }
+
+    /**
+     * do update
+     *
+     * @param Entity\Title $title
+     * @param array $data
+     * @return void
+     */
+    protected function doUpdate(Entity\Title $title, array $data)
+    {
+        $image = $data['image'];
+        $isDeleteImage = $data['delete_image'] || $image['name'];
 
         if ($isDeleteImage && $title->getImage()) {
             // @todo preUpdateで出来ないか？ hasChangedField()
@@ -292,73 +350,33 @@ class TitleController extends BaseController
         }
 
         if ($image['name']) {
-            // rename
-            $newName = Entity\File::createName($image['name']);
-
-            // SASAKI-245
-            $imageStream = $this->resizeImage($image['tmp_name'], null, 1920);
-
-            // upload storage
-            // @todo storageと同期するような仕組みをFileへ
-            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
-            $options->setContentType($image['type']);
-            $createBlobResult = $this->bc->createBlockBlob(
-                Entity\File::getBlobContainer(),
-                $newName,
-                $imageStream,
-                $options
-            );
-
-            $this->logger->info('Created Blob', [
-                'e_tag' => $createBlobResult->getETag(),
-                'last_modified' => $createBlobResult->getLastModified(),
-                'content_md5' => $createBlobResult->getContentMD5(),
-                'request_server_encrypted' => $createBlobResult->getRequestServerEncrypted(),
-            ]);
-
-            $file = new Entity\File();
-            $file->setName($newName);
-            $file->setOriginalName($image['name']);
-            $file->setMimeType($image['type']);
-            $file->setSize($imageStream->getSize());
+            $file = $this->uploadImage($image);
 
             $this->em->persist($file);
 
             $title->setImage($file);
         }
 
-        $title->setName($cleanData['name']);
-        $title->setNameKana($cleanData['name_kana']);
-        $title->setNameOriginal($cleanData['name_original']);
-        $title->setCredit($cleanData['credit']);
-        $title->setCatchcopy($cleanData['catchcopy']);
-        $title->setIntroduction($cleanData['introduction']);
-        $title->setDirector($cleanData['director']);
-        $title->setCast($cleanData['cast']);
-        $title->setPublishingExpectedDate($cleanData['publishing_expected_date']);
-        $title->setOfficialSite($cleanData['official_site']);
-        $title->setRating((int) $cleanData['rating']);
-        $title->setUniversal($cleanData['universal'] ?? []);
+        $title->setName($data['name']);
+        $title->setNameKana($data['name_kana']);
+        $title->setNameOriginal($data['name_original']);
+        $title->setCredit($data['credit']);
+        $title->setCatchcopy($data['catchcopy']);
+        $title->setIntroduction($data['introduction']);
+        $title->setDirector($data['director']);
+        $title->setCast($data['cast']);
+        $title->setPublishingExpectedDate($data['publishing_expected_date']);
+        $title->setOfficialSite($data['official_site']);
+        $title->setRating((int) $data['rating']);
+        $title->setUniversal($data['universal'] ?? []);
         $title->setUpdatedUser($this->auth->getUser());
-        $title->setIsDeleted(false);
 
-        $this->em->persist($title);
         $this->em->flush();
 
         $this->logger->info('Updated Title "{id}"', [
             'id' => $title->getId(),
             'admin_user' => $this->auth->getUser()->getId(),
         ]);
-
-        $this->flash->addMessage('alerts', [
-            'type'    => 'info',
-            'message' => sprintf('作品「%s」を編集しました。', $title->getName()),
-        ]);
-
-        $this->redirect(
-            $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
-            303
-        );
     }
 
     /**
