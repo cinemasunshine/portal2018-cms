@@ -203,7 +203,8 @@ class TitleController extends BaseController
             $options
         );
 
-        $this->logger->info('Created Blob', [
+        $this->logger->info('Created Blob {name}', [
+            'name' => $newName,
             'e_tag' => $createBlobResult->getETag(),
             'last_modified' => $createBlobResult->getLastModified(),
             'content_md5' => $createBlobResult->getContentMD5(),
@@ -393,11 +394,12 @@ class TitleController extends BaseController
         try {
             $this->bc->deleteBlob(Entity\File::getBlobContainer(), $image->getName());
 
-            $this->logger->info('Deleted Blob', [
-                'blob' => $image->getName(),
+            $this->logger->info('Deleted Blob {name}', [
+                'name' => $image->getName(),
             ]);
         } catch (ServiceException $e) {
             $this->logger->warning($e->getErrorText(), [
+                'blob' => $image->getName(),
                 'code' => $e->getCode(),
                 'message' => $e->getErrorMessage(),
                 'request_id' => $e->getRequestID(),
