@@ -11,6 +11,7 @@ use Cinemasunshine\PortalAdmin\Controller\Traits\ImageResize;
 use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use Slim\Exception\NotFoundException;
 
 /**
@@ -329,31 +330,26 @@ class TitleController extends BaseController
     {
         $image = $data['image'];
         $isDeleteImage = $data['delete_image'] || $image['name'];
+        $oldImage = null;
 
         if ($isDeleteImage && $title->getImage()) {
-            // @todo preUpdateで出来ないか？ hasChangedField()
+            /**
+             * ストレージのファイル削除はDBトランザクション後に行う。
+             * 先に削除してしまうとロールバックした時にファイルは戻せないので。
+             */
             $oldImage = $title->getImage();
+            $title->setImage(null);
             $this->em->remove($oldImage);
 
-            // @todo postRemoveイベントへ
-            $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
-
-            $this->logger->info('Deleted Blob', [
-                'name' => $oldImage->getName(),
-            ]);
-
-            $title->setImage(null);
-
-            $this->logger->info('Deleted File "{id}"', [
+            $this->logger->info('Delete title image "{id}"', [
                 'id' => $oldImage->getId(),
+                'name' => $oldImage->getName(),
             ]);
         }
 
         if ($image['name']) {
             $file = $this->uploadImage($image);
-
             $this->em->persist($file);
-
             $title->setImage($file);
         }
 
@@ -377,6 +373,36 @@ class TitleController extends BaseController
             'id' => $title->getId(),
             'admin_user' => $this->auth->getUser()->getId(),
         ]);
+
+        if ($oldImage) {
+            $this->deleteImage($oldImage);
+        }
+    }
+
+    /**
+     * delete image
+     *
+     * 現状、ストレージのロールバックは出来ないのでDBを優先。
+     * 削除エラーは要注意として、ひとまず正常処理に戻す。
+     *
+     * @param Entity\File $image
+     * @return void
+     */
+    protected function deleteImage(Entity\File $image)
+    {
+        try {
+            $this->bc->deleteBlob(Entity\File::getBlobContainer(), $image->getName());
+
+            $this->logger->info('Deleted Blob', [
+                'blob' => $image->getName(),
+            ]);
+        } catch (ServiceException $e) {
+            $this->logger->warning($e->getErrorText(), [
+                'code' => $e->getCode(),
+                'message' => $e->getErrorMessage(),
+                'request_id' => $e->getRequestID(),
+            ]);
+        }
     }
 
     /**
