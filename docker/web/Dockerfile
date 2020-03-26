@@ -35,15 +35,14 @@ RUN apt-get update \
 RUN docker-php-ext-configure gd \
         --with-freetype-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/
-        
+
 RUN docker-php-ext-install \
         pdo_mysql \
         intl \
         -j$(nproc) gd
 
-# composerインストール
-RUN curl -sS https://getcomposer.org/installer | php
-RUN mv composer.phar /usr/local/bin/composer
+# https://hub.docker.com/_/composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # サーバ証明書に関する一時的な対応
 RUN git config --global http.sslverify false
