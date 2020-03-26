@@ -127,7 +127,7 @@ class TitleController extends BaseController
      * do create
      *
      * @param array $data
-     * @return void
+     * @return Entity\Title
      */
     protected function doCreate(array $data): Entity\Title
     {
