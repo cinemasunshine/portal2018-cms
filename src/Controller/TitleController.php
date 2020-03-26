@@ -192,8 +192,6 @@ class TitleController extends BaseController
 
         $imageStream = $this->resizeTitleImage($image['tmp_name']);
 
-        // upload storage
-        // @todo storageと同期するような仕組みをFileへ
         $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
         $options->setContentType($image['type']);
         $createBlobResult = $this->bc->createBlockBlob(
