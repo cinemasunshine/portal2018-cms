@@ -7,9 +7,9 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilter;
-use Zend\Validator;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilter;
+use Laminas\Validator;
 
 use Doctrine\ORM\EntityManager;
 
@@ -23,13 +23,13 @@ class NewsPublicationForm extends BaseForm
     const TARGET_PAGE          = 'page';
     const TARGET_TEATER        = 'theater';
     const TARGET_SPESICAL_SITE = 'special_site';
-    
+
     /** @var string */
     protected $target;
-    
+
     /** @var EntityManager */
     protected $em;
-    
+
     /**
      * construct
      *
@@ -41,15 +41,15 @@ class NewsPublicationForm extends BaseForm
         if (!in_array($target, [self::TARGET_PAGE, self::TARGET_TEATER, self::TARGET_SPESICAL_SITE])) {
             throw new \InvalidArgumentException('invalid target.');
         }
-        
+
         $this->target = $target;
         $this->em = $em;
-        
+
         parent::__construct();
-        
+
         $this->setup();
     }
-    
+
     /**
      * setup
      *
@@ -73,7 +73,7 @@ class NewsPublicationForm extends BaseForm
                 'type' => 'Hidden',
             ]);
         }
-        
+
         $this->add([
             'name' => 'news_list',
             'type' => 'Collection',
@@ -83,18 +83,18 @@ class NewsPublicationForm extends BaseForm
                 ],
             ],
         ]);
-        
-        
+
+
         $inputFilter = new InputFilter();
-        
+
         if ($this->target === self::TARGET_PAGE) {
             $pageIds = [];
             $pages = $this->em->getRepository(Entity\Page::class)->findActive();
-            
+
             foreach ($pages as $page) {
                 $pageIds[] = $page->getId();
             }
-            
+
             $inputFilter->add([
                 'name' => 'page_id',
                 'required' => true,
@@ -110,11 +110,11 @@ class NewsPublicationForm extends BaseForm
         } elseif ($this->target === self::TARGET_TEATER) {
             $theaterIds = [];
             $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
-            
+
             foreach ($theaters as $theater) {
                 $theaterIds[] = $theater->getId();
             }
-            
+
             $inputFilter->add([
                 'name' => 'theater_id',
                 'required' => true,
@@ -130,11 +130,11 @@ class NewsPublicationForm extends BaseForm
         } elseif ($this->target === self::TARGET_SPESICAL_SITE) {
             $specialSiteIds = [];
             $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
-            
+
             foreach ($specialSites as $specialSite) {
                 $specialSiteIds[] = $specialSite->getId();
             }
-            
+
             $inputFilter->add([
                 'name' => 'special_site_id',
                 'required' => true,
@@ -148,12 +148,12 @@ class NewsPublicationForm extends BaseForm
                 ],
             ]);
         }
-        
+
         $inputFilter->add([
             'name' => 'news_list',
             'required' => false,
         ]);
-        
+
         $this->setInputFilter($inputFilter);
     }
 }

@@ -7,8 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Translator;
 
-use Zend\I18n\Translator\Translator;
-use Zend\Validator\Translator\TranslatorInterface;
+use Laminas\I18n\Translator\Translator;
+use Laminas\Validator\Translator\TranslatorInterface;
 
 /**
  * Validator translator class

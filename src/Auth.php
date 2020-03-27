@@ -15,19 +15,19 @@ class Auth
 {
     /** @var \Doctrine\ORM\EntityManager */
     protected $em;
-    
-    /** @var \Zend\Session\Container */
+
+    /** @var \Laminas\Session\Container */
     protected $session;
-    
+
     /** @var AdminUser */
     protected $user;
-    
+
     public function __construct(ContainerInterface $container)
     {
         $this->em = $container->get('em');
         $this->session = $container->get('sm')->getContainer('auth');
     }
-    
+
     /**
      * login
      *
@@ -39,23 +39,23 @@ class Auth
     {
         $repository = $this->em->getRepository(AdminUser::class);
         $adminUser = $repository->findOneByName($name);
-        
+
         if (is_null($adminUser)) {
             return false;
         }
-        
+
         /** @var AdminUser $adminUser */
-        
+
         if (!password_verify($password, $adminUser->getPassword())) {
             return false;
         }
-        
+
         $this->user = $adminUser;
         $this->session['user_id'] = $adminUser->getId();
-        
+
         return true;
     }
-    
+
     /**
      * logout
      *
@@ -68,7 +68,7 @@ class Auth
         $this->user = null;
         unset($this->session['user_id']);
     }
-    
+
     /**
      * is authenticated
      *
@@ -78,7 +78,7 @@ class Auth
     {
         return isset($this->session['user_id']);
     }
-    
+
     /**
      * get user
      *
@@ -89,12 +89,12 @@ class Auth
         if (!$this->isAuthenticated()) {
             return null;
         }
-        
+
         if (!$this->user) {
             $repository = $this->em->getRepository(AdminUser::class);
             $this->user = $repository->findOneById($this->session['user_id']);
         }
-        
+
         return $this->user;
     }
 }

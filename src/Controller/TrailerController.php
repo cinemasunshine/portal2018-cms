@@ -92,7 +92,7 @@ class TrailerController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\TrailerForm(Form\TrailerForm::TYPE_NEW, $this->em);
@@ -288,7 +288,7 @@ class TrailerController extends BaseController
 
         /**@var Entity\Trailer $trailer */
 
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\TrailerForm(Form\TrailerForm::TYPE_EDIT, $this->em);

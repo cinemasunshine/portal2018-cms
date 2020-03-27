@@ -7,8 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\InputFilter\InputFilter;
-use Zend\Validator;
+use Laminas\InputFilter\InputFilter;
+use Laminas\Validator;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\MainBanner;
 
@@ -19,13 +19,13 @@ class MainBannerForm extends BaseForm
 {
     const TYPE_NEW = 1;
     const TYPE_EDIT = 2;
-    
+
     /** @var int */
     protected $type;
-    
+
     /** @var array */
     protected $linkTypeChoices;
-    
+
     /**
      * construct
      *
@@ -35,12 +35,12 @@ class MainBannerForm extends BaseForm
     {
         $this->type = $type;
         $this->linkTypeChoices = MainBanner::getLinkTypes();
-        
+
         parent::__construct();
-        
+
         $this->setup();
     }
-    
+
     /**
      * setup
      *
@@ -54,12 +54,12 @@ class MainBannerForm extends BaseForm
                 'type' => 'Hidden',
             ]);
         }
-        
+
         $this->add([
             'name' => 'name',
             'type' => 'Text',
         ]);
-        
+
         $this->add([
             'name' => 'link_type',
             'type' => 'Radio',
@@ -67,41 +67,41 @@ class MainBannerForm extends BaseForm
                 'value_options' => $this->linkTypeChoices,
             ],
         ]);
-        
+
         $this->add([
             'name' => 'link_url',
             'type' => 'Url',
         ]);
-        
+
         $this->add([
             'name' => 'image',
             'type' => 'File',
         ]);
-        
+
         $inputFilter = new InputFilter();
-        
+
         if ($this->type === self::TYPE_EDIT) {
             $inputFilter->add([
                 'name' => 'id',
                 'required' => true,
             ]);
         }
-        
+
         $inputFilter->add([
             'name' => 'name',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'link_type',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'link_url',
             'required' => false, // リンクタイプがURLの場合はtrue
         ]);
-        
+
         $inputFilter->add([
             'name' => 'image',
             'required' => ($this->type === self::TYPE_NEW),
@@ -120,20 +120,20 @@ class MainBannerForm extends BaseForm
                 ],
             ],
         ]);
-        
+
         $this->setInputFilter($inputFilter);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public function isValid()
     {
         $this->preValidator($this->data);
-        
+
         return parent::isValid();
     }
-    
+
     /**
      * pre validator
      *
@@ -148,7 +148,7 @@ class MainBannerForm extends BaseForm
             $this->getInputFilter()->get('link_url')->setRequired(true);
         }
     }
-    
+
     /**
      * return link_type choices
      *

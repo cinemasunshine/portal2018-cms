@@ -7,8 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Form\API;
 
-use Zend\InputFilter\InputFilter;
-use Zend\Validator;
+use Laminas\InputFilter\InputFilter;
+use Laminas\Validator;
 
 use Cinemasunshine\PortalAdmin\Form\BaseForm;
 
@@ -23,10 +23,10 @@ class EditorUploadForm extends BaseForm
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->setup();
     }
-    
+
     /**
      * setup
      *
@@ -38,9 +38,9 @@ class EditorUploadForm extends BaseForm
             'name' => 'file',
             'type' => 'File',
         ]);
-        
+
         $inputFilter = new InputFilter();
-        
+
         $inputFilter->add([
             'name' => 'file',
             'required' => true,
@@ -59,7 +59,7 @@ class EditorUploadForm extends BaseForm
                 ],
             ],
         ]);
-        
+
         $this->setInputFilter($inputFilter);
     }
 }

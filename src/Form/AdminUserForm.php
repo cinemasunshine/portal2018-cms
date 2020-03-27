@@ -7,8 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\InputFilter\InputFilter;
-use Zend\Validator;
+use Laminas\InputFilter\InputFilter;
+use Laminas\Validator;
 
 use Doctrine\ORM\EntityManager;
 
@@ -21,13 +21,13 @@ class AdminUserForm extends BaseForm
 {
     /** @var EntityManager */
     protected $em;
-    
+
     /** @var array */
     protected $groupChoices;
-    
+
     /** @var array */
     protected $theaterChoices;
-    
+
     /**
      * construct
      *
@@ -36,12 +36,12 @@ class AdminUserForm extends BaseForm
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
-        
+
         parent::__construct();
-        
+
         $this->groupChoices = Entity\AdminUser::getGroups();
         $this->theaterChoices = [];
-        
+
         $this->setup();
     }
 
@@ -56,17 +56,17 @@ class AdminUserForm extends BaseForm
             'name' => 'name',
             'type' => 'Text',
         ]);
-        
+
         $this->add([
             'name' => 'display_name',
             'type' => 'Text',
         ]);
-        
+
         $this->add([
             'name' => 'password',
             'type' => 'Password',
         ]);
-        
+
         $this->add([
             'name' => 'group',
             'type' => 'Select',
@@ -74,15 +74,15 @@ class AdminUserForm extends BaseForm
                 'value_options' => $this->groupChoices,
             ],
         ]);
-        
-        
+
+
         $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
-        
+
         foreach ($theaters as $theater) {
             /** @var Entity\Theater $theater */
             $this->theaterChoices[$theater->getId()] = $theater->getNameJa();
         }
-        
+
         $this->add([
             'name' => 'theater',
             'type' => 'Select',
@@ -90,36 +90,36 @@ class AdminUserForm extends BaseForm
                 'value_options' => $this->theaterChoices,
             ],
         ]);
-        
+
         $inputFilter = new InputFilter();
         $inputFilter->add([
             'name' => 'name',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'display_name',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'password',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'group',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'theater',
             'required' => false, // @todo groupが劇場の場合はtrue
         ]);
-        
+
         $this->setInputFilter($inputFilter);
     }
-    
+
     /**
      * return group choices
      *
@@ -129,7 +129,7 @@ class AdminUserForm extends BaseForm
     {
         return $this->groupChoices;
     }
-    
+
     /**
      * return theater choices
      *

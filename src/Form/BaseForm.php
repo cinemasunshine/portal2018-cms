@@ -7,10 +7,10 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\Form\Form;
-use Zend\I18n\Translator\Resources;
-use Zend\Validator\Translator;
-use Zend\Validator\AbstractValidator;
+use Laminas\Form\Form;
+use Laminas\I18n\Translator\Resources;
+use Laminas\Validator\Translator;
+use Laminas\Validator\AbstractValidator;
 
 use Cinemasunshine\PortalAdmin\Translator\ValidatorTranslator;
 
@@ -25,14 +25,14 @@ class BaseForm extends Form
         'image/png',
         'image/gif',
     ];
-    
+
     /**
      * construct
      */
     public function __construct()
     {
         parent::__construct();
-        
+
         $translator = new ValidatorTranslator();
         $translationFile = Resources::getBasePath() . sprintf(Resources::getPatternForValidator(), 'ja');
         $translator->addTranslationFile(
@@ -42,7 +42,7 @@ class BaseForm extends Form
 
         AbstractValidator::setDefaultTranslator($translator);
     }
-    
+
     /**
      * build data
      *
@@ -61,7 +61,7 @@ class BaseForm extends Form
             BaseForm::parseUploadedFiles($uploadedFiles)
         );
     }
-    
+
     /**
      * parse uploaded files
      *
@@ -73,7 +73,7 @@ class BaseForm extends Form
     private static function parseUploadedFiles(array $uploadedFiles): array
     {
         $parsed = [];
-        
+
         foreach ($uploadedFiles as $field => $uploadedFile) {
             if (!isset($uploadedFile['error'])) {
                 if (is_array($uploadedFile)) {

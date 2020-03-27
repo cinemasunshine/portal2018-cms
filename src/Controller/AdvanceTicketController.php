@@ -94,7 +94,7 @@ class AdvanceTicketController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = $this->getForm(Form\AdvanceSaleForm::TYPE_NEW);
@@ -270,7 +270,7 @@ class AdvanceTicketController extends BaseController
 
         /**@var Entity\AdvanceSale $advanceSale */
 
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = $this->getForm(Form\AdvanceSaleForm::TYPE_EDIT);

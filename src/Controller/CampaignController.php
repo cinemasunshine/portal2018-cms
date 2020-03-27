@@ -88,7 +88,7 @@ class CampaignController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\CampaignForm(Form\CampaignForm::TYPE_NEW);
@@ -220,7 +220,7 @@ class CampaignController extends BaseController
 
         /**@var Entity\Campaign $campaign */
 
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\CampaignForm(Form\CampaignForm::TYPE_EDIT);

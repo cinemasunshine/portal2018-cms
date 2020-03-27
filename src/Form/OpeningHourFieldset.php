@@ -7,8 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\TheaterOpeningHour;
 
@@ -22,17 +22,17 @@ class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterfa
         TheaterOpeningHour::TYPE_DATE => '日付',
         TheaterOpeningHour::TYPE_TERM => '期間',
     ];
-    
+
     /**
      * construct
      */
     public function __construct()
     {
         parent::__construct('opening_hour');
-        
+
         $this->setup();
     }
-    
+
     /**
      * setup
      *
@@ -47,23 +47,23 @@ class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterfa
                 'value_options' => $this->typeChoices,
             ],
         ]);
-        
+
         $this->add([
             'name' => 'from_date',
             'type' => 'Text',
         ]);
-        
+
         $this->add([
             'name' => 'to_date',
             'type' => 'Text',
         ]);
-        
+
         $this->add([
             'name' => 'time',
             'type' => 'Text',
         ]);
     }
-    
+
     /**
      * return inpu filter specification
      *
@@ -86,7 +86,7 @@ class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterfa
             ],
         ];
     }
-    
+
     /**
      * return type choices
      *

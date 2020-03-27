@@ -7,9 +7,9 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\Validator;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
+use Laminas\Validator;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\AdvanceTicket;
 
@@ -20,23 +20,23 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
 {
     /** @var array */
     protected $typeChoices;
-    
+
     /** @var array */
     protected $specialGiftStockChoices;
-    
+
     /**
      * construct
      */
     public function __construct()
     {
         parent::__construct('advance_ticket');
-        
+
         $this->typeChoices = AdvanceTicket::getTypes();
         $this->specialGiftStockChoices = AdvanceTicket::getSpecialGiftStockList();
-        
+
         $this->setup();
     }
-    
+
     /**
      * setup
      *
@@ -48,27 +48,27 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
             'name' => 'id',
             'type' => 'Hidden',
         ]);
-        
+
         $this->add([
             'name' => 'delete_special_gift_image',
             'type' => 'Hidden',
         ]);
-        
+
         $this->add([
             'name' => 'publishing_start_dt',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
-        
+
         $this->add([
             'name' => 'release_dt',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
-        
+
         $this->add([
             'name' => 'release_dt_text',
             'type' => 'Text',
         ]);
-        
+
         $this->add([
             'name' => 'is_sales_end',
             'type' => 'Checkbox',
@@ -77,7 +77,7 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
                 'unchecked_value' => '0',
             ],
         ]);
-        
+
         $this->add([
             'name' => 'type',
             'type' => 'Radio',
@@ -85,17 +85,17 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
                 'value_options' => $this->typeChoices,
             ],
         ]);
-        
+
         $this->add([
             'name' => 'price_text',
             'type' => 'Text',
         ]);
-        
+
         $this->add([
             'name' => 'special_gift',
             'type' => 'Text',
         ]);
-        
+
         $this->add([
             'name' => 'special_gift_stock',
             'type' => 'Select',
@@ -104,13 +104,13 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
                 'value_options' => $this->specialGiftStockChoices,
             ],
         ]);
-        
+
         $this->add([
             'name' => 'special_gift_image',
             'type' => 'File',
         ]);
     }
-    
+
     /**
      * return inpu filter specification
      *
@@ -184,10 +184,10 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
                 'required' => false,
             ],
         ];
-        
+
         return $specification;
     }
-    
+
     /**
      * return type choices
      *
@@ -197,7 +197,7 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
     {
         return $this->typeChoices;
     }
-    
+
     /**
      * return special_gift_stock choices
      *

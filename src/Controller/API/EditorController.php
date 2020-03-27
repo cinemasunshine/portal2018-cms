@@ -35,7 +35,7 @@ class EditorController extends BaseController
      */
     public function executeUpload($request, $response, $args)
     {
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new ApiForm\EditorUploadForm();

@@ -7,8 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\InputFilter\InputFilter;
-use Zend\Validator;
+use Laminas\InputFilter\InputFilter;
+use Laminas\Validator;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\News;
 
@@ -19,13 +19,13 @@ class NewsForm extends BaseForm
 {
     const TYPE_NEW = 1;
     const TYPE_EDIT = 2;
-    
+
     /** @var int */
     protected $type;
-    
+
     /** @var array */
     protected $categoryChoices;
-    
+
     /**
      * construct
      *
@@ -35,12 +35,12 @@ class NewsForm extends BaseForm
     {
         $this->type = $type;
         $this->categoryChoices = News::$categories;
-        
+
         parent::__construct();
-        
+
         $this->setup();
     }
-    
+
     /**
      * setup
      *
@@ -54,7 +54,7 @@ class NewsForm extends BaseForm
                 'type' => 'Hidden',
             ]);
         }
-        
+
         $this->add([
             'name' => 'category',
             'type' => 'Radio',
@@ -62,74 +62,74 @@ class NewsForm extends BaseForm
                 'value_options' => $this->categoryChoices,
             ],
         ]);
-        
+
         $this->add([
             'name' => 'title_id',
             'type' => 'Hidden',
         ]);
-        
+
         // 作品名を表示するため
         $this->add([
             'name' => 'title_name',
             'type' => 'Hidden',
         ]);
-        
+
         $this->add([
             'name' => 'start_dt',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
-        
+
         $this->add([
             'name' => 'end_dt',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
-        
+
         $this->add([
             'name' => 'headline',
             'type' => 'Text',
         ]);
-        
+
         $this->add([
             'name' => 'body',
             'type' => 'Textarea',
         ]);
-        
+
         $this->add([
             'name' => 'image',
             'type' => 'File',
         ]);
-        
+
         // @todo 編集かつ画像があるとき
         $this->add([
             'name' => 'delete_image',
             'type' => 'Checkbox',
         ]);
-        
-        
+
+
         $inputFilter = new InputFilter();
-        
+
         if ($this->type === self::TYPE_EDIT) {
             $inputFilter->add([
                 'name' => 'id',
                 'required' => true,
             ]);
         }
-        
+
         $inputFilter->add([
             'name' => 'category',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'title_id',
             'required' => false,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'title_name',
             'required' => false,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'start_dt',
             'required' => true,
@@ -142,7 +142,7 @@ class NewsForm extends BaseForm
                 ],
             ],
         ]);
-        
+
         $inputFilter->add([
             'name' => 'end_dt',
             'required' => true,
@@ -155,17 +155,17 @@ class NewsForm extends BaseForm
                 ],
             ],
         ]);
-        
+
         $inputFilter->add([
             'name' => 'headline',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'body',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'image',
             'required' => false,
@@ -184,16 +184,16 @@ class NewsForm extends BaseForm
                 ],
             ],
         ]);
-        
+
         // @todo 編集かつ画像があるとき
         $inputFilter->add([
             'name' => 'delete_image',
             'required' => false,
         ]);
-        
+
         $this->setInputFilter($inputFilter);
     }
-    
+
     /**
      * return category choices
      *

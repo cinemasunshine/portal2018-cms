@@ -7,8 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\InputFilter\InputFilter;
-use Zend\Validator;
+use Laminas\InputFilter\InputFilter;
+use Laminas\Validator;
 
 use Doctrine\ORM\EntityManager;
 
@@ -21,19 +21,19 @@ class ScheduleForm extends BaseForm
 {
     const TYPE_NEW = 1;
     const TYPE_EDIT = 2;
-    
+
     /** @var int */
     protected $type;
-    
+
     /** @var EntityManager */
     protected $em;
-    
+
     /** @var array */
     protected $theaterChoices;
-    
+
     /** @var ShowingFormatFieldset */
     protected $showingFormatFieldset;
-    
+
     /**
      * construct
      *
@@ -44,15 +44,15 @@ class ScheduleForm extends BaseForm
     {
         $this->type = $type;
         $this->em = $em;
-        
+
         parent::__construct();
-        
+
         $this->theaterChoices = [];
         $this->showingFormatFieldset = new ShowingFormatFieldset();
-        
+
         $this->setup();
     }
-    
+
     /**
      * setup
      *
@@ -66,44 +66,44 @@ class ScheduleForm extends BaseForm
                 'type' => 'Hidden',
             ]);
         }
-        
+
         $this->add([
             'name' => 'title_id',
             'type' => 'Hidden',
         ]);
-        
+
         $this->add([
             'name' => 'start_date',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
-        
+
         $this->add([
             'name' => 'end_date',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
-        
+
         $this->add([
             'name' => 'public_start_dt',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
-        
+
         $this->add([
             'name' => 'public_end_dt',
             'type' => 'Text', // Datepickerを入れるのでtextにする
         ]);
-        
+
         $this->add([
             'name' => 'remark',
             'type' => 'Textarea',
         ]);
-        
+
         $theaters = $this->em->getRepository(Theater::class)->findActive();
-        
+
         foreach ($theaters as $theater) {
             /** @var Theater $theater */
             $this->theaterChoices[$theater->getId()] = $theater->getNameJa();
         }
-        
+
         $this->add([
             'name' => 'theater',
             'type' => 'MultiCheckbox',
@@ -111,7 +111,7 @@ class ScheduleForm extends BaseForm
                 'value_options' => $this->theaterChoices,
             ],
         ]);
-        
+
         $this->add([
             'name' => 'formats',
             'type' => 'Collection',
@@ -119,21 +119,21 @@ class ScheduleForm extends BaseForm
                 'target_element' => $this->showingFormatFieldset,
             ],
         ]);
-        
+
         $inputFilter = new InputFilter();
-        
+
         if ($this->type === self::TYPE_EDIT) {
             $inputFilter->add([
                 'name' => 'id',
                 'required' => true,
             ]);
         }
-        
+
         $inputFilter->add([
             'name' => 'title_id',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'start_date',
             'required' => true,
@@ -146,7 +146,7 @@ class ScheduleForm extends BaseForm
                 ],
             ],
         ]);
-        
+
         $inputFilter->add([
             'name' => 'end_date',
             'required' => true,
@@ -159,7 +159,7 @@ class ScheduleForm extends BaseForm
                 ],
             ],
         ]);
-        
+
         $inputFilter->add([
             'name' => 'public_start_dt',
             'required' => true,
@@ -172,7 +172,7 @@ class ScheduleForm extends BaseForm
                 ],
             ],
         ]);
-        
+
         $inputFilter->add([
             'name' => 'public_end_dt',
             'required' => true,
@@ -185,20 +185,20 @@ class ScheduleForm extends BaseForm
                 ],
             ],
         ]);
-        
+
         $inputFilter->add([
             'name' => 'theater',
             'required' => true,
         ]);
-        
+
         $inputFilter->add([
             'name' => 'remark',
             'required' => false,
         ]);
-        
+
         $this->setInputFilter($inputFilter);
     }
-    
+
     /**
      * return theater choices
      *
@@ -208,7 +208,7 @@ class ScheduleForm extends BaseForm
     {
         return $this->theaterChoices;
     }
-    
+
     /**
      * return format Fieldset
      *

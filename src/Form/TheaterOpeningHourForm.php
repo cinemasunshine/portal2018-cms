@@ -7,8 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\InputFilter\InputFilter;
-use Zend\Validator;
+use Laminas\InputFilter\InputFilter;
+use Laminas\Validator;
 
 /**
  * Theater opening hour form class
@@ -17,19 +17,19 @@ class TheaterOpeningHourForm extends BaseForm
 {
     /** @var OpeningHourFieldset */
     protected $openingHourFieldset;
-    
+
     /**
      * construct
      */
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->openingHourFieldset = new OpeningHourFieldset();
-        
+
         $this->setup();
     }
-    
+
     /**
      * setup
      *
@@ -45,7 +45,7 @@ class TheaterOpeningHourForm extends BaseForm
             ],
         ]);
     }
-    
+
     /**
      * return opening hour fieldset
      *
