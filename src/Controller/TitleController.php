@@ -93,7 +93,7 @@ class TitleController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\TitleForm();
@@ -287,7 +287,7 @@ class TitleController extends BaseController
 
         /**@var Entity\Title $title */
 
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\TitleForm();

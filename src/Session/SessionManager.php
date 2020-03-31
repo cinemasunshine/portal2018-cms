@@ -7,9 +7,9 @@
 
 namespace Cinemasunshine\PortalAdmin\Session;
 
-use Zend\Session\Config;
-use Zend\Session\Container;
-use Zend\Session\SessionManager as Base;
+use Laminas\Session\Config;
+use Laminas\Session\Container;
+use Laminas\Session\SessionManager as Base;
 
 /**
  * SessionManager class
@@ -18,7 +18,7 @@ class SessionManager extends Base
 {
     /** @var Container[] */
     protected $containers = [];
-    
+
     /**
      * construct
      *
@@ -28,12 +28,12 @@ class SessionManager extends Base
     {
         $config = new Config\SessionConfig();
         $config->setOptions($settings);
-    
+
         parent::__construct($config);
-        
+
         Container::setDefaultManager($this);
     }
-    
+
     /**
      * return session container
      *
@@ -45,7 +45,7 @@ class SessionManager extends Base
         if (!isset($this->containers[$name])) {
             $this->containers[$name] = new Container($name);
         }
-        
+
         return $this->containers[$name];
     }
 }

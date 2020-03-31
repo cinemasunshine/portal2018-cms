@@ -26,9 +26,9 @@ $settings['view'] = [
 /**
  * session
  *
- * Zend-Session Configのオプションとして使用。
+ * laminas-session configのオプションとして使用。
  *
- * @link https://docs.zendframework.com/zend-session/config/
+ * @link https://docs.laminas.dev/laminas-session/config/
  */
 $settings['session'] = [
     'name' => 'csadmin',
@@ -36,7 +36,6 @@ $settings['session'] = [
     'gc_probability' => 1,
     'gc_divisor' => 1,
 ];
-
 
 // logger
 $getLoggerSetting = function ($isDebug) {

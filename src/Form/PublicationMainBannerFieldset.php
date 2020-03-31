@@ -7,8 +7,8 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * PublicationMainBanner fieldset class
@@ -18,10 +18,10 @@ class PublicationMainBannerFieldset extends Fieldset implements InputFilterProvi
     public function __construct()
     {
         parent::__construct('main_banner');
-        
+
         $this->setup();
     }
-    
+
     /**
      * setup
      *
@@ -33,13 +33,13 @@ class PublicationMainBannerFieldset extends Fieldset implements InputFilterProvi
             'name' => 'main_banner_id',
             'type' => 'Hidden',
         ]);
-        
+
         $this->add([
             'name' => 'display_order',
             'type' => 'Hidden',
         ]);
     }
-    
+
     /**
      * return inpu filter specification
      *

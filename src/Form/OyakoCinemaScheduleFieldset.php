@@ -9,9 +9,9 @@ namespace Cinemasunshine\PortalAdmin\Form;
 
 use Cinemasunshine\PortalAdmin\ORM\Entity\Theater;
 use Doctrine\ORM\EntityManager;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\Validator;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
+use Laminas\Validator;
 
 /**
  * OyakoCinemaSchedule fieldset class

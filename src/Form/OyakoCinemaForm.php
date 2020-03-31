@@ -8,7 +8,7 @@
 namespace Cinemasunshine\PortalAdmin\Form;
 
 use Doctrine\ORM\EntityManager;
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 
 /**
  * OyakoCinema form class

@@ -84,7 +84,7 @@ class NewsController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\NewsForm(Form\NewsForm::TYPE_NEW);
@@ -229,7 +229,7 @@ class NewsController extends BaseController
 
         /**@var Entity\News $news */
 
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\NewsForm(Form\NewsForm::TYPE_EDIT);

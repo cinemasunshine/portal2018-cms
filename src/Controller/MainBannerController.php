@@ -89,7 +89,7 @@ class MainBannerController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\MainBannerForm(Form\MainBannerForm::TYPE_NEW);
@@ -207,7 +207,7 @@ class MainBannerController extends BaseController
 
         /**@var Entity\MainBanner $mainBanner */
 
-        // Zend_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
+        // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
 
         $form = new Form\MainBannerForm(Form\MainBannerForm::TYPE_EDIT);
