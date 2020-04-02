@@ -128,7 +128,7 @@ jobs:
           name: Deploy to Azure
           command: curl -X POST https://$DEV_AAS_USER:$DEV_AAS_PASSWORD@ssk-portal2018-admin-win-dev.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
 
-  deploy_to_dev_feature:
+  deploy_to_test:
     working_directory: ~/development
     executor: my_executor
     steps:
@@ -137,7 +137,7 @@ jobs:
 
       - run:
           name: Deploy to Azure
-          command: curl -X POST https://$DEV_FEATURE_AAS_USER:$DEV_FEATURE_AAS_PASSWORD@ssk-portal2018-admin-win-dev-feature.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
+          command: curl -X POST https://$TEST_AAS_USER:$TEST_AAS_PASSWORD@ssk-portal2018-admin-win-test.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
 
   deploy_to_prod:
     working_directory: ~/production
@@ -187,7 +187,7 @@ workflows:
           requires:
             - build_development
 
-      - deploy_to_dev_feature:
+      - deploy_to_test:
           requires:
             - deploy_approval
 

@@ -32,8 +32,8 @@ Settings > cinemasunshine > portal2018-cms > Environment Variables
 |:---|:---|
 |DEV_AAS_USER |開発環境デプロイユーザ |
 |DEV_AAS_PASSWORD |開発環境デプロイユーザのパスワード |
-|DEV_FEATURE_AAS_USER |開発feature環境デプロイユーザ |
-|DEV_FEATURE_AAS_PASSWORD |開発feature環境デプロイユーザのパスワード |
+|TEST_AAS_USER |テスト環境デプロイユーザ |
+|TEST_AAS_PASSWORD |テスト環境デプロイユーザのパスワード |
 |PROD_AAS_USER |運用環境デプロイユーザ |
 |PROD_AAS_PASSWORD |運用環境デプロイユーザのパスワード |
 
