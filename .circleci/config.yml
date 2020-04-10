@@ -55,7 +55,7 @@ jobs:
 
       - run:
           name: Composer install
-          command: composer install --no-dev -n --prefer-dist
+          command: composer install --no-dev -n --prefer-dist --optimize-autoloader
 
       - save_cache:
           key: composer-{{ checksum "composer.lock" }}
