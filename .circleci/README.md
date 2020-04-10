@@ -6,26 +6,6 @@
 
 Settings > cinemasunshine > portal2018-cms > Environment Variables
 
-### コード解析
-
-| Name | Value |
-|:---|:---|
-|CI_DOTENV |.envファイルの設定をbase64エンコードした文字列 |
-
-#### Windowsでのbase64エンコード
-
-```dosbatch
-> certutil -f -encode [input file] [output file]
-```
-
-上記のコマンドで出力されたファイルを開き、編集する。
-
-- ヘッダー「-----BEGIN CERTIFICATE-----」削除
-- フッター「-----END CERTIFICATE-----」削除
-- 改行を除く（長いと一定文字数で改行が入る）
-
-編集した１行の文字列をValueに設定する。
-
 ### デプロイ
 
 | Name | Value |

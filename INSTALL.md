@@ -46,7 +46,7 @@ $ php composer install [--no-dev] [-o|--optimize-autoloader]
 
 ### ４．環境変数
 
-ルートディレクトリに *.env* ファイルを作成し、 *sample.env* ファイルを参考に設定します。
+ルートディレクトリに *.env* ファイルを作成し、 *.env.example* ファイルを参考に設定します。
 
 ※ パフォーマンスを考慮するならば.envファイルは作成せず、サーバ等で設定します。
 
