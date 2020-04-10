@@ -18,6 +18,7 @@ if (file_exists(APP_ROOT . '/.env')) {
 }
 
 define('APP_ENV', getenv('APPSETTING_ENV'));
+define('APP_DEBUG', getenv('APPSETTING_DEBUG') === 'true');
 
 /** @var array $settings */
 $settings = require APP_ROOT . '/config/settings.php';

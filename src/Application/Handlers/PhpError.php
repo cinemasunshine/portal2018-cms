@@ -17,10 +17,10 @@ class PhpError extends BaseHandler
 {
     /** @var Container */
     protected $container;
-    
+
     /** @var \Monolog\Logger */
     protected $logger;
-    
+
     /**
      * construct
      *
@@ -30,10 +30,10 @@ class PhpError extends BaseHandler
     {
         $this->container = $container;
         $this->logger = $container->get('logger');
-        
+
         parent::__construct($container->get('settings')['displayErrorDetails']);
     }
-    
+
     /**
      *  Write to the error log
      *
@@ -46,7 +46,7 @@ class PhpError extends BaseHandler
     {
         $this->log($throwable);
     }
-    
+
     /**
      * Undocumented function
      *
@@ -63,16 +63,16 @@ class PhpError extends BaseHandler
             'trace' => $error->getTraceAsString(),
         ]);
     }
-    
+
     /**
      * {@inheritdoc}
      */
     protected function renderHtmlErrorMessage(\Throwable $error)
     {
-        if (APP_ENV === 'dev') {
+        if (APP_DEBUG) {
             return parent::renderHtmlErrorMessage($error);
         }
-        
+
         return file_get_contents(APP_ROOT . '/error/500.html');
     }
 }
