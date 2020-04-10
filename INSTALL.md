@@ -37,42 +37,44 @@ composerコマンドで依存ライブラリをインストールします。
 [Download Composer](https://getcomposer.org/download/)
 
 ```sh
-$ php composer install [--no-dev]
+$ php composer install [--no-dev] [-o|--optimize-autoloader]
 ```
 
 ※ リポジトリにcomposer.lockがあるのでupdateコマンドではなくinstallコマンドを使います。
 
+※ 運用環境ではno-dev、optimize-autoloaderオプションを推奨。
+
 ### ４．環境変数
 
-パフォーマンスを考慮するならばサーバ等で設定します。
+ルートディレクトリに *.env* ファイルを作成し、 *sample.env* ファイルを参考に設定します。
 
-ローカル環境などパフォーマンスを気にしないのでであればルートディレクトリに *.env* ファイルを作成し、 *sample.env* ファイルを参考に設定します。
+※ パフォーマンスを考慮するならば.envファイルは作成せず、サーバ等で設定します。
 
 #### アプリケーション設定
 
-Azure Web Appsのアプリケーション設定で設定する場合は **APPSETTING_** を省略します。
+Azure Web Appsのアプリケーション設定で設定する場合はプレフィックス（ **APPSETTING_** ）を省略します。
 
-|名前|値|説明|
-|:--|:--|:--|
-|APPSETTING_ENV|'prod' or 'dev'|アプリケーションの実行環境|
+|名前|値|必須|説明|
+|:--|:--|:--|:--|
+|APPSETTING_ENV|*String*|○|アプリケーションの実行環境|
 
 #### 接続文字列
 
-Azure Web Appsのアプリケーション設定で設定する場合は **MYSQLCONNSTR_** 等を省略します。
+Azure Web Appsのアプリケーション設定で設定する場合はプレフィックス（ **MYSQLCONNSTR_** 等）を省略します。
 
-|名前|値|説明|
-|:--|:--|:--|
-|MYSQLCONNSTR_HOST|[host name]|MySQLのホスト名|
-|MYSQLCONNSTR_PORT|[port]|MySQLのポート番号|
-|MYSQLCONNSTR_NAME|[database name]|MySQLのデータベース名|
-|MYSQLCONNSTR_USER|[user name]|MySQLのユーザ名|
-|MYSQLCONNSTR_PASSWORD|[user password]|MySQLのユーザパスワード|
-|MYSQLCONNSTR_SSL|'true' or 'false'|MySQLにSSL接続するか|
-|CUSTOMCONNSTR_STORAGE_SECURE|'true' or 'false'|HTTPS接続するか。デフォルト: true|
-|CUSTOMCONNSTR_STORAGE_NAME|[storage name]|Azure Storage名|
-|CUSTOMCONNSTR_STORAGE_KEY|[storage access key]|Azure Sotrageのアクセスキー|
-|CUSTOMCONNSTR_STORAGE_BLOB_ENDPOINT|[Blob endpoint]]|オプション|
-|CUSTOMCONNSTR_STORAGE_PUBLIC_ENDOPOINT|[storage access key]|オプション|
+|名前|値|必須|説明|
+|:--|:--|:--|:--|
+|MYSQLCONNSTR_HOST|*String*|○|MySQLのホスト名|
+|MYSQLCONNSTR_PORT|*Integer*|○|MySQLのポート番号|
+|MYSQLCONNSTR_NAME|*String*|○|MySQLのデータベース名|
+|MYSQLCONNSTR_USER|*String*|○|MySQLのユーザ名|
+|MYSQLCONNSTR_PASSWORD|*String*|○|MySQLのユーザパスワード|
+|MYSQLCONNSTR_SSL|*Boolean*|○|MySQLにSSL接続するか|
+|CUSTOMCONNSTR_STORAGE_SECURE|*Boolean*|-|HTTPS接続するか。デフォルト: true|
+|CUSTOMCONNSTR_STORAGE_NAME|*String*|○|Azure Storage名|
+|CUSTOMCONNSTR_STORAGE_KEY|*String*|○|Azure Sotrageのアクセスキー|
+|CUSTOMCONNSTR_STORAGE_BLOB_ENDPOINT|*String*|-|Blob エンドポイント|
+|CUSTOMCONNSTR_STORAGE_PUBLIC_ENDOPOINT|*String*|-|パブリック アクセス エンドポイント|
 
 ### ５．Doctrine
 
