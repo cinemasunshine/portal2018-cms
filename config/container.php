@@ -88,6 +88,7 @@ $container['logger'] = function ($container) {
  */
 $container['em'] = function ($container) {
     $settings = $container->get('settings')['doctrine'];
+    $proxyDir = APP_ROOT . '/src/ORM/Proxy';
 
     /**
      * 第５引数について、他のアノテーションとの競合を避けるためSimpleAnnotationReaderは使用しない。
@@ -96,14 +97,12 @@ $container['em'] = function ($container) {
     $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
         $settings['metadata_dirs'],
         $settings['dev_mode'],
-        null,
+        $proxyDir,
         null,
         false
     );
 
-    $config->setProxyDir(APP_ROOT . '/src/ORM/Proxy');
     $config->setProxyNamespace('Cinemasunshine\PortalAdmin\ORM\Proxy');
-    $config->setAutoGenerateProxyClasses($settings['dev_mode']);
 
     $logger = new \Cinemasunshine\PortalAdmin\Logger\DbalLogger($container->get('logger'));
     $config->setSQLLogger($logger);

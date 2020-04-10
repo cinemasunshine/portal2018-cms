@@ -19,10 +19,10 @@ class NotFound extends BaseHandler
 {
     /** @var Container */
     protected $container;
-    
+
     /** @var \Slim\Views\Twig */
     protected $view;
-    
+
     /**
      * construct
      *
@@ -33,16 +33,16 @@ class NotFound extends BaseHandler
         $this->container = $container;
         $this->view = $container->get('view');
     }
-    
+
     /**
      * {@inheritdoc}
      */
     protected function renderHtmlNotFoundOutput(ServerRequestInterface $request)
     {
-        if (APP_ENV === 'dev') {
+        if (APP_DEBUG) {
             return parent::renderHtmlNotFoundOutput($request);
         }
-        
+
         return $this->view->fetch('error/client.html.twig', [
             'title' => 'Not Found',
             'status' => 404,

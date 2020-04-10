@@ -8,17 +8,14 @@
  */
 
 $settings = [];
-
-$isDebug = in_array(APP_ENV, ['dev', 'test']);
-
-$settings['displayErrorDetails'] = $isDebug;
+$settings['displayErrorDetails'] = APP_DEBUG;
 $settings['addContentLengthHeader'] = false;
 
 // view
 $settings['view'] = [
     'template_path' => APP_ROOT . '/template',
     'settings' => [
-        'debug' => $isDebug,
+        'debug' => APP_DEBUG,
         'cache' => APP_ROOT . '/cache/view',
     ],
 ];
@@ -38,12 +35,12 @@ $settings['session'] = [
 ];
 
 // logger
-$getLoggerSetting = function ($isDebug) {
+$getLoggerSetting = function () {
     $settings = [
         'name' => 'app',
     ];
 
-    if ($isDebug) {
+    if (APP_DEBUG) {
         $settings['chrome_php'] = [
             'level' => \Monolog\Logger::DEBUG,
         ];
@@ -62,12 +59,29 @@ $getLoggerSetting = function ($isDebug) {
     return $settings;
 };
 
-$settings['logger'] = $getLoggerSetting($isDebug);
+$settings['logger'] = $getLoggerSetting();
 
-// doctrine
-$getDoctrineSetting = function ($isDebug) {
+/**
+ * doctrine
+ *
+ * @return array
+ * @link https://www.doctrine-project.org/projects/doctrine-orm/en/2.6/reference/configuration.html#installation-and-configuration
+ */
+$getDoctrineSetting = function () {
     $settings = [
-        'dev_mode' => $isDebug,
+        /**
+         * ビルドに影響するのでtrueにするのはローカルモードに限定しておく。
+         *
+         * truneの場合
+         * * キャッシュはメモリ内で行われる（ArrayCache）
+         * * Proxyオブジェクトは全てのリクエストで再作成される
+         *
+         * falseの場合
+         * * 指定のキャッシュが使用されるかAPC、Xcache、Memcache、Redisの順で確認される
+         * * Proxyクラスをコマンドラインから明示的に作成する必要がある
+         */
+        'dev_mode' => (APP_ENV === 'local'),
+
         'metadata_dirs' => [APP_ROOT . '/src/ORM/Entity'],
 
         'connection' => [
@@ -94,7 +108,7 @@ $getDoctrineSetting = function ($isDebug) {
     return $settings;
 };
 
-$settings['doctrine'] = $getDoctrineSetting($isDebug);
+$settings['doctrine'] = $getDoctrineSetting();
 
 
 // storage
