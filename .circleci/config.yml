@@ -98,7 +98,7 @@ jobs:
           paths:
             - .
 
-  analysis:
+  test:
     working_directory: ~/development
     executor: my_executor
 
@@ -121,6 +121,10 @@ jobs:
       - run:
           name: PHPStan
           command: composer phpstan > ./report/phpstan_result.txt
+
+      - run:
+          name: PHPUnit
+          command: composer phpunit
 
       - store_artifacts:
           path: ./report
@@ -173,7 +177,7 @@ workflows:
             branches:
               only: develop
 
-      - analysis:
+      - test:
           requires:
             - build_development
 
@@ -190,7 +194,7 @@ workflows:
                 - develop
                 - master
 
-      - analysis:
+      - test:
           requires:
             - build_development
 
@@ -210,13 +214,13 @@ workflows:
           branches:
             only: master
 
-    - analysis:
+    - test:
         requires:
           - build_development
 
     - build_production:
         requires:
-          - analysis
+          - test
 
     - deploy_approval:
         type: approval
