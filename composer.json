@@ -8,6 +8,11 @@
             "Cinemasunshine\\PortalAdmin\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": "~7.2",
         "slim/slim" : "^3.12",
@@ -37,6 +42,7 @@
     "scripts": {
         "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
         "phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml",
-        "phpstan": "vendor/bin/phpstan analyse -n --no-progress -c phpstan.neon"
+        "phpstan": "vendor/bin/phpstan analyse -n --no-progress -c phpstan.neon",
+        "phpunit": "vendor/bin/phpunit"
     }
 }
