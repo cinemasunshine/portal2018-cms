@@ -209,24 +209,24 @@ workflows:
 
   deploy_production:
     jobs:
-    - build_development:
-        filters:
-          branches:
-            only: master
+      - build_development:
+          filters:
+            branches:
+              only: master
 
-    - test:
-        requires:
-          - build_development
+      - test:
+          requires:
+            - build_development
 
-    - build_production:
-        requires:
-          - test
+      - build_production:
+          requires:
+            - test
 
-    - deploy_approval:
-        type: approval
-        requires:
-          - build_production
+      - deploy_approval:
+          type: approval
+          requires:
+            - build_production
 
-    - deploy_to_prod:
-        requires:
-          - deploy_approval
+      - deploy_to_prod:
+          requires:
+            - deploy_approval
