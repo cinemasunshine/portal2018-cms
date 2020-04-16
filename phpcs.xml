@@ -5,6 +5,7 @@
     <!-- file -->
     <file>./config</file>
     <file>./src</file>
+    <file>./tests</file>
 
     <!-- exclude-pattern -->
     <exclude-pattern>/src/ORM/Proxy/</exclude-pattern>

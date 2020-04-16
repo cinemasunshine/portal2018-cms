@@ -43,7 +43,7 @@ jobs:
 
       - run:
           name: ZIP archive
-          command: zip -r development_app.zip . -x \*.git\* \*.circleci\* \*analysis\* \*docker\* \*report\* .gitignore composer.\* docker-compose.yml phpcs.xml phpstan.neon .editorconfig .env\* \*.user.ini public/sample.htaccess public/sample.Web.config
+          command: zip -r development_app.zip . -x \*.git\* \*.circleci\* \*analysis\* \*docker\* \*report\* \*tests\* .gitignore .phpunit.result.cache composer.\* docker-compose.yml phpcs.xml phpstan.neon phpunit.xml .editorconfig .env\* \*.user.ini public/sample.htaccess public/sample.Web.config
 
       - store_artifacts:
           path: ./development_app.zip
@@ -88,7 +88,7 @@ jobs:
 
       - run:
           name: ZIP archive
-          command: zip -r production_app.zip . -x \*.git\* \*.circleci\* \*analysis\* \*docker\* \*report\* .gitignore composer.\* docker-compose.yml phpcs.xml phpstan.neon .editorconfig .env\* \*.user.ini public/sample.htaccess public/sample.Web.config
+          command: zip -r production_app.zip . -x \*.git\* \*.circleci\* \*analysis\* \*docker\* \*report\* \*tests\* .gitignore .phpunit.result.cache composer.\* docker-compose.yml phpcs.xml phpstan.neon phpunit.xml .editorconfig .env\* \*.user.ini public/sample.htaccess public/sample.Web.config
 
       - store_artifacts:
           path: ./production_app.zip
@@ -98,7 +98,7 @@ jobs:
           paths:
             - .
 
-  analysis:
+  test:
     working_directory: ~/development
     executor: my_executor
 
@@ -121,6 +121,10 @@ jobs:
       - run:
           name: PHPStan
           command: composer phpstan > ./report/phpstan_result.txt
+
+      - run:
+          name: PHPUnit
+          command: composer phpunit
 
       - store_artifacts:
           path: ./report
@@ -173,7 +177,7 @@ workflows:
             branches:
               only: develop
 
-      - analysis:
+      - test:
           requires:
             - build_development
 
@@ -190,7 +194,7 @@ workflows:
                 - develop
                 - master
 
-      - analysis:
+      - test:
           requires:
             - build_development
 
@@ -205,24 +209,24 @@ workflows:
 
   deploy_production:
     jobs:
-    - build_development:
-        filters:
-          branches:
-            only: master
+      - build_development:
+          filters:
+            branches:
+              only: master
 
-    - analysis:
-        requires:
-          - build_development
+      - test:
+          requires:
+            - build_development
 
-    - build_production:
-        requires:
-          - analysis
+      - build_production:
+          requires:
+            - test
 
-    - deploy_approval:
-        type: approval
-        requires:
-          - build_production
+      - deploy_approval:
+          type: approval
+          requires:
+            - build_production
 
-    - deploy_to_prod:
-        requires:
-          - deploy_approval
+      - deploy_to_prod:
+          requires:
+            - deploy_approval
