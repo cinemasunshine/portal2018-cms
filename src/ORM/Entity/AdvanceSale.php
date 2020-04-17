@@ -42,7 +42,7 @@ class AdvanceSale extends AbstractEntity
      *
      * @var Theater
      * @ORM\ManyToOne(targetEntity="Theater")
-     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", onDelete="RESTRICT")
+     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $theater;
 
@@ -51,7 +51,7 @@ class AdvanceSale extends AbstractEntity
      *
      * @var Title
      * @ORM\ManyToOne(targetEntity="Title")
-     * @ORM\JoinColumn(name="title_id", referencedColumnName="id", onDelete="RESTRICT")
+     * @ORM\JoinColumn(name="title_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $title;
 
