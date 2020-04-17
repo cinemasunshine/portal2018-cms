@@ -14,7 +14,6 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * TheaterMainBanner entity class
  *
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\TheaterMainBannerRepository")
  * @ORM\Table(name="theater_main_banner", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -22,7 +21,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 class TheaterMainBanner extends AbstractEntity
 {
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -32,7 +31,7 @@ class TheaterMainBanner extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * main_banner
      *
@@ -41,7 +40,7 @@ class TheaterMainBanner extends AbstractEntity
      * @ORM\JoinColumn(name="main_banner_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $mainBanner;
-    
+
     /**
      * theater
      *
@@ -50,7 +49,7 @@ class TheaterMainBanner extends AbstractEntity
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $theater;
-    
+
     /**
      * display_order
      *
@@ -58,15 +57,15 @@ class TheaterMainBanner extends AbstractEntity
      * @ORM\Column(type="smallint", name="display_order", options={"unsigned"=true})
      */
     protected $displayOrder;
-    
-    
+
+
     /**
      * construct
      */
     public function __construct()
     {
     }
-    
+
     /**
      * get id
      *
@@ -76,7 +75,7 @@ class TheaterMainBanner extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get main_banner
      *
@@ -86,7 +85,7 @@ class TheaterMainBanner extends AbstractEntity
     {
         return $this->mainBanner;
     }
-    
+
     /**
      * set main_banner
      *
@@ -97,7 +96,7 @@ class TheaterMainBanner extends AbstractEntity
     {
         $this->mainBanner = $mainBanner;
     }
-    
+
     /**
      * get theater
      *
@@ -107,7 +106,7 @@ class TheaterMainBanner extends AbstractEntity
     {
         return $this->theater;
     }
-    
+
     /**
      * set theater
      *
@@ -118,7 +117,7 @@ class TheaterMainBanner extends AbstractEntity
     {
         $this->theater = $theater;
     }
-    
+
     /**
      * get display_order
      *
@@ -128,7 +127,7 @@ class TheaterMainBanner extends AbstractEntity
     {
         return $this->displayOrder;
     }
-    
+
     /**
      * set display_order
      *

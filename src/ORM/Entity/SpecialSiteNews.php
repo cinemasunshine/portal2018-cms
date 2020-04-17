@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SpecialSiteNews entity class
  *
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\SpecialSiteNewsRepository")
  * @ORM\Table(name="special_site_news", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -20,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 class SpecialSiteNews extends AbstractEntity
 {
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -30,7 +29,7 @@ class SpecialSiteNews extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * news
      *
@@ -39,7 +38,7 @@ class SpecialSiteNews extends AbstractEntity
      * @ORM\JoinColumn(name="news_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $news;
-    
+
     /**
      * special_site
      *
@@ -48,7 +47,7 @@ class SpecialSiteNews extends AbstractEntity
      * @ORM\JoinColumn(name="special_site_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $specialSite;
-    
+
     /**
      * display_order
      *
@@ -56,15 +55,15 @@ class SpecialSiteNews extends AbstractEntity
      * @ORM\Column(type="smallint", name="display_order", options={"unsigned"=true})
      */
     protected $displayOrder;
-    
-    
+
+
     /**
      * construct
      */
     public function __construct()
     {
     }
-    
+
     /**
      * get id
      *
@@ -74,7 +73,7 @@ class SpecialSiteNews extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get news
      *
@@ -84,7 +83,7 @@ class SpecialSiteNews extends AbstractEntity
     {
         return $this->news;
     }
-    
+
     /**
      * set news
      *
@@ -95,7 +94,7 @@ class SpecialSiteNews extends AbstractEntity
     {
         $this->news = $news;
     }
-    
+
     /**
      * get special_site
      *
@@ -105,7 +104,7 @@ class SpecialSiteNews extends AbstractEntity
     {
         return $this->specialSite;
     }
-    
+
     /**
      * set special_site
      *
@@ -116,7 +115,7 @@ class SpecialSiteNews extends AbstractEntity
     {
         $this->specialSite = $specialSite;
     }
-    
+
     /**
      * get display_order
      *
@@ -126,7 +125,7 @@ class SpecialSiteNews extends AbstractEntity
     {
         return $this->displayOrder;
     }
-    
+
     /**
      * set display_order
      *
