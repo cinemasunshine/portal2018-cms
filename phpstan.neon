@@ -11,7 +11,3 @@ parameters:
 		- %currentWorkingDirectory%/src/ORM/Proxy/*
 	doctrine:
 		objectManagerLoader: %currentWorkingDirectory%/analysis/entity-manager.php
-
-	ignoreErrors:
-		# phpstan/phpstan-doctrineをアップデートして確認するまで一時的に除外
-		- '#Call to an undefined method Doctrine\\Persistence\\ObjectRepository::#'
