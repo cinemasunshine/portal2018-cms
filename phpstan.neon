@@ -13,5 +13,6 @@ parameters:
 		- %currentWorkingDirectory%/tests
 	excludes_analyse:
 		- %currentWorkingDirectory%/src/ORM/Proxy/*
+		- %currentWorkingDirectory%/tests/entity-manager.php
 	doctrine:
-		objectManagerLoader: %currentWorkingDirectory%/analysis/entity-manager.php
+		objectManagerLoader: %currentWorkingDirectory%/tests/entity-manager.php
