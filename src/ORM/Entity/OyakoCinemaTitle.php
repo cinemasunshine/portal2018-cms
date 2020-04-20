@@ -55,7 +55,7 @@ class OyakoCinemaTitle extends AbstractEntity
     /**
      * oyako_cinema_schedules
      *
-     * @var Collection
+     * @var Collection<OyakoCinemaSchedule>
      * @ORM\OneToMany(
      *     targetEntity="OyakoCinemaSchedule",
      *     mappedBy="oyakoCinemaTitle",

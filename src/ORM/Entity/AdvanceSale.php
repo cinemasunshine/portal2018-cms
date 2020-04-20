@@ -66,7 +66,7 @@ class AdvanceSale extends AbstractEntity
     /**
      * publishing_expected_date_text
      *
-     * @var string
+     * @var string|null
      * @ORM\Column(type="string", name="publishing_expected_date_text", nullable=true)
      */
     protected $publishingExpectedDateText;
@@ -74,7 +74,7 @@ class AdvanceSale extends AbstractEntity
     /**
      * advance_tickets
      *
-     * @var Collection
+     * @var Collection<AdvanceTicket>
      * @ORM\OneToMany(targetEntity="AdvanceTicket", mappedBy="advanceSale", indexBy="id")
      */
     protected $advanceTickets;
@@ -168,7 +168,7 @@ class AdvanceSale extends AbstractEntity
     /**
      * get publishing_expected_date_text
      *
-     * @return string
+     * @return string|null
      */
     public function getPublishingExpectedDateText()
     {
@@ -178,10 +178,10 @@ class AdvanceSale extends AbstractEntity
     /**
      * set publishing_expected_date_text
      *
-     * @param string $publishingExpectedDateText
+     * @param string|null $publishingExpectedDateText
      * @return void
      */
-    public function setPublishingExpectedDateText(string $publishingExpectedDateText)
+    public function setPublishingExpectedDateText(?string $publishingExpectedDateText)
     {
         $this->publishingExpectedDateText = $publishingExpectedDateText;
     }

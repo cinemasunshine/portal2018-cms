@@ -25,7 +25,7 @@ class Trailer extends AbstractEntity
     use SavedUserTrait;
     use SoftDeleteTrait;
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -35,7 +35,7 @@ class Trailer extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * title
      *
@@ -44,7 +44,7 @@ class Trailer extends AbstractEntity
      * @ORM\JoinColumn(name="title_id", referencedColumnName="id", nullable=true, onDelete="RESTRICT")
      */
     protected $title;
-    
+
     /**
      * name
      *
@@ -52,7 +52,7 @@ class Trailer extends AbstractEntity
      * @ORM\Column(type="string")
      */
     protected $name;
-    
+
     /**
      * youbute
      *
@@ -60,7 +60,7 @@ class Trailer extends AbstractEntity
      * @ORM\Column(type="string")
      */
     protected $youtube;
-    
+
     /**
      * banner_image
      *
@@ -69,7 +69,7 @@ class Trailer extends AbstractEntity
      * @ORM\JoinColumn(name="banner_image_file_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $bannerImage;
-    
+
     /**
      * banner_link_url
      *
@@ -77,31 +77,31 @@ class Trailer extends AbstractEntity
      * @ORM\Column(type="string", name="banner_link_url")
      */
     protected $bannerLinkUrl;
-    
+
     /**
      * page_trailers
      *
-     * @var Collection
+     * @var Collection<PageTrailer>
      * @ORM\OneToMany(targetEntity="PageTrailer", mappedBy="trailer", orphanRemoval=true)
      */
     protected $pageTrailers;
-    
+
     /**
      * theater_trailers
      *
-     * @var Collection
+     * @var Collection<TheaterTrailer>
      * @ORM\OneToMany(targetEntity="TheaterTrailer", mappedBy="trailer", orphanRemoval=true)
      */
     protected $theaterTrailers;
-    
+
     /**
      * special_site_trailers
      *
-     * @var Collection
+     * @var Collection<SpecialSiteTrailer>
      * @ORM\OneToMany(targetEntity="SpecialSiteTrailer", mappedBy="trailer", orphanRemoval=true)
      */
     protected $specialSiteTrailers;
-    
+
     /**
      * construct
      */
@@ -111,7 +111,7 @@ class Trailer extends AbstractEntity
         $this->theaterTrailers = new ArrayCollection();
         $this->specialSiteTrailers = new ArrayCollection();
     }
-    
+
     /**
      * get id
      *
@@ -121,7 +121,7 @@ class Trailer extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get title
      *
@@ -131,7 +131,7 @@ class Trailer extends AbstractEntity
     {
         return $this->title;
     }
-    
+
     /**
      * set title
      *
@@ -142,7 +142,7 @@ class Trailer extends AbstractEntity
     {
         $this->title = $title;
     }
-    
+
     /**
      * get name
      *
@@ -152,7 +152,7 @@ class Trailer extends AbstractEntity
     {
         return $this->name;
     }
-    
+
     /**
      * set name
      *
@@ -163,7 +163,7 @@ class Trailer extends AbstractEntity
     {
         $this->name = $name;
     }
-    
+
     /**
      * get youtube
      *
@@ -173,7 +173,7 @@ class Trailer extends AbstractEntity
     {
         return $this->youtube;
     }
-    
+
     /**
      * set youtube
      *
@@ -184,7 +184,7 @@ class Trailer extends AbstractEntity
     {
         $this->youtube = $youtube;
     }
-    
+
     /**
      * get banner_image
      *
@@ -194,7 +194,7 @@ class Trailer extends AbstractEntity
     {
         return $this->bannerImage;
     }
-    
+
     /**
      * set banner_image
      *
@@ -205,7 +205,7 @@ class Trailer extends AbstractEntity
     {
         $this->bannerImage = $bannerImage;
     }
-    
+
     /**
      * get banner_link_url
      *
@@ -215,7 +215,7 @@ class Trailer extends AbstractEntity
     {
         return $this->bannerLinkUrl;
     }
-    
+
     /**
      * set banner_link_url
      *
@@ -226,7 +226,7 @@ class Trailer extends AbstractEntity
     {
         $this->bannerLinkUrl = $bannerLinkUrl;
     }
-    
+
     /**
      * get page_trailers
      *
@@ -236,7 +236,7 @@ class Trailer extends AbstractEntity
     {
         return $this->pageTrailers;
     }
-    
+
     /**
      * set page_trailers
      *
@@ -247,7 +247,7 @@ class Trailer extends AbstractEntity
     {
         $this->pageTrailers = $pageTrailers;
     }
-    
+
     /**
      * get theater_trailers
      *
@@ -257,7 +257,7 @@ class Trailer extends AbstractEntity
     {
         return $this->theaterTrailers;
     }
-    
+
     /**
      * set theater_trailers
      *
@@ -268,7 +268,7 @@ class Trailer extends AbstractEntity
     {
         $this->theaterTrailers = $theaterTrailers;
     }
-    
+
     /**
      * get special_site_trailers
      *
@@ -278,7 +278,7 @@ class Trailer extends AbstractEntity
     {
         return $this->specialSiteTrailers;
     }
-    
+
     /**
      * set special_site_trailers
      *
@@ -289,7 +289,7 @@ class Trailer extends AbstractEntity
     {
         $this->specialSiteTrailers = $specialSiteTrailers;
     }
-    
+
     /**
      * get published target
      *
@@ -298,22 +298,22 @@ class Trailer extends AbstractEntity
     public function getPublishedTargets()
     {
         $publications = new ArrayCollection();
-        
+
         foreach ($this->getPageTrailers() as $pageTrailer) {
             /** @var PageTrailer $pageTrailer */
             $publications->add($pageTrailer->getPage());
         }
-        
+
         foreach ($this->getTheaterTrailers() as $theaterTrailer) {
             /** @var TheaterTrailer $theaterTrailer */
             $publications->add($theaterTrailer->getTheater());
         }
-        
+
         foreach ($this->getSpecialSiteTrailers() as $specialSiteTrailer) {
             /** @var SpecialSiteTrailer $specialSiteTrailer */
             $publications->add($specialSiteTrailer->getSpecialSite());
         }
-        
+
         return $publications;
     }
 }

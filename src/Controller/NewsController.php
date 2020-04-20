@@ -447,13 +447,13 @@ class NewsController extends BaseController
 
         $theaterRepository = $this->em->getRepository(Entity\Theater::class);
 
-        /** @var Entity\Theater[] $theaters */
-
         if ($user->isTheater()) {
+            /** @var Entity\Theater[] $theaters */
             $theaters = [
                 $theaterRepository->findOneById($user->getTheater()->getId())
             ];
         } else {
+            /** @var Entity\Theater[] $theaters */
             $theaters = $theaterRepository->findActive();
         }
 

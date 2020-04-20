@@ -92,7 +92,7 @@ class CampaignFindForm extends BaseForm
         $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
 
         foreach ($specialSites as $specialSite) {
-            /** @var Entity\SpechialSite $specialSite */
+            /** @var Entity\SpecialSite $specialSite */
             $this->specialSiteChoices[$specialSite->getId()] = $specialSite->getNameJa();
         }
 
