@@ -73,6 +73,8 @@ final class ViewCommand extends BaseCommand
         }
 
         $output->writeln('Command exit.');
+
+        return 0;
     }
 
     /**

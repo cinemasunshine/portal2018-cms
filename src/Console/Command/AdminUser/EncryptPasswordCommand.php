@@ -47,6 +47,8 @@ final class EncryptPasswordCommand extends BaseCommand
 
         $encryptedPassword = $this->encryptPassword($password);
         $output->writeln('encrypted: ' . $encryptedPassword);
+
+        return 0;
     }
 
     /**
