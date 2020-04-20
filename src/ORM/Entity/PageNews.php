@@ -14,7 +14,6 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * PageNews entity class
  *
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\PageNewsRepository")
  * @ORM\Table(name="page_news", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -22,7 +21,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 class PageNews extends AbstractEntity
 {
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -32,7 +31,7 @@ class PageNews extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * news
      *
@@ -41,7 +40,7 @@ class PageNews extends AbstractEntity
      * @ORM\JoinColumn(name="news_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $news;
-    
+
     /**
      * page
      *
@@ -50,7 +49,7 @@ class PageNews extends AbstractEntity
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $page;
-    
+
     /**
      * display_order
      *
@@ -58,15 +57,15 @@ class PageNews extends AbstractEntity
      * @ORM\Column(type="smallint", name="display_order", options={"unsigned"=true})
      */
     protected $displayOrder;
-    
-    
+
+
     /**
      * construct
      */
     public function __construct()
     {
     }
-    
+
     /**
      * get id
      *
@@ -76,7 +75,7 @@ class PageNews extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get news
      *
@@ -86,7 +85,7 @@ class PageNews extends AbstractEntity
     {
         return $this->news;
     }
-    
+
     /**
      * set news
      *
@@ -97,7 +96,7 @@ class PageNews extends AbstractEntity
     {
         $this->news = $news;
     }
-    
+
     /**
      * page
      *
@@ -107,7 +106,7 @@ class PageNews extends AbstractEntity
     {
         return $this->page;
     }
-    
+
     /**
      * set page
      *
@@ -118,7 +117,7 @@ class PageNews extends AbstractEntity
     {
         $this->page = $page;
     }
-    
+
     /**
      * get display_order
      *
@@ -128,7 +127,7 @@ class PageNews extends AbstractEntity
     {
         return $this->displayOrder;
     }
-    
+
     /**
      * set display_order
      *

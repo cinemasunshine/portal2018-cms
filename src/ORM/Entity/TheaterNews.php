@@ -14,7 +14,6 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * TheaterNews entity class
  *
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\TheaterNewsRepository")
  * @ORM\Table(name="theater_news", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -22,7 +21,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 class TheaterNews extends AbstractEntity
 {
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -32,7 +31,7 @@ class TheaterNews extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * news
      *
@@ -41,7 +40,7 @@ class TheaterNews extends AbstractEntity
      * @ORM\JoinColumn(name="news_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $news;
-    
+
     /**
      * theater
      *
@@ -50,7 +49,7 @@ class TheaterNews extends AbstractEntity
      * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $theater;
-    
+
     /**
      * display_order
      *
@@ -58,15 +57,15 @@ class TheaterNews extends AbstractEntity
      * @ORM\Column(type="smallint", name="display_order", options={"unsigned"=true})
      */
     protected $displayOrder;
-    
-    
+
+
     /**
      * construct
      */
     public function __construct()
     {
     }
-    
+
     /**
      * get id
      *
@@ -76,7 +75,7 @@ class TheaterNews extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get news
      *
@@ -86,7 +85,7 @@ class TheaterNews extends AbstractEntity
     {
         return $this->news;
     }
-    
+
     /**
      * set news
      *
@@ -97,7 +96,7 @@ class TheaterNews extends AbstractEntity
     {
         $this->news = $news;
     }
-    
+
     /**
      * get theater
      *
@@ -107,7 +106,7 @@ class TheaterNews extends AbstractEntity
     {
         return $this->theater;
     }
-    
+
     /**
      * set theater
      *
@@ -118,7 +117,7 @@ class TheaterNews extends AbstractEntity
     {
         $this->theater = $theater;
     }
-    
+
     /**
      * get display_order
      *
@@ -128,7 +127,7 @@ class TheaterNews extends AbstractEntity
     {
         return $this->displayOrder;
     }
-    
+
     /**
      * set display_order
      *

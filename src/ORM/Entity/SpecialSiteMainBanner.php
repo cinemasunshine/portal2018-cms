@@ -14,7 +14,6 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 /**
  * SpecialSiteMainBanner entity class
  *
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\SpecialSiteMainBannerRepository")
  * @ORM\Table(name="special_site_main_banner", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
@@ -22,7 +21,7 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 class SpecialSiteMainBanner extends AbstractEntity
 {
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -32,7 +31,7 @@ class SpecialSiteMainBanner extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * main_banner
      *
@@ -41,7 +40,7 @@ class SpecialSiteMainBanner extends AbstractEntity
      * @ORM\JoinColumn(name="main_banner_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $mainBanner;
-    
+
     /**
      * special_site
      *
@@ -50,7 +49,7 @@ class SpecialSiteMainBanner extends AbstractEntity
      * @ORM\JoinColumn(name="special_site_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     protected $specialSite;
-    
+
     /**
      * display_order
      *
@@ -58,15 +57,15 @@ class SpecialSiteMainBanner extends AbstractEntity
      * @ORM\Column(type="smallint", name="display_order", options={"unsigned"=true})
      */
     protected $displayOrder;
-    
-    
+
+
     /**
      * construct
      */
     public function __construct()
     {
     }
-    
+
     /**
      * get id
      *
@@ -76,7 +75,7 @@ class SpecialSiteMainBanner extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get main_banner
      *
@@ -86,7 +85,7 @@ class SpecialSiteMainBanner extends AbstractEntity
     {
         return $this->mainBanner;
     }
-    
+
     /**
      * set main_banner
      *
@@ -97,7 +96,7 @@ class SpecialSiteMainBanner extends AbstractEntity
     {
         $this->mainBanner = $mainBanner;
     }
-    
+
     /**
      * get special_site
      *
@@ -107,7 +106,7 @@ class SpecialSiteMainBanner extends AbstractEntity
     {
         return $this->specialSite;
     }
-    
+
     /**
      * set special_site
      *
@@ -118,7 +117,7 @@ class SpecialSiteMainBanner extends AbstractEntity
     {
         $this->specialSite = $specialSite;
     }
-    
+
     /**
      * get display_order
      *
@@ -128,7 +127,7 @@ class SpecialSiteMainBanner extends AbstractEntity
     {
         return $this->displayOrder;
     }
-    
+
     /**
      * set display_order
      *
