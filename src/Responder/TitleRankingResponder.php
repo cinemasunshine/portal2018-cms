@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TitleRankingResponder.php
  *

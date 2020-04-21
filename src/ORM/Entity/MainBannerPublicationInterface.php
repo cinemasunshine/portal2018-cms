@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MainBannerPublicationInterface.php
  *
@@ -19,5 +20,5 @@ interface MainBannerPublicationInterface
      *
      * @return Collection
      */
-    public function getMainBanners() : Collection;
+    public function getMainBanners(): Collection;
 }

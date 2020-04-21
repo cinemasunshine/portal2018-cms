@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ScheduleFindForm.php
  *
@@ -9,7 +10,6 @@ namespace Cinemasunshine\PortalAdmin\Form;
 
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\ShowingFormat;
 
 /**
@@ -17,9 +17,9 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\ShowingFormat;
  */
 class ScheduleFindForm extends BaseForm
 {
-    const STATUS_SHOWING = 1;
-    const STATUS_BEFORE  = 2;
-    const STATUS_END     = 3;
+    public const STATUS_SHOWING = 1;
+    public const STATUS_BEFORE  = 2;
+    public const STATUS_END     = 3;
 
     /** @var array */
     protected $statusChoices = [

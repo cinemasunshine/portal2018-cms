@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AdminUser.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
@@ -23,9 +23,9 @@ class AdminUser extends AbstractEntity
     use SoftDeleteTrait;
     use TimestampableTrait;
 
-    const GROUP_MASTER  = 1;
-    const GROUP_MANAGER = 2;
-    const GROUP_THEATER = 3;
+    public const GROUP_MASTER  = 1;
+    public const GROUP_MANAGER = 2;
+    public const GROUP_THEATER = 3;
 
     /** @var array */
     protected static $groups = [

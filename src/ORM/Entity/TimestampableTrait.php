@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TimestampableTrait.php
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TrailerForm.php
  *
@@ -9,9 +10,7 @@ namespace Cinemasunshine\PortalAdmin\Form;
 
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-
 use Doctrine\ORM\EntityManager;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
@@ -19,8 +18,8 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class TrailerForm extends BaseForm
 {
-    const TYPE_NEW = 1;
-    const TYPE_EDIT = 2;
+    public const TYPE_NEW = 1;
+    public const TYPE_EDIT = 2;
 
     /** @var int */
     protected $type;

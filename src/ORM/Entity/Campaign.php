@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Campaign.php
  *
@@ -10,7 +11,6 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
@@ -89,7 +89,7 @@ class Campaign extends AbstractEntity
     /**
      * pages
      *
-     * @var Collection
+     * @var Collection<PageCampaign>
      * @ORM\OneToMany(targetEntity="PageCampaign", mappedBy="campaign")
      */
     protected $pages;
@@ -97,7 +97,7 @@ class Campaign extends AbstractEntity
     /**
      * theaters
      *
-     * @var Collection
+     * @var Collection<TheaterCampaign>
      * @ORM\OneToMany(targetEntity="TheaterCampaign", mappedBy="campaign")
      */
     protected $theaters;
@@ -105,7 +105,7 @@ class Campaign extends AbstractEntity
     /**
      * special_sites
      *
-     * @var Collection
+     * @var Collection<SpecialSiteCampaign>
      * @ORM\OneToMany(targetEntity="SpecialSiteCampaign", mappedBy="campaign")
      */
     protected $specialSites;
@@ -269,7 +269,7 @@ class Campaign extends AbstractEntity
      *
      * @return Collection
      */
-    public function getPages() : Collection
+    public function getPages(): Collection
     {
         return $this->pages;
     }
@@ -279,7 +279,7 @@ class Campaign extends AbstractEntity
      *
      * @return Collection
      */
-    public function getTheaters() : Collection
+    public function getTheaters(): Collection
     {
         return $this->theaters;
     }
@@ -289,7 +289,7 @@ class Campaign extends AbstractEntity
      *
      * @return Collection
      */
-    public function getSpecialSite() : Collection
+    public function getSpecialSite(): Collection
     {
         return $this->specialSites;
     }

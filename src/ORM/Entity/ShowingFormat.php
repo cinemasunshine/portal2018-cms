@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ShowingFormat.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
@@ -22,28 +22,28 @@ class ShowingFormat extends AbstractEntity
 {
     use TimestampableTrait;
 
-    const SYSTEM_2D         = 1;
-    const SYSTEM_3D         = 2;
-    const SYSTEM_4DX        = 3;
-    const SYSTEM_4DX3D      = 4;
-    const SYSTEM_IMAX       = 5;
-    const SYSTEM_IMAX3D     = 6;
+    public const SYSTEM_2D         = 1;
+    public const SYSTEM_3D         = 2;
+    public const SYSTEM_4DX        = 3;
+    public const SYSTEM_4DX3D      = 4;
+    public const SYSTEM_IMAX       = 5;
+    public const SYSTEM_IMAX3D     = 6;
     // const SYSTEM_BESTIA           = 7; 削除 SASAKI-449
     // const SYSTEM_BESTIA3D         = 8; 削除 SASAKI-449
     // const SYSTEM_BTSX             = 9; 削除 SASAKI-449
-    const SYSTEM_SCREENX    = 10; // SASAKI-351
-    const SYSTEM_4DX_SCREEN = 11; // SASAKI-428、SASAKI-525
-    const SYSTEM_NONE       = 99;
+    public const SYSTEM_SCREENX    = 10; // SASAKI-351
+    public const SYSTEM_4DX_SCREEN = 11; // SASAKI-428、SASAKI-525
+    public const SYSTEM_NONE       = 99;
 
-    const SOUND_BESTIA        = 1;
-    const SOUND_DTSX          = 2;
-    const SOUND_DOLBY_ATMOS   = 3;
-    const SOUND_GDC_IMMERSIVE = 4;
-    const SOUND_NONE          = 99;
+    public const SOUND_BESTIA        = 1;
+    public const SOUND_DTSX          = 2;
+    public const SOUND_DOLBY_ATMOS   = 3;
+    public const SOUND_GDC_IMMERSIVE = 4;
+    public const SOUND_NONE          = 99;
 
-    const VOICE_SUBTITLE = 1;
-    const VOICE_DUB = 2;
-    const VOICE_NONE = 3;
+    public const VOICE_SUBTITLE = 1;
+    public const VOICE_DUB = 2;
+    public const VOICE_NONE = 3;
 
     /** @var array */
     protected static $systemList = [

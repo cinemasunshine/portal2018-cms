@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AdvanceTicketRepository.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\ORM\Repository;
 
 use Doctrine\ORM\EntityRepository;
-
 use Cinemasunshine\PortalAdmin\Form\AdvanceTicketFindForm;
 use Cinemasunshine\PortalAdmin\ORM\Entity\AdvanceTicket;
 use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;

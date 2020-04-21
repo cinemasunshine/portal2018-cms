@@ -1,4 +1,5 @@
 <?php
+
 /**
  * RedirectException.php
  *

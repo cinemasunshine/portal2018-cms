@@ -1,4 +1,5 @@
 <?php
+
 /**
  * BaseController.php
  *
@@ -9,7 +10,6 @@ namespace Cinemasunshine\PortalAdmin\Controller\API;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
-
 use Cinemasunshine\PortalAdmin\Controller\AbstractController;
 use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
 use Cinemasunshine\PortalAdmin\Responder\API\ResponderFactory;
@@ -26,7 +26,7 @@ abstract class BaseController extends AbstractController
      * @param \Slim\Http\Response $response
      * @return void
      */
-    protected function preExecute($request, $response) : void
+    protected function preExecute($request, $response): void
     {
     }
 
@@ -37,7 +37,7 @@ abstract class BaseController extends AbstractController
      * @param \Slim\Http\Response $response
      * @return void
      */
-    protected function postExecute($request, $response) : void
+    protected function postExecute($request, $response): void
     {
     }
 
@@ -46,7 +46,7 @@ abstract class BaseController extends AbstractController
      *
      * @return AbstractResponder
      */
-    protected function getResponder() : AbstractResponder
+    protected function getResponder(): AbstractResponder
     {
         $path = explode('\\', get_class($this));
         $name = str_replace('Controller', '', array_pop($path));

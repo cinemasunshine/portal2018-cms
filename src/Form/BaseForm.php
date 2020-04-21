@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LoginForm.php
  *
@@ -11,7 +12,6 @@ use Laminas\Form\Form;
 use Laminas\I18n\Translator\Resources;
 use Laminas\Validator\Translator;
 use Laminas\Validator\AbstractValidator;
-
 use Cinemasunshine\PortalAdmin\Translator\ValidatorTranslator;
 
 /**

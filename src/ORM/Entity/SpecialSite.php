@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SpecialSite.php
  *
@@ -10,7 +11,6 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
@@ -27,7 +27,7 @@ class SpecialSite extends AbstractEntity implements
 {
     use SoftDeleteTrait;
     use TimestampableTrait;
-    
+
     /**
      * id
      *
@@ -37,7 +37,7 @@ class SpecialSite extends AbstractEntity implements
      * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $id;
-    
+
     /**
      * name
      *
@@ -45,7 +45,7 @@ class SpecialSite extends AbstractEntity implements
      * @ORM\Column(type="string", unique=true)
      */
     protected $name;
-    
+
     /**
      * name_ja
      *
@@ -53,42 +53,42 @@ class SpecialSite extends AbstractEntity implements
      * @ORM\Column(type="string", name="name_ja")
      */
     protected $nameJa;
-    
+
     /**
      * theaters
      *
-     * @var Collection
+     * @var Collection<Theater>
      * @ORM\ManyToMany(targetEntity="Theater", mappedBy="specialSites")
      */
     protected $theaters;
-    
+
     /**
      * campaigns
      *
-     * @var Collection
+     * @var Collection<SpecialSiteCampaign>
      * @ORM\OneToMany(targetEntity="SpecialSiteCampaign", mappedBy="specialSite", orphanRemoval=true)
      * @ORM\OrderBy({"displayOrder" = "ASC"})
      */
     protected $campaigns;
-    
+
     /**
      * news_list
      *
-     * @var Collection
+     * @var Collection<SpecialSiteNews>
      * @ORM\OneToMany(targetEntity="SpecialSiteNews", mappedBy="specialSite", orphanRemoval=true)
      * @ORM\OrderBy({"displayOrder" = "ASC"})
      */
     protected $newsList;
-    
+
     /**
      * main_banners
      *
-     * @var Collection
+     * @var Collection<SpecialSiteMainBanner>
      * @ORM\OneToMany(targetEntity="SpecialSiteMainBanner", mappedBy="specialSite", orphanRemoval=true)
      * @ORM\OrderBy({"displayOrder" = "ASC"})
      */
     protected $mainBanners;
-    
+
     /**
      * construct
      *
@@ -102,7 +102,7 @@ class SpecialSite extends AbstractEntity implements
         $this->newsList =  new ArrayCollection();
         $this->mainBanners = new ArrayCollection();
     }
-    
+
     /**
      * get id
      *
@@ -112,7 +112,7 @@ class SpecialSite extends AbstractEntity implements
     {
         return $this->id;
     }
-    
+
     /**
      * get name
      *
@@ -122,7 +122,7 @@ class SpecialSite extends AbstractEntity implements
     {
         return $this->name;
     }
-    
+
     /**
      * set name
      *
@@ -133,7 +133,7 @@ class SpecialSite extends AbstractEntity implements
     {
         $this->name = $name;
     }
-    
+
     /**
      * get name_ja
      *
@@ -143,7 +143,7 @@ class SpecialSite extends AbstractEntity implements
     {
         return $this->nameJa;
     }
-    
+
     /**
      * set name_ja
      *
@@ -154,7 +154,7 @@ class SpecialSite extends AbstractEntity implements
     {
         $this->nameJa = $nameJa;
     }
-    
+
     /**
      * get theaters
      *
@@ -164,17 +164,17 @@ class SpecialSite extends AbstractEntity implements
     {
         return $this->theaters;
     }
-    
+
     /**
      * get campaigns
      *
      * @return Collection
      */
-    public function getCampaigns() : Collection
+    public function getCampaigns(): Collection
     {
         return $this->campaigns;
     }
-    
+
     /**
      * get news_list
      *
@@ -184,7 +184,7 @@ class SpecialSite extends AbstractEntity implements
     {
         return $this->newsList;
     }
-    
+
     /**
      * get main_banners
      *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AdvanceTicketFindForm.php
  *
@@ -15,9 +16,9 @@ use Laminas\Validator;
  */
 class AdvanceTicketFindForm extends BaseForm
 {
-    const STATUS_PRE_SALE = 1;
-    const STATUS_SALE     = 2;
-    const STATUS_SALE_END = 3;
+    public const STATUS_PRE_SALE = 1;
+    public const STATUS_SALE     = 2;
+    public const STATUS_SALE_END = 3;
 
     /** @var array */
     protected $statusChoices = [

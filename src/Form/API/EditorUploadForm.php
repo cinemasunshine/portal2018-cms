@@ -1,4 +1,5 @@
 <?php
+
 /**
  * EditorUploadForm.php
  *
@@ -9,7 +10,6 @@ namespace Cinemasunshine\PortalAdmin\Form\API;
 
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-
 use Cinemasunshine\PortalAdmin\Form\BaseForm;
 
 /**

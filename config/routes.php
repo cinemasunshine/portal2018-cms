@@ -1,4 +1,5 @@
 <?php
+
 /**
  * routes.php
  *
@@ -20,7 +21,6 @@ use Cinemasunshine\PortalAdmin\Controller\{
     TitleRankingController,
     TrailerController
 };
-
 use Cinemasunshine\PortalAdmin\Controller\API\{
     CampaignController as CampaignApiController,
     EditorController as EditorApiController,
@@ -28,7 +28,6 @@ use Cinemasunshine\PortalAdmin\Controller\API\{
     NewsController as NewsApiController,
     TitleController as TitleApiController
 };
-
 use Cinemasunshine\PortalAdmin\Middleware\AuthMiddleware;
 
 $app->get('/login', AuthController::class . ':login')->setName('login');

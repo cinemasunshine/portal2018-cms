@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ResponderFactory.php
  *
@@ -9,7 +10,7 @@ declare(strict_types=1);
 
 namespace Cinemasunshine\PortalAdmin\Responder;
 
-use \Slim\Views\Twig;
+use Slim\Views\Twig;
 
 /**
  * Responder factory class

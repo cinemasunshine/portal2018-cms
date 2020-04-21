@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NotFound.php
  *
@@ -9,7 +10,6 @@ namespace Cinemasunshine\PortalAdmin\Application\Handlers;
 
 use Slim\Container;
 use Slim\Handlers\NotFound as BaseHandler;
-
 use Psr\Http\Message\ServerRequestInterface;
 
 /**

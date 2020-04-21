@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AdminUserController.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\Controller;
 
 use Cinemasunshine\PortalAdmin\Form\LoginForm;
-
 use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;

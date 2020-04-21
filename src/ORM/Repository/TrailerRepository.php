@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TrailerRepository.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\ORM\Repository;
 
 use Doctrine\ORM\EntityRepository;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\Trailer;
 use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
 

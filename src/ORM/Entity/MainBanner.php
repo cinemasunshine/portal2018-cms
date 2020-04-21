@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MainBanner.php
  *
@@ -10,7 +11,6 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
@@ -25,16 +25,16 @@ class MainBanner extends AbstractEntity
     use SavedUserTrait;
     use SoftDeleteTrait;
     use TimestampableTrait;
-    
-    const LINK_TYPE_NONE = 1;
-    const LINK_TYPE_URL = 2;
-    
+
+    public const LINK_TYPE_NONE = 1;
+    public const LINK_TYPE_URL = 2;
+
     /** @var array */
     protected static $linkTypes = [
         self::LINK_TYPE_NONE => 'リンクなし',
         self::LINK_TYPE_URL  => 'URL',
     ];
-    
+
     /**
      * id
      *
@@ -44,7 +44,7 @@ class MainBanner extends AbstractEntity
      * @ORM\GeneratedValue
      */
     protected $id;
-    
+
     /**
      * image
      *
@@ -53,7 +53,7 @@ class MainBanner extends AbstractEntity
      * @ORM\JoinColumn(name="image_file_id", referencedColumnName="id", nullable=false, onDelete="RESTRICT")
      */
     protected $image;
-    
+
     /**
      * name
      *
@@ -61,7 +61,7 @@ class MainBanner extends AbstractEntity
      * @ORM\Column(type="string")
      */
     protected $name;
-    
+
     /**
      * link_type
      *
@@ -69,7 +69,7 @@ class MainBanner extends AbstractEntity
      * @ORM\Column(type="smallint", name="link_type", options={"unsigned"=true})
      */
     protected $linkType;
-    
+
     /**
      * link_url
      *
@@ -77,31 +77,31 @@ class MainBanner extends AbstractEntity
      * @ORM\Column(type="string", name="link_url", nullable=true)
      */
     protected $linkUrl;
-    
+
     /**
      * pages
      *
-     * @var Collection
+     * @var Collection<PageMainBanner>
      * @ORM\OneToMany(targetEntity="PageMainBanner", mappedBy="mainBanner")
      */
     protected $pages;
-    
+
     /**
      * theaters
      *
-     * @var Collection
+     * @var Collection<TheaterMainBanner>
      * @ORM\OneToMany(targetEntity="TheaterMainBanner", mappedBy="mainBanner")
      */
     protected $theaters;
-    
+
     /**
      * special_sites
      *
-     * @var Collection
+     * @var Collection<SpecialSiteMainBanner>
      * @ORM\OneToMany(targetEntity="SpecialSiteMainBanner", mappedBy="mainBanner")
      */
     protected $specialSites;
-    
+
     /**
      * return link types
      *
@@ -111,7 +111,7 @@ class MainBanner extends AbstractEntity
     {
         return self::$linkTypes;
     }
-    
+
     /**
      * construct
      */
@@ -121,7 +121,7 @@ class MainBanner extends AbstractEntity
         $this->theaters = new ArrayCollection();
         $this->specialSites = new ArrayCollection();
     }
-    
+
     /**
      * get id
      *
@@ -131,7 +131,7 @@ class MainBanner extends AbstractEntity
     {
         return $this->id;
     }
-    
+
     /**
      * get image
      *
@@ -141,7 +141,7 @@ class MainBanner extends AbstractEntity
     {
         return $this->image;
     }
-    
+
     /**
      * set image
      *
@@ -152,7 +152,7 @@ class MainBanner extends AbstractEntity
     {
         $this->image = $image;
     }
-    
+
     /**
      * get name
      *
@@ -162,7 +162,7 @@ class MainBanner extends AbstractEntity
     {
         return $this->name;
     }
-    
+
     /**
      * set name
      *
@@ -173,7 +173,7 @@ class MainBanner extends AbstractEntity
     {
         $this->name = $name;
     }
-    
+
     /**
      * get link_type
      *
@@ -183,7 +183,7 @@ class MainBanner extends AbstractEntity
     {
         return $this->linkType;
     }
-    
+
     /**
      * set link_type
      *
@@ -194,7 +194,7 @@ class MainBanner extends AbstractEntity
     {
         $this->linkType = $linkType;
     }
-    
+
     /**
      * get link_url
      *
@@ -204,7 +204,7 @@ class MainBanner extends AbstractEntity
     {
         return $this->linkUrl;
     }
-    
+
     /**
      * set link_url
      *
@@ -215,27 +215,27 @@ class MainBanner extends AbstractEntity
     {
         $this->linkUrl = $linkUrl;
     }
-    
+
     /**
      * get pages
      *
      * @return Collection
      */
-    public function getPages() : Collection
+    public function getPages(): Collection
     {
         return $this->pages;
     }
-    
+
     /**
      * get theaters
      *
      * @return Collection
      */
-    public function getTheaters() : Collection
+    public function getTheaters(): Collection
     {
         return $this->theaters;
     }
-    
+
     /**
      * get special_site
      *

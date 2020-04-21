@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AbstractPaginator.php
  *
@@ -42,7 +43,7 @@ abstract class AbstractPaginator
      *
      * @return int
      */
-    abstract public function getNumResults() : int;
+    abstract public function getNumResults(): int;
 
     /**
      * Returns an array of page numbers to use in pagination links.

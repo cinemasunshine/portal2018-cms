@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TheaterMeta.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
@@ -44,7 +44,7 @@ class TheaterMeta extends AbstractEntity
     /**
      * opening_hours
      *
-     * @var array|null
+     * @var array
      * @ORM\Column(type="json", name="opening_hours")
      */
     protected $openingHours;

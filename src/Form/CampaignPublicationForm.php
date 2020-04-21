@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CampaignPublicationForm.php
  *
@@ -10,9 +11,7 @@ namespace Cinemasunshine\PortalAdmin\Form;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-
 use Doctrine\ORM\EntityManager;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
@@ -20,9 +19,9 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class CampaignPublicationForm extends BaseForm
 {
-    const TARGET_PAGE          = 'page';
-    const TARGET_TEATER        = 'theater';
-    const TARGET_SPESICAL_SITE = 'special_site';
+    public const TARGET_PAGE          = 'page';
+    public const TARGET_TEATER        = 'theater';
+    public const TARGET_SPESICAL_SITE = 'special_site';
 
     /** @var string */
     protected $target;

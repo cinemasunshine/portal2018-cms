@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AuthTest.php
  *
@@ -90,7 +91,7 @@ final class AuthTest extends TestCase
     /**
      * Create AdminUser Repository mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
+     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|AdminUser
      */
     protected function createAdminUserMock()
     {

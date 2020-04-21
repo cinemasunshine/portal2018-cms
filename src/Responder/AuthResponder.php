@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AuthResponder.php
  *

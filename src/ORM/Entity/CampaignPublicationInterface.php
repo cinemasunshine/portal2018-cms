@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CampaignPublicationInterface.php
  *
@@ -19,5 +20,5 @@ interface CampaignPublicationInterface
      *
      * @return Collection
      */
-    public function getCampaigns() : Collection;
+    public function getCampaigns(): Collection;
 }

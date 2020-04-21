@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CampaignFindForm.php
  *
@@ -9,9 +10,7 @@ namespace Cinemasunshine\PortalAdmin\Form;
 
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-
 use Doctrine\ORM\EntityManager;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
@@ -92,7 +91,7 @@ class CampaignFindForm extends BaseForm
         $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
 
         foreach ($specialSites as $specialSite) {
-            /** @var Entity\SpechialSite $specialSite */
+            /** @var Entity\SpecialSite $specialSite */
             $this->specialSiteChoices[$specialSite->getId()] = $specialSite->getNameJa();
         }
 

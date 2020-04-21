@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SoftDeleteTrait.php
  *
@@ -50,7 +51,7 @@ trait SoftDeleteTrait
      *
      * @return bool
      */
-    public function isDeleted() : bool
+    public function isDeleted(): bool
     {
         return $this->getIsDeleted();
     }

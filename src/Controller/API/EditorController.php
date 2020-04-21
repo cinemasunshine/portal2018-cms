@@ -1,4 +1,5 @@
 <?php
+
 /**
  * EditorController.php
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CampaignResponder.php
  *

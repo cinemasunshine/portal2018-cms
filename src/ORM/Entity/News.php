@@ -1,4 +1,5 @@
 <?php
+
 /**
  * News.php
  *
@@ -10,7 +11,6 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
@@ -26,13 +26,13 @@ class News extends AbstractEntity
     use SoftDeleteTrait;
     use TimestampableTrait;
 
-    const CATEGORY_NEWS       = 1;
-    const CATEGORY_INFO       = 2;
-    const CATEGORY_IMAX       = 3;
-    const CATEGORY_4DX        = 4;
-    const CATEGORY_EVENT      = 5;
-    const CATEGORY_SCREENX    = 6; // SASAKI-351
-    const CATEGORY_4DX_SCREEN = 7; // SASAKI-432、SASAKI-525
+    public const CATEGORY_NEWS       = 1;
+    public const CATEGORY_INFO       = 2;
+    public const CATEGORY_IMAX       = 3;
+    public const CATEGORY_4DX        = 4;
+    public const CATEGORY_EVENT      = 5;
+    public const CATEGORY_SCREENX    = 6; // SASAKI-351
+    public const CATEGORY_4DX_SCREEN = 7; // SASAKI-432、SASAKI-525
 
     /** @var array */
     public static $categories = [
@@ -116,7 +116,7 @@ class News extends AbstractEntity
     /**
      * pages
      *
-     * @var Collection
+     * @var Collection<PageNews>
      * @ORM\OneToMany(targetEntity="PageNews", mappedBy="news")
      */
     protected $pages;
@@ -124,7 +124,7 @@ class News extends AbstractEntity
     /**
      * theaters
      *
-     * @var Collection
+     * @var Collection<TheaterNews>
      * @ORM\OneToMany(targetEntity="TheaterNews", mappedBy="news")
      */
     protected $theaters;
@@ -132,7 +132,7 @@ class News extends AbstractEntity
     /**
      * special_sites
      *
-     * @var Collection
+     * @var Collection<SpecialSiteNews>
      * @ORM\OneToMany(targetEntity="SpecialSiteNews", mappedBy="news")
      */
     protected $specialSites;
@@ -327,7 +327,7 @@ class News extends AbstractEntity
      *
      * @return Collection
      */
-    public function getPages() : Collection
+    public function getPages(): Collection
     {
         return $this->pages;
     }
@@ -337,7 +337,7 @@ class News extends AbstractEntity
      *
      * @return Collection
      */
-    public function getTheaters() : Collection
+    public function getTheaters(): Collection
     {
         return $this->theaters;
     }

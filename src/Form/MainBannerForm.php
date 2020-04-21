@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MainBannerForm.php
  *
@@ -9,7 +10,6 @@ namespace Cinemasunshine\PortalAdmin\Form;
 
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\MainBanner;
 
 /**
@@ -17,8 +17,8 @@ use Cinemasunshine\PortalAdmin\ORM\Entity\MainBanner;
  */
 class MainBannerForm extends BaseForm
 {
-    const TYPE_NEW = 1;
-    const TYPE_EDIT = 2;
+    public const TYPE_NEW = 1;
+    public const TYPE_EDIT = 2;
 
     /** @var int */
     protected $type;
@@ -142,7 +142,8 @@ class MainBannerForm extends BaseForm
      */
     protected function preValidator(array $data)
     {
-        if (isset($data['link_type'])
+        if (
+            isset($data['link_type'])
             && (int) $data['link_type'] ===  MainBanner::LINK_TYPE_URL
         ) {
             $this->getInputFilter()->get('link_url')->setRequired(true);

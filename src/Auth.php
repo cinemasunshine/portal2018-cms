@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Auth.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin;
 
 use Psr\Container\ContainerInterface;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
 
 class Auth

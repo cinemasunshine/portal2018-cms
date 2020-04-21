@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OyakoCinemaSchedule.php
  *
@@ -50,7 +51,7 @@ class OyakoCinemaSchedule extends AbstractEntity
     /**
      * oyako_cinema_theaters
      *
-     * @var Collection
+     * @var Collection<OyakoCinemaTheater>
      * @ORM\OneToMany(
      *     targetEntity="OyakoCinemaTheater",
      *     mappedBy="oyakoCinemaSchedule",

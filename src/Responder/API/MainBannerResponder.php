@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MainBannerResponder.php
  *

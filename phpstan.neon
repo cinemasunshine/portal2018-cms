@@ -1,17 +1,18 @@
 includes:
 	- vendor/phpstan/phpstan-doctrine/extension.neon
 	- vendor/phpstan/phpstan-doctrine/rules.neon
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-phpunit/rules.neon
+	- vendor/phpstan/phpstan-mockery/extension.neon
 
 parameters:
 	level: 2
 	bootstrap: %currentWorkingDirectory%/src/bootstrap.php
 	paths:
 		- %currentWorkingDirectory%/src
+		- %currentWorkingDirectory%/tests
 	excludes_analyse:
 		- %currentWorkingDirectory%/src/ORM/Proxy/*
+		- %currentWorkingDirectory%/tests/entity-manager.php
 	doctrine:
-		objectManagerLoader: %currentWorkingDirectory%/analysis/entity-manager.php
-
-	ignoreErrors:
-		# phpstan/phpstan-doctrineをアップデートして確認するまで一時的に除外
-		- '#Call to an undefined method Doctrine\\Persistence\\ObjectRepository::#'
+		objectManagerLoader: %currentWorkingDirectory%/tests/entity-manager.php

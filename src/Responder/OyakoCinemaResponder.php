@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OyakoCinemaResponder.php
  *
