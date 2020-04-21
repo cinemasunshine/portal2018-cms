@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NewsPublicationForm.php
  *
@@ -10,9 +11,7 @@ namespace Cinemasunshine\PortalAdmin\Form;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-
 use Doctrine\ORM\EntityManager;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**

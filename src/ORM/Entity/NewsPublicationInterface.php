@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NewsPublicationInterface.php
  *
@@ -19,5 +20,5 @@ interface NewsPublicationInterface
      *
      * @return Collection
      */
-    public function getNewsList() : Collection;
+    public function getNewsList(): Collection;
 }

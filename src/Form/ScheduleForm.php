@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ScheduleForm.php
  *
@@ -9,9 +10,7 @@ namespace Cinemasunshine\PortalAdmin\Form;
 
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-
 use Doctrine\ORM\EntityManager;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\Theater;
 
 /**

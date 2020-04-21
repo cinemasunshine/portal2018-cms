@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DbalLogger.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\Logger;
 
 use Doctrine\DBAL\Logging\SQLLogger;
-
 use Monolog\Logger;
 
 /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ScheduleFindForm.php
  *
@@ -9,7 +10,6 @@ namespace Cinemasunshine\PortalAdmin\Form;
 
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\ShowingFormat;
 
 /**

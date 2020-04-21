@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Page.php
  *
@@ -10,7 +11,6 @@ namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\AbstractEntity;
 
 /**
@@ -151,7 +151,7 @@ class Page extends AbstractEntity implements
      *
      * @return Collection
      */
-    public function getCampaigns() : Collection
+    public function getCampaigns(): Collection
     {
         return $this->campaigns;
     }

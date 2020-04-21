@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LoginForm.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\Form;
 
 use Laminas\InputFilter\InputFilter;
-
 use Cinemasunshine\PortalAdmin\ValidatorTranslator;
 
 /**

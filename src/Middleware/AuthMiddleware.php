@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AuthMiddleware.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\Middleware;
 
 use Slim\Http\Response;
-
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**

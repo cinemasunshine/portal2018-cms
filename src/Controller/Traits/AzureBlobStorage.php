@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AzureBlobStorage.php
  *

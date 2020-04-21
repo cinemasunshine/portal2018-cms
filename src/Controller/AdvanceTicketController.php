@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AdvanceTicketController.php
  *
@@ -309,7 +310,8 @@ class AdvanceTicketController extends BaseController
                 // indexByでidをindexにしている
                 $advanceTicket = $advanceTickets->get($advanceTicketId);
 
-                if (!$advanceTicket
+                if (
+                    !$advanceTicket
                     || $advanceTicket->getId() !== (int) $advanceTicketId // 念のため確認
                 ) {
                     throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $advanceTicketId));
@@ -328,7 +330,8 @@ class AdvanceTicketController extends BaseController
                 // indexByでidをindexにしている
                 $advanceTicket = $advanceTickets->get($ticket['id']);
 
-                if (!$advanceTicket
+                if (
+                    !$advanceTicket
                     || $advanceTicket->getId() !== (int) $ticket['id'] // 念のため確認
                 ) {
                     throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $ticket['id']));

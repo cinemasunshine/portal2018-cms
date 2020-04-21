@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AbstractController.php
  *
@@ -10,9 +11,7 @@ namespace Cinemasunshine\PortalAdmin\Controller;
 use Slim\Collection;
 use Slim\Http\Response;
 use Slim\Http\Request;
-
 use Psr\Container\ContainerInterface;
-
 use Cinemasunshine\PortalAdmin\Exception\RedirectException;
 use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
 
@@ -111,7 +110,7 @@ abstract class AbstractController
      * @param Response $response
      * @return void
      */
-    abstract protected function preExecute($request, $response) : void;
+    abstract protected function preExecute($request, $response): void;
 
     /**
      * pre execute
@@ -123,7 +122,7 @@ abstract class AbstractController
      * @param Response $response
      * @return void
      */
-    abstract protected function postExecute($request, $response) : void;
+    abstract protected function postExecute($request, $response): void;
 
     /**
      * redirect
@@ -136,7 +135,7 @@ abstract class AbstractController
      * @return void
      * @throws RedirectException
      */
-    protected function redirect($url, $status = null) : void
+    protected function redirect($url, $status = null): void
     {
         throw new RedirectException($url, $status);
     }
@@ -148,7 +147,7 @@ abstract class AbstractController
      * @param string|null $method responder method
      * @return Response
      */
-    protected function buildResponse(Response $response, string $method = null) : Response
+    protected function buildResponse(Response $response, string $method = null): Response
     {
         $responder = $this->getResponder();
 
@@ -159,7 +158,7 @@ abstract class AbstractController
         return $responder->$method($response, $this->data);
     }
 
-    abstract protected function getResponder() : AbstractResponder;
+    abstract protected function getResponder(): AbstractResponder;
 
     /**
      * call

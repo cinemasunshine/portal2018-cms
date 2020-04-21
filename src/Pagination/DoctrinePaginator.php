@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DoctrinePaginator.php
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TheaterMetaController.php
  *
@@ -8,7 +9,6 @@
 namespace Cinemasunshine\PortalAdmin\Controller;
 
 use Slim\Exception\NotFoundException;
-
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 

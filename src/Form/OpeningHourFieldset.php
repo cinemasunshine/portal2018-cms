@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpeningHourFieldset.php
  *
@@ -9,7 +10,6 @@ namespace Cinemasunshine\PortalAdmin\Form;
 
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilterProviderInterface;
-
 use Cinemasunshine\PortalAdmin\ORM\Entity\TheaterOpeningHour;
 
 /**

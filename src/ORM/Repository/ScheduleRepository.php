@@ -1,15 +1,14 @@
 <?php
+
 /**
  * ScheduleRepository.php
  *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-
 namespace Cinemasunshine\PortalAdmin\ORM\Repository;
 
 use Doctrine\ORM\EntityRepository;
-
 use Cinemasunshine\PortalAdmin\Form\ScheduleFindForm;
 use Cinemasunshine\PortalAdmin\ORM\Entity\Schedule;
 use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
