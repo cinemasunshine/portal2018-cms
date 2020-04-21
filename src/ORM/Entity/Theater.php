@@ -28,17 +28,17 @@ class Theater extends AbstractEntity implements
     use SoftDeleteTrait;
     use TimestampableTrait;
 
-    const MASTER_VERSION_V1 = 1;
-    const MASTER_VERSION_V2 = 2;
+    public const MASTER_VERSION_V1 = 1;
+    public const MASTER_VERSION_V2 = 2;
 
     /**
      * 劇場ステータス
      *
      * 実際の劇場ではなく、システムにおける劇場のステータス。
      */
-    const STATUS_PRIVATE  = 1; // 非公開。オープン準備中などポータルサイトには公開しないケース。
-    const STATUS_OPEN     = 2; // 劇場オープン。通常通り運用されてる状態。実際の劇場より先行して公開する期間も含める。
-    const STATUS_CLOSED   = 3; // 劇場閉館。実際の劇場が閉館した状態。
+    public const STATUS_PRIVATE  = 1; // 非公開。オープン準備中などポータルサイトには公開しないケース。
+    public const STATUS_OPEN     = 2; // 劇場オープン。通常通り運用されてる状態。実際の劇場より先行して公開する期間も含める。
+    public const STATUS_CLOSED   = 3; // 劇場閉館。実際の劇場が閉館した状態。
 
     /**
      * id

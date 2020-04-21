@@ -26,8 +26,8 @@ class MainBanner extends AbstractEntity
     use SoftDeleteTrait;
     use TimestampableTrait;
 
-    const LINK_TYPE_NONE = 1;
-    const LINK_TYPE_URL = 2;
+    public const LINK_TYPE_NONE = 1;
+    public const LINK_TYPE_URL = 2;
 
     /** @var array */
     protected static $linkTypes = [

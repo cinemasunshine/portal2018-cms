@@ -23,16 +23,16 @@ class AdvanceTicket extends AbstractEntity
     use SoftDeleteTrait;
     use TimestampableTrait;
 
-    const TYPE_MVTK  = 1;
-    const TYPE_PAPER = 2;
+    public const TYPE_MVTK  = 1;
+    public const TYPE_PAPER = 2;
 
-    const SPECIAL_GIFT_STOCK_IN     = 1;
-    const SPECIAL_GIFT_STOCK_FEW    = 2;
-    const SPECIAL_GIFT_STOCK_NOT_IN = 3;
+    public const SPECIAL_GIFT_STOCK_IN     = 1;
+    public const SPECIAL_GIFT_STOCK_FEW    = 2;
+    public const SPECIAL_GIFT_STOCK_NOT_IN = 3;
 
-    const STATUS_PRE_SALE = 1;
-    const STATUS_SALE     = 2;
-    const STATUS_SALE_END = 3;
+    public const STATUS_PRE_SALE = 1;
+    public const STATUS_SALE     = 2;
+    public const STATUS_SALE_END = 3;
 
     /** @var array */
     protected static $types = [
