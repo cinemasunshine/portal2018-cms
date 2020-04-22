@@ -42,8 +42,11 @@ jobs:
           command: rm -v ./.env
 
       - run:
-          name: ZIP archive
-          command: zip -r development_app.zip . -x \*.git\* \*.circleci\* \*docker\* \*report\* \*tests\* .gitignore .phpunit.result.cache composer.\* docker-compose.yml phpcs.xml phpstan.neon phpunit.xml .editorconfig .env\* \*.user.ini public/sample.htaccess public/sample.Web.config
+          name: ZIP archive (dev)
+          command: >-
+            zip -r development_app.zip
+            bin cert config error public src template vendor cli-config.php INSTALL.md README.md
+            -x public/sample.htaccess public/sample.Web.config
 
       - store_artifacts:
           path: ./development_app.zip
@@ -88,7 +91,10 @@ jobs:
 
       - run:
           name: ZIP archive
-          command: zip -r production_app.zip . -x \*.git\* \*.circleci\* \*docker\* \*report\* \*tests\* .gitignore .phpunit.result.cache composer.\* docker-compose.yml phpcs.xml phpstan.neon phpunit.xml .editorconfig .env\* \*.user.ini public/sample.htaccess public/sample.Web.config
+          command: >-
+            zip -r production_app.zip
+            bin cert config error public src template vendor cli-config.php INSTALL.md README.md
+            -x public/sample.htaccess public/sample.Web.config
 
       - store_artifacts:
           path: ./production_app.zip
