@@ -2,6 +2,24 @@
 
 version: 2.1
 
+commands:
+  file_exists:
+    description: "Checks whether a file exists"
+    parameters:
+      file:
+        type: string
+    steps:
+      - run:
+          name: Checks whether "<< parameters.file >>" exists
+          command: |
+            if [ -e << parameters.file >> ]; then
+              echo "File exists."
+              exit 0
+            else
+              echo "File not exists."
+              exit 1
+            fi
+
 executors:
   build:
     docker:
@@ -159,6 +177,9 @@ jobs:
       - attach_workspace:
           at: .
 
+      - file_exists:
+          file: development_app.zip
+
       - run:
           name: Deploy to Azure
           command: curl -X POST https://$DEV_AAS_USER:$DEV_AAS_PASSWORD@ssk-portal2018-admin-win-dev.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
@@ -171,6 +192,9 @@ jobs:
       - attach_workspace:
           at: .
 
+      - file_exists:
+          file: development_app.zip
+
       - run:
           name: Deploy to Azure
           command: curl -X POST https://$TEST_AAS_USER:$TEST_AAS_PASSWORD@ssk-portal2018-admin-win-test.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
@@ -182,6 +206,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+
+      - file_exists:
+          file: production_app.zip
 
       - run:
           name: Deploy to Azure
@@ -206,6 +233,15 @@ workflows:
       - test:
           requires:
             - build_development
+
+      - deploy_to_test_approval:
+          type: approval
+          requires:
+            - test
+
+      - deploy_to_test:
+          requires:
+            - deploy_to_test_approval
 
       - build_production:
           requires:
