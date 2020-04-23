@@ -20,6 +20,34 @@ commands:
               exit 1
             fi
 
+  azure_zip_deploy:
+    description: "Azure ZIP Deploy"
+    parameters:
+      app:
+        type: string
+      user:
+        type: string
+      password:
+        type: string
+      zip:
+        type: string
+    steps:
+      - run:
+          name: Deploy to Azure
+          command: |
+            mkdir deploy
+            curl -s -X POST https://<< parameters.user >>:<< parameters.password >>@<< parameters.app >>.scm.azurewebsites.net/api/zipdeploy -T << parameters.zip >> -o ./deploy/result.html -w '%{http_code}' > ./deploy/http_code.txt
+            if [ $(cat ./deploy/http_code.txt) -eq "200" ]; then
+                echo "Deploy successful."
+                exit 0
+            else
+                echo "Deploy failed."
+                exit 1
+            fi
+
+      - store_artifacts:
+          path: ./deploy
+
 executors:
   build:
     docker:
@@ -180,9 +208,11 @@ jobs:
       - file_exists:
           file: development_app.zip
 
-      - run:
-          name: Deploy to Azure
-          command: curl -X POST https://$DEV_AAS_USER:$DEV_AAS_PASSWORD@ssk-portal2018-admin-win-dev.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
+      - azure_zip_deploy:
+          app: ssk-portal2018-admin-win-dev
+          user: $DEV_AAS_USER
+          password: $DEV_AAS_PASSWORD
+          zip: development_app.zip
 
   deploy_to_test:
     working_directory: ~/development
@@ -195,9 +225,11 @@ jobs:
       - file_exists:
           file: development_app.zip
 
-      - run:
-          name: Deploy to Azure
-          command: curl -X POST https://$TEST_AAS_USER:$TEST_AAS_PASSWORD@ssk-portal2018-admin-win-test.scm.azurewebsites.net/api/zipdeploy -T development_app.zip
+      - azure_zip_deploy:
+          app: ssk-portal2018-admin-win-test
+          user: $TEST_AAS_USER
+          password: $TEST_AAS_PASSWORD
+          zip: development_app.zip
 
   deploy_to_prod:
     working_directory: ~/production
@@ -210,9 +242,11 @@ jobs:
       - file_exists:
           file: production_app.zip
 
-      - run:
-          name: Deploy to Azure
-          command: curl -X POST https://$PROD_AAS_USER:$PROD_AAS_PASSWORD@ssk-portal2018-admin-win-prod.scm.azurewebsites.net/api/zipdeploy -T production_app.zip
+      - azure_zip_deploy:
+          app: ssk-portal2018-admin-win-prod
+          user: $PROD_AAS_USER
+          password: $PROD_AAS_PASSWORD
+          zip: production_app.zip
 
 workflows:
   version: 2
