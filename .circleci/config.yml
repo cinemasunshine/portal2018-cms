@@ -100,7 +100,7 @@ jobs:
           command: >-
             zip -r development_app.zip
             bin cert config error public src template vendor cli-config.php INSTALL.md README.md version.txt
-            -x public/sample.htaccess public/sample.Web.config
+            -x public/.htaccess.example public/Web.config.sample public/Web.config.public
 
       - store_artifacts:
           path: ./development_app.zip
@@ -132,6 +132,10 @@ jobs:
             - ./vendor
 
       - run:
+          name: Create Web.config file
+          command: cp ./public/Web.config.prod ./public/Web.config
+
+      - run:
           name: Create .env file
           command: cp .env.test .env
 
@@ -152,7 +156,7 @@ jobs:
           command: >-
             zip -r production_app.zip
             bin cert config error public src template vendor cli-config.php INSTALL.md README.md version.txt
-            -x public/sample.htaccess public/sample.Web.config
+            -x public/.htaccess.example public/Web.config.sample public/Web.config.public
 
       - store_artifacts:
           path: ./production_app.zip

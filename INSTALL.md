@@ -115,7 +115,7 @@ $ bin/console admin-user:encrypt-psw <password>
 #### .htaccess または Web.config
 ドキュメントルートに *.htaccess* もしくは *Web.config* を設置します。
 
-内容はサンプルを参考にしてください。
+内容はexampleを参考にしてください。
 
 #### PHP設定
 
