@@ -136,6 +136,10 @@ jobs:
           command: cp ./public/Web.config.prod ./public/Web.config
 
       - run:
+          name: Create .user.ini file
+          command: cp .user.ini.prod .user.ini
+
+      - run:
           name: Create .env file
           command: cp .env.test .env
 
@@ -155,7 +159,7 @@ jobs:
           name: ZIP archive
           command: >-
             zip -r production_app.zip
-            bin cert config error public src template vendor cli-config.php INSTALL.md README.md version.txt
+            bin cert config error public src template vendor .user.ini cli-config.php INSTALL.md README.md version.txt
             -x public/.htaccess.example public/Web.config.sample public/Web.config.public
 
       - store_artifacts:
