@@ -259,26 +259,6 @@ jobs:
 workflows:
   version: 2
 
-  # SASAKI-566確認用
-  sasaki566:
-    jobs:
-      - build_development:
-          filters:
-            branches:
-              only: feature/SASAKI-566
-
-      - test:
-          requires:
-            - build_development
-
-      - build_production:
-          requires:
-            - test
-
-      - deploy_to_prod_release:
-          requires:
-            - build_production
-
   deploy_development:
     jobs:
       - build_development:
