@@ -99,8 +99,8 @@ jobs:
           name: ZIP archive (dev)
           command: >-
             zip -r development_app.zip
-            bin cert config error public src template vendor cli-config.php INSTALL.md README.md version.txt
-            -x public/sample.htaccess public/sample.Web.config
+            azure bin cert config error public src template vendor cli-config.php INSTALL.md README.md version.txt
+            -x public/.htaccess.example public/Web.config.example public/Web.config.prod
 
       - store_artifacts:
           path: ./development_app.zip
@@ -132,6 +132,14 @@ jobs:
             - ./vendor
 
       - run:
+          name: Create Web.config file
+          command: cp ./public/Web.config.prod ./public/Web.config
+
+      - run:
+          name: Create .user.ini file
+          command: cp .user.ini.prod .user.ini
+
+      - run:
           name: Create .env file
           command: cp .env.test .env
 
@@ -151,8 +159,8 @@ jobs:
           name: ZIP archive
           command: >-
             zip -r production_app.zip
-            bin cert config error public src template vendor cli-config.php INSTALL.md README.md version.txt
-            -x public/sample.htaccess public/sample.Web.config
+            azure bin cert config error public src template vendor .user.ini cli-config.php INSTALL.md README.md version.txt
+            -x public/.htaccess.example public/Web.config.example public/Web.config.prod
 
       - store_artifacts:
           path: ./production_app.zip
@@ -231,7 +239,7 @@ jobs:
           password: $TEST_AAS_PASSWORD
           zip: development_app.zip
 
-  deploy_to_prod:
+  deploy_to_prod_release:
     working_directory: ~/production
     executor: deployment
 
@@ -243,9 +251,9 @@ jobs:
           file: production_app.zip
 
       - azure_zip_deploy:
-          app: ssk-portal2018-admin-win-prod
-          user: $PROD_AAS_USER
-          password: $PROD_AAS_PASSWORD
+          app: ssk-portal2018-admin-win-prod-release
+          user: $PROD_RELEASE_AAS_USER
+          password: $PROD_RELEASE_AAS_PASSWORD
           zip: production_app.zip
 
 workflows:
@@ -308,6 +316,6 @@ workflows:
           requires:
             - build_production
 
-      - deploy_to_prod:
+      - deploy_to_prod_release:
           requires:
             - deploy_approval
