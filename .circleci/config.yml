@@ -239,23 +239,6 @@ jobs:
           password: $TEST_AAS_PASSWORD
           zip: development_app.zip
 
-  deploy_to_prod:
-    working_directory: ~/production
-    executor: deployment
-
-    steps:
-      - attach_workspace:
-          at: .
-
-      - file_exists:
-          file: production_app.zip
-
-      - azure_zip_deploy:
-          app: ssk-portal2018-admin-win-prod
-          user: $PROD_AAS_USER
-          password: $PROD_AAS_PASSWORD
-          zip: production_app.zip
-
   deploy_to_prod_release:
     working_directory: ~/production
     executor: deployment
@@ -353,6 +336,6 @@ workflows:
           requires:
             - build_production
 
-      - deploy_to_prod:
+      - deploy_to_prod_release:
           requires:
             - deploy_approval
