@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f69702c7a0a84bb73b57103f5926284",
+    "content-hash": "95d724099150280ac020d8265c19b7a0",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -4390,16 +4390,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.19",
+            "version": "0.12.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "054f6d76b12ba9a6c13a5a8d5fcdf51219615f4d"
+                "reference": "9619551d68b2d4c0d681a8df73f3c847c798ee64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/054f6d76b12ba9a6c13a5a8d5fcdf51219615f4d",
-                "reference": "054f6d76b12ba9a6c13a5a8d5fcdf51219615f4d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9619551d68b2d4c0d681a8df73f3c847c798ee64",
+                "reference": "9619551d68b2d4c0d681a8df73f3c847c798ee64",
                 "shasum": ""
             },
             "require": {
@@ -4428,20 +4428,34 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2020-04-19T20:35:10+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/phpstan",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-05-10T20:36:16+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "0.12.10",
+            "version": "0.12.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "601f343b05875074454ca72702204592f8844f7d"
+                "reference": "842047b2496a46dca2c826d9d6ae37ed08593677"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/601f343b05875074454ca72702204592f8844f7d",
-                "reference": "601f343b05875074454ca72702204592f8844f7d",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/842047b2496a46dca2c826d9d6ae37ed08593677",
+                "reference": "842047b2496a46dca2c826d9d6ae37ed08593677",
                 "shasum": ""
             },
             "require": {
@@ -4492,20 +4506,20 @@
                 "MIT"
             ],
             "description": "Doctrine extensions for PHPStan",
-            "time": "2020-03-13T13:03:08+00:00"
+            "time": "2020-05-08T08:31:05+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
-            "version": "0.12.4",
+            "version": "0.12.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-mockery.git",
-                "reference": "aa02896d2b97cbfee2ea385037e99d6d79c1afe3"
+                "reference": "120ee84706acc93232b4ee08ec57fb5cdb877f4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-mockery/zipball/aa02896d2b97cbfee2ea385037e99d6d79c1afe3",
-                "reference": "aa02896d2b97cbfee2ea385037e99d6d79c1afe3",
+                "url": "https://api.github.com/repos/phpstan/phpstan-mockery/zipball/120ee84706acc93232b4ee08ec57fb5cdb877f4b",
+                "reference": "120ee84706acc93232b4ee08ec57fb5cdb877f4b",
                 "shasum": ""
             },
             "require": {
@@ -4546,7 +4560,7 @@
                 "MIT"
             ],
             "description": "PHPStan Mockery extension",
-            "time": "2020-04-07T07:17:20+00:00"
+            "time": "2020-04-23T13:49:42+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
