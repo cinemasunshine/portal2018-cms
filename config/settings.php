@@ -83,6 +83,7 @@ $getDoctrineSetting = function () {
          */
         'dev_mode' => (APP_ENV === 'local'),
 
+        'cache' => getenv('APPSETTING_DOCTRINE_CACHE') ?: 'array',
         'metadata_dirs' => [APP_ROOT . '/src/ORM/Entity'],
 
         'connection' => [

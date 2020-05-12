@@ -91,6 +91,12 @@ $container['em'] = function ($container) {
     $settings = $container->get('settings')['doctrine'];
     $proxyDir = APP_ROOT . '/src/ORM/Proxy';
 
+    if ($settings['cache'] === 'wincache') {
+        $cache = new \Doctrine\Common\Cache\WinCacheCache();
+    } else {
+        $cache = new \Doctrine\Common\Cache\ArrayCache();
+    }
+
     /**
      * 第５引数について、他のアノテーションとの競合を避けるためSimpleAnnotationReaderは使用しない。
      * @Entity => @ORM\Entity などとしておく。
@@ -99,7 +105,7 @@ $container['em'] = function ($container) {
         $settings['metadata_dirs'],
         $settings['dev_mode'],
         $proxyDir,
-        null,
+        $cache,
         false
     );
 
