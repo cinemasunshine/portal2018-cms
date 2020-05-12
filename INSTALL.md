@@ -58,7 +58,7 @@ Azure Web Appsのアプリケーション設定で設定する場合はプレフ
 |:--|:--|:--|:--|
 |APPSETTING_ENV|*String*|○|アプリケーションの実行環境|
 |APPSETTING_DEBUG|*Boolean*|-|デバッグ設定（デフォルト： false）|
-|APPSETTING_DB_CACHE|*String*|-|Database Cache Driver（デフォルト： array）|
+|APPSETTING_DOCTRINE_CACHE|*String*|-|Database Cache Driver（デフォルト： array）|
 
 #### 接続文字列
 
