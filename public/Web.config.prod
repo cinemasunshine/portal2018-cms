@@ -3,6 +3,18 @@
     <system.webServer>
         <rewrite>
             <rules>
+                <rule name="Development Tools Rule" patternSyntax="ECMAScript" stopProcessing="true">
+                    <match url="^dev/.*" />
+                    <conditions>
+                        <add input="{REMOTE_ADDR}" pattern="^124\.155\.113\.9" negate="true" />
+                    </conditions>
+                    <action
+                        type="CustomResponse"
+                        statusCode="403"
+                        subStatusCode="0"
+                        statusReason="Forbidden"
+                        statusDescription="Access is forbidden." />
+                </rule>
                 <rule name="Application Rule" patternSyntax="Wildcard" stopProcessing="true">
                     <match url="*" />
                     <conditions>
