@@ -358,7 +358,7 @@ class Theater extends AbstractEntity implements
     /**
      * get admin_users
      *
-     * @return ArrayCollection
+     * @return Collection
      */
     public function getAdminUsers()
     {

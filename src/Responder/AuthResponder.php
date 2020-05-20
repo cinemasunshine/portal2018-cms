@@ -8,6 +8,7 @@
 
 namespace Cinemasunshine\PortalAdmin\Responder;
 
+use Psr\Http\Message\ResponseInterface;
 use Slim\Collection;
 use Slim\Http\Response;
 
@@ -19,9 +20,9 @@ class AuthResponder extends BaseResponder
     /**
      * login
      *
-     * @param Response   $response
+     * @param Response $response
      * @param Collection $data
-     * @return Response
+     * @return ResponseInterface
      */
     public function login(Response $response, Collection $data)
     {
