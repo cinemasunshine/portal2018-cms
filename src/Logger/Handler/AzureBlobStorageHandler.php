@@ -75,7 +75,7 @@ class AzureBlobStorageHandler extends AbstractProcessingHandler
     /**
      * {@inheritdoc}
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         if (!$this->isBlobCreated) {
             $this->createBlob();
