@@ -28,7 +28,7 @@
         "laminas/laminas-session": "^2.9",
         "laminas/laminas-uri": "^2.7",
         "microsoft/azure-storage-blob": "^1.5",
-        "intervention/image": "^2.4",
+        "intervention/image": "^2.5",
         "symfony/console": "^4.3",
         "symfony/filesystem": "^4.3",
         "blue32a/monolog-azure-blob": "^0.2"
