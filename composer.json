@@ -20,7 +20,7 @@
         "slim/flash": "^0.4.0",
         "monolog/monolog": "^2.1",
         "vlucas/phpdotenv": "^3.6",
-        "doctrine/orm": "2.6.*",
+        "doctrine/orm": "^2.7",
         "laminas/laminas-validator": "^2.13",
         "laminas/laminas-form": "^2.14",
         "laminas/laminas-i18n": "^2.10",
