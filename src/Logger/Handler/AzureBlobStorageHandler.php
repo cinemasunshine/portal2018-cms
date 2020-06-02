@@ -8,51 +8,16 @@
 
 namespace Cinemasunshine\PortalAdmin\Logger\Handler;
 
-use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Logger;
-use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+use Blue32a\Monolog\Handler\AzureBlobStorageHandler as BaseHandler;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 
 /**
  * Azure Blob Storage handler
  */
-class AzureBlobStorageHandler extends AbstractProcessingHandler
+class AzureBlobStorageHandler extends BaseHandler
 {
-    /** @var BlobRestProxy */
-    protected $client;
-
-    /** @var string */
-    protected $container;
-
-    /** @var string */
-    protected $blob;
-
     /** @var bool */
     protected $isBlobCreated;
-
-    /**
-     * construct
-     *
-     * @param BlobRestProxy $client
-     * @param string        $container blob container name
-     * @param string        $blob      blob name
-     * @param int           $level
-     * @param boolean       $bubble
-     */
-    public function __construct(
-        BlobRestProxy $client,
-        string $container,
-        string $blob,
-        $level = Logger::DEBUG,
-        $bubble = true
-    ) {
-        $this->client = $client;
-        $this->container = $container;
-        $this->blob = $blob;
-        $this->isBlobCreated = false;
-
-        parent::__construct($level, $bubble);
-    }
 
     /**
      * create blob
@@ -82,6 +47,6 @@ class AzureBlobStorageHandler extends AbstractProcessingHandler
             $this->isBlobCreated = true;
         }
 
-        $this->client->appendBlock($this->container, $this->blob, $record['formatted']);
+        parent::write($record);
     }
 }
