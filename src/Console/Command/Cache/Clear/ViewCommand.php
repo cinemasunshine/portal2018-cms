@@ -22,7 +22,7 @@ use Twig\Cache\NullCache;
 /**
  * Clear view cache command.
  */
-final class ViewCommand extends BaseCommand
+class ViewCommand extends BaseCommand
 {
     /**
      * @inheritDoc

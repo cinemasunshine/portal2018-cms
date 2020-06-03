@@ -19,7 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * AdminUser encrypt password command.
  */
-final class EncryptPasswordCommand extends BaseCommand
+class EncryptPasswordCommand extends BaseCommand
 {
     /**
      * @inheritDoc
