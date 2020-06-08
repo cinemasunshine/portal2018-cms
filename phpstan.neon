@@ -7,7 +7,6 @@ includes:
 
 parameters:
 	level: 3
-	bootstrap: %currentWorkingDirectory%/src/bootstrap.php
 	paths:
 		- %currentWorkingDirectory%/src
 		- %currentWorkingDirectory%/tests
