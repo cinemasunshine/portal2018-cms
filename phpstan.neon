@@ -6,8 +6,7 @@ includes:
 	- vendor/phpstan/phpstan-mockery/extension.neon
 
 parameters:
-	level: 2
-	bootstrap: %currentWorkingDirectory%/src/bootstrap.php
+	level: 3
 	paths:
 		- %currentWorkingDirectory%/src
 		- %currentWorkingDirectory%/tests

@@ -19,7 +19,7 @@ class Auth
     /** @var \Laminas\Session\Container */
     protected $session;
 
-    /** @var AdminUser */
+    /** @var AdminUser|null */
     protected $user;
 
     public function __construct(ContainerInterface $container)

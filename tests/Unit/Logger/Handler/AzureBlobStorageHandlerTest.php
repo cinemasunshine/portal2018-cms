@@ -26,6 +26,26 @@ final class AzureBlobStorageHandlerTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
+     * Create target mock
+     *
+     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|Handler
+     */
+    protected function createTargetMock()
+    {
+        return Mockery::mock(Handler::class);
+    }
+
+    /**
+     * Create target reflection
+     *
+     * @return \ReflectionClass
+     */
+    protected function createTargetReflection()
+    {
+        return new \ReflectionClass(Handler::class);
+    }
+
+    /**
      * Create BlobRestProxy mock
      *
      * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|BlobRestProxy
@@ -33,52 +53,6 @@ final class AzureBlobStorageHandlerTest extends TestCase
     protected function createBlobRestProxyMock()
     {
         return Mockery::mock(BlobRestProxy::class);
-    }
-
-    /**
-     * test construct
-     *
-     * @test
-     * @return void
-     */
-    public function testConstruct()
-    {
-        $blobRestProxyMock = $this->createBlobRestProxyMock();
-        $container = 'example';
-        $blob = 'test.log';
-
-        $handlerMock = Mockery::mock(Handler::class)
-            ->makePartial();
-
-        // execute constructor
-        $handlerRef = new \ReflectionClass(Handler::class);
-        $handlerConstructor = $handlerRef->getConstructor();
-        $handlerConstructor->invoke(
-            $handlerMock,
-            $blobRestProxyMock,
-            $container,
-            $blob
-        );
-
-        // test property "client"
-        $clientPropertyRef = $handlerRef->getProperty('client');
-        $clientPropertyRef->setAccessible(true);
-        $this->assertEquals($blobRestProxyMock, $clientPropertyRef->getValue($handlerMock));
-
-        // test property "container"
-        $containerPropertyRef = $handlerRef->getProperty('container');
-        $containerPropertyRef->setAccessible(true);
-        $this->assertEquals($container, $containerPropertyRef->getValue($handlerMock));
-
-        // test property "blob"
-        $blobPropertyRef = $handlerRef->getProperty('blob');
-        $blobPropertyRef->setAccessible(true);
-        $this->assertEquals($blob, $blobPropertyRef->getValue($handlerMock));
-
-        // test property "isBlobCreated"
-        $isBlobCreatedPropertyRef = $handlerRef->getProperty('isBlobCreated');
-        $isBlobCreatedPropertyRef->setAccessible(true);
-        $this->assertFalse($isBlobCreatedPropertyRef->getValue($handlerMock));
     }
 
     /**
@@ -102,27 +76,26 @@ final class AzureBlobStorageHandlerTest extends TestCase
             ->shouldReceive('createAppendBlob')
             ->never();
 
-        /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|Handler $handlerMock */
-        $handlerMock = Mockery::mock(Handler::class);
-        $handlerRef = new \ReflectionClass(Handler::class);
+        $targetMock = $this->createTargetMock();
+        $targetRef = $this->createTargetReflection();
 
-        $clientPropertyRef = $handlerRef->getProperty('client');
+        $clientPropertyRef = $targetRef->getProperty('client');
         $clientPropertyRef->setAccessible(true);
-        $clientPropertyRef->setValue($handlerMock, $blobRestProxyMock);
+        $clientPropertyRef->setValue($targetMock, $blobRestProxyMock);
 
-        $containerPropertyRef = $handlerRef->getProperty('container');
+        $containerPropertyRef = $targetRef->getProperty('container');
         $containerPropertyRef->setAccessible(true);
-        $containerPropertyRef->setValue($handlerMock, $container);
+        $containerPropertyRef->setValue($targetMock, $container);
 
-        $blobPropertyRef = $handlerRef->getProperty('blob');
+        $blobPropertyRef = $targetRef->getProperty('blob');
         $blobPropertyRef->setAccessible(true);
-        $blobPropertyRef->setValue($handlerMock, $blob);
+        $blobPropertyRef->setValue($targetMock, $blob);
 
-        $createBlobMethodRef = $handlerRef->getMethod('createBlob');
+        $createBlobMethodRef = $targetRef->getMethod('createBlob');
         $createBlobMethodRef->setAccessible(true);
 
         // execute
-        $createBlobMethodRef->invoke($handlerMock);
+        $createBlobMethodRef->invoke($targetMock);
     }
 
     /**
@@ -149,26 +122,26 @@ final class AzureBlobStorageHandlerTest extends TestCase
             ->shouldReceive('createAppendBlob')
             ->once();
 
-        $handlerMock = Mockery::mock(Handler::class);
-        $handlerRef = new \ReflectionClass(Handler::class);
+        $targetMock = $this->createTargetMock();
+        $targetRef = $this->createTargetReflection();
 
-        $clientPropertyRef = $handlerRef->getProperty('client');
+        $clientPropertyRef = $targetRef->getProperty('client');
         $clientPropertyRef->setAccessible(true);
-        $clientPropertyRef->setValue($handlerMock, $blobRestProxyMock);
+        $clientPropertyRef->setValue($targetMock, $blobRestProxyMock);
 
-        $containerPropertyRef = $handlerRef->getProperty('container');
+        $containerPropertyRef = $targetRef->getProperty('container');
         $containerPropertyRef->setAccessible(true);
-        $containerPropertyRef->setValue($handlerMock, $container);
+        $containerPropertyRef->setValue($targetMock, $container);
 
-        $blobPropertyRef = $handlerRef->getProperty('blob');
+        $blobPropertyRef = $targetRef->getProperty('blob');
         $blobPropertyRef->setAccessible(true);
-        $blobPropertyRef->setValue($handlerMock, $blob);
+        $blobPropertyRef->setValue($targetMock, $blob);
 
-        $createBlobMethodRef = $handlerRef->getMethod('createBlob');
+        $createBlobMethodRef = $targetRef->getMethod('createBlob');
         $createBlobMethodRef->setAccessible(true);
 
         // execute
-        $createBlobMethodRef->invoke($handlerMock);
+        $createBlobMethodRef->invoke($targetMock);
     }
 
     /**
@@ -195,28 +168,28 @@ final class AzureBlobStorageHandlerTest extends TestCase
             ->shouldReceive('createAppendBlob')
             ->never();
 
-        $handlerMock = Mockery::mock(Handler::class);
-        $handlerRef = new \ReflectionClass(Handler::class);
+        $targetMock = $this->createTargetMock();
+        $targetRef = $this->createTargetReflection();
 
-        $clientPropertyRef = $handlerRef->getProperty('client');
+        $clientPropertyRef = $targetRef->getProperty('client');
         $clientPropertyRef->setAccessible(true);
-        $clientPropertyRef->setValue($handlerMock, $blobRestProxyMock);
+        $clientPropertyRef->setValue($targetMock, $blobRestProxyMock);
 
-        $containerPropertyRef = $handlerRef->getProperty('container');
+        $containerPropertyRef = $targetRef->getProperty('container');
         $containerPropertyRef->setAccessible(true);
-        $containerPropertyRef->setValue($handlerMock, $container);
+        $containerPropertyRef->setValue($targetMock, $container);
 
-        $blobPropertyRef = $handlerRef->getProperty('blob');
+        $blobPropertyRef = $targetRef->getProperty('blob');
         $blobPropertyRef->setAccessible(true);
-        $blobPropertyRef->setValue($handlerMock, $blob);
+        $blobPropertyRef->setValue($targetMock, $blob);
 
         $this->expectException(ServiceException::class);
 
-        $createBlobMethodRef = $handlerRef->getMethod('createBlob');
+        $createBlobMethodRef = $targetRef->getMethod('createBlob');
         $createBlobMethodRef->setAccessible(true);
 
         // execute
-        $createBlobMethodRef->invoke($handlerMock);
+        $createBlobMethodRef->invoke($targetMock);
     }
 
     /**
@@ -260,47 +233,38 @@ final class AzureBlobStorageHandlerTest extends TestCase
     public function testWrite()
     {
         $isBlobCreated = false;
-        $container = 'example';
-        $blob = 'test.log';
         $record = [
             'formatted' => 'test',
         ];
 
-        $blobRestProxyMock = $this->createBlobRestProxyMock();
-        $blobRestProxyMock
-            ->shouldReceive('appendBlock')
-            ->once()
-            ->with($container, $blob, $record['formatted']);
-
-        $handlerMock = Mockery::mock(Handler::class)
+        $targetMock = $this->createTargetMock()
             ->shouldAllowMockingProtectedMethods();
-        $handlerMock
+        $targetMock
             ->shouldReceive('createBlob')
             ->once()
             ->with();
-        $handlerRef = new \ReflectionClass(Handler::class);
+        $targetRef = $this->createTargetReflection();
 
-        $isBlobCreatedPropertyRef = $handlerRef->getProperty('isBlobCreated');
+        $isBlobCreatedPropertyRef = $targetRef->getProperty('isBlobCreated');
         $isBlobCreatedPropertyRef->setAccessible(true);
-        $isBlobCreatedPropertyRef->setValue($handlerMock, $isBlobCreated);
+        $isBlobCreatedPropertyRef->setValue($targetMock, $isBlobCreated);
 
-        $clientPropertyRef = $handlerRef->getProperty('client');
+        $blobRestProxyMock = $this->createBlobRestProxyMock();
+        $blobRestProxyMock
+            ->shouldReceive('appendBlock')
+            ->once();
+
+        $clientPropertyRef = $targetRef->getProperty('client');
         $clientPropertyRef->setAccessible(true);
-        $clientPropertyRef->setValue($handlerMock, $blobRestProxyMock);
+        $clientPropertyRef->setValue($targetMock, $blobRestProxyMock);
 
-        $containerPropertyRef = $handlerRef->getProperty('container');
-        $containerPropertyRef->setAccessible(true);
-        $containerPropertyRef->setValue($handlerMock, $container);
-
-        $blobPropertyRef = $handlerRef->getProperty('blob');
-        $blobPropertyRef->setAccessible(true);
-        $blobPropertyRef->setValue($handlerMock, $blob);
-
-        $writeMethodRef = $handlerRef->getMethod('write');
+        $writeMethodRef = $targetRef->getMethod('write');
         $writeMethodRef->setAccessible(true);
 
         // execute
-        $writeMethodRef->invoke($handlerMock, $record);
+        $writeMethodRef->invoke($targetMock, $record);
+
+        $this->assertTrue($isBlobCreatedPropertyRef->getValue($targetMock));
     }
 
     /**
@@ -312,44 +276,34 @@ final class AzureBlobStorageHandlerTest extends TestCase
     public function testWriteIsBlobCreated()
     {
         $isBlobCreated = true;
-        $container = 'example';
-        $blob = 'test.log';
         $record = [
             'formatted' => 'test',
         ];
+
+        $targetMock = $this->createTargetMock()
+            ->shouldAllowMockingProtectedMethods();
+        $targetMock
+            ->shouldReceive('createBlob')
+            ->never();
+        $targetRef = $this->createTargetReflection();
+
+        $isBlobCreatedPropertyRef = $targetRef->getProperty('isBlobCreated');
+        $isBlobCreatedPropertyRef->setAccessible(true);
+        $isBlobCreatedPropertyRef->setValue($targetMock, $isBlobCreated);
 
         $blobRestProxyMock = $this->createBlobRestProxyMock();
         $blobRestProxyMock
             ->shouldReceive('appendBlock')
             ->once();
 
-        $handlerMock = Mockery::mock(Handler::class)
-            ->shouldAllowMockingProtectedMethods();
-        $handlerMock
-            ->shouldReceive('createBlob')
-            ->never();
-        $handlerRef = new \ReflectionClass(Handler::class);
-
-        $isBlobCreatedPropertyRef = $handlerRef->getProperty('isBlobCreated');
-        $isBlobCreatedPropertyRef->setAccessible(true);
-        $isBlobCreatedPropertyRef->setValue($handlerMock, $isBlobCreated);
-
-        $clientPropertyRef = $handlerRef->getProperty('client');
+        $clientPropertyRef = $targetRef->getProperty('client');
         $clientPropertyRef->setAccessible(true);
-        $clientPropertyRef->setValue($handlerMock, $blobRestProxyMock);
+        $clientPropertyRef->setValue($targetMock, $blobRestProxyMock);
 
-        $containerPropertyRef = $handlerRef->getProperty('container');
-        $containerPropertyRef->setAccessible(true);
-        $containerPropertyRef->setValue($handlerMock, $container);
-
-        $blobPropertyRef = $handlerRef->getProperty('blob');
-        $blobPropertyRef->setAccessible(true);
-        $blobPropertyRef->setValue($handlerMock, $blob);
-
-        $writeMethodRef = $handlerRef->getMethod('write');
+        $writeMethodRef = $targetRef->getMethod('write');
         $writeMethodRef->setAccessible(true);
 
         // execute
-        $writeMethodRef->invoke($handlerMock, $record);
+        $writeMethodRef->invoke($targetMock, $record);
     }
 }

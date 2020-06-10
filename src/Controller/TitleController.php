@@ -173,7 +173,7 @@ class TitleController extends BaseController
      * resize title image
      *
      * @param string $path
-     * @return \GuzzleHttp\Psr7\Stream
+     * @return \Psr\Http\Message\StreamInterface
      */
     protected function resizeTitleImage(string $path)
     {

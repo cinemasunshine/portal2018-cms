@@ -54,7 +54,7 @@ trait ImageResize
      * @param mixed    $data   ファイルパスなど。make()を参照。
      * @param int|null $width
      * @param int|null $height
-     * @return \GuzzleHttp\Psr7\Stream
+     * @return \Psr\Http\Message\StreamInterface
      */
     protected function resizeImage($data, ?int $width, ?int $height = null)
     {
