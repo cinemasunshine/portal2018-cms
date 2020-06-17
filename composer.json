@@ -40,9 +40,11 @@
         "phpstan/phpstan": "^0.12.29",
         "phpstan/phpstan-doctrine": "^0.12.16",
         "phpstan/phpstan-phpunit": "^0.12.11",
-        "phpstan/phpstan-mockery": "^0.12.5"
+        "phpstan/phpstan-mockery": "^0.12.5",
+        "php-parallel-lint/php-parallel-lint": "^1.2"
     },
     "scripts": {
+        "phplint": "vendor/bin/parallel-lint --no-progress --exclude vendor --exclude cache .",
         "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
         "phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml",
         "phpstan": "vendor/bin/phpstan analyse -n --no-progress -c phpstan.neon --memory-limit=256M",
