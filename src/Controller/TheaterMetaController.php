@@ -8,9 +8,10 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
-use Slim\Exception\NotFoundException;
+use Cinemasunshine\ORM\Entity\TheaterOpeningHour;
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
+use Slim\Exception\NotFoundException;
 
 /**
  * TheaterMeta controller
@@ -66,7 +67,7 @@ class TheaterMetaController extends BaseController
         ];
 
         foreach ($theater->getMeta()->getOpeningHours() as $hour) {
-            /** @var Entity\TheaterOpeningHour $hour */
+            /** @var TheaterOpeningHour $hour */
             $values['hours'][] = [
                 'type'      => $hour->getType(),
                 'from_date' => $hour->getFromDate()->format('Y/m/d'),
@@ -115,7 +116,7 @@ class TheaterMetaController extends BaseController
         $openingHours = [];
 
         foreach ($cleanData['hours'] as $hourValues) {
-            $openingHours[] = Entity\TheaterOpeningHour::create($hourValues);
+            $openingHours[] = TheaterOpeningHour::create($hourValues);
         }
 
         $theater->getMeta()->setOpeningHours($openingHours);
