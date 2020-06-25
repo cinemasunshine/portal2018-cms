@@ -6,8 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
+declare(strict_types=1);
+
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
+use Cinemasunshine\ORM\Entity\OyakoCinemaTheater as BaseOyakoCinemaTheater;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,92 +20,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="oyako_cinema_theater", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */
-class OyakoCinemaTheater extends AbstractEntity
+class OyakoCinemaTheater extends BaseOyakoCinemaTheater
 {
-    /**
-     * id
-     *
-     * @var int
-     * @ORM\Id
-     * @ORM\Column(type="integer", options={"unsigned"=true})
-     * @ORM\GeneratedValue
-     */
-    protected $id;
-
-    /**
-     * oyako_cinema_schedule
-     *
-     * @var OyakoCinemaSchedule
-     * @ORM\ManyToOne(targetEntity="OyakoCinemaSchedule", inversedBy="oyakoCinemaTheaters")
-     * @ORM\JoinColumn(name="oyako_cinema_schedule_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     */
-    protected $oyakoCinemaSchedule;
-
-    /**
-     * theater
-     *
-     * @var Theater
-     * @ORM\ManyToOne(targetEntity="Theater", fetch="EAGER")
-     * @ORM\JoinColumn(name="theater_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     */
-    protected $theater;
-
-    /**
-     * construct
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * get oyako_cinema_schedule
-     *
-     * @return OyakoCinemaSchedule
-     */
-    public function getOyakoCinemaSchedule(): OyakoCinemaSchedule
-    {
-        return $this->oyakoCinemaSchedule;
-    }
-
-    /**
-     * set oyako_cinema_schedule
-     *
-     * @param OyakoCinemaSchedule $oyakoCinemaSchedule
-     * @return void
-     */
-    public function setOyakoCinemaSchedule(OyakoCinemaSchedule $oyakoCinemaSchedule)
-    {
-        $this->oyakoCinemaSchedule = $oyakoCinemaSchedule;
-    }
-
-    /**
-     * get theater
-     *
-     * @return Theater
-     */
-    public function getTheater(): Theater
-    {
-        return $this->theater;
-    }
-
-    /**
-     * set theater
-     *
-     * @param Theater $theater
-     * @return void
-     */
-    public function setTheater(Theater $theater)
-    {
-        $this->theater = $theater;
-    }
 }
