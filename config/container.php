@@ -58,10 +58,11 @@ $container['logger'] = function ($container) {
     $logger->pushProcessor(new Monolog\Processor\MemoryUsageProcessor());
     $logger->pushProcessor(new Monolog\Processor\MemoryPeakUsageProcessor());
 
-    if (isset($settings['chrome_php'])) {
-        $chromePhpSettings = $settings['chrome_php'];
-        $logger->pushHandler(new Monolog\Handler\ChromePHPHandler(
-            $chromePhpSettings['level']
+    if (isset($settings['browser_console'])) {
+        $browserConsoleSettings = $settings['browser_console'];
+
+        $logger->pushHandler(new \Monolog\Handler\BrowserConsoleHandler(
+            $browserConsoleSettings['level']
         ));
     }
 
