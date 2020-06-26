@@ -139,7 +139,7 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setType($ticket['type']);
             $advanceTicket->setPriceText($ticket['price_text']);
             $advanceTicket->setSpecialGift($ticket['special_gift']);
-            $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock']);
+            $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock'] ?: null);
 
             $image = $ticket['special_gift_image'];
             $file = null;
@@ -354,7 +354,7 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setType($ticket['type']);
             $advanceTicket->setPriceText($ticket['price_text']);
             $advanceTicket->setSpecialGift($ticket['special_gift']);
-            $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock']);
+            $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock'] ?: null);
 
             $image = $ticket['special_gift_image'];
             $isDeleteImage = ($ticket['delete_special_gift_image'] == '1') || $image['name'];

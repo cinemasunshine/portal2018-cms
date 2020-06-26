@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba798cf93ab0d4ed56d83b3b574c577b",
+    "content-hash": "0a7b2bd70954a46823d2d4b24f6341d7",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -48,6 +48,67 @@
             ],
             "description": "Azure Blob Storage Handler for Monolog",
             "time": "2020-06-01T10:00:01+00:00"
+        },
+        {
+            "name": "cinemasunshine/portal2018-orm",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cinemasunshine/portal2018-orm.git",
+                "reference": "327f2d02cf1f13592ab5453a227f3c7074e3c4c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/327f2d02cf1f13592ab5453a227f3c7074e3c4c7",
+                "reference": "327f2d02cf1f13592ab5453a227f3c7074e3c4c7",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.7",
+                "php": "~7.2"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/phpstan": "^0.12.31",
+                "phpstan/phpstan-doctrine": "^0.12.17",
+                "phpstan/phpstan-phpunit": "^0.12.11",
+                "phpunit/phpunit": "^8.5",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cinemasunshine\\ORM\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "phplint": [
+                    "vendor/bin/parallel-lint --no-progress --exclude vendor ."
+                ],
+                "phpcs": [
+                    "vendor/bin/phpcs --standard=phpcs.xml"
+                ],
+                "phpcbf": [
+                    "vendor/bin/phpcbf --standard=phpcs.xml"
+                ],
+                "phpstan": [
+                    "vendor/bin/phpstan analyse -n --no-progress -c phpstan.neon"
+                ],
+                "phpunit": [
+                    "vendor/bin/phpunit"
+                ]
+            },
+            "description": "Cinemasunshine Portal2018 ORM",
+            "support": {
+                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v1.0.0",
+                "issues": "https://github.com/cinemasunshine/portal2018-orm/issues"
+            },
+            "time": "2020-06-25T10:57:57+00:00"
         },
         {
             "name": "container-interop/container-interop",
@@ -4350,16 +4411,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.29",
+            "version": "0.12.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "9771daaf6b95c6313b908d0bcdee0afcd51f838a"
+                "reference": "776c8056b401e1b67f277b9e9fb334d1a274671d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9771daaf6b95c6313b908d0bcdee0afcd51f838a",
-                "reference": "9771daaf6b95c6313b908d0bcdee0afcd51f838a",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/776c8056b401e1b67f277b9e9fb334d1a274671d",
+                "reference": "776c8056b401e1b67f277b9e9fb334d1a274671d",
                 "shasum": ""
             },
             "require": {
@@ -4402,20 +4463,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-14T14:10:59+00:00"
+            "time": "2020-06-24T20:55:29+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "0.12.16",
+            "version": "0.12.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "65146e35905478bfb4e2ba078ffca1a16029d4ee"
+                "reference": "5eed42b2815f100f25bd45fe8c1a9b01f3e41657"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/65146e35905478bfb4e2ba078ffca1a16029d4ee",
-                "reference": "65146e35905478bfb4e2ba078ffca1a16029d4ee",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/5eed42b2815f100f25bd45fe8c1a9b01f3e41657",
+                "reference": "5eed42b2815f100f25bd45fe8c1a9b01f3e41657",
                 "shasum": ""
             },
             "require": {
@@ -4468,7 +4529,7 @@
                 "MIT"
             ],
             "description": "Doctrine extensions for PHPStan",
-            "time": "2020-06-14T11:03:59+00:00"
+            "time": "2020-06-23T08:50:27+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
@@ -4834,16 +4895,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.5",
+            "version": "8.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "63dda3b212a0025d380a745f91bdb4d8c985adb7"
+                "reference": "34c18baa6a44f1d1fbf0338907139e9dce95b997"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/63dda3b212a0025d380a745f91bdb4d8c985adb7",
-                "reference": "63dda3b212a0025d380a745f91bdb4d8c985adb7",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/34c18baa6a44f1d1fbf0338907139e9dce95b997",
+                "reference": "34c18baa6a44f1d1fbf0338907139e9dce95b997",
                 "shasum": ""
             },
             "require": {
@@ -4923,7 +4984,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-05-22T13:51:52+00:00"
+            "time": "2020-06-22T07:06:58+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

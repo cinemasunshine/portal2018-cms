@@ -8,9 +8,9 @@
 
 namespace Cinemasunshine\PortalAdmin\Form;
 
+use Cinemasunshine\ORM\Entity\TheaterOpeningHour;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilterProviderInterface;
-use Cinemasunshine\PortalAdmin\ORM\Entity\TheaterOpeningHour;
 
 /**
  * OpeningHour fieldset class
