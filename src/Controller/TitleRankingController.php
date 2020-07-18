@@ -8,7 +8,6 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
-use Slim\Exception\NotFoundException;
 use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
@@ -18,21 +17,18 @@ use Cinemasunshine\PortalAdmin\ORM\Entity;
  */
 class TitleRankingController extends BaseController
 {
-    /** @var Entity\TitleRanking */
-    protected $titleRanking;
-
     /**
-     * return entity
-     *
-     * @return Entity\TitleRanking|null
+     * @return Entity\TitleRanking
      */
-    protected function getEntity()
+    protected function findEntity(): Entity\TitleRanking
     {
-        if (!$this->titleRanking) {
-            $this->titleRanking = $this->em->find(Entity\TitleRanking::class, 1);
+        $entity = $this->em->find(Entity\TitleRanking::class, 1);
+
+        if (!$entity) {
+            throw new \LogicException('TitleRanking does not exist.');
         }
 
-        return $this->titleRanking;
+        return $entity;
     }
 
     /**
@@ -44,12 +40,6 @@ class TitleRankingController extends BaseController
 
         if ($user->isTheater()) {
             throw new ForbiddenException();
-        }
-
-        $titleRanking = $this->getEntity();
-
-        if (!$titleRanking) {
-            throw new NotFoundException($request, $response);
         }
 
         parent::preExecute($request, $response);
@@ -65,7 +55,7 @@ class TitleRankingController extends BaseController
      */
     public function executeEdit($request, $response, $args)
     {
-        $titleRanking = $this->getEntity();
+        $titleRanking = $this->findEntity();
 
         $fromDate = $titleRanking->getFromDate();
         $toDate = $titleRanking->getToDate();
@@ -115,7 +105,7 @@ class TitleRankingController extends BaseController
 
         $cleanData = $form->getData();
 
-        $titleRanking = $this->getEntity();
+        $titleRanking = $this->findEntity();
         $titleRanking->setFromDate($cleanData['from_date']);
         $titleRanking->setToDate($cleanData['to_date']);
 
