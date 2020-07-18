@@ -6,12 +6,16 @@ includes:
 	- vendor/phpstan/phpstan-mockery/extension.neon
 
 parameters:
-	level: 3
+	level: 4
 	paths:
 		- %currentWorkingDirectory%/src
 		- %currentWorkingDirectory%/tests
 	excludes_analyse:
 		- %currentWorkingDirectory%/src/ORM/Proxy/*
 		- %currentWorkingDirectory%/tests/entity-manager.php
+
+	dynamicConstantNames:
+		- APP_DEBUG
+
 	doctrine:
 		objectManagerLoader: %currentWorkingDirectory%/tests/entity-manager.php
