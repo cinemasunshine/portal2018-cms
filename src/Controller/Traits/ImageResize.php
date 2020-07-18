@@ -17,7 +17,7 @@ use Intervention\Image\ImageManager;
  */
 trait ImageResize
 {
-    /** @var ImageManager */
+    /** @var ImageManager|null */
     private $imageManager;
 
     /**
