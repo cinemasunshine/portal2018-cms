@@ -13,5 +13,9 @@ parameters:
 	excludes_analyse:
 		- %currentWorkingDirectory%/src/ORM/Proxy/*
 		- %currentWorkingDirectory%/tests/entity-manager.php
+
+	dynamicConstantNames:
+		- APP_DEBUG
+
 	doctrine:
 		objectManagerLoader: %currentWorkingDirectory%/tests/entity-manager.php
