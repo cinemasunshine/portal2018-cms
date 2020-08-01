@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
-use Cinemasunshine\ORM\Entity\SpecialSiteTrailer as BaseSpecialSiteTrailer;
+use Cinemasunshine\ORM\Entities\SpecialSiteTrailer as BaseSpecialSiteTrailer;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

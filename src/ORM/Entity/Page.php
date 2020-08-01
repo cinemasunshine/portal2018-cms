@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
-use Cinemasunshine\ORM\Entity\Page as BasePage;
+use Cinemasunshine\ORM\Entities\Page as BasePage;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

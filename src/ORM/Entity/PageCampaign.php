@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
-use Cinemasunshine\ORM\Entity\PageCampaign as BasePageCampaign;
+use Cinemasunshine\ORM\Entities\PageCampaign as BasePageCampaign;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
