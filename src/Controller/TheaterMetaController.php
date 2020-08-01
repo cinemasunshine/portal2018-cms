@@ -8,7 +8,7 @@
 
 namespace Cinemasunshine\PortalAdmin\Controller;
 
-use Cinemasunshine\ORM\Entity\TheaterOpeningHour;
+use Cinemasunshine\ORM\Entities\TheaterOpeningHour;
 use Cinemasunshine\PortalAdmin\Form;
 use Cinemasunshine\PortalAdmin\ORM\Entity;
 use Slim\Exception\NotFoundException;
