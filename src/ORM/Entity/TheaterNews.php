@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
-use Cinemasunshine\ORM\Entity\TheaterNews as BaseTheaterNews;
+use Cinemasunshine\ORM\Entities\TheaterNews as BaseTheaterNews;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

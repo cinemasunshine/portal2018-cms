@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
-use Cinemasunshine\ORM\Entity\TitleRanking as BaseTitleRanking;
+use Cinemasunshine\ORM\Entities\TitleRanking as BaseTitleRanking;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

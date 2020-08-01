@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
-use Cinemasunshine\ORM\Entity\SpecialSiteCampaign as BaseSpecialSiteCampaign;
+use Cinemasunshine\ORM\Entities\SpecialSiteCampaign as BaseSpecialSiteCampaign;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

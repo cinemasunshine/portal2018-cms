@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
-use Cinemasunshine\ORM\Entity\Campaign as BaseCampaign;
+use Cinemasunshine\ORM\Entities\Campaign as BaseCampaign;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

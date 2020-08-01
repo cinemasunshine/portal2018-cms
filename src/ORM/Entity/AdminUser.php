@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Cinemasunshine\PortalAdmin\ORM\Entity;
 
-use Cinemasunshine\ORM\Entity\AdminUser as BaseAdminUser;
+use Cinemasunshine\ORM\Entities\AdminUser as BaseAdminUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

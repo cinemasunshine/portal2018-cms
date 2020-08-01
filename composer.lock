@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "173e0673996381ac3e3c9611e2ae82ad",
+    "content-hash": "4f22ae01d45ff46e2c7f25ab4f78064e",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -51,16 +51,16 @@
         },
         {
             "name": "cinemasunshine/portal2018-orm",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cinemasunshine/portal2018-orm.git",
-                "reference": "327f2d02cf1f13592ab5453a227f3c7074e3c4c7"
+                "reference": "f7e7e6d291be4d941fe547427f3a71d4e89e9023"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/327f2d02cf1f13592ab5453a227f3c7074e3c4c7",
-                "reference": "327f2d02cf1f13592ab5453a227f3c7074e3c4c7",
+                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/f7e7e6d291be4d941fe547427f3a71d4e89e9023",
+                "reference": "f7e7e6d291be4d941fe547427f3a71d4e89e9023",
                 "shasum": ""
             },
             "require": {
@@ -69,9 +69,9 @@
             },
             "require-dev": {
                 "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpstan/phpstan": "^0.12.31",
-                "phpstan/phpstan-doctrine": "^0.12.17",
-                "phpstan/phpstan-phpunit": "^0.12.11",
+                "phpstan/phpstan": "^0.12.33",
+                "phpstan/phpstan-doctrine": "^0.12.19",
+                "phpstan/phpstan-phpunit": "^0.12.15",
                 "phpunit/phpunit": "^8.5",
                 "squizlabs/php_codesniffer": "^3.5"
             },
@@ -105,10 +105,10 @@
             },
             "description": "Cinemasunshine Portal2018 ORM",
             "support": {
-                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v1.0.0",
+                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v1.1.0",
                 "issues": "https://github.com/cinemasunshine/portal2018-orm/issues"
             },
-            "time": "2020-06-25T10:57:57+00:00"
+            "time": "2020-07-30T09:10:58+00:00"
         },
         {
             "name": "container-interop/container-interop",

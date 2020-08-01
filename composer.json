@@ -38,7 +38,7 @@
         "symfony/console": "^4.4",
         "symfony/filesystem": "^4.4",
         "blue32a/monolog-azure-blob": "^0.2",
-        "cinemasunshine/portal2018-orm": "^1.0"
+        "cinemasunshine/portal2018-orm": "^1.1"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",
