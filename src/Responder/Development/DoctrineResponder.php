@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CacheResponder.php
+ * DoctrineResponder.php
  *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
@@ -12,44 +12,31 @@ use Slim\Collection;
 use Slim\Http\Response;
 
 /**
- * Cache responder
+ * Doctrine responder
  */
-class CacheResponder extends BaseResponder
+class DoctrineResponder extends BaseResponder
 {
     /**
-     * clear query
+     * cache stats
      *
      * @param Response   $response
      * @param Collection $data
      * @return Response
      */
-    public function stats(Response $response, Collection $data)
+    public function cacheStats(Response $response, Collection $data)
     {
         $dump = var_export($data->all(), true);
         return $response->write('<pre>' . $dump . '</pre>');
     }
 
     /**
-     * clear query
+     * cache clear
      *
      * @param Response   $response
      * @param Collection $data
      * @return Response
      */
-    public function clearQuery(Response $response, Collection $data)
-    {
-        $dump = var_export($data->all(), true);
-        return $response->write('<pre>' . $dump . '</pre>');
-    }
-
-    /**
-     * clear metadata
-     *
-     * @param Response   $response
-     * @param Collection $data
-     * @return Response
-     */
-    public function clearMetadata(Response $response, Collection $data)
+    public function cacheClear(Response $response, Collection $data)
     {
         $dump = var_export($data->all(), true);
         return $response->write('<pre>' . $dump . '</pre>');
