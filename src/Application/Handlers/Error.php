@@ -36,12 +36,9 @@ class Error extends BaseHandler
     }
 
     /**
-     *  Write to the error log
-     *
-     * @see Slim\Handlers\AbstractError
-     *
      * @param \Exception|\Throwable $throwable
      * @return void
+     * @see Slim\Handlers\AbstractError
      */
     protected function writeToErrorLog($throwable)
     {
@@ -49,12 +46,10 @@ class Error extends BaseHandler
     }
 
     /**
-     * log
-     *
-     * @param \Exception $exception
+     * @param \Exception|\Throwable $exception
      * @return void
      */
-    protected function log(\Exception $exception)
+    protected function log($exception)
     {
         $this->logger->error($exception->getMessage(), [
             'type' => get_class($exception),
