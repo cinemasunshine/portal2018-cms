@@ -19,6 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\TitleRepository")
  * @ORM\Table(name="title", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
+ *
+ * @method File|null getImage()
  */
 class Title extends BaseTitle
 {
