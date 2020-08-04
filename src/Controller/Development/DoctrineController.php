@@ -1,26 +1,29 @@
 <?php
 
 /**
- * CacheController.php
+ * DoctrineController.php
  *
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace Cinemasunshine\PortalAdmin\Controller\Development;
 
+use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\CacheProvider;
+
 /**
- * Cache controller
+ * Doctrine controller
  *
  * Webからキャッシュ操作する機能を提供する。
  * WinCacheのキャッシュはWebとCLIが別になっていて、コンソールからはクリアできないらしい。
  * よってその代替として実装。
  */
-class CacheController extends BaseController
+class DoctrineController extends BaseController
 {
     /**
      * Gets the cache driver implementation that is used for the query cache (SQL cache).
      *
-     * @return \Doctrine\Common\Cache\Cache|null
+     * @return Cache|null
      */
     protected function getQueryCacheImpl()
     {
@@ -30,7 +33,7 @@ class CacheController extends BaseController
     /**
      * Gets the cache driver implementation that is used for metadata caching.
      *
-     * @return \Doctrine\Common\Cache\Cache|null
+     * @return Cache|null
      */
     protected function getMetadataCacheImpl()
     {
@@ -38,14 +41,14 @@ class CacheController extends BaseController
     }
 
     /**
-     * stats
+     * cache stats
      *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
      * @param array               $args
      * @return string|void
      */
-    public function executeStats($request, $response, $args)
+    public function executeCacheStats($request, $response, $args)
     {
         $queryCacheDriver = $this->getQueryCacheImpl();
         $this->data->set('query', $queryCacheDriver->getStats());
@@ -55,7 +58,7 @@ class CacheController extends BaseController
     }
 
     /**
-     * clear query action
+     * cache clear action
      *
      * @param \Slim\Http\Request  $request
      * @param \Slim\Http\Response $response
@@ -63,9 +66,26 @@ class CacheController extends BaseController
      * @return string|void
      * @see Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand::execute()
      */
-    public function executeClearQuery($request, $response, $args)
+    public function executeCacheClear($request, $response, $args)
     {
-        $cacheDriver = $this->getQueryCacheImpl();
+        $target = $args['target'];
+
+        if ($target === 'query') {
+            $cacheDriver = $this->getQueryCacheImpl();
+        } elseif ($target === 'metadata') {
+            $cacheDriver = $this->getMetadataCacheImpl();
+        } else {
+            throw new \InvalidArgumentException('Invalid "target".');
+        }
+
+        if (!$cacheDriver) {
+            throw new \InvalidArgumentException('No cache driver is configured on given EntityManager.');
+        }
+
+        if (!$cacheDriver instanceof CacheProvider) {
+            throw new \InvalidArgumentException('This cache driver does not support clear.');
+        }
+
         $flush = ($request->getParam('flush') === 'true');
 
         $message = $this->doClear($cacheDriver, $flush);
@@ -74,37 +94,12 @@ class CacheController extends BaseController
     }
 
     /**
-     * clear metadata action
-     *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
-     * @see Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand::execute()
-     */
-    public function executeClearMetadata($request, $response, $args)
-    {
-        $cacheDriver = $this->getMetadataCacheImpl();
-        $flush = ($request->getParam('flush') === 'true');
-
-        $message = $this->doClear($cacheDriver, $flush);
-
-        $this->data->set('message', $message);
-    }
-
-    /**
-     * do clear
-     *
-     * @param \Doctrine\Common\Cache\CacheProvider|null $cacheDriver
+     * @param CacheProvider $cacheDriver
      * @param boolean $flush
      * @return string
      */
-    protected function doClear($cacheDriver, bool $flush = false): string
+    protected function doClear(CacheProvider $cacheDriver, bool $flush = false): string
     {
-        if (!$cacheDriver) {
-            throw new \InvalidArgumentException('No Query cache driver is configured on given EntityManager.');
-        }
-
         $result  = $cacheDriver->deleteAll();
         $message = ($result) ? 'Successfully deleted cache entries.' : 'No cache entries were deleted.';
 

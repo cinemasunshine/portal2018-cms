@@ -28,7 +28,7 @@ use Cinemasunshine\PortalAdmin\Controller\API\{
     NewsController as NewsApiController,
     TitleController as TitleApiController
 };
-use Cinemasunshine\PortalAdmin\Controller\Development\CacheController;
+use Cinemasunshine\PortalAdmin\Controller\Development\DoctrineController;
 use Cinemasunshine\PortalAdmin\Middleware\AuthMiddleware;
 
 $app->get('/login', AuthController::class . ':login')->setName('login');
@@ -181,9 +181,8 @@ $app->group('', function () {
  * IPアドレスなどでアクセス制限することを推奨します。
  */
 $app->group('/dev', function () {
-    $this->group('/cache', function () {
-        $this->get('/stats', CacheController::class . ':stats');
-        $this->get('/clear/query', CacheController::class . ':clearQuery');
-        $this->get('/clear/metadata', CacheController::class . ':clearMetadata');
+    $this->group('/doctrine', function () {
+        $this->get('/cache/stats', DoctrineController::class . ':cacheStats');
+        $this->get('/cache/{target:query|metadata}/clear', DoctrineController::class . ':cacheClear');
     });
 });
