@@ -51,16 +51,16 @@
         },
         {
             "name": "cinemasunshine/portal2018-orm",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cinemasunshine/portal2018-orm.git",
-                "reference": "f7e7e6d291be4d941fe547427f3a71d4e89e9023"
+                "reference": "fda98a8256f2cde471e0122990ac6a8b19f60b21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/f7e7e6d291be4d941fe547427f3a71d4e89e9023",
-                "reference": "f7e7e6d291be4d941fe547427f3a71d4e89e9023",
+                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/fda98a8256f2cde471e0122990ac6a8b19f60b21",
+                "reference": "fda98a8256f2cde471e0122990ac6a8b19f60b21",
                 "shasum": ""
             },
             "require": {
@@ -105,10 +105,10 @@
             },
             "description": "Cinemasunshine Portal2018 ORM",
             "support": {
-                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v1.1.0",
+                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v1.1.1",
                 "issues": "https://github.com/cinemasunshine/portal2018-orm/issues"
             },
-            "time": "2020-07-30T09:10:58+00:00"
+            "time": "2020-08-06T10:26:33+00:00"
         },
         {
             "name": "container-interop/container-interop",
