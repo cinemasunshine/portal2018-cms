@@ -36,8 +36,10 @@ commands:
           name: Deploy to Azure
           command: |
             mkdir deploy
-            curl -s -X POST https://<< parameters.user >>:<< parameters.password >>@<< parameters.app >>.scm.azurewebsites.net/api/zipdeploy -T << parameters.zip >> -o ./deploy/result.html -w '%{http_code}' > ./deploy/http_code.txt
-            if [ $(cat ./deploy/http_code.txt) -eq "200" ]; then
+            curl -s -X POST https://<< parameters.user >>:<< parameters.password >>@<< parameters.app >>.scm.azurewebsites.net/api/zipdeploy?isAsync=true -T << parameters.zip >> -o ./deploy/result.html -w '%{http_code}' > ./deploy/http_code.txt
+            code=$(cat ./deploy/http_code.txt)
+            echo HTTP code is $code.
+            if [ $code -ge 200 -a $code -lt 300 ]; then
                 echo "Deploy successful."
                 exit 0
             else
