@@ -51,7 +51,7 @@ commands:
 executors:
   build:
     docker:
-      - image: circleci/php:7.2
+      - image: circleci/php:7.3
 
   deployment:
     docker:
