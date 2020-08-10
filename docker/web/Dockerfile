@@ -1,7 +1,7 @@
 # Webサーバ用Dockerfile
 
 # https://hub.docker.com/_/php/
-FROM php:7.2-apache
+FROM php:7.3-apache
 
 # mod_rewrite
 RUN a2enmod rewrite
