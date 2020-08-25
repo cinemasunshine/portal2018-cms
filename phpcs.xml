@@ -16,6 +16,14 @@
     <arg name="report-full" value="./report/phpcs_full.txt"/>
     <arg value="sp"/>
 
-    <!-- rule -->
+    <!-- Base rule -->
     <rule ref="PSR12"/>
+
+    <!-- Force array element indentation with 4 spaces -->
+    <rule ref="Generic.Arrays.ArrayIndent"/>
+    <!-- Forbid `array(...)` -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <!-- Forbid duplicate classes -->
+    <rule ref="Generic.Classes.DuplicateClassName"/>
+
 </ruleset>
