@@ -8,29 +8,25 @@
 
 namespace Cinemasunshine\PortalAdmin\Application\Handlers;
 
-use Slim\Container;
 use Slim\Handlers\NotAllowed as BaseHandler;
+use Slim\Views\Twig;
 
 /**
  * NotAllowed handler
  */
 class NotAllowed extends BaseHandler
 {
-    /** @var Container */
-    protected $container;
-
-    /** @var \Slim\Views\Twig */
+    /** @var Twig */
     protected $view;
 
     /**
      * construct
      *
-     * @param Container $container
+     * @param Twig $view
      */
-    public function __construct(Container $container)
+    public function __construct(Twig $view)
     {
-        $this->container = $container;
-        $this->view = $container->get('view');
+        $this->view = $view;
     }
 
     /**

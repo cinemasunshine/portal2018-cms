@@ -175,17 +175,27 @@ $container['bc'] = function ($container) {
 };
 
 $container['errorHandler'] = function ($container) {
-    return new \Cinemasunshine\PortalAdmin\Application\Handlers\Error($container);
+    return new \Cinemasunshine\PortalAdmin\Application\Handlers\Error(
+        $container->get('logger'),
+        $container->get('settings')['displayErrorDetails']
+    );
 };
 
 $container['phpErrorHandler'] = function ($container) {
-    return new \Cinemasunshine\PortalAdmin\Application\Handlers\PhpError($container);
+    return new \Cinemasunshine\PortalAdmin\Application\Handlers\PhpError(
+        $container->get('logger'),
+        $container->get('settings')['displayErrorDetails']
+    );
 };
 
 $container['notFoundHandler'] = function ($container) {
-    return new \Cinemasunshine\PortalAdmin\Application\Handlers\NotFound($container);
+    return new \Cinemasunshine\PortalAdmin\Application\Handlers\NotFound(
+        $container->get('view')
+    );
 };
 
 $container['notAllowedHandler'] = function ($container) {
-    return new \Cinemasunshine\PortalAdmin\Application\Handlers\NotAllowed($container);
+    return new \Cinemasunshine\PortalAdmin\Application\Handlers\NotAllowed(
+        $container->get('view')
+    );
 };

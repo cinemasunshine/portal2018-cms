@@ -8,7 +8,7 @@
 
 namespace Cinemasunshine\PortalAdmin\Application\Handlers;
 
-use Slim\Container;
+use Monolog\Logger;
 use Slim\Handlers\PhpError as BaseHandler;
 
 /**
@@ -16,23 +16,20 @@ use Slim\Handlers\PhpError as BaseHandler;
  */
 class PhpError extends BaseHandler
 {
-    /** @var Container */
-    protected $container;
-
-    /** @var \Monolog\Logger */
+    /** @var Logger */
     protected $logger;
 
     /**
      * construct
      *
-     * @param Container $container
+     * @param Logger $logger
+     * @param bool $displayErrorDetails
      */
-    public function __construct(Container $container)
+    public function __construct(Logger $logger, bool $displayErrorDetails = false)
     {
-        $this->container = $container;
-        $this->logger = $container->get('logger');
+        $this->logger = $logger;
 
-        parent::__construct($container->get('settings')['displayErrorDetails']);
+        parent::__construct($displayErrorDetails);
     }
 
     /**

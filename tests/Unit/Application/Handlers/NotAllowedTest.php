@@ -14,7 +14,7 @@ use Cinemasunshine\PortalAdmin\Application\Handlers\NotAllowed;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use Slim\Container;
+use Slim\Views\Twig;
 
 /**
  * NotAllowed handler test
@@ -24,25 +24,27 @@ final class NotAllowedTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * Create Container mock
-     *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|Container
+     * @return \ReflectionClass
      */
-    protected function createContainerMock()
+    protected function createTargetReflection()
     {
-        return Mockery::mock(Container::class);
+        return new \ReflectionClass(NotAllowed::class);
     }
 
     /**
-     * Create View mock
-     *
-     * ひとまず仮のクラスで実装する。
-     *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&NotAllowed
+     */
+    protected function createTargetMock()
+    {
+        return Mockery::mock(NotAllowed::class);
+    }
+
+    /**
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Twig
      */
     protected function createViewMock()
     {
-        return Mockery::mock('View');
+        return Mockery::mock(Twig::class);
     }
 
     /**
@@ -53,30 +55,19 @@ final class NotAllowedTest extends TestCase
      */
     public function testConstruct()
     {
-        $containerMock = $this->createContainerMock();
         $viewMock = $this->createViewMock();
-        $containerMock
-            ->shouldReceive('get')
-            ->once()
-            ->with('view')
-            ->andReturn($viewMock);
 
-        $notAllowedHandlerMock = Mockery::mock(NotAllowed::class);
+        $targetMock = $this->createTargetMock();
 
         // execute constructor
-        $notAllowedHandlerRef = new \ReflectionClass(NotAllowed::class);
-        $notAllowedHandlerConstructor = $notAllowedHandlerRef->getConstructor();
-        $notAllowedHandlerConstructor->invoke($notAllowedHandlerMock, $containerMock);
-
-        // test property "container"
-        $containerPropertyRef = $notAllowedHandlerRef->getProperty('container');
-        $containerPropertyRef->setAccessible(true);
-        $this->assertEquals($containerMock, $containerPropertyRef->getValue($notAllowedHandlerMock));
+        $targetRef = $this->createTargetReflection();
+        $notAllowedHandlerConstructor = $targetRef->getConstructor();
+        $notAllowedHandlerConstructor->invoke($targetMock, $viewMock);
 
         // test property "view"
-        $viewPropertyRef = $notAllowedHandlerRef->getProperty('view');
+        $viewPropertyRef = $targetRef->getProperty('view');
         $viewPropertyRef->setAccessible(true);
-        $this->assertEquals($viewMock, $viewPropertyRef->getValue($notAllowedHandlerMock));
+        $this->assertEquals($viewMock, $viewPropertyRef->getValue($targetMock));
     }
 
     /**
@@ -92,16 +83,17 @@ final class NotAllowedTest extends TestCase
     {
         define('APP_DEBUG', true);
 
-        $notAllowedHandlerMock = Mockery::mock(NotAllowed::class)->makePartial();
+        $targetMock = $this->createTargetMock();
+        $targetMock->makePartial();
 
-        $notAllowedHandlerRef = new \ReflectionClass(NotAllowed::class);
-        $renderHtmlNotAllowedMessageMethodRef = $notAllowedHandlerRef->getMethod('renderHtmlNotAllowedMessage');
+        $targetRef = $this->createTargetReflection();
+        $renderHtmlNotAllowedMessageMethodRef = $targetRef->getMethod('renderHtmlNotAllowedMessage');
         $renderHtmlNotAllowedMessageMethodRef->setAccessible(true);
 
         $methods = ['GET'];
 
         // execute
-        $result = $renderHtmlNotAllowedMessageMethodRef->invoke($notAllowedHandlerMock, $methods);
+        $result = $renderHtmlNotAllowedMessageMethodRef->invoke($targetMock, $methods);
 
         // @see Slim\Handlers\NotAllowed::renderHtmlNotAllowedMessage()
         $this->assertStringContainsString('<title>Method not allowed</title>', $result);
@@ -128,20 +120,21 @@ final class NotAllowedTest extends TestCase
             ->with(Mockery::type('string'), Mockery::type('array'))
             ->andReturn($html);
 
-        $notAllowedHandlerMock = Mockery::mock(NotAllowed::class)->makePartial();
+        $targetMock = $this->createTargetMock();
+        $targetMock->makePartial();
 
-        $notAllowedHandlerRef = new \ReflectionClass(NotAllowed::class);
-        $viewPropertyRef = $notAllowedHandlerRef->getProperty('view');
+        $targetRef = $this->createTargetReflection();
+        $viewPropertyRef = $targetRef->getProperty('view');
         $viewPropertyRef->setAccessible(true);
-        $viewPropertyRef->setValue($notAllowedHandlerMock, $viewMock);
+        $viewPropertyRef->setValue($targetMock, $viewMock);
 
-        $renderHtmlNotAllowedMessageMethodRef = $notAllowedHandlerRef->getMethod('renderHtmlNotAllowedMessage');
+        $renderHtmlNotAllowedMessageMethodRef = $targetRef->getMethod('renderHtmlNotAllowedMessage');
         $renderHtmlNotAllowedMessageMethodRef->setAccessible(true);
 
         $methods = ['GET'];
 
         // execute
-        $result = $renderHtmlNotAllowedMessageMethodRef->invoke($notAllowedHandlerMock, $methods);
+        $result = $renderHtmlNotAllowedMessageMethodRef->invoke($targetMock, $methods);
         $this->assertEquals($html, $result);
     }
 }

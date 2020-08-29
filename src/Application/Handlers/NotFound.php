@@ -8,30 +8,26 @@
 
 namespace Cinemasunshine\PortalAdmin\Application\Handlers;
 
-use Slim\Container;
-use Slim\Handlers\NotFound as BaseHandler;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Handlers\NotFound as BaseHandler;
+use Slim\Views\Twig;
 
 /**
  * NotFound handler
  */
 class NotFound extends BaseHandler
 {
-    /** @var Container */
-    protected $container;
-
-    /** @var \Slim\Views\Twig */
+    /** @var Twig */
     protected $view;
 
     /**
      * construct
      *
-     * @param Container $container
+     * @param Twig $view
      */
-    public function __construct(Container $container)
+    public function __construct(Twig $view)
     {
-        $this->container = $container;
-        $this->view = $container->get('view');
+        $this->view = $view;
     }
 
     /**
