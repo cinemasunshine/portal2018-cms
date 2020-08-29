@@ -26,6 +26,22 @@ final class NotFoundTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
+     * @return \ReflectionClass
+     */
+    protected function createTargetReflection()
+    {
+        return new \ReflectionClass(NotFound::class);
+    }
+
+    /**
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&NotFound
+     */
+    protected function createTargetMock()
+    {
+        return Mockery::mock(NotFound::class);
+    }
+
+    /**
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Twig
      */
     protected function createViewMock()
@@ -38,7 +54,7 @@ final class NotFoundTest extends TestCase
      *
      * ひとまず仮のクラスで実装する。
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|ServerRequestInterface
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ServerRequestInterface
      */
     protected function createRequestMock()
     {
@@ -55,17 +71,17 @@ final class NotFoundTest extends TestCase
     {
         $viewMock = $this->createViewMock();
 
-        $notFoundHandlerMock = Mockery::mock(NotFound::class);
+        $targetMock = $this->createTargetMock();
 
         // execute constructor
-        $notFoundHandlerRef = new \ReflectionClass(NotFound::class);
-        $notFoundHandlerConstructor = $notFoundHandlerRef->getConstructor();
-        $notFoundHandlerConstructor->invoke($notFoundHandlerMock, $viewMock);
+        $targetRef = $this->createTargetReflection();
+        $notFoundHandlerConstructor = $targetRef->getConstructor();
+        $notFoundHandlerConstructor->invoke($targetMock, $viewMock);
 
         // test property "view"
-        $viewPropertyRef = $notFoundHandlerRef->getProperty('view');
+        $viewPropertyRef = $targetRef->getProperty('view');
         $viewPropertyRef->setAccessible(true);
-        $this->assertEquals($viewMock, $viewPropertyRef->getValue($notFoundHandlerMock));
+        $this->assertEquals($viewMock, $viewPropertyRef->getValue($targetMock));
     }
 
     /**
@@ -100,14 +116,14 @@ final class NotFoundTest extends TestCase
             ->shouldReceive('getUri')
             ->andReturn($uriMock);
 
-        $notFoundHandlerMock = Mockery::mock(NotFound::class);
+        $targetMock = $this->createTargetMock();
 
-        $notFoundHandlerRef = new \ReflectionClass(NotFound::class);
-        $renderHtmlNotFoundOutputMethodRef = $notFoundHandlerRef->getMethod('renderHtmlNotFoundOutput');
+        $targetRef = $this->createTargetReflection();
+        $renderHtmlNotFoundOutputMethodRef = $targetRef->getMethod('renderHtmlNotFoundOutput');
         $renderHtmlNotFoundOutputMethodRef->setAccessible(true);
 
         // execute
-        $result = $renderHtmlNotFoundOutputMethodRef->invoke($notFoundHandlerMock, $requestMock);
+        $result = $renderHtmlNotFoundOutputMethodRef->invoke($targetMock, $requestMock);
 
         // @see Slim\Handlers\NotFound::renderHtmlNotFoundOutput()
         $this->assertStringContainsString('<title>Page Not Found</title>', $result);
@@ -136,18 +152,19 @@ final class NotFoundTest extends TestCase
 
         $requestMock = $this->createRequestMock();
 
-        $notFoundHandlerMock = Mockery::mock(NotFound::class);
+        $targetMock = $this->createTargetMock();
 
-        $notFoundHandlerRef = new \ReflectionClass(NotFound::class);
-        $viewPropertyRef = $notFoundHandlerRef->getProperty('view');
+        $targetRef = $this->createTargetReflection();
+
+        $viewPropertyRef = $targetRef->getProperty('view');
         $viewPropertyRef->setAccessible(true);
-        $viewPropertyRef->setValue($notFoundHandlerMock, $viewMock);
+        $viewPropertyRef->setValue($targetMock, $viewMock);
 
-        $renderHtmlNotFoundOutputMethodRef = $notFoundHandlerRef->getMethod('renderHtmlNotFoundOutput');
+        $renderHtmlNotFoundOutputMethodRef = $targetRef->getMethod('renderHtmlNotFoundOutput');
         $renderHtmlNotFoundOutputMethodRef->setAccessible(true);
 
         // execute
-        $result = $renderHtmlNotFoundOutputMethodRef->invoke($notFoundHandlerMock, $requestMock);
+        $result = $renderHtmlNotFoundOutputMethodRef->invoke($targetMock, $requestMock);
         $this->assertEquals($html, $result);
     }
 }
