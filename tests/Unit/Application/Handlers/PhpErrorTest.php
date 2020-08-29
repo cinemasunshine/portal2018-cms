@@ -13,8 +13,8 @@ namespace Tests\Unit\Application\Handlers;
 use Cinemasunshine\PortalAdmin\Application\Handlers\PhpError;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
-use Slim\Container;
 
 /**
  * PhpError handler test
@@ -24,25 +24,11 @@ final class PhpErrorTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * Create Container mock
-     *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|Container
-     */
-    protected function createContainerMock()
-    {
-        return Mockery::mock(Container::class);
-    }
-
-    /**
-     * Create Logger mock
-     *
-     * ひとまず仮のクラスで実装する。
-     *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Logger
      */
     protected function createLoggerMock()
     {
-        return Mockery::mock('Logger');
+        return Mockery::mock(Logger::class);
     }
 
     /**
@@ -53,40 +39,29 @@ final class PhpErrorTest extends TestCase
      */
     public function testConstruct()
     {
-        $containerMock = $this->createContainerMock();
-
         $loggerMock = $this->createLoggerMock();
-        $containerMock
-            ->shouldReceive('get')
-            ->once()
-            ->with('logger')
-            ->andReturn($loggerMock);
 
-        $settings = [
-            'displayErrorDetails' => true,
-        ];
-        $containerMock
-            ->shouldReceive('get')
-            ->once()
-            ->with('settings')
-            ->andReturn($settings);
+        $displayErrorDetails = true;
 
         $phpErrorHandlerMock = Mockery::mock(PhpError::class);
 
         // execute constructor
         $phpErrorHandlerRef = new \ReflectionClass(PhpError::class);
         $phpErrorHandlerConstructor = $phpErrorHandlerRef->getConstructor();
-        $phpErrorHandlerConstructor->invoke($phpErrorHandlerMock, $containerMock);
-
-        // test property "container"
-        $containerPropertyRef = $phpErrorHandlerRef->getProperty('container');
-        $containerPropertyRef->setAccessible(true);
-        $this->assertEquals($containerMock, $containerPropertyRef->getValue($phpErrorHandlerMock));
+        $phpErrorHandlerConstructor->invoke($phpErrorHandlerMock, $loggerMock, $displayErrorDetails);
 
         // test property "logger"
         $loggerPropertyRef = $phpErrorHandlerRef->getProperty('logger');
         $loggerPropertyRef->setAccessible(true);
         $this->assertEquals($loggerMock, $loggerPropertyRef->getValue($phpErrorHandlerMock));
+
+        // test property "displayErrorDetails"
+        $displayErrorDetailsPropertyRef = $phpErrorHandlerRef->getProperty('displayErrorDetails');
+        $displayErrorDetailsPropertyRef->setAccessible(true);
+        $this->assertEquals(
+            $displayErrorDetails,
+            $displayErrorDetailsPropertyRef->getValue($phpErrorHandlerMock)
+        );
     }
 
     /**

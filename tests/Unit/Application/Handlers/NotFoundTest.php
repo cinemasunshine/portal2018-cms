@@ -14,9 +14,9 @@ use Cinemasunshine\PortalAdmin\Application\Handlers\NotFound;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use Slim\Container;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
+use Slim\Views\Twig;
 
 /**
  * NotFound handler test
@@ -26,25 +26,11 @@ final class NotFoundTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * Create Container mock
-     *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|Container
-     */
-    protected function createContainerMock()
-    {
-        return Mockery::mock(Container::class);
-    }
-
-    /**
-     * Create View mock
-     *
-     * ひとまず仮のクラスで実装する。
-     *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Twig
      */
     protected function createViewMock()
     {
-        return Mockery::mock('View');
+        return Mockery::mock(Twig::class);
     }
 
     /**
@@ -67,25 +53,14 @@ final class NotFoundTest extends TestCase
      */
     public function testConstruct()
     {
-        $containerMock = $this->createContainerMock();
         $viewMock = $this->createViewMock();
-        $containerMock
-            ->shouldReceive('get')
-            ->once()
-            ->with('view')
-            ->andReturn($viewMock);
 
         $notFoundHandlerMock = Mockery::mock(NotFound::class);
 
         // execute constructor
         $notFoundHandlerRef = new \ReflectionClass(NotFound::class);
         $notFoundHandlerConstructor = $notFoundHandlerRef->getConstructor();
-        $notFoundHandlerConstructor->invoke($notFoundHandlerMock, $containerMock);
-
-        // test property "container"
-        $containerPropertyRef = $notFoundHandlerRef->getProperty('container');
-        $containerPropertyRef->setAccessible(true);
-        $this->assertEquals($containerMock, $containerPropertyRef->getValue($notFoundHandlerMock));
+        $notFoundHandlerConstructor->invoke($notFoundHandlerMock, $viewMock);
 
         // test property "view"
         $viewPropertyRef = $notFoundHandlerRef->getProperty('view');

@@ -14,7 +14,7 @@ use Cinemasunshine\PortalAdmin\Application\Handlers\NotAllowed;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use Slim\Container;
+use Slim\Views\Twig;
 
 /**
  * NotAllowed handler test
@@ -24,25 +24,11 @@ final class NotAllowedTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * Create Container mock
-     *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|Container
-     */
-    protected function createContainerMock()
-    {
-        return Mockery::mock(Container::class);
-    }
-
-    /**
-     * Create View mock
-     *
-     * ひとまず仮のクラスで実装する。
-     *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Twig
      */
     protected function createViewMock()
     {
-        return Mockery::mock('View');
+        return Mockery::mock(Twig::class);
     }
 
     /**
@@ -53,25 +39,14 @@ final class NotAllowedTest extends TestCase
      */
     public function testConstruct()
     {
-        $containerMock = $this->createContainerMock();
         $viewMock = $this->createViewMock();
-        $containerMock
-            ->shouldReceive('get')
-            ->once()
-            ->with('view')
-            ->andReturn($viewMock);
 
         $notAllowedHandlerMock = Mockery::mock(NotAllowed::class);
 
         // execute constructor
         $notAllowedHandlerRef = new \ReflectionClass(NotAllowed::class);
         $notAllowedHandlerConstructor = $notAllowedHandlerRef->getConstructor();
-        $notAllowedHandlerConstructor->invoke($notAllowedHandlerMock, $containerMock);
-
-        // test property "container"
-        $containerPropertyRef = $notAllowedHandlerRef->getProperty('container');
-        $containerPropertyRef->setAccessible(true);
-        $this->assertEquals($containerMock, $containerPropertyRef->getValue($notAllowedHandlerMock));
+        $notAllowedHandlerConstructor->invoke($notAllowedHandlerMock, $viewMock);
 
         // test property "view"
         $viewPropertyRef = $notAllowedHandlerRef->getProperty('view');
