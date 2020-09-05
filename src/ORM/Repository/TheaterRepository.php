@@ -8,8 +8,8 @@
 
 namespace App\ORM\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use App\ORM\Entity\Theater;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Theater repository class

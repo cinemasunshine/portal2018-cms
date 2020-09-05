@@ -8,9 +8,9 @@
 
 namespace App\Form;
 
+use App\ORM\Entity\News;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use App\ORM\Entity\News;
 
 /**
  * News form class

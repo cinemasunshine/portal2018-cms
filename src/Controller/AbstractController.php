@@ -8,12 +8,12 @@
 
 namespace App\Controller;
 
+use App\Exception\RedirectException;
+use App\Responder\AbstractResponder;
+use Psr\Container\ContainerInterface;
 use Slim\Collection;
 use Slim\Http\Response;
 use Slim\Http\Request;
-use Psr\Container\ContainerInterface;
-use App\Exception\RedirectException;
-use App\Responder\AbstractResponder;
 
 /**
  * Abstract controller

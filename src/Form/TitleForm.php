@@ -8,9 +8,9 @@
 
 namespace App\Form;
 
+use App\ORM\Entity\Title;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use App\ORM\Entity\Title;
 
 /**
  * Title form class

@@ -8,10 +8,10 @@
 
 namespace App\Controller;
 
-use Slim\Exception\NotFoundException;
 use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
+use Slim\Exception\NotFoundException;
 
 /**
  * Trailer controller

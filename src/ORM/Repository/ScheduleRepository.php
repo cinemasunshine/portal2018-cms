@@ -8,10 +8,10 @@
 
 namespace App\ORM\Repository;
 
-use Cinemasunshine\ORM\Repositories\ScheduleRepository as BaseRepository;
 use App\Form\ScheduleFindForm;
 use App\ORM\Entity\Schedule;
 use App\Pagination\DoctrinePaginator;
+use Cinemasunshine\ORM\Repositories\ScheduleRepository as BaseRepository;
 
 /**
  * Schedule repository class

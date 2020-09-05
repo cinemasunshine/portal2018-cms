@@ -8,9 +8,9 @@
 
 namespace App\ORM\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use App\ORM\Entity\MainBanner;
 use App\ORM\Entity\TheaterMainBanner;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * TheaterMainBanner repository class

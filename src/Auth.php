@@ -8,8 +8,8 @@
 
 namespace App;
 
-use Psr\Container\ContainerInterface;
 use App\ORM\Entity\AdminUser;
+use Psr\Container\ContainerInterface;
 
 class Auth
 {

@@ -8,10 +8,10 @@
 
 namespace App\Form;
 
+use App\ORM\Entity\AdvanceTicket;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\Validator;
-use App\ORM\Entity\AdvanceTicket;
 
 /**
  * AdvanceTicket fieldset class

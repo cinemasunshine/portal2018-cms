@@ -8,8 +8,8 @@
 
 namespace App\ORM\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use App\ORM\Entity\Page;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Page repository class

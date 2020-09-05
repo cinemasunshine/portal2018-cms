@@ -8,9 +8,9 @@
 
 namespace App\Controller;
 
-use Cinemasunshine\ORM\Entities\TheaterOpeningHour;
 use App\Form;
 use App\ORM\Entity;
+use Cinemasunshine\ORM\Entities\TheaterOpeningHour;
 use Slim\Exception\NotFoundException;
 
 /**

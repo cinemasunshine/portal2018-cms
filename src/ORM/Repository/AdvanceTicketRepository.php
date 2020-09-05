@@ -8,10 +8,10 @@
 
 namespace App\ORM\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use App\Form\AdvanceTicketFindForm;
 use App\ORM\Entity\AdvanceTicket;
 use App\Pagination\DoctrinePaginator;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * AdvanceTicket repository class

@@ -8,11 +8,11 @@
 
 namespace App\Controller\API;
 
-use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface as Response;
 use App\Controller\AbstractController;
 use App\Responder\AbstractResponder;
 use App\Responder\API\ResponderFactory;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Base controller

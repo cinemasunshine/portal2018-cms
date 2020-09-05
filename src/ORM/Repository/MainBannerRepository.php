@@ -8,9 +8,9 @@
 
 namespace App\ORM\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use App\ORM\Entity\MainBanner;
 use App\Pagination\DoctrinePaginator;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * MainBanner repository class

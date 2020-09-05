@@ -8,10 +8,10 @@
 
 namespace App\Controller;
 
-use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface as Response;
 use App\Responder\AbstractResponder;
 use App\Responder\ResponderFactory;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Base controller

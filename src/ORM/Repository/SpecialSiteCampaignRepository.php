@@ -8,9 +8,9 @@
 
 namespace App\ORM\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use App\ORM\Entity\Campaign;
 use App\ORM\Entity\SpecialSiteCampaign;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * SpecialSiteCampaign repository class

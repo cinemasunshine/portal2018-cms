@@ -8,9 +8,9 @@
 
 namespace App\Form\API;
 
+use App\Form\BaseForm;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use App\Form\BaseForm;
 
 /**
  * EditorUpload form class

@@ -8,9 +8,9 @@
 
 namespace App\ORM\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use App\ORM\Entity\News;
 use App\ORM\Entity\PageNews;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * PageNews repository class

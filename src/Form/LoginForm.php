@@ -8,8 +8,8 @@
 
 namespace App\Form;
 
-use Laminas\InputFilter\InputFilter;
 use App\ValidatorTranslator;
+use Laminas\InputFilter\InputFilter;
 
 /**
  * Login form class

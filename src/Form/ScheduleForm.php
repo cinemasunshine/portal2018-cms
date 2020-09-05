@@ -8,10 +8,10 @@
 
 namespace App\Form;
 
+use App\ORM\Entity\Theater;
+use Doctrine\ORM\EntityManager;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use Doctrine\ORM\EntityManager;
-use App\ORM\Entity\Theater;
 
 /**
  * Schedule form class

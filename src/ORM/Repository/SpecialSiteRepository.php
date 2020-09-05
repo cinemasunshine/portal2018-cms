@@ -8,8 +8,8 @@
 
 namespace App\ORM\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use App\ORM\Entity\SpecialSite;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * SpecialSite repository class
