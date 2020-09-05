@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
 use Slim\Exception\NotFoundException;
-use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\Exception\ForbiddenException;
+use App\Form;
+use App\ORM\Entity;
 
 /**
  * MainBanner controller
@@ -60,7 +60,7 @@ class MainBannerController extends BaseController
         $this->data->set('values', $values);
         $this->data->set('params', $cleanValues);
 
-        /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
+        /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\MainBanner::class)->findForList($cleanValues, $page);
 
         $this->data->set('pagenater', $pagenater);

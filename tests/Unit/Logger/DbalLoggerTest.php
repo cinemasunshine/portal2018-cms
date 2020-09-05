@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Logger;
 
-use Cinemasunshine\PortalAdmin\Logger\DbalLogger;
+use App\Logger\DbalLogger;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Monolog\Logger;

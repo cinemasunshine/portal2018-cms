@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Cinemasunshine\PortalAdmin\ORM\Entity;
+namespace App\ORM\Entity;
 
 use Cinemasunshine\ORM\Entities\AdvanceTicket as BaseAdvanceTicket;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AdvanceTicket entity class
  *
- * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\AdvanceTicketRepository")
+ * @ORM\Entity(repositoryClass="App\ORM\Repository\AdvanceTicketRepository")
  * @ORM\Table(name="advance_ticket", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  *

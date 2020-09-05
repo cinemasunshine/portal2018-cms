@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller\Traits;
+namespace App\Controller\Traits;
 
 use Intervention\Image\ImageManager;
 

@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use Cinemasunshine\PortalAdmin\ORM\Entity\MainBanner;
+use App\ORM\Entity\MainBanner;
 
 /**
  * MainBanner form class

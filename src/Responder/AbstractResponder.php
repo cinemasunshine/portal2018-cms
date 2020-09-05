@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Responder;
+namespace App\Responder;
 
 /**
  * Abstract responder

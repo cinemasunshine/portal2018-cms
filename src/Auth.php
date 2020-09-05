@@ -6,10 +6,10 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin;
+namespace App;
 
 use Psr\Container\ContainerInterface;
-use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
+use App\ORM\Entity\AdminUser;
 
 class Auth
 {

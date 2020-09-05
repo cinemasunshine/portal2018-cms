@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
-use Cinemasunshine\PortalAdmin\Controller\Traits\ImageResize;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\Controller\Traits\ImageResize;
+use App\Form;
+use App\ORM\Entity;
 use Slim\Exception\NotFoundException;
 
 /**
@@ -55,7 +55,7 @@ class NewsController extends BaseController
         $this->data->set('values', $values);
         $this->data->set('params', $cleanValues);
 
-        /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
+        /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\News::class)->findForList($cleanValues, $page);
 
         $this->data->set('pagenater', $pagenater);

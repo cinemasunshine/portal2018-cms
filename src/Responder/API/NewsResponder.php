@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Responder\API;
+namespace App\Responder\API;
 
 use Slim\Collection;
 use Slim\Http\Response;

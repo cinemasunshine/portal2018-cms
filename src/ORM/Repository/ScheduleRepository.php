@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
 use Cinemasunshine\ORM\Repositories\ScheduleRepository as BaseRepository;
-use Cinemasunshine\PortalAdmin\Form\ScheduleFindForm;
-use Cinemasunshine\PortalAdmin\ORM\Entity\Schedule;
-use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
+use App\Form\ScheduleFindForm;
+use App\ORM\Entity\Schedule;
+use App\Pagination\DoctrinePaginator;
 
 /**
  * Schedule repository class

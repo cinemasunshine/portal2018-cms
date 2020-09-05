@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Pagination;
+namespace App\Pagination;
 
 /**
  * Abstract Paginator class

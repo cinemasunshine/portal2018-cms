@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\Command\AdminUser;
 
-use Cinemasunshine\PortalAdmin\Console\Command\AdminUser\EncryptPasswordCommand;
-use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
+use App\Console\Command\AdminUser\EncryptPasswordCommand;
+use App\ORM\Entity\AdminUser;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Tests\Unit\Console\Command\AbstructTestCase;

@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
 use Cinemasunshine\ORM\Entities\TheaterOpeningHour;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\Form;
+use App\ORM\Entity;
 use Slim\Exception\NotFoundException;
 
 /**

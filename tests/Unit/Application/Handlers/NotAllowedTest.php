@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Handlers;
 
-use Cinemasunshine\PortalAdmin\Application\Handlers\NotAllowed;
+use App\Application\Handlers\NotAllowed;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;

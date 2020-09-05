@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Console\Command\Cache\Clear;
 
-use Cinemasunshine\PortalAdmin\Console\Command\Cache\Clear\ViewCommand;
+use App\Console\Command\Cache\Clear\ViewCommand;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Slim\Views\Twig;

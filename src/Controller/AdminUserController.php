@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
-use Cinemasunshine\PortalAdmin\Form\LoginForm;
-use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\Form\LoginForm;
+use App\Exception\ForbiddenException;
+use App\Form;
+use App\ORM\Entity;
 
 /**
  * AdminUser controller class
@@ -48,7 +48,7 @@ class AdminUserController extends BaseController
         $cleanValues = [];
         $this->data->set('params', $cleanValues);
         
-        /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
+        /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\AdminUser::class)->findForList($cleanValues, $page);
         
         $this->data->set('pagenater', $pagenater);

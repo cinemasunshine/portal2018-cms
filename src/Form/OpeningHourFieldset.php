@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
 use Cinemasunshine\ORM\Entities\TheaterOpeningHour;
 use Laminas\Form\Fieldset;

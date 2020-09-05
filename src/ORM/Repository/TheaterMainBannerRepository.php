@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Cinemasunshine\PortalAdmin\ORM\Entity\MainBanner;
-use Cinemasunshine\PortalAdmin\ORM\Entity\TheaterMainBanner;
+use App\ORM\Entity\MainBanner;
+use App\ORM\Entity\TheaterMainBanner;
 
 /**
  * TheaterMainBanner repository class

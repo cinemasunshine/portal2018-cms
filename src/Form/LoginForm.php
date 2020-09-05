@@ -6,10 +6,10 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;
-use Cinemasunshine\PortalAdmin\ValidatorTranslator;
+use App\ValidatorTranslator;
 
 /**
  * Login form class

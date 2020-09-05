@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Logger\Handler;
 
-use Cinemasunshine\PortalAdmin\Logger\Handler\AzureBlobStorageHandler as Handler;
+use App\Logger\Handler\AzureBlobStorageHandler as Handler;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;

@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller\Development;
+namespace App\Controller\Development;
 
-use Cinemasunshine\PortalAdmin\Controller\AbstractController;
-use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
-use Cinemasunshine\PortalAdmin\Responder\Development\ResponderFactory;
+use App\Controller\AbstractController;
+use App\Responder\AbstractResponder;
+use App\Responder\Development\ResponderFactory;
 
 /**
  * Base controller

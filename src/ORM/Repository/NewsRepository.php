@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Cinemasunshine\PortalAdmin\ORM\Entity\News;
-use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
+use App\ORM\Entity\News;
+use App\Pagination\DoctrinePaginator;
 
 /**
  * News repository class

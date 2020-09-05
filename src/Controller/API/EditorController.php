@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller\API;
+namespace App\Controller\API;
 
-use Cinemasunshine\PortalAdmin\Controller\Traits\AzureBlobStorage;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\Form\API as ApiForm;
+use App\Controller\Traits\AzureBlobStorage;
+use App\Form;
+use App\Form\API as ApiForm;
 
 /**
  * Editor API controller

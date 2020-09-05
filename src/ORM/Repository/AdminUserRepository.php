@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
-use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
+use App\ORM\Entity\AdminUser;
+use App\Pagination\DoctrinePaginator;
 
 /**
  * AdminUser repository class

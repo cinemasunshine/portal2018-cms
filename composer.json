@@ -11,7 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cinemasunshine\\PortalAdmin\\": "src/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {

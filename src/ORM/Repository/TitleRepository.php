@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Cinemasunshine\PortalAdmin\ORM\Entity\Title;
-use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
+use App\ORM\Entity\Title;
+use App\Pagination\DoctrinePaginator;
 
 /**
  * Title repository class

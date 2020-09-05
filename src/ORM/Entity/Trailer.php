@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Cinemasunshine\PortalAdmin\ORM\Entity;
+namespace App\ORM\Entity;
 
 use Cinemasunshine\ORM\Entities\Trailer as BaseTrailer;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Trailer entity class
  *
- * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\TrailerRepository")
+ * @ORM\Entity(repositoryClass="App\ORM\Repository\TrailerRepository")
  * @ORM\Table(name="trailer", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */

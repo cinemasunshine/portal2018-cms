@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Exception;
+namespace App\Exception;
 
 use Psr\Http\Message\UriInterface;
 

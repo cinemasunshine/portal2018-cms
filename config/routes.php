@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-use Cinemasunshine\PortalAdmin\Controller\{
+use App\Controller\{
     AdminUserController,
     AuthController,
     AdvanceTicketController,
@@ -21,15 +21,15 @@ use Cinemasunshine\PortalAdmin\Controller\{
     TitleRankingController,
     TrailerController
 };
-use Cinemasunshine\PortalAdmin\Controller\API\{
+use App\Controller\API\{
     CampaignController as CampaignApiController,
     EditorController as EditorApiController,
     MainBannerController as MainBannerApiController,
     NewsController as NewsApiController,
     TitleController as TitleApiController
 };
-use Cinemasunshine\PortalAdmin\Controller\Development\DoctrineController;
-use Cinemasunshine\PortalAdmin\Middleware\AuthMiddleware;
+use App\Controller\Development\DoctrineController;
+use App\Middleware\AuthMiddleware;
 
 $app->get('/login', AuthController::class . ':login')->setName('login');
 $app->post('/auth', AuthController::class . ':auth')->setName('auth');

@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Application\Handlers;
+namespace App\Application\Handlers;
 
 use Monolog\Logger;
 use Slim\Handlers\PhpError as BaseHandler;

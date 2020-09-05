@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Middleware;
 
-use Cinemasunshine\PortalAdmin\Middleware\AbstractMiddleware;
+use App\Middleware\AbstractMiddleware;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;

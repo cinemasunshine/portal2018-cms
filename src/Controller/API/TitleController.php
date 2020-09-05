@@ -6,9 +6,9 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller\API;
+namespace App\Controller\API;
 
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\ORM\Entity;
 
 /**
  * Title API controller

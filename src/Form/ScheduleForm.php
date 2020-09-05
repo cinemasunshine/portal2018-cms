@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
 use Doctrine\ORM\EntityManager;
-use Cinemasunshine\PortalAdmin\ORM\Entity\Theater;
+use App\ORM\Entity\Theater;
 
 /**
  * Schedule form class
