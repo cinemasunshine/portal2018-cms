@@ -8,9 +8,8 @@
 
 namespace App\Controller;
 
-use App\Form\LoginForm;
 use App\Exception\ForbiddenException;
-use App\Form;
+use App\Form\AdminUserForm;
 use App\ORM\Entity;
 
 /**
@@ -64,7 +63,7 @@ class AdminUserController extends BaseController
      */
     public function executeNew($request, $response, $args)
     {
-        $form = new Form\AdminUserForm($this->em);
+        $form = new AdminUserForm($this->em);
         $this->data->set('form', $form);
     }
     
@@ -78,7 +77,7 @@ class AdminUserController extends BaseController
      */
     public function executeCreate($request, $response, $args)
     {
-        $form = new Form\AdminUserForm($this->em);
+        $form = new AdminUserForm($this->em);
         $form->setData($request->getParams());
         
         if (!$form->isValid()) {
