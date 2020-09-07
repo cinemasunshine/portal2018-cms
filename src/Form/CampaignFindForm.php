@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
+use App\ORM\Entity;
+use Doctrine\ORM\EntityManager;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use Doctrine\ORM\EntityManager;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
  * Campaign find form class
@@ -25,8 +25,11 @@ class CampaignFindForm extends BaseForm
         '1' => 'キャンペーン中',
         '2' => 'キャンペーン終了',
     ];
+
     protected $pageChoices = [];
+
     protected $theaterChoices = [];
+
     protected $specialSiteChoices = [];
 
     /**

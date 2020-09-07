@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
+use App\ORM\Entity\AdvanceTicket;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\Validator;
-use Cinemasunshine\PortalAdmin\ORM\Entity\AdvanceTicket;
 
 /**
  * AdvanceTicket fieldset class
@@ -31,7 +31,7 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
     {
         parent::__construct('advance_ticket');
 
-        $this->typeChoices = AdvanceTicket::getTypes();
+        $this->typeChoices             = AdvanceTicket::getTypes();
         $this->specialGiftStockChoices = AdvanceTicket::getSpecialGiftStockList();
 
         $this->setup();

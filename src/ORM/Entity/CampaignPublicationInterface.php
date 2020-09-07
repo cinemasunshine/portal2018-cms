@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Entity;
+namespace App\ORM\Entity;
 
 use Doctrine\Common\Collections\Collection;
 

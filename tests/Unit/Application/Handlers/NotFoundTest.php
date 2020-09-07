@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Handlers;
 
-use Cinemasunshine\PortalAdmin\Application\Handlers\NotFound;
+use App\Application\Handlers\NotFound;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -72,9 +72,9 @@ final class NotFoundTest extends TestCase
         $viewMock = $this->createViewMock();
 
         $targetMock = $this->createTargetMock();
+        $targetRef  = $this->createTargetReflection();
 
         // execute constructor
-        $targetRef = $this->createTargetReflection();
         $notFoundHandlerConstructor = $targetRef->getConstructor();
         $notFoundHandlerConstructor->invoke($targetMock, $viewMock);
 
@@ -117,8 +117,8 @@ final class NotFoundTest extends TestCase
             ->andReturn($uriMock);
 
         $targetMock = $this->createTargetMock();
+        $targetRef  = $this->createTargetReflection();
 
-        $targetRef = $this->createTargetReflection();
         $renderHtmlNotFoundOutputMethodRef = $targetRef->getMethod('renderHtmlNotFoundOutput');
         $renderHtmlNotFoundOutputMethodRef->setAccessible(true);
 
@@ -143,6 +143,7 @@ final class NotFoundTest extends TestCase
         define('APP_DEBUG', false);
 
         $html = '<html><head><title>Test</title></head><body></body></html>';
+
         $viewMock = $this->createViewMock();
         $viewMock
             ->shouldReceive('fetch')

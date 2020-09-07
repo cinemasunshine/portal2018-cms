@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Handlers;
 
-use Cinemasunshine\PortalAdmin\Application\Handlers\Error;
+use App\Application\Handlers\Error;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Monolog\Logger;
@@ -60,9 +60,9 @@ final class ErrorTest extends TestCase
         $displayErrorDetails = true;
 
         $targetMock = $this->createTargetMock();
+        $targetRef  = $this->createTargetReflection();
 
         // execute constructor
-        $targetRef = $this->createTargetReflection();
         $errorHandlerConstructor = $targetRef->getConstructor();
         $errorHandlerConstructor->invoke($targetMock, $loggerMock, $displayErrorDetails);
 

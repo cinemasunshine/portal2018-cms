@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller\Traits;
+namespace App\Controller\Traits;
 
 use Intervention\Image\ImageManager;
 
@@ -59,7 +59,7 @@ trait ImageResize
     protected function resizeImage($data, ?int $width, ?int $height = null)
     {
         $imageManager = $this->getImageManager();
-        $image = $imageManager
+        $image        = $imageManager
             ->make($data)
             ->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio(); // アスペクト比を固定

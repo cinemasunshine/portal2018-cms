@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form\API;
+namespace App\Form\API;
 
+use App\Form\BaseForm;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use Cinemasunshine\PortalAdmin\Form\BaseForm;
 
 /**
  * EditorUpload form class

@@ -6,26 +6,26 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
+use App\Exception\RedirectException;
+use App\Responder\AbstractResponder;
+use Psr\Container\ContainerInterface;
 use Slim\Collection;
 use Slim\Http\Response;
 use Slim\Http\Request;
-use Psr\Container\ContainerInterface;
-use Cinemasunshine\PortalAdmin\Exception\RedirectException;
-use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
 
 /**
  * Abstract controller
  *
- * @property-read \Cinemasunshine\PortalAdmin\Auth $auth
+ * @property-read \App\Auth $auth
  * @property-read \MicrosoftAzure\Storage\Blob\BlobRestProxy $bc
  * @property-read \Doctrine\ORM\EntityManager $em
  * @property-read \Slim\Flash\Messages $flash
  * @property-read \Monolog\Logger $logger
  * @property-read \Slim\Router $router
  * @property-read array $settings
- * @property-read \Cinemasunshine\PortalAdmin\Session\SessionManager $sm
+ * @property-read \App\Session\SessionManager $sm
  * @property-read \Slim\Views\Twig $view
  */
 abstract class AbstractController
@@ -53,7 +53,7 @@ abstract class AbstractController
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->data = new Collection();
+        $this->data      = new Collection();
     }
 
     /**

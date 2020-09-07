@@ -6,13 +6,13 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
+use App\ORM\Entity;
+use Doctrine\ORM\EntityManager;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use Doctrine\ORM\EntityManager;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
  * MainBannerPublication form class
@@ -42,7 +42,7 @@ class MainBannerPublicationForm extends BaseForm
         }
 
         $this->target = $target;
-        $this->em = $em;
+        $this->em     = $em;
 
         parent::__construct();
 
@@ -88,7 +88,7 @@ class MainBannerPublicationForm extends BaseForm
 
         if ($this->target === self::TARGET_PAGE) {
             $pageIds = [];
-            $pages = $this->em->getRepository(Entity\Page::class)->findActive();
+            $pages   = $this->em->getRepository(Entity\Page::class)->findActive();
 
             foreach ($pages as $page) {
                 $pageIds[] = $page->getId();
@@ -108,7 +108,7 @@ class MainBannerPublicationForm extends BaseForm
             ]);
         } elseif ($this->target === self::TARGET_TEATER) {
             $theaterIds = [];
-            $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
+            $theaters   = $this->em->getRepository(Entity\Theater::class)->findActive();
 
             foreach ($theaters as $theater) {
                 $theaterIds[] = $theater->getId();
@@ -128,7 +128,7 @@ class MainBannerPublicationForm extends BaseForm
             ]);
         } elseif ($this->target === self::TARGET_SPESICAL_SITE) {
             $specialSiteIds = [];
-            $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
+            $specialSites   = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
 
             foreach ($specialSites as $specialSite) {
                 $specialSiteIds[] = $specialSite->getId();

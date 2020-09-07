@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
+use App\ORM\Entity;
+use Doctrine\ORM\EntityManager;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use Doctrine\ORM\EntityManager;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
  * AdminUser form class
@@ -38,7 +38,7 @@ class AdminUserForm extends BaseForm
 
         parent::__construct();
 
-        $this->groupChoices = Entity\AdminUser::getGroups();
+        $this->groupChoices   = Entity\AdminUser::getGroups();
         $this->theaterChoices = [];
 
         $this->setup();

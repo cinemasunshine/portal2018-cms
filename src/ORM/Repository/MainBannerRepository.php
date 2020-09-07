@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
+use App\ORM\Entity\MainBanner;
+use App\Pagination\DoctrinePaginator;
 use Doctrine\ORM\EntityRepository;
-use Cinemasunshine\PortalAdmin\ORM\Entity\MainBanner;
-use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
 
 /**
  * MainBanner repository class

@@ -6,10 +6,10 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller\API;
+namespace App\Controller\API;
 
-use Cinemasunshine\PortalAdmin\Controller\Traits\AzureBlobStorage;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\Controller\Traits\AzureBlobStorage;
+use App\ORM\Entity;
 
 /**
  * Campaign API controller

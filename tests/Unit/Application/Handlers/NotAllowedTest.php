@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Application\Handlers;
 
-use Cinemasunshine\PortalAdmin\Application\Handlers\NotAllowed;
+use App\Application\Handlers\NotAllowed;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -58,9 +58,9 @@ final class NotAllowedTest extends TestCase
         $viewMock = $this->createViewMock();
 
         $targetMock = $this->createTargetMock();
+        $targetRef  = $this->createTargetReflection();
 
         // execute constructor
-        $targetRef = $this->createTargetReflection();
         $notAllowedHandlerConstructor = $targetRef->getConstructor();
         $notAllowedHandlerConstructor->invoke($targetMock, $viewMock);
 
@@ -87,6 +87,7 @@ final class NotAllowedTest extends TestCase
         $targetMock->makePartial();
 
         $targetRef = $this->createTargetReflection();
+
         $renderHtmlNotAllowedMessageMethodRef = $targetRef->getMethod('renderHtmlNotAllowedMessage');
         $renderHtmlNotAllowedMessageMethodRef->setAccessible(true);
 
@@ -113,6 +114,7 @@ final class NotAllowedTest extends TestCase
         define('APP_DEBUG', false);
 
         $html = '<html><head><title>Test</title></head><body></body></html>';
+
         $viewMock = $this->createViewMock();
         $viewMock
             ->shouldReceive('fetch')
@@ -124,6 +126,7 @@ final class NotAllowedTest extends TestCase
         $targetMock->makePartial();
 
         $targetRef = $this->createTargetReflection();
+
         $viewPropertyRef = $targetRef->getProperty('view');
         $viewPropertyRef->setAccessible(true);
         $viewPropertyRef->setValue($targetMock, $viewMock);

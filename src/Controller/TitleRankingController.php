@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
-use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\Exception\ForbiddenException;
+use App\Form;
+use App\ORM\Entity;
 
 /**
  * TitleRanking controller
@@ -58,7 +58,7 @@ class TitleRankingController extends BaseController
         $titleRanking = $this->findEntity();
 
         $fromDate = $titleRanking->getFromDate();
-        $toDate = $titleRanking->getToDate();
+        $toDate   = $titleRanking->getToDate();
 
         $values = [
             'from_date' => $fromDate ? $fromDate->format('Y/m/d') : null,

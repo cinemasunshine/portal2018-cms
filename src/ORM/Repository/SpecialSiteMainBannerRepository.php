@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
+use App\ORM\Entity\MainBanner;
+use App\ORM\Entity\SpecialSiteMainBanner;
 use Doctrine\ORM\EntityRepository;
-use Cinemasunshine\PortalAdmin\ORM\Entity\MainBanner;
-use Cinemasunshine\PortalAdmin\ORM\Entity\SpecialSiteMainBanner;
 
 /**
  * SpecialSiteMainBanner repository class
@@ -26,12 +26,13 @@ class SpecialSiteMainBannerRepository extends EntityRepository
     public function deleteByMainBanner(MainBanner $mainBanner)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
         $query = $qb
             ->delete($this->getEntityName(), 'sm')
             ->where('sm.mainBanner = :main_banner')
             ->setParameter('main_banner', $mainBanner->getId())
             ->getQuery();
-        
+
         return $query->execute();
     }
 }

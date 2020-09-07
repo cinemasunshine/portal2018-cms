@@ -6,10 +6,10 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
-use Cinemasunshine\PortalAdmin\ORM\Entity\OyakoCinemaTitle;
-use Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator;
+use App\ORM\Entity\OyakoCinemaTitle;
+use App\Pagination\DoctrinePaginator;
 use Doctrine\ORM\EntityRepository;
 
 /**

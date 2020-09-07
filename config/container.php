@@ -5,7 +5,7 @@
  *
  * AbstractControllerのphpdoc更新を推奨。
  *
- * @see Cinemasunshine\PortalAdmin\Controller\AbstractController\__call()
+ * @see App\Controller\AbstractController\__call()
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
@@ -26,13 +26,13 @@ $container['view'] = function ($container) {
 
     // Instantiate and add Slim specific extension
     $router = $container->get('router');
-    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $uri    = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
     $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
 
     // add Extension
     $view->addExtension(new \Twig\Extension\DebugExtension());
 
-    $view->addExtension(new \Cinemasunshine\PortalAdmin\Twig\Extension\AzureStorageExtension(
+    $view->addExtension(new \App\Twig\Extension\AzureStorageExtension(
         $container->get('bc'),
         $container->get('settings')['storage']['public_endpoint']
     ));
@@ -49,8 +49,8 @@ $container['view'] = function ($container) {
  */
 $container['logger'] = function ($container) {
     $settings = $container->get('settings')['logger'];
-    $logger = new Monolog\Logger($settings['name']);
 
+    $logger = new Monolog\Logger($settings['name']);
     $logger->pushProcessor(new Monolog\Processor\PsrLogMessageProcessor());
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
     $logger->pushProcessor(new Monolog\Processor\IntrospectionProcessor());
@@ -67,7 +67,7 @@ $container['logger'] = function ($container) {
     }
 
     $azureBlobStorageSettings = $settings['azure_blob_storage'];
-    $azureBlobStorageHandler = new Cinemasunshine\PortalAdmin\Logger\Handler\AzureBlobStorageHandler(
+    $azureBlobStorageHandler  = new App\Logger\Handler\AzureBlobStorageHandler(
         $container->get('bc'),
         $azureBlobStorageSettings['container'],
         $azureBlobStorageSettings['blob'],
@@ -110,9 +110,9 @@ $container['em'] = function ($container) {
         false
     );
 
-    $config->setProxyNamespace('Cinemasunshine\PortalAdmin\ORM\Proxy');
+    $config->setProxyNamespace('App\ORM\Proxy');
 
-    $logger = new \Cinemasunshine\PortalAdmin\Logger\DbalLogger($container->get('logger'));
+    $logger = new \App\Logger\DbalLogger($container->get('logger'));
     $config->setSQLLogger($logger);
 
     return \Doctrine\ORM\EntityManager::create($settings['connection'], $config);
@@ -121,14 +121,15 @@ $container['em'] = function ($container) {
 /**
  * session manager
  *
- * @return \Cinemasunshine\PortalAdmin\Session\SessionManager
+ * @return \App\Session\SessionManager
  */
 $container['sm'] = function ($container) {
     $settings = $container->get('settings')['session'];
+
     $config = new Laminas\Session\Config\SessionConfig();
     $config->setOptions($settings);
 
-    return new \Cinemasunshine\PortalAdmin\Session\SessionManager($config);
+    return new \App\Session\SessionManager($config);
 };
 
 /**
@@ -145,10 +146,10 @@ $container['flash'] = function ($container) {
 /**
  * auth
  *
- * @return \Cinemasunshine\PortalAdmin\Auth
+ * @return \App\Auth
  */
 $container['auth'] = function ($container) {
-    return new Cinemasunshine\PortalAdmin\Auth($container);
+    return new App\Auth($container);
 };
 
 /**
@@ -160,6 +161,7 @@ $container['auth'] = function ($container) {
 $container['bc'] = function ($container) {
     $settings = $container->get('settings')['storage'];
     $protocol = $settings['secure'] ? 'https' : 'http';
+
     $connection = sprintf(
         'DefaultEndpointsProtocol=%s;AccountName=%s;AccountKey=%s;',
         $protocol,
@@ -175,27 +177,27 @@ $container['bc'] = function ($container) {
 };
 
 $container['errorHandler'] = function ($container) {
-    return new \Cinemasunshine\PortalAdmin\Application\Handlers\Error(
+    return new \App\Application\Handlers\Error(
         $container->get('logger'),
         $container->get('settings')['displayErrorDetails']
     );
 };
 
 $container['phpErrorHandler'] = function ($container) {
-    return new \Cinemasunshine\PortalAdmin\Application\Handlers\PhpError(
+    return new \App\Application\Handlers\PhpError(
         $container->get('logger'),
         $container->get('settings')['displayErrorDetails']
     );
 };
 
 $container['notFoundHandler'] = function ($container) {
-    return new \Cinemasunshine\PortalAdmin\Application\Handlers\NotFound(
+    return new \App\Application\Handlers\NotFound(
         $container->get('view')
     );
 };
 
 $container['notAllowedHandler'] = function ($container) {
-    return new \Cinemasunshine\PortalAdmin\Application\Handlers\NotAllowed(
+    return new \App\Application\Handlers\NotAllowed(
         $container->get('view')
     );
 };

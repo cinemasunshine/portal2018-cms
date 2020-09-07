@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Session;
 
-use Cinemasunshine\PortalAdmin\Session\SessionManager;
+use App\Session\SessionManager;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -33,14 +33,15 @@ final class SessionManagerTest extends TestCase
         $sessionManagerMock = Mockery::mock(SessionManager::class)
             ->makePartial();
 
-        $name = 'test';
+        $name   = 'test';
         $result = $sessionManagerMock->getContainer($name);
 
         $sessionManagerRef = new \ReflectionClass(SessionManager::class);
+
         $containersPropertyRef = $sessionManagerRef->getProperty('containers');
         $containersPropertyRef->setAccessible(true);
         $containers = $containersPropertyRef->getValue($sessionManagerMock);
-        $container = $containers[$name];
+        $container  = $containers[$name];
 
         $this->assertEquals($name, $container->getName());
         $this->assertEquals($container, $result);

@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Translator;
+namespace App\Translator;
 
 use Laminas\I18n\Translator\Translator;
 use Laminas\Validator\Translator\TranslatorInterface;

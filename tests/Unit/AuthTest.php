@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Cinemasunshine\PortalAdmin\Auth;
-use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
+use App\Auth;
+use App\ORM\Entity\AdminUser;
 use Laminas\Stdlib\ArrayObject;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
@@ -106,7 +106,7 @@ final class AuthTest extends TestCase
      */
     public function testConstruct()
     {
-        $entityManagerMock = $this->createEntityManagerMock();
+        $entityManagerMock    = $this->createEntityManagerMock();
         $sessionContainerMock = $this->createSessionContaierMock();
 
         $containerMock = $this->createContainerMockOfTestConstruct(
@@ -115,9 +115,9 @@ final class AuthTest extends TestCase
         );
 
         $authMock = Mockery::mock(Auth::class)->makePartial();
+        $authRef  = new \ReflectionClass(Auth::class);
 
         // execute constructor
-        $authRef = new \ReflectionClass(Auth::class);
         $authConstructor = $authRef->getConstructor();
         $authConstructor->invoke($authMock, $containerMock);
 
@@ -172,10 +172,10 @@ final class AuthTest extends TestCase
      */
     public function testLoginInvalidUser()
     {
-        $name = 'username';
+        $name     = 'username';
         $password = 'password';
 
-        $inputName = 'invalid';
+        $inputName     = 'invalid';
         $inputPassword = $password;
 
 
@@ -189,7 +189,7 @@ final class AuthTest extends TestCase
         $entityManagerMock = $this->createEntityManagerMockOfTestLogin($repositoryMock);
 
         $authMock = Mockery::mock(Auth::class)->makePartial();
-        $authRef = new \ReflectionClass(Auth::class);
+        $authRef  = new \ReflectionClass(Auth::class);
 
         $emPropertyRef = $authRef->getProperty('em');
         $emPropertyRef->setAccessible(true);
@@ -207,10 +207,10 @@ final class AuthTest extends TestCase
      */
     public function testLoginInvalidPassword()
     {
-        $name = 'username';
+        $name     = 'username';
         $password = 'password';
 
-        $inputName = $name;
+        $inputName     = $name;
         $inputPassword = 'invalid';
 
         $adminUserMock = $this->createAdminUserMock();
@@ -227,7 +227,7 @@ final class AuthTest extends TestCase
         $entityManagerMock = $this->createEntityManagerMockOfTestLogin($repositoryMock);
 
         $authMock = Mockery::mock(Auth::class)->makePartial();
-        $authRef = new \ReflectionClass(Auth::class);
+        $authRef  = new \ReflectionClass(Auth::class);
 
         $emPropertyRef = $authRef->getProperty('em');
         $emPropertyRef->setAccessible(true);
@@ -245,11 +245,11 @@ final class AuthTest extends TestCase
      */
     public function testLoginValidUser()
     {
-        $id = 1;
-        $name = 'username';
+        $id       = 1;
+        $name     = 'username';
         $password = 'password';
 
-        $inputName = $name;
+        $inputName     = $name;
         $inputPassword = $password;
 
         $adminUserMock = $this->createAdminUserMock();
@@ -277,7 +277,7 @@ final class AuthTest extends TestCase
             ->with('user_id', 1);
 
         $authMock = Mockery::mock(Auth::class)->makePartial();
-        $authRef = new \ReflectionClass(Auth::class);
+        $authRef  = new \ReflectionClass(Auth::class);
 
         $emPropertyRef = $authRef->getProperty('em');
         $emPropertyRef->setAccessible(true);
@@ -328,7 +328,7 @@ final class AuthTest extends TestCase
             ->with('user_id');
 
         $authMock = Mockery::mock(Auth::class)->makePartial();
-        $authRef = new \ReflectionClass(Auth::class);
+        $authRef  = new \ReflectionClass(Auth::class);
 
         // initialize property
         $userPropertyRef = $authRef->getProperty('user');
@@ -356,7 +356,7 @@ final class AuthTest extends TestCase
         $sessionContainerMock->makePartial();
 
         $authMock = Mockery::mock(Auth::class)->makePartial();
-        $authRef = new \ReflectionClass(Auth::class);
+        $authRef  = new \ReflectionClass(Auth::class);
 
         // initialize property
         $sessionPropertyRef = $authRef->getProperty('session');
@@ -405,6 +405,7 @@ final class AuthTest extends TestCase
             ->andReturn(true);
 
         $id = 1;
+
         $sessionContainerMock = $this->createSessionContaierMock();
         $sessionContainerMock->makePartial();
         $sessionContainerMock['user_id'] = $id;

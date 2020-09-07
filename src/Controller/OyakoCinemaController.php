@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
-use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
-use Cinemasunshine\PortalAdmin\Form\OyakoCinemaForm as Form;
-use Cinemasunshine\PortalAdmin\Form\OyakoCinemaSettingForm as SettingForm;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\Exception\ForbiddenException;
+use App\Form\OyakoCinemaForm as Form;
+use App\Form\OyakoCinemaSettingForm as SettingForm;
+use App\ORM\Entity;
 use Slim\Exception\NotFoundException;
 
 /**
@@ -46,7 +46,7 @@ class OyakoCinemaController extends BaseController
         $page = (int) $request->getParam('p', 1);
         $this->data->set('page', $page);
 
-        /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
+        /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
             ->findForList($page);
 

@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Twig\Extension;
+namespace App\Twig\Extension;
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use Twig\Extension\AbstractExtension;
@@ -31,7 +31,7 @@ class AzureStorageExtension extends AbstractExtension
      */
     public function __construct(BlobRestProxy $client, $publicEndpoint = null)
     {
-        $this->client = $client;
+        $this->client         = $client;
         $this->publicEndpoint = $publicEndpoint;
     }
 

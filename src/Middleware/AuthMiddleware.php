@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Middleware;
+namespace App\Middleware;
 
 use Slim\Http\Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

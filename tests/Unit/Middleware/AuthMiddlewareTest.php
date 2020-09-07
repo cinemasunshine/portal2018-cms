@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Middleware;
 
-use Cinemasunshine\PortalAdmin\Middleware\AuthMiddleware;
+use App\Middleware\AuthMiddleware;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -117,6 +117,7 @@ final class AuthMiddlewareTest extends TestCase
             ->andReturn($authMock);
 
         $redirectUrl = 'https://example.com/redirect';
+
         $routerMock = $this->createRouterMock();
         $routerMock
             ->shouldReceive('pathFor')
@@ -134,6 +135,7 @@ final class AuthMiddlewareTest extends TestCase
             ->makePartial();
 
         $targetRef = $this->createTargetReflection();
+
         $containerPropertyRef = $targetRef->getProperty('container');
         $containerPropertyRef->setAccessible(true);
         $containerPropertyRef->setValue($targetMock, $containerMock);
@@ -180,6 +182,7 @@ final class AuthMiddlewareTest extends TestCase
             ->makePartial();
 
         $targetRef = $this->createTargetReflection();
+
         $containerPropertyRef = $targetRef->getProperty('container');
         $containerPropertyRef->setAccessible(true);
         $containerPropertyRef->setValue($targetMock, $containerMock);

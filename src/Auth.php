@@ -6,10 +6,10 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin;
+namespace App;
 
+use App\ORM\Entity\AdminUser;
 use Psr\Container\ContainerInterface;
-use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
 
 class Auth
 {
@@ -24,7 +24,7 @@ class Auth
 
     public function __construct(ContainerInterface $container)
     {
-        $this->em = $container->get('em');
+        $this->em      = $container->get('em');
         $this->session = $container->get('sm')->getContainer('auth');
     }
 
@@ -38,7 +38,7 @@ class Auth
     public function login($name, $password)
     {
         $repository = $this->em->getRepository(AdminUser::class);
-        $adminUser = $repository->findOneByName($name);
+        $adminUser  = $repository->findOneByName($name);
 
         if (is_null($adminUser)) {
             return false;
@@ -51,6 +51,7 @@ class Auth
         }
 
         $this->user = $adminUser;
+
         $this->session['user_id'] = $adminUser->getId();
 
         return true;

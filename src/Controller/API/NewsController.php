@@ -6,10 +6,10 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller\API;
+namespace App\Controller\API;
 
-use Cinemasunshine\PortalAdmin\Controller\Traits\AzureBlobStorage;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\Controller\Traits\AzureBlobStorage;
+use App\ORM\Entity;
 
 /**
  * News API controller
@@ -29,7 +29,7 @@ class NewsController extends BaseController
     public function executeList($request, $response, $args)
     {
         $headline = $request->getParam('headline');
-        $data = [];
+        $data     = [];
 
         if (!empty($headline)) {
             $newsList = $this->em

@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
+use App\ORM\Entity\Campaign;
+use App\ORM\Entity\TheaterCampaign;
 use Doctrine\ORM\EntityRepository;
-use Cinemasunshine\PortalAdmin\ORM\Entity\Campaign;
-use Cinemasunshine\PortalAdmin\ORM\Entity\TheaterCampaign;
 
 /**
  * TheaterCampaign repository class
@@ -26,12 +26,13 @@ class TheaterCampaignRepository extends EntityRepository
     public function deleteByCampaign(Campaign $campaign)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
         $query = $qb
             ->delete($this->getEntityName(), 'tc')
             ->where('tc.campaign = :campaign')
             ->setParameter('campaign', $campaign->getId())
             ->getQuery();
-        
+
         return $query->execute();
     }
 }

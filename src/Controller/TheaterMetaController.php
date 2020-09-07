@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
+use App\Form;
+use App\ORM\Entity;
 use Cinemasunshine\ORM\Entities\TheaterOpeningHour;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
 use Slim\Exception\NotFoundException;
 
 /**
@@ -28,7 +28,7 @@ class TheaterMetaController extends BaseController
      */
     public function executeOpeningHour($request, $response, $args)
     {
-        $user = $this->auth->getUser();
+        $user       = $this->auth->getUser();
         $repository = $this->em->getRepository(Entity\TheaterMeta::class);
 
         if ($user->isTheater()) {
@@ -112,7 +112,7 @@ class TheaterMetaController extends BaseController
             return 'openingHourEdit';
         }
 
-        $cleanData = $form->getData();
+        $cleanData    = $form->getData();
         $openingHours = [];
 
         foreach ($cleanData['hours'] as $hourValues) {

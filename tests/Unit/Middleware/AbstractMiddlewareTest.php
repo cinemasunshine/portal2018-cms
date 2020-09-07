@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Middleware;
 
-use Cinemasunshine\PortalAdmin\Middleware\AbstractMiddleware;
+use App\Middleware\AbstractMiddleware;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -62,10 +62,10 @@ final class AbstractMiddlewareTest extends TestCase
     public function testConstruct()
     {
         $containerMock = $this->createContainerMock();
-        $targetMock = $this->createTargetMock();
+        $targetMock    = $this->createTargetMock();
+        $targetRef     = $this->createTargetReflection();
 
         // execute constructor
-        $targetRef = $this->createTargetReflection();
         $targetConstructor = $targetRef->getConstructor();
         $targetConstructor->invoke($targetMock, $containerMock);
 

@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Application\Handlers;
+namespace App\Application\Handlers;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Handlers\NotFound as BaseHandler;

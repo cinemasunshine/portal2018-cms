@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Cinemasunshine\PortalAdmin\ORM\Entity;
+namespace App\ORM\Entity;
 
 use Cinemasunshine\ORM\Entities\News as BaseNews;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * News entity class
  *
- * @ORM\Entity(repositoryClass="Cinemasunshine\PortalAdmin\ORM\Repository\NewsRepository")
+ * @ORM\Entity(repositoryClass="App\ORM\Repository\NewsRepository")
  * @ORM\Table(name="news", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
  */

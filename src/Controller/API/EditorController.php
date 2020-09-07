@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller\API;
+namespace App\Controller\API;
 
-use Cinemasunshine\PortalAdmin\Controller\Traits\AzureBlobStorage;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\Form\API as ApiForm;
+use App\Controller\Traits\AzureBlobStorage;
+use App\Form;
+use App\Form\API as ApiForm;
 
 /**
  * Editor API controller
@@ -43,7 +43,7 @@ class EditorController extends BaseController
         $form->setData($params);
 
         if (!$form->isValid()) {
-            $errors = [];
+            $errors   = [];
             $messages = $form->getMessages()['file'];
 
             foreach ($messages as $message) {
@@ -61,7 +61,7 @@ class EditorController extends BaseController
         $file = $cleanData['file'];
 
         // rename
-        $info = pathinfo($file['name']);
+        $info     = pathinfo($file['name']);
         $blobName = md5(uniqid('', true)) . '.' . $info['extension'];
 
         // upload storage

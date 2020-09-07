@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
+use App\ORM\Entity;
+use Doctrine\ORM\EntityManager;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use Doctrine\ORM\EntityManager;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
  * News find form class
@@ -46,7 +46,7 @@ class NewsFindForm extends BaseForm
      */
     public function __construct(EntityManager $em)
     {
-        $this->em = $em;
+        $this->em              = $em;
         $this->categoryChoices = Entity\News::$categories;
 
         parent::__construct();

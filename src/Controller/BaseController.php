@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
+use App\Responder\AbstractResponder;
+use App\Responder\ResponderFactory;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface as Response;
-use Cinemasunshine\PortalAdmin\Responder\AbstractResponder;
-use Cinemasunshine\PortalAdmin\Responder\ResponderFactory;
 
 /**
  * Base controller

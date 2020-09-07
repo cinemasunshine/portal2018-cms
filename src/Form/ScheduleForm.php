@@ -6,19 +6,19 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
+use App\ORM\Entity\Theater;
+use Doctrine\ORM\EntityManager;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
-use Doctrine\ORM\EntityManager;
-use Cinemasunshine\PortalAdmin\ORM\Entity\Theater;
 
 /**
  * Schedule form class
  */
 class ScheduleForm extends BaseForm
 {
-    public const TYPE_NEW = 1;
+    public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
     /** @var int */
@@ -42,11 +42,11 @@ class ScheduleForm extends BaseForm
     public function __construct(int $type, EntityManager $em)
     {
         $this->type = $type;
-        $this->em = $em;
+        $this->em   = $em;
 
         parent::__construct();
 
-        $this->theaterChoices = [];
+        $this->theaterChoices        = [];
         $this->showingFormatFieldset = new ShowingFormatFieldset();
 
         $this->setup();

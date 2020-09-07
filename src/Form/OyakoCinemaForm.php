@@ -6,7 +6,7 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
 use Doctrine\ORM\EntityManager;
 use Laminas\InputFilter\InputFilter;
@@ -16,7 +16,7 @@ use Laminas\InputFilter\InputFilter;
  */
 class OyakoCinemaForm extends BaseForm
 {
-    public const TYPE_NEW = 1;
+    public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
     /** @var int */
@@ -33,7 +33,7 @@ class OyakoCinemaForm extends BaseForm
      */
     public function __construct(int $type, EntityManager $em)
     {
-        $this->type = $type;
+        $this->type             = $type;
         $this->scheduleFieldset = new OyakoCinemaScheduleFieldset($em);
 
         parent::__construct();

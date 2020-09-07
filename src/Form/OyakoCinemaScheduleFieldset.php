@@ -6,9 +6,9 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
-use Cinemasunshine\PortalAdmin\ORM\Entity\Theater;
+use App\ORM\Entity\Theater;
 use Doctrine\ORM\EntityManager;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilterProviderInterface;
@@ -32,7 +32,7 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
      */
     public function __construct(EntityManager $em)
     {
-        $this->em = $em;
+        $this->em             = $em;
         $this->theaterChoices = [];
 
         parent::__construct('schedules');

@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
+use App\Exception\ForbiddenException;
+use App\Form;
+use App\ORM\Entity;
 use Slim\Exception\NotFoundException;
-use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
 
 /**
  * Schedule controller
@@ -53,7 +53,7 @@ class ScheduleController extends BaseController
 
         if ($form->isValid()) {
             $cleanValues = $form->getData();
-            $values = $cleanValues;
+            $values      = $cleanValues;
         } else {
             $values = $request->getParams();
             $this->data->set('errors', $form->getMessages());
@@ -62,7 +62,7 @@ class ScheduleController extends BaseController
         $this->data->set('values', $values);
         $this->data->set('params', $cleanValues);
 
-        /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
+        /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\Schedule::class)->findForList($cleanValues, $page);
 
         $this->data->set('pagenater', $pagenater);

@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Form;
+namespace App\Form;
 
+use App\ORM\Entity\ShowingFormat;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\Validator;
-use Cinemasunshine\PortalAdmin\ORM\Entity\ShowingFormat;
 
 /**
  * ShowingFormat fieldset class
@@ -35,8 +35,8 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
         parent::__construct('showing');
 
         $this->systemChoices = ShowingFormat::getSystemList();
-        $this->soundChoices = ShowingFormat::getSoundList();
-        $this->voiceChoices = ShowingFormat::getVoiceList();
+        $this->soundChoices  = ShowingFormat::getSoundList();
+        $this->voiceChoices  = ShowingFormat::getVoiceList();
 
         $this->setup();
     }

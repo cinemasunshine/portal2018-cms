@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace Cinemasunshine\PortalAdmin\Console\Command\AdminUser;
+namespace App\Console\Command\AdminUser;
 
-use Cinemasunshine\PortalAdmin\Console\Command\BaseCommand;
-use Cinemasunshine\PortalAdmin\ORM\Entity\AdminUser;
+use App\Console\Command\BaseCommand;
+use App\ORM\Entity\AdminUser;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

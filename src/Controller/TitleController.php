@@ -6,12 +6,12 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\Controller;
+namespace App\Controller;
 
-use Cinemasunshine\PortalAdmin\Controller\Traits\ImageResize;
-use Cinemasunshine\PortalAdmin\Exception\ForbiddenException;
-use Cinemasunshine\PortalAdmin\Form;
-use Cinemasunshine\PortalAdmin\ORM\Entity;
+use App\Controller\Traits\ImageResize;
+use App\Exception\ForbiddenException;
+use App\Form;
+use App\ORM\Entity;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use Slim\Exception\NotFoundException;
 
@@ -55,7 +55,7 @@ class TitleController extends BaseController
 
         if ($form->isValid()) {
             $cleanValues = $form->getData();
-            $values = $cleanValues;
+            $values      = $cleanValues;
         } else {
             $values = $request->getParams();
             $this->data->set('errors', $form->getMessages());
@@ -64,7 +64,7 @@ class TitleController extends BaseController
         $this->data->set('values', $values);
         $this->data->set('params', $cleanValues);
 
-        /** @var \Cinemasunshine\PortalAdmin\Pagination\DoctrinePaginator $pagenater */
+        /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\Title::class)->findForList($cleanValues, $page);
 
         $this->data->set('pagenater', $pagenater);
@@ -133,7 +133,7 @@ class TitleController extends BaseController
     protected function doCreate(array $data): Entity\Title
     {
         $image = $data['image'];
-        $file = null;
+        $file  = null;
 
         if ($image['name']) {
             $file = $this->uploadImage($image);
@@ -260,10 +260,10 @@ class TitleController extends BaseController
         $publishingExpectedDate = $title->getPublishingExpectedDate();
 
         if ($publishingExpectedDate instanceof \DateTime) {
-            $values['publishing_expected_date'] = $publishingExpectedDate->format('Y/m/d');
+            $values['publishing_expected_date']           = $publishingExpectedDate->format('Y/m/d');
             $values['not_exist_publishing_expected_date'] = null;
         } else {
-            $values['publishing_expected_date'] = null;
+            $values['publishing_expected_date']           = null;
             $values['not_exist_publishing_expected_date'] = '1';
         }
 
@@ -328,9 +328,9 @@ class TitleController extends BaseController
      */
     protected function doUpdate(Entity\Title $title, array $data)
     {
-        $image = $data['image'];
+        $image         = $data['image'];
         $isDeleteImage = $data['delete_image'] || $image['name'];
-        $oldImage = null;
+        $oldImage      = null;
 
         if ($isDeleteImage && $title->getImage()) {
             /**

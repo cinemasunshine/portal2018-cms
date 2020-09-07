@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Cinemasunshine\PortalAdmin\ORM\Entity;
+namespace App\ORM\Entity;
 
 use Cinemasunshine\ORM\Entities\ShowingFormat as BaseShowingFormat;
 use Doctrine\ORM\Mapping as ORM;

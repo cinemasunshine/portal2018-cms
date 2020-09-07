@@ -6,11 +6,11 @@
  * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
-namespace Cinemasunshine\PortalAdmin\ORM\Repository;
+namespace App\ORM\Repository;
 
+use App\ORM\Entity\News;
+use App\ORM\Entity\TheaterNews;
 use Doctrine\ORM\EntityRepository;
-use Cinemasunshine\PortalAdmin\ORM\Entity\News;
-use Cinemasunshine\PortalAdmin\ORM\Entity\TheaterNews;
 
 /**
  * TheaterNews repository class
@@ -26,12 +26,13 @@ class TheaterNewsRepository extends EntityRepository
     public function deleteByNews(News $news)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
         $query = $qb
             ->delete($this->getEntityName(), 'tn')
             ->where('tn.news = :news')
             ->setParameter('news', $news->getId())
             ->getQuery();
-        
+
         return $query->execute();
     }
 }
