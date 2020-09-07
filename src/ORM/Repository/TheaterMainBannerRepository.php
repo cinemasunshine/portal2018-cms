@@ -26,12 +26,13 @@ class TheaterMainBannerRepository extends EntityRepository
     public function deleteByMainBanner(MainBanner $mainBanner)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
         $query = $qb
             ->delete($this->getEntityName(), 'tm')
             ->where('tm.mainBanner = :main_banner')
             ->setParameter('main_banner', $mainBanner->getId())
             ->getQuery();
-        
+
         return $query->execute();
     }
 }

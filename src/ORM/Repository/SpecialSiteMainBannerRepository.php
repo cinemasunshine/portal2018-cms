@@ -26,12 +26,13 @@ class SpecialSiteMainBannerRepository extends EntityRepository
     public function deleteByMainBanner(MainBanner $mainBanner)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
         $query = $qb
             ->delete($this->getEntityName(), 'sm')
             ->where('sm.mainBanner = :main_banner')
             ->setParameter('main_banner', $mainBanner->getId())
             ->getQuery();
-        
+
         return $query->execute();
     }
 }

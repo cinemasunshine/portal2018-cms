@@ -18,7 +18,7 @@ use Laminas\Validator;
  */
 class ScheduleForm extends BaseForm
 {
-    public const TYPE_NEW = 1;
+    public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
     /** @var int */
@@ -42,11 +42,11 @@ class ScheduleForm extends BaseForm
     public function __construct(int $type, EntityManager $em)
     {
         $this->type = $type;
-        $this->em = $em;
+        $this->em   = $em;
 
         parent::__construct();
 
-        $this->theaterChoices = [];
+        $this->theaterChoices        = [];
         $this->showingFormatFieldset = new ShowingFormatFieldset();
 
         $this->setup();

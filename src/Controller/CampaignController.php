@@ -51,7 +51,7 @@ class CampaignController extends BaseController
 
         if ($form->isValid()) {
             $cleanValues = $form->getData();
-            $values = $cleanValues;
+            $values      = $cleanValues;
         } else {
             $values = $request->getParams();
             $this->data->set('errors', $form->getMessages());
@@ -439,8 +439,8 @@ class CampaignController extends BaseController
             throw new \LogicException('invalid parameters.');
         }
 
-        $cleanData = $form->getData();
-        $targetEntity = null;
+        $cleanData       = $form->getData();
+        $targetEntity    = null;
         $basePublication = null;
 
         if ($target === Form\CampaignPublicationForm::TARGET_TEATER) {
@@ -448,6 +448,7 @@ class CampaignController extends BaseController
             $targetEntity = $this->em
                 ->getRepository(Entity\Theater::class)
                 ->findOneById((int) $cleanData['theater_id']);
+
             $basePublication = new Entity\TheaterCampaign();
             $basePublication->setTheater($targetEntity);
         } elseif ($target === Form\CampaignPublicationForm::TARGET_PAGE) {
@@ -455,6 +456,7 @@ class CampaignController extends BaseController
             $targetEntity = $this->em
                 ->getRepository(Entity\Page::class)
                 ->findOneById((int) $cleanData['page_id']);
+
             $basePublication = new Entity\PageCampaign();
             $basePublication->setPage($targetEntity);
         } elseif ($target === Form\CampaignPublicationForm::TARGET_SPESICAL_SITE) {
@@ -462,6 +464,7 @@ class CampaignController extends BaseController
             $targetEntity = $this->em
                 ->getRepository(Entity\SpecialSite::class)
                 ->findOneById((int) $cleanData['special_site_id']);
+
             $basePublication = new Entity\SpecialSiteCampaign();
             $basePublication->setSpecialSite($targetEntity);
         }

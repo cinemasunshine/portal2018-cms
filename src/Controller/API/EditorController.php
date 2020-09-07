@@ -43,7 +43,7 @@ class EditorController extends BaseController
         $form->setData($params);
 
         if (!$form->isValid()) {
-            $errors = [];
+            $errors   = [];
             $messages = $form->getMessages()['file'];
 
             foreach ($messages as $message) {
@@ -61,7 +61,7 @@ class EditorController extends BaseController
         $file = $cleanData['file'];
 
         // rename
-        $info = pathinfo($file['name']);
+        $info     = pathinfo($file['name']);
         $blobName = md5(uniqid('', true)) . '.' . $info['extension'];
 
         // upload storage

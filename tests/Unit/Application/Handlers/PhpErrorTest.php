@@ -60,9 +60,9 @@ final class PhpErrorTest extends TestCase
         $displayErrorDetails = true;
 
         $targetMock = $this->createTargetMock();
+        $targetRef  = $this->createTargetReflection();
 
         // execute constructor
-        $targetRef = $this->createTargetReflection();
         $phpErrorHandlerConstructor = $targetRef->getConstructor();
         $phpErrorHandlerConstructor->invoke($targetMock, $loggerMock, $displayErrorDetails);
 

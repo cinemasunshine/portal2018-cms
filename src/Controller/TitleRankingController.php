@@ -58,7 +58,7 @@ class TitleRankingController extends BaseController
         $titleRanking = $this->findEntity();
 
         $fromDate = $titleRanking->getFromDate();
-        $toDate = $titleRanking->getToDate();
+        $toDate   = $titleRanking->getToDate();
 
         $values = [
             'from_date' => $fromDate ? $fromDate->format('Y/m/d') : null,

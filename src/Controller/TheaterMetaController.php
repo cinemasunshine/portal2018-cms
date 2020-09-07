@@ -28,7 +28,7 @@ class TheaterMetaController extends BaseController
      */
     public function executeOpeningHour($request, $response, $args)
     {
-        $user = $this->auth->getUser();
+        $user       = $this->auth->getUser();
         $repository = $this->em->getRepository(Entity\TheaterMeta::class);
 
         if ($user->isTheater()) {
@@ -112,7 +112,7 @@ class TheaterMetaController extends BaseController
             return 'openingHourEdit';
         }
 
-        $cleanData = $form->getData();
+        $cleanData    = $form->getData();
         $openingHours = [];
 
         foreach ($cleanData['hours'] as $hourValues) {

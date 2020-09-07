@@ -25,8 +25,11 @@ class CampaignFindForm extends BaseForm
         '1' => 'キャンペーン中',
         '2' => 'キャンペーン終了',
     ];
+
     protected $pageChoices = [];
+
     protected $theaterChoices = [];
+
     protected $specialSiteChoices = [];
 
     /**

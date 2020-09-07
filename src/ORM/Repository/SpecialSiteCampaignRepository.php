@@ -26,12 +26,13 @@ class SpecialSiteCampaignRepository extends EntityRepository
     public function deleteByCampaign(Campaign $campaign)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
         $query = $qb
             ->delete($this->getEntityName(), 'sc')
             ->where('sc.campaign = :campaign')
             ->setParameter('campaign', $campaign->getId())
             ->getQuery();
-        
+
         return $query->execute();
     }
 }

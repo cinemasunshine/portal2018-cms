@@ -26,12 +26,13 @@ class SpecialSiteNewsRepository extends EntityRepository
     public function deleteByNews(News $news)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
         $query = $qb
             ->delete($this->getEntityName(), 'sn')
             ->where('sn.news = :news')
             ->setParameter('news', $news->getId())
             ->getQuery();
-        
+
         return $query->execute();
     }
 }

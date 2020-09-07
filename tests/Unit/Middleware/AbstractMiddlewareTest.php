@@ -62,10 +62,10 @@ final class AbstractMiddlewareTest extends TestCase
     public function testConstruct()
     {
         $containerMock = $this->createContainerMock();
-        $targetMock = $this->createTargetMock();
+        $targetMock    = $this->createTargetMock();
+        $targetRef     = $this->createTargetReflection();
 
         // execute constructor
-        $targetRef = $this->createTargetReflection();
         $targetConstructor = $targetRef->getConstructor();
         $targetConstructor->invoke($targetMock, $containerMock);
 

@@ -31,7 +31,7 @@ class AzureStorageExtension extends AbstractExtension
      */
     public function __construct(BlobRestProxy $client, $publicEndpoint = null)
     {
-        $this->client = $client;
+        $this->client         = $client;
         $this->publicEndpoint = $publicEndpoint;
     }
 

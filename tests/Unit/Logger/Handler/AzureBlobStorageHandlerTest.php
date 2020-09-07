@@ -64,7 +64,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
     public function testCreateBlobExisting()
     {
         $container = 'example';
-        $blob = 'test.log';
+        $blob      = 'test.log';
 
         $blobRestProxyMock = $this->createBlobRestProxyMock();
         $blobRestProxyMock
@@ -77,7 +77,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
             ->never();
 
         $targetMock = $this->createTargetMock();
-        $targetRef = $this->createTargetReflection();
+        $targetRef  = $this->createTargetReflection();
 
         $clientPropertyRef = $targetRef->getProperty('client');
         $clientPropertyRef->setAccessible(true);
@@ -107,7 +107,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
     public function testCreateBlobNotFound()
     {
         $container = 'example';
-        $blob = 'test.log';
+        $blob      = 'test.log';
 
         $exception = $this->createServiceException(404);
 
@@ -123,7 +123,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
             ->once();
 
         $targetMock = $this->createTargetMock();
-        $targetRef = $this->createTargetReflection();
+        $targetRef  = $this->createTargetReflection();
 
         $clientPropertyRef = $targetRef->getProperty('client');
         $clientPropertyRef->setAccessible(true);
@@ -153,7 +153,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
     public function testCreateBlobServiceError()
     {
         $container = 'example';
-        $blob = 'test.log';
+        $blob      = 'test.log';
 
         $exception = $this->createServiceException(500);
 
@@ -169,7 +169,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
             ->never();
 
         $targetMock = $this->createTargetMock();
-        $targetRef = $this->createTargetReflection();
+        $targetRef  = $this->createTargetReflection();
 
         $clientPropertyRef = $targetRef->getProperty('client');
         $clientPropertyRef->setAccessible(true);
@@ -233,7 +233,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
     public function testWrite()
     {
         $isBlobCreated = false;
-        $record = [
+        $record        = [
             'formatted' => 'test',
         ];
 
@@ -243,6 +243,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
             ->shouldReceive('createBlob')
             ->once()
             ->with();
+
         $targetRef = $this->createTargetReflection();
 
         $isBlobCreatedPropertyRef = $targetRef->getProperty('isBlobCreated');
@@ -276,7 +277,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
     public function testWriteIsBlobCreated()
     {
         $isBlobCreated = true;
-        $record = [
+        $record        = [
             'formatted' => 'test',
         ];
 
@@ -285,6 +286,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
         $targetMock
             ->shouldReceive('createBlob')
             ->never();
+
         $targetRef = $this->createTargetReflection();
 
         $isBlobCreatedPropertyRef = $targetRef->getProperty('isBlobCreated');

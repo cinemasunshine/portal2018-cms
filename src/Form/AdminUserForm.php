@@ -38,7 +38,7 @@ class AdminUserForm extends BaseForm
 
         parent::__construct();
 
-        $this->groupChoices = Entity\AdminUser::getGroups();
+        $this->groupChoices   = Entity\AdminUser::getGroups();
         $this->theaterChoices = [];
 
         $this->setup();

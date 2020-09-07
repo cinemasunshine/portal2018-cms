@@ -26,7 +26,7 @@ class RedirectException extends \Exception
      */
     public function __construct($url, $status = null)
     {
-        $this->url = $url;
+        $this->url    = $url;
         $this->status = $status;
         
         parent::__construct('redirect');

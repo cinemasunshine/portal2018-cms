@@ -31,7 +31,7 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
     {
         parent::__construct('advance_ticket');
 
-        $this->typeChoices = AdvanceTicket::getTypes();
+        $this->typeChoices             = AdvanceTicket::getTypes();
         $this->specialGiftStockChoices = AdvanceTicket::getSpecialGiftStockList();
 
         $this->setup();

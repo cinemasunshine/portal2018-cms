@@ -29,7 +29,7 @@ class NewsController extends BaseController
     public function executeList($request, $response, $args)
     {
         $headline = $request->getParam('headline');
-        $data = [];
+        $data     = [];
 
         if (!empty($headline)) {
             $newsList = $this->em

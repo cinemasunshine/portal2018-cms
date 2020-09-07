@@ -26,12 +26,13 @@ class TheaterCampaignRepository extends EntityRepository
     public function deleteByCampaign(Campaign $campaign)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
         $query = $qb
             ->delete($this->getEntityName(), 'tc')
             ->where('tc.campaign = :campaign')
             ->setParameter('campaign', $campaign->getId())
             ->getQuery();
-        
+
         return $query->execute();
     }
 }

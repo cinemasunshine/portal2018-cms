@@ -43,11 +43,12 @@ final class AzureStorageExtensionTest extends TestCase
     public function testConstruct()
     {
         $azureStorageExtensionMock = Mockery::mock(AzureStorageExtension::class);
-        $blobRestProxyMock = $this->crateBlobRestProxyMock();
-        $publicEndpoint = 'http://example.com';
+        $blobRestProxyMock         = $this->crateBlobRestProxyMock();
+        $publicEndpoint            = 'http://example.com';
+
+        $azureStorageExtensionClassRef = new \ReflectionClass(AzureStorageExtension::class);
 
         // execute constructor
-        $azureStorageExtensionClassRef = new \ReflectionClass(AzureStorageExtension::class);
         $constructorRef = $azureStorageExtensionClassRef->getConstructor();
         $constructorRef->invoke($azureStorageExtensionMock, $blobRestProxyMock, $publicEndpoint);
 
@@ -108,7 +109,7 @@ final class AzureStorageExtensionTest extends TestCase
         $publicEndpointPropertyRef->setValue($azureStorageExtensionMock, $publicEndpoint);
 
         $container = 'test';
-        $blob = 'sample.txt';
+        $blob      = 'sample.txt';
 
         // execute
         $result = $azureStorageExtensionMock->blobUrl($container, $blob);
@@ -126,8 +127,8 @@ final class AzureStorageExtensionTest extends TestCase
     public function testBlobUrlDoNotHasPublicEndpoint()
     {
         $container = 'test';
-        $blob = 'sample.txt';
-        $url = 'http://storage.example.com/' . $container . '/' . $blob;
+        $blob      = 'sample.txt';
+        $url       = 'http://storage.example.com/' . $container . '/' . $blob;
 
         $azureStorageExtensionMock = Mockery::mock(AzureStorageExtension::class)
             ->makePartial();

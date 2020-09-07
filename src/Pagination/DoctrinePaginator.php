@@ -18,7 +18,7 @@ class DoctrinePaginator extends AbstractPaginator
 {
     /** @var WrapPaginator */
     protected $wrapPaginator;
-    
+
     /**
      * construct
      *
@@ -31,7 +31,7 @@ class DoctrinePaginator extends AbstractPaginator
     {
         $this->initalize($query, $page, $maxPerPage, $fetchJoinCollection);
     }
-    
+
     /**
      * initalize
      *
@@ -42,32 +42,32 @@ class DoctrinePaginator extends AbstractPaginator
      */
     protected function initalize(Query $query, int $page, int $maxPerPage, $fetchJoinCollection = true)
     {
-        $this->page = $page;
+        $this->page       = $page;
         $this->maxPerPage = $maxPerPage;
-        
+
         $offset = ($page - 1) * $maxPerPage;
         $query
             ->setFirstResult($offset)
             ->setMaxResults($maxPerPage);
-            
+
         $paginator = new WrapPaginator($query, $fetchJoinCollection);
+
         $this->wrapPaginator = $paginator;
-        
-        $this->numResults = count($paginator);
-        
+        $this->numResults    = count($paginator);
+
         if (0 === $page || 0 === $maxPerPage || 0 === $this->numResults) {
             $this->lastPage = 0;
         } else {
             $this->lastPage = (int) ceil($this->numResults / $maxPerPage);
         }
-        
+
         $this->resultsInPage = [];
-        
+
         foreach ($paginator as $row) {
             $this->resultsInPage[] = $row;
         }
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -75,7 +75,7 @@ class DoctrinePaginator extends AbstractPaginator
     {
         return $this->resultsInPage;
     }
-    
+
     /**
      * {@inheritdoc}
      */

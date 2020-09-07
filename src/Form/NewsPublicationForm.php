@@ -42,7 +42,7 @@ class NewsPublicationForm extends BaseForm
         }
 
         $this->target = $target;
-        $this->em = $em;
+        $this->em     = $em;
 
         parent::__construct();
 
@@ -88,7 +88,7 @@ class NewsPublicationForm extends BaseForm
 
         if ($this->target === self::TARGET_PAGE) {
             $pageIds = [];
-            $pages = $this->em->getRepository(Entity\Page::class)->findActive();
+            $pages   = $this->em->getRepository(Entity\Page::class)->findActive();
 
             foreach ($pages as $page) {
                 $pageIds[] = $page->getId();
@@ -108,7 +108,7 @@ class NewsPublicationForm extends BaseForm
             ]);
         } elseif ($this->target === self::TARGET_TEATER) {
             $theaterIds = [];
-            $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
+            $theaters   = $this->em->getRepository(Entity\Theater::class)->findActive();
 
             foreach ($theaters as $theater) {
                 $theaterIds[] = $theater->getId();
@@ -128,7 +128,7 @@ class NewsPublicationForm extends BaseForm
             ]);
         } elseif ($this->target === self::TARGET_SPESICAL_SITE) {
             $specialSiteIds = [];
-            $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
+            $specialSites   = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
 
             foreach ($specialSites as $specialSite) {
                 $specialSiteIds[] = $specialSite->getId();

@@ -35,7 +35,7 @@ class AdvanceTicketController extends BaseController
 
         if ($form->isValid()) {
             $cleanValues = $form->getData();
-            $values = $cleanValues;
+            $values      = $cleanValues;
         } else {
             $values = $request->getParams();
             $this->data->set('errors', $form->getMessages());
@@ -142,7 +142,7 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock'] ?: null);
 
             $image = $ticket['special_gift_image'];
-            $file = null;
+            $file  = null;
 
             if ($image['name']) {
                 // rename
@@ -226,10 +226,10 @@ class AdvanceTicketController extends BaseController
         $publishingExpectedDate = $advanceSale->getPublishingExpectedDate();
 
         if ($publishingExpectedDate instanceof \DateTime) {
-            $values['publishing_expected_date'] = $publishingExpectedDate->format('Y/m/d');
+            $values['publishing_expected_date']           = $publishingExpectedDate->format('Y/m/d');
             $values['not_exist_publishing_expected_date'] = null;
         } else {
-            $values['publishing_expected_date'] = null;
+            $values['publishing_expected_date']           = null;
             $values['not_exist_publishing_expected_date'] = '1';
         }
 
@@ -356,7 +356,7 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setSpecialGift($ticket['special_gift']);
             $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock'] ?: null);
 
-            $image = $ticket['special_gift_image'];
+            $image         = $ticket['special_gift_image'];
             $isDeleteImage = ($ticket['delete_special_gift_image'] == '1') || $image['name'];
 
             if ($isDeleteImage && $advanceTicket->getSpecialGiftImage()) {

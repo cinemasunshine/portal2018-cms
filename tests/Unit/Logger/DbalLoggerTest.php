@@ -44,9 +44,9 @@ final class DbalLoggerTest extends TestCase
         $loggerMock = $this->createLoggerMock();
 
         $dbalLoggerMock = Mockery::mock(DbalLogger::class);
+        $dbalLoggerRef  = new \ReflectionClass(DbalLogger::class);
 
         // execute constructor
-        $dbalLoggerRef = new \ReflectionClass(DbalLogger::class);
         $dbalLoggerConstructor = $dbalLoggerRef->getConstructor();
         $dbalLoggerConstructor->invoke($dbalLoggerMock, $loggerMock);
 
@@ -64,11 +64,11 @@ final class DbalLoggerTest extends TestCase
      */
     public function testStartQuery()
     {
-        $sql = 'SHOW TABLES';
+        $sql    = 'SHOW TABLES';
         $params = [
             'p' => 1,
         ];
-        $types = [
+        $types  = [
             't' => 2,
         ];
 
@@ -104,8 +104,8 @@ final class DbalLoggerTest extends TestCase
             ->with($message, $context);
 
         $dbalLoggerMock = Mockery::mock(DbalLogger::class);
+        $dbalLoggerRef  = new \ReflectionClass(DbalLogger::class);
 
-        $dbalLoggerRef = new \ReflectionClass(DbalLogger::class);
         $loggerPropertyRef = $dbalLoggerRef->getProperty('logger');
         $loggerPropertyRef->setAccessible(true);
         $loggerPropertyRef->setValue($dbalLoggerMock, $loggerMock);

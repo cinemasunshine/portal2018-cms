@@ -38,7 +38,7 @@ class NewsController extends BaseController
 
         if ($form->isValid()) {
             $cleanValues = $form->getData();
-            $values = $cleanValues;
+            $values      = $cleanValues;
         } else {
             $values = $request->getParams();
             $this->data->set('errors', $form->getMessages());
@@ -103,7 +103,7 @@ class NewsController extends BaseController
         $cleanData = $form->getData();
 
         $image = $cleanData['image'];
-        $file = null;
+        $file  = null;
 
         if ($image['name']) {
             // rename
@@ -248,7 +248,7 @@ class NewsController extends BaseController
 
         $cleanData = $form->getData();
 
-        $image = $cleanData['image'];
+        $image         = $cleanData['image'];
         $isDeleteImage = $cleanData['delete_image'] || $image['name'];
 
         if ($isDeleteImage && $news->getImage()) {
@@ -443,7 +443,7 @@ class NewsController extends BaseController
         $specialSites = [];
 
         if (!$user->isTheater()) {
-            $pages = $this->em->getRepository(Entity\Page::class)->findActive();
+            $pages        = $this->em->getRepository(Entity\Page::class)->findActive();
             $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
         }
 
@@ -484,8 +484,8 @@ class NewsController extends BaseController
             throw new \LogicException('invalid parameters.');
         }
 
-        $cleanData = $form->getData();
-        $targetEntity = null;
+        $cleanData       = $form->getData();
+        $targetEntity    = null;
         $basePublication = null;
 
         if ($target === Form\NewsPublicationForm::TARGET_TEATER) {
@@ -493,6 +493,7 @@ class NewsController extends BaseController
             $targetEntity = $this->em
                 ->getRepository(Entity\Theater::class)
                 ->findOneById((int) $cleanData['theater_id']);
+
             $basePublication = new Entity\TheaterNews();
             $basePublication->setTheater($targetEntity);
         } elseif ($target === Form\NewsPublicationForm::TARGET_PAGE) {
@@ -500,6 +501,7 @@ class NewsController extends BaseController
             $targetEntity = $this->em
                 ->getRepository(Entity\Page::class)
                 ->findOneById((int) $cleanData['page_id']);
+
             $basePublication = new Entity\PageNews();
             $basePublication->setPage($targetEntity);
         } elseif ($target === Form\NewsPublicationForm::TARGET_SPESICAL_SITE) {
@@ -507,6 +509,7 @@ class NewsController extends BaseController
             $targetEntity = $this->em
                 ->getRepository(Entity\SpecialSite::class)
                 ->findOneById((int) $cleanData['special_site_id']);
+
             $basePublication = new Entity\SpecialSiteNews();
             $basePublication->setSpecialSite($targetEntity);
         }

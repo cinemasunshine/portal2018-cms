@@ -26,12 +26,13 @@ class PageNewsRepository extends EntityRepository
     public function deleteByNews(News $news)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
+
         $query = $qb
             ->delete($this->getEntityName(), 'pn')
             ->where('pn.news = :news')
             ->setParameter('news', $news->getId())
             ->getQuery();
-        
+
         return $query->execute();
     }
 }

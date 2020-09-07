@@ -32,7 +32,7 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
      */
     public function __construct(EntityManager $em)
     {
-        $this->em = $em;
+        $this->em             = $em;
         $this->theaterChoices = [];
 
         parent::__construct('schedules');

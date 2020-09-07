@@ -53,7 +53,7 @@ abstract class AbstractController
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->data = new Collection();
+        $this->data      = new Collection();
     }
 
     /**

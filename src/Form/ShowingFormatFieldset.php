@@ -35,8 +35,8 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
         parent::__construct('showing');
 
         $this->systemChoices = ShowingFormat::getSystemList();
-        $this->soundChoices = ShowingFormat::getSoundList();
-        $this->voiceChoices = ShowingFormat::getVoiceList();
+        $this->soundChoices  = ShowingFormat::getSoundList();
+        $this->voiceChoices  = ShowingFormat::getVoiceList();
 
         $this->setup();
     }

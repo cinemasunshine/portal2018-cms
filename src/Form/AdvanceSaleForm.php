@@ -18,7 +18,7 @@ use Laminas\Validator;
  */
 class AdvanceSaleForm extends BaseForm
 {
-    public const TYPE_NEW = 1;
+    public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
     /** @var int */
@@ -45,9 +45,9 @@ class AdvanceSaleForm extends BaseForm
      */
     public function __construct(int $type, EntityManager $em, Entity\AdminUser $adminUser)
     {
-        $this->type = $type;
-        $this->em = $em;
-        $this->adminUser = $adminUser;
+        $this->type           = $type;
+        $this->em             = $em;
+        $this->adminUser      = $adminUser;
         $this->ticketFieldset = new AdvanceTicketFieldset();
 
         parent::__construct();

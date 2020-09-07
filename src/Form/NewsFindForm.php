@@ -46,7 +46,7 @@ class NewsFindForm extends BaseForm
      */
     public function __construct(EntityManager $em)
     {
-        $this->em = $em;
+        $this->em              = $em;
         $this->categoryChoices = Entity\News::$categories;
 
         parent::__construct();

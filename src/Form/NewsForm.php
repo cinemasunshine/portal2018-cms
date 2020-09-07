@@ -17,7 +17,7 @@ use Laminas\Validator;
  */
 class NewsForm extends BaseForm
 {
-    public const TYPE_NEW = 1;
+    public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
     /** @var int */
@@ -33,7 +33,7 @@ class NewsForm extends BaseForm
      */
     public function __construct(int $type)
     {
-        $this->type = $type;
+        $this->type            = $type;
         $this->categoryChoices = News::$categories;
 
         parent::__construct();

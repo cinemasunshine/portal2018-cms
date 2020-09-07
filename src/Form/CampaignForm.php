@@ -16,7 +16,7 @@ use Laminas\Validator;
  */
 class CampaignForm extends BaseForm
 {
-    public const TYPE_NEW = 1;
+    public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
     /** @var int */

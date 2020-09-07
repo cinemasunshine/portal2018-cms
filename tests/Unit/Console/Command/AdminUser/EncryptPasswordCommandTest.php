@@ -68,6 +68,7 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
             );
 
         $targetRef = $this->createTargetReflection();
+
         $configureMethodRef = $targetRef->getMethod('configure');
         $configureMethodRef->setAccessible(true);
 
@@ -82,7 +83,7 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
      */
     public function testExecute()
     {
-        $password = 'plain_password';
+        $password          = 'plain_password';
         $encryptedPassword = 'encrypted_password';
 
         $inputMock = $this->createInputMock();
@@ -105,6 +106,7 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
             ->andReturn($encryptedPassword);
 
         $targetRef = $this->createTargetReflection();
+
         $executeMethodRef = $targetRef->getMethod('execute');
         $executeMethodRef->setAccessible(true);
 
@@ -136,7 +138,7 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
      */
     public function testEncryptPassword()
     {
-        $password = 'plain_password';
+        $password          = 'plain_password';
         $encryptedPassword = 'encrypted_password';
 
         $adminUserMock = Mockery::mock('alias:' . AdminUser::class);
@@ -147,7 +149,8 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
             ->andReturn($encryptedPassword);
 
         $targetMock = $this->createTargetMock();
-        $targetRef = $this->createTargetReflection();
+        $targetRef  = $this->createTargetReflection();
+
         $encryptPasswordMethodRef = $targetRef->getMethod('encryptPassword');
         $encryptPasswordMethodRef->setAccessible(true);
 
