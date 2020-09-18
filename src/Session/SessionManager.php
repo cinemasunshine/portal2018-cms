@@ -40,7 +40,7 @@ class SessionManager extends BaseManager
      */
     public function getContainer(string $name = 'default')
     {
-        if (!isset($this->containers[$name])) {
+        if (! isset($this->containers[$name])) {
             $this->containers[$name] = new Container($name);
         }
 

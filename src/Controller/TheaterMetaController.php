@@ -102,7 +102,7 @@ class TheaterMetaController extends BaseController
         $form = new Form\TheaterOpeningHourForm();
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('theater', $theater);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());

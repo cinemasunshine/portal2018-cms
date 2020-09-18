@@ -73,7 +73,7 @@ class AdvanceTicketRepository extends EntityRepository
             $qb->andWhere($or);
         }
         
-        if (isset($params['release_dt']) && !empty($params['release_dt'])) {
+        if (isset($params['release_dt']) && ! empty($params['release_dt'])) {
             $qb
                 ->andWhere('at.releaseDt = :release_dt')
                 ->setParameter('release_dt', $params['release_dt']);

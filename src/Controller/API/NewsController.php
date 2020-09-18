@@ -31,7 +31,7 @@ class NewsController extends BaseController
         $headline = $request->getParam('headline');
         $data     = [];
 
-        if (!empty($headline)) {
+        if (! empty($headline)) {
             $newsList = $this->em
                 ->getRepository(Entity\News::class)
                 ->findForListApi($headline);

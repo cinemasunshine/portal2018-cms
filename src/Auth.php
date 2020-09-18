@@ -46,7 +46,7 @@ class Auth
 
         /** @var AdminUser $adminUser */
 
-        if (!password_verify($password, $adminUser->getPassword())) {
+        if (! password_verify($password, $adminUser->getPassword())) {
             return false;
         }
 
@@ -87,11 +87,11 @@ class Auth
      */
     public function getUser()
     {
-        if (!$this->isAuthenticated()) {
+        if (! $this->isAuthenticated()) {
             return null;
         }
 
-        if (!$this->user) {
+        if (! $this->user) {
             $repository = $this->em->getRepository(AdminUser::class);
             $this->user = $repository->findOneById($this->session['user_id']);
         }

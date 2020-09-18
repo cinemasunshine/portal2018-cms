@@ -28,7 +28,7 @@ class AuthMiddleware extends AbstractMiddleware
     {
         $auth = $this->container->get('auth');
 
-        if (!$auth->isAuthenticated()) {
+        if (! $auth->isAuthenticated()) {
             return $response->withRedirect(
                 $this->container->get('router')->pathFor('login')
             );

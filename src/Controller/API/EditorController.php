@@ -42,7 +42,7 @@ class EditorController extends BaseController
         $form = new ApiForm\EditorUploadForm();
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $errors   = [];
             $messages = $form->getMessages()['file'];
 

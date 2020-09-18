@@ -95,7 +95,7 @@ class MainBannerController extends BaseController
         $form = new Form\MainBannerForm(Form\MainBannerForm::TYPE_NEW);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
@@ -213,7 +213,7 @@ class MainBannerController extends BaseController
         $form = new Form\MainBannerForm(Form\MainBannerForm::TYPE_EDIT);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('mainBanner', $mainBanner);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
@@ -411,7 +411,7 @@ class MainBannerController extends BaseController
         $form = new Form\MainBannerPublicationForm($target, $this->em);
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             throw new \LogicException('invalid parameters.');
         }
 
@@ -455,7 +455,7 @@ class MainBannerController extends BaseController
                 ->getRepository(Entity\MainBanner::class)
                 ->findOneById((int) $mainBannerData['main_banner_id']);
 
-            if (!$mainBanner) {
+            if (! $mainBanner) {
                 // @todo formで検証したい
                 throw new \LogicException('invalid main_banner.');
             }

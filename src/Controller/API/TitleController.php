@@ -28,7 +28,7 @@ class TitleController extends BaseController
         $name = $request->getParam('name');
         $data = [];
         
-        if (!empty($name)) {
+        if (! empty($name)) {
             $titles = $this->em
                 ->getRepository(Entity\Title::class)
                 ->findForListApi($name);

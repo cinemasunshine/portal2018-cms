@@ -94,7 +94,7 @@ class ScheduleController extends BaseController
         $form = new Form\ScheduleForm(Form\ScheduleForm::TYPE_NEW, $this->em);
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
@@ -232,7 +232,7 @@ class ScheduleController extends BaseController
         $form = new Form\ScheduleForm(Form\ScheduleForm::TYPE_EDIT, $this->em);
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('schedule', $schedule);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());

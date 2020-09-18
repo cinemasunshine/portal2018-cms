@@ -42,7 +42,7 @@ class AzureBlobStorageHandler extends BaseHandler
      */
     protected function write(array $record): void
     {
-        if (!$this->isBlobCreated) {
+        if (! $this->isBlobCreated) {
             $this->createBlob();
             $this->isBlobCreated = true;
         }

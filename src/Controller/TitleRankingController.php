@@ -24,7 +24,7 @@ class TitleRankingController extends BaseController
     {
         $entity = $this->em->find(Entity\TitleRanking::class, 1);
 
-        if (!$entity) {
+        if (! $entity) {
             throw new \LogicException('TitleRanking does not exist.');
         }
 
@@ -69,7 +69,7 @@ class TitleRankingController extends BaseController
         for ($rank = 1; $rank <= 5; $rank++) {
             $title = $titleRanking->getRank($rank);
 
-            if (!$title) {
+            if (! $title) {
                 continue;
             }
 
@@ -94,7 +94,7 @@ class TitleRankingController extends BaseController
         $form = new Form\TitleRankingForm();
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
