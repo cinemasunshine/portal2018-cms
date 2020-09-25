@@ -50,6 +50,8 @@
     <rule ref="Generic.Formatting.SpaceAfterNot"/>
     <!-- Forbid PHP 4 constructors -->
     <rule ref="Generic.NamingConventions.ConstructorName"/>
+    <!-- Forbid backtick operator -->
+    <rule ref="Generic.PHP.BacktickOperator"/>
     <!-- Forbid any content before opening tag -->
     <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag"/>
     <!-- Forbid deprecated functions -->
@@ -78,6 +80,23 @@
                 <element key="strchr" value="strstr"/>
             </property>
         </properties>
+    </rule>
+    <!-- Forbid `php_sapi_name()` function -->
+    <rule ref="Generic.PHP.SAPIUsage"/>
+    <!-- Forbid useless inline string concatenation -->
+    <rule ref="Generic.Strings.UnnecessaryStringConcat">
+        <!-- But multiline is useful for readability -->
+        <properties>
+            <property name="allowMultiline" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Forbid comments starting with # -->
+    <rule ref="PEAR.Commenting.InlineComment"/>
+
+    <!-- Disallow else if in favor of elseif -->
+    <rule ref="PSR2.ControlStructures.ElseIfDeclaration.NotAllowed">
+        <type>error</type>
     </rule>
 
 </ruleset>
