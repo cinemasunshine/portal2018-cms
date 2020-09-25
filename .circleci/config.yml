@@ -31,21 +31,92 @@ commands:
         type: string
       zip:
         type: string
+      async:
+        type: enum
+        enum: ["true", "false"]
+        default: "false"
+
     steps:
       - run:
           name: Deploy to Azure
           command: |
-            mkdir deploy
-            curl -s -X POST https://<< parameters.user >>:<< parameters.password >>@<< parameters.app >>.scm.azurewebsites.net/api/zipdeploy?isAsync=true -T << parameters.zip >> -o ./deploy/result.html -w '%{http_code}' > ./deploy/http_code.txt
-            code=$(cat ./deploy/http_code.txt)
-            echo HTTP code is $code.
-            if [ $code -ge 200 -a $code -lt 300 ]; then
+            dir="./deploy"
+            mkdir ${dir}
+
+            deploy_result="${dir}/result.html"
+            deploy_header="${dir}/header.txt"
+            deploy_url="https://<< parameters.app >>.scm.azurewebsites.net/api/zipdeploy?isAsync=<< parameters.async >>"
+
+            deploy_http_code=$(curl -s -X POST -u << parameters.user >>:<< parameters.password >> ${deploy_url} -T << parameters.zip >> -o ${deploy_result} --dump-header ${deploy_header} -w '%{http_code}')
+
+            echo "Deploy HTTP code is ${deploy_http_code}."
+
+            if [ ${deploy_http_code} -eq 200 ]; then
                 echo "Deploy successful."
                 exit 0
+            elif [ ${deploy_http_code} -eq 202 ]; then
+                echo "Deploy accepted."
             else
                 echo "Deploy failed."
                 exit 1
             fi
+
+            pollable_url=""
+            regex="^Location:\s(.+)$"
+
+            while read line
+            do
+              if [[ ${line} =~ ${regex} ]]; then
+                pollable_url=$(echo ${BASH_REMATCH[1]} | tr -d "\r\n" | tr -d "\n")
+                break
+              fi
+            done < ${deploy_header}
+
+            if [ ${pollable_url} = "" ]; then
+              echo "Pollable URL not found."
+              exit 1
+            fi
+
+            echo "Polling deployment status."
+
+            polling_count=0
+            polling_wait=30
+
+            while true
+            do
+              polling_count=$((++polling_count))
+              status_result="${dir}/status_${polling_count}.json"
+
+              status_http_code=$(curl -sS -u << parameters.user >>:<< parameters.password >> ${pollable_url} -o ${status_result} -w '%{http_code}')
+
+              echo "Deployment status HTTP code is ${status_http_code}."
+
+              if [ ${status_http_code} -lt 200 -o ${status_http_code} -ge 300 ]; then
+                  echo "Request status failed."
+                  exit 1
+              fi
+
+              result=$(cat ${status_result})
+              complete=$(echo ${result} | jq '.complete')
+              status=$(echo ${result} | jq '.status')
+              status_text=$(echo ${result} | jq -r '.status_text')
+
+              if ${complete}; then
+                if [ ${status} -eq 4 ]; then
+                  break
+                fi
+
+                echo "Deploy failed."
+                echo "${status_text}"
+                exit 1
+              else
+                echo "${status_text}"
+              fi
+
+              sleep ${polling_wait}
+            done
+
+            echo "Deploy successful."
 
       - store_artifacts:
           path: ./deploy
@@ -223,6 +294,7 @@ jobs:
           user: $DEV_AAS_USER
           password: $DEV_AAS_PASSWORD
           zip: development_app.zip
+          async: "true"
 
   deploy_to_test:
     working_directory: ~/development
@@ -240,6 +312,7 @@ jobs:
           user: $TEST_AAS_USER
           password: $TEST_AAS_PASSWORD
           zip: development_app.zip
+          async: "true"
 
   deploy_to_prod_release:
     working_directory: ~/production
@@ -257,6 +330,7 @@ jobs:
           user: $PROD_RELEASE_AAS_USER
           password: $PROD_RELEASE_AAS_PASSWORD
           zip: production_app.zip
+          async: "true"
 
 workflows:
   version: 2

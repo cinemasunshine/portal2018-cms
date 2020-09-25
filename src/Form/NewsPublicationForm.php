@@ -37,7 +37,7 @@ class NewsPublicationForm extends BaseForm
      */
     public function __construct(string $target, EntityManager $em)
     {
-        if (!in_array($target, [self::TARGET_PAGE, self::TARGET_TEATER, self::TARGET_SPESICAL_SITE])) {
+        if (! in_array($target, [self::TARGET_PAGE, self::TARGET_TEATER, self::TARGET_SPESICAL_SITE])) {
             throw new \InvalidArgumentException('invalid target.');
         }
 

@@ -40,7 +40,7 @@ class AuthController extends BaseController
         $form = new LoginForm();
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
             $this->data->set('is_validated', true);
@@ -52,7 +52,7 @@ class AuthController extends BaseController
 
         $result = $this->auth->login($cleanData['name'], $cleanData['password']);
 
-        if (!$result) {
+        if (! $result) {
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', ['global' => ['ユーザ名かパスワードが間違っています。']]);
             $this->data->set('is_validated', true);

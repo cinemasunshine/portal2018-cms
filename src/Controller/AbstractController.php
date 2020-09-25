@@ -175,7 +175,7 @@ abstract class AbstractController
         $actionMethod = 'execute' . ucfirst($name);
 
         // is_callable()は__call()があると常にtrueとなるので不可
-        if (!method_exists($this, $actionMethod)) {
+        if (! method_exists($this, $actionMethod)) {
             throw new \LogicException(sprintf('The method "%s" dose not exist.', $name));
         }
 

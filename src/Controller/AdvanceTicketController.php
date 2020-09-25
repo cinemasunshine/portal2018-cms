@@ -101,7 +101,7 @@ class AdvanceTicketController extends BaseController
         $form = $this->getForm(Form\AdvanceSaleForm::TYPE_NEW);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $params);
             $this->data->set('errors', $form->getMessages());
@@ -277,7 +277,7 @@ class AdvanceTicketController extends BaseController
         $form = $this->getForm(Form\AdvanceSaleForm::TYPE_EDIT);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('advanceSale', $advanceSale);
             $this->data->set('form', $form);
             $this->data->set('values', $params);
@@ -311,7 +311,7 @@ class AdvanceTicketController extends BaseController
                 $advanceTicket = $advanceTickets->get($advanceTicketId);
 
                 if (
-                    !$advanceTicket
+                    ! $advanceTicket
                     || $advanceTicket->getId() !== (int) $advanceTicketId // 念のため確認
                 ) {
                     throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $advanceTicketId));
@@ -331,7 +331,7 @@ class AdvanceTicketController extends BaseController
                 $advanceTicket = $advanceTickets->get($ticket['id']);
 
                 if (
-                    !$advanceTicket
+                    ! $advanceTicket
                     || $advanceTicket->getId() !== (int) $ticket['id'] // 念のため確認
                 ) {
                     throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $ticket['id']));

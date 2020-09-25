@@ -32,7 +32,7 @@ class MainBannerRepository extends EntityRepository
             ->where('mb.isDeleted = false')
             ->orderBy('mb.createdAt', 'DESC');
         
-        if (isset($params['name']) && !empty($params['name'])) {
+        if (isset($params['name']) && ! empty($params['name'])) {
             $qb
                 ->andWhere('mb.name LIKE :name')
                 ->setParameter('name', '%' . $params['name'] . '%');

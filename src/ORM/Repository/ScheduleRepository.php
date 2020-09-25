@@ -32,7 +32,7 @@ class ScheduleRepository extends BaseRepository
 
         $this->addActiveQuery($qb, 's');
 
-        if (isset($params['title_name']) && !empty($params['title_name'])) {
+        if (isset($params['title_name']) && ! empty($params['title_name'])) {
             $qb
                 ->join('s.title', 't')
                 ->andWhere($qb->expr()->orX(
@@ -43,7 +43,7 @@ class ScheduleRepository extends BaseRepository
                 ->setParameter('name', '%' . $params['title_name'] . '%');
         }
 
-        if (isset($params['status']) && !empty($params['status'])) {
+        if (isset($params['status']) && ! empty($params['status'])) {
             $or = $qb->expr()->orX();
 
             if (in_array(ScheduleFindForm::STATUS_SHOWING, $params['status'])) {
@@ -68,19 +68,19 @@ class ScheduleRepository extends BaseRepository
             $qb->andWhere($or);
         }
 
-        if (isset($params['format_system']) && !empty($params['format_system'])) {
+        if (isset($params['format_system']) && ! empty($params['format_system'])) {
             $qb
                 ->join('s.showingFormats', 'sf')
                 ->andWhere($qb->expr()->in('sf.system', $params['format_system']));
         }
 
-        if (isset($params['public_start_dt']) && !empty($params['public_start_dt'])) {
+        if (isset($params['public_start_dt']) && ! empty($params['public_start_dt'])) {
             $qb
                 ->andWhere('s.publicStartDt = :public_start_dt')
                 ->setParameter('public_start_dt', $params['public_start_dt']);
         }
 
-        if (isset($params['public_end_dt']) && !empty($params['public_end_dt'])) {
+        if (isset($params['public_end_dt']) && ! empty($params['public_end_dt'])) {
             $qb
                 ->andWhere('s.publicEndDt = :public_end_dt')
                 ->setParameter('public_end_dt', $params['public_end_dt']);

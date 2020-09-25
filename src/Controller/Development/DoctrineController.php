@@ -78,11 +78,11 @@ class DoctrineController extends BaseController
             throw new \InvalidArgumentException('Invalid "target".');
         }
 
-        if (!$cacheDriver) {
+        if (! $cacheDriver) {
             throw new \InvalidArgumentException('No cache driver is configured on given EntityManager.');
         }
 
-        if (!$cacheDriver instanceof CacheProvider) {
+        if (! $cacheDriver instanceof CacheProvider) {
             throw new \InvalidArgumentException('This cache driver does not support clear.');
         }
 
@@ -108,7 +108,7 @@ class DoctrineController extends BaseController
             $message = ($result) ? 'Successfully flushed cache entries.' : $message;
         }
 
-        if (!$result) {
+        if (! $result) {
             throw new \RuntimeException($message);
         }
 

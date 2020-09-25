@@ -100,7 +100,7 @@ class TitleController extends BaseController
         $form = new Form\TitleForm();
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
@@ -294,7 +294,7 @@ class TitleController extends BaseController
         $form = new Form\TitleForm();
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('title', $title);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());

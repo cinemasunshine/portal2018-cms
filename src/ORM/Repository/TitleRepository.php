@@ -32,13 +32,13 @@ class TitleRepository extends EntityRepository
             ->where('t.isDeleted = false')
             ->orderBy('t.createdAt', 'DESC');
         
-        if (isset($params['id']) && !empty($params['id'])) {
+        if (isset($params['id']) && ! empty($params['id'])) {
             $qb
                 ->andWhere('t.id = :id')
                 ->setParameter('id', $params['id']);
         }
         
-        if (isset($params['name']) && !empty($params['name'])) {
+        if (isset($params['name']) && ! empty($params['name'])) {
             $qb
                 ->andWhere($qb->expr()->orX(
                     $qb->expr()->like('t.name', ':name'),

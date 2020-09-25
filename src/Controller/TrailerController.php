@@ -98,7 +98,7 @@ class TrailerController extends BaseController
         $form = new Form\TrailerForm(Form\TrailerForm::TYPE_NEW, $this->em);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
@@ -294,7 +294,7 @@ class TrailerController extends BaseController
         $form = new Form\TrailerForm(Form\TrailerForm::TYPE_EDIT, $this->em);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('trailer', $trailer);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());

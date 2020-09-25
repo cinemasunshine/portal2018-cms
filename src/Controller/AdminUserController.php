@@ -24,7 +24,7 @@ class AdminUserController extends BaseController
     {
         $user = $this->auth->getUser();
         
-        if (!$user->isMaster()) {
+        if (! $user->isMaster()) {
             throw new ForbiddenException();
         }
         
@@ -80,7 +80,7 @@ class AdminUserController extends BaseController
         $form = new AdminUserForm($this->em);
         $form->setData($request->getParams());
         
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());

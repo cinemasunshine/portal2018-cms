@@ -79,7 +79,7 @@ class OyakoCinemaController extends BaseController
         $form = new Form(Form::TYPE_NEW, $this->em);
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
@@ -222,7 +222,7 @@ class OyakoCinemaController extends BaseController
         $form = new Form(Form::TYPE_EDIT, $this->em);
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('oyakoCinemaTitle', $oyakoCinemaTitle);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
@@ -404,7 +404,7 @@ class OyakoCinemaController extends BaseController
         $form = new SettingForm();
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('theater', $theater);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());

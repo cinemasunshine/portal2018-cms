@@ -39,7 +39,7 @@ trait ImageResize
      */
     private function getImageManager(): ImageManager
     {
-        if (!$this->imageManager) {
+        if (! $this->imageManager) {
             $this->createImageManager();
         }
 

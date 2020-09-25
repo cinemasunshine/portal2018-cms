@@ -95,7 +95,7 @@ class CampaignController extends BaseController
         $form = new Form\CampaignForm(Form\CampaignForm::TYPE_NEW);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
@@ -227,7 +227,7 @@ class CampaignController extends BaseController
         $form = new Form\CampaignForm(Form\CampaignForm::TYPE_EDIT);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('campaign', $campaign);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
@@ -435,7 +435,7 @@ class CampaignController extends BaseController
         $form = new Form\CampaignPublicationForm($target, $this->em);
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             throw new \LogicException('invalid parameters.');
         }
 
@@ -479,7 +479,7 @@ class CampaignController extends BaseController
                 ->getRepository(Entity\Campaign::class)
                 ->findOneById((int) $campaignData['campaign_id']);
 
-            if (!$campaign) {
+            if (! $campaign) {
                 // @todo formで検証したい
                 throw new \LogicException('invalid campaign.');
             }

@@ -75,7 +75,7 @@ class BaseForm extends Form
         $parsed = [];
 
         foreach ($uploadedFiles as $field => $uploadedFile) {
-            if (!isset($uploadedFile['error'])) {
+            if (! isset($uploadedFile['error'])) {
                 if (is_array($uploadedFile)) {
                     $parsed[$field] = static::parseUploadedFiles($uploadedFile);
                 }
@@ -83,7 +83,7 @@ class BaseForm extends Form
             }
 
             $parsed[$field] = [];
-            if (!is_array($uploadedFile['error'])) {
+            if (! is_array($uploadedFile['error'])) {
                 $parsed[$field] = [
                     'tmp_name' => $uploadedFile['tmp_name'],
                     'name'     => isset($uploadedFile['name']) ? $uploadedFile['name'] : null,

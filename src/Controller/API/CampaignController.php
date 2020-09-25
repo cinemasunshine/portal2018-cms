@@ -31,7 +31,7 @@ class CampaignController extends BaseController
         $name = $request->getParam('name');
         $data = [];
 
-        if (!empty($name)) {
+        if (! empty($name)) {
             $campaigns = $this->em
                 ->getRepository(Entity\Campaign::class)
                 ->findForListApi($name);

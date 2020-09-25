@@ -31,7 +31,7 @@ class MainBannerController extends BaseController
         $name = $request->getParam('name');
         $data = [];
 
-        if (!empty($name)) {
+        if (! empty($name)) {
             $mainBannerList = $this->em
                 ->getRepository(Entity\MainBanner::class)
                 ->findForListApi($name);

@@ -91,7 +91,7 @@ class NewsController extends BaseController
         $form = new Form\NewsForm(Form\NewsForm::TYPE_NEW);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
             $this->data->set('errors', $form->getMessages());
@@ -236,7 +236,7 @@ class NewsController extends BaseController
         $form = new Form\NewsForm(Form\NewsForm::TYPE_EDIT);
         $form->setData($params);
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $this->data->set('news', $news);
             $this->data->set('form', $form);
             $this->data->set('values', $request->getParams());
@@ -442,7 +442,7 @@ class NewsController extends BaseController
         /** @var Entity\SpecialSite[] $specialSites */
         $specialSites = [];
 
-        if (!$user->isTheater()) {
+        if (! $user->isTheater()) {
             $pages        = $this->em->getRepository(Entity\Page::class)->findActive();
             $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
         }
@@ -480,7 +480,7 @@ class NewsController extends BaseController
         $form = new Form\NewsPublicationForm($target, $this->em);
         $form->setData($request->getParams());
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             throw new \LogicException('invalid parameters.');
         }
 
@@ -524,7 +524,7 @@ class NewsController extends BaseController
                 ->getRepository(Entity\News::class)
                 ->findOneById((int) $newsData['news_id']);
 
-            if (!$news) {
+            if (! $news) {
                 // @todo formで検証したい
                 throw new \LogicException('invalid news.');
             }
