@@ -49,12 +49,8 @@ class PublicationMainBannerFieldset extends Fieldset implements InputFilterProvi
     public function getInputFilterSpecification()
     {
         return [
-            'main_banner_id' => [
-                'required' => true,
-            ],
-            'display_order' => [
-                'required' => true,
-            ],
+            'main_banner_id' => ['required' => true],
+            'display_order' => ['required' => true],
         ];
     }
 }

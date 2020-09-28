@@ -47,9 +47,7 @@ class EditorController extends BaseController
             $messages = $form->getMessages()['file'];
 
             foreach ($messages as $message) {
-                $errors[] = [
-                    'title' => $message,
-                ];
+                $errors[] = ['title' => $message];
             }
 
             $this->data->set('errors', $errors);

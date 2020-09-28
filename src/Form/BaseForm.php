@@ -58,7 +58,7 @@ class BaseForm extends Form
     {
         return array_merge_recursive(
             $params,
-            BaseForm::parseUploadedFiles($uploadedFiles)
+            self::parseUploadedFiles($uploadedFiles)
         );
     }
 

@@ -32,9 +32,7 @@ class TheaterMetaController extends BaseController
         $repository = $this->em->getRepository(Entity\TheaterMeta::class);
 
         if ($user->isTheater()) {
-            $metas = [
-                $repository->findOneByTheaterId($user->getTheater()->getId())
-            ];
+            $metas = [$repository->findOneByTheaterId($user->getTheater()->getId())];
         } else {
             $metas = $repository->findActive();
         }

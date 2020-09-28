@@ -136,9 +136,7 @@ class NewsForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\Date::class,
-                    'options' => [
-                        'format' => 'Y/m/d H:i',
-                    ],
+                    'options' => ['format' => 'Y/m/d H:i'],
                 ],
             ],
         ]);
@@ -149,9 +147,7 @@ class NewsForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\Date::class,
-                    'options' => [
-                        'format' => 'Y/m/d H:i',
-                    ],
+                    'options' => ['format' => 'Y/m/d H:i'],
                 ],
             ],
         ]);
@@ -172,9 +168,7 @@ class NewsForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\File\Size::class,
-                    'options' => [
-                        'max' => '10MB', // SASAKI-245
-                    ],
+                    'options' => ['max' => '10MB'], // SASAKI-245
                 ],
                 [
                     'name' => Validator\File\MimeType::class,

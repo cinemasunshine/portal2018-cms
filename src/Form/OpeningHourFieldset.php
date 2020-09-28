@@ -72,18 +72,10 @@ class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterfa
     public function getInputFilterSpecification()
     {
         return [
-            'type' => [
-                'required' => true,
-            ],
-            'from_date' => [
-                'required' => true,
-            ],
-            'to_date' => [
-                'required' => false, // @todo typeが期間の時はtrue
-            ],
-            'time' => [
-                'required' => true,
-            ],
+            'type' => ['required' => true],
+            'from_date' => ['required' => true],
+            'to_date' => ['required' => false], // @todo typeが期間の時はtrue
+            'time' => ['required' => true],
         ];
     }
 

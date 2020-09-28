@@ -47,9 +47,7 @@ class EditorUploadForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\File\Size::class,
-                    'options' => [
-                        'max' => '10MB', // SASAKI-245
-                    ],
+                    'options' => ['max' => '10MB'],
                 ],
                 [
                     'name' => Validator\File\MimeType::class,

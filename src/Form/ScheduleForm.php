@@ -139,9 +139,7 @@ class ScheduleForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\Date::class,
-                    'options' => [
-                        'format' => 'Y/m/d',
-                    ],
+                    'options' => ['format' => 'Y/m/d'],
                 ],
             ],
         ]);
@@ -152,9 +150,7 @@ class ScheduleForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\Date::class,
-                    'options' => [
-                        'format' => 'Y/m/d',
-                    ],
+                    'options' => ['format' => 'Y/m/d'],
                 ],
             ],
         ]);
@@ -165,9 +161,7 @@ class ScheduleForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\Date::class,
-                    'options' => [
-                        'format' => 'Y/m/d H:i',
-                    ],
+                    'options' => ['format' => 'Y/m/d H:i'],
                 ],
             ],
         ]);
@@ -178,9 +172,7 @@ class ScheduleForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\Date::class,
-                    'options' => [
-                        'format' => 'Y/m/d H:i',
-                    ],
+                    'options' => ['format' => 'Y/m/d H:i'],
                 ],
             ],
         ]);

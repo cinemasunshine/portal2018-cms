@@ -384,7 +384,7 @@ class NewsController extends BaseController
             $news->setUpdatedUser($this->auth->getUser());
 
             $this->logger->debug('Soft delete "News".', [
-                'id' => $news->getId()
+                'id' => $news->getId(),
             ]);
 
             $this->em->flush();
@@ -394,27 +394,21 @@ class NewsController extends BaseController
                 ->getRepository(Entity\PageNews::class)
                 ->deleteByNews($news);
 
-            $this->logger->debug('Delete "PageNews"', [
-                'count' => $pageNewsDeleteCount
-            ]);
+            $this->logger->debug('Delete "PageNews"', ['count' => $pageNewsDeleteCount]);
 
 
             $theaterNewsDeleteCount = $this->em
                 ->getRepository(Entity\TheaterNews::class)
                 ->deleteByNews($news);
 
-            $this->logger->debug('Delete "TheaterNews"', [
-                'count' => $theaterNewsDeleteCount
-            ]);
+            $this->logger->debug('Delete "TheaterNews"', ['count' => $theaterNewsDeleteCount]);
 
 
             $specialSitesNewsDeleteCount = $this->em
                 ->getRepository(Entity\SpecialSiteNews::class)
                 ->deleteByNews($news);
 
-            $this->logger->debug('Delete "SpecialSiteNews"', [
-                'count' => $specialSitesNewsDeleteCount
-            ]);
+            $this->logger->debug('Delete "SpecialSiteNews"', ['count' => $specialSitesNewsDeleteCount]);
 
 
             $this->em->getConnection()->commit();
@@ -454,9 +448,7 @@ class NewsController extends BaseController
 
         if ($user->isTheater()) {
             /** @var Entity\Theater[] $theaters */
-            $theaters = [
-                $theaterRepository->findOneById($user->getTheater()->getId())
-            ];
+            $theaters = [$theaterRepository->findOneById($user->getTheater()->getId())];
         } else {
             /** @var Entity\Theater[] $theaters */
             $theaters = $theaterRepository->findActive();

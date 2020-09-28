@@ -81,15 +81,11 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
                 'validators' => [
                     [
                         'name' => Validator\Date::class,
-                        'options' => [
-                            'format' => 'Y/m/d',
-                        ],
+                        'options' => ['format' => 'Y/m/d'],
                     ],
                 ],
             ],
-            'theaters' => [
-                'required' => true,
-            ],
+            'theaters' => ['required' => true],
         ];
 
         return $specification;

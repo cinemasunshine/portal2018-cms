@@ -53,12 +53,8 @@ class RankFieldset extends Fieldset implements InputFilterProviderInterface
     public function getInputFilterSpecification()
     {
         return [
-            'title_id' => [
-                'required' => false,
-            ],
-            'title_name' => [
-                'required' => false,
-            ],
+            'title_id' => ['required' => false],
+            'title_name' => ['required' => false],
         ];
     }
 }

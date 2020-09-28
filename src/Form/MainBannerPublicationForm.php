@@ -100,9 +100,7 @@ class MainBannerPublicationForm extends BaseForm
                 'validators' => [
                     [
                         'name' => Validator\InArray::class,
-                        'options' => [
-                            'haystack' => $pageIds,
-                        ],
+                        'options' => ['haystack' => $pageIds],
                     ],
                 ],
             ]);
@@ -120,9 +118,7 @@ class MainBannerPublicationForm extends BaseForm
                 'validators' => [
                     [
                         'name' => Validator\InArray::class,
-                        'options' => [
-                            'haystack' => $theaterIds,
-                        ],
+                        'options' => ['haystack' => $theaterIds],
                     ],
                 ],
             ]);
@@ -140,9 +136,7 @@ class MainBannerPublicationForm extends BaseForm
                 'validators' => [
                     [
                         'name' => Validator\InArray::class,
-                        'options' => [
-                            'haystack' => $specialSiteIds,
-                        ],
+                        'options' => ['haystack' => $specialSiteIds],
                     ],
                 ],
             ]);

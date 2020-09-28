@@ -69,9 +69,7 @@ class AdvanceTicketFindForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\Date::class,
-                    'options' => [
-                        'format' => 'Y/m/d H:i',
-                    ],
+                    'options' => ['format' => 'Y/m/d H:i'],
                 ],
             ],
         ]);

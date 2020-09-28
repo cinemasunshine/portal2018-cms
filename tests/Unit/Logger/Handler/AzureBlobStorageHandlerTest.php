@@ -233,9 +233,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
     public function testWrite()
     {
         $isBlobCreated = false;
-        $record        = [
-            'formatted' => 'test',
-        ];
+        $record        = ['formatted' => 'test'];
 
         $targetMock = $this->createTargetMock()
             ->shouldAllowMockingProtectedMethods();
@@ -277,9 +275,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
     public function testWriteIsBlobCreated()
     {
         $isBlobCreated = true;
-        $record        = [
-            'formatted' => 'test',
-        ];
+        $record        = ['formatted' => 'test'];
 
         $targetMock = $this->createTargetMock()
             ->shouldAllowMockingProtectedMethods();

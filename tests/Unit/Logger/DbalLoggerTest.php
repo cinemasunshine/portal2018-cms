@@ -65,12 +65,8 @@ final class DbalLoggerTest extends TestCase
     public function testStartQuery()
     {
         $sql    = 'SHOW TABLES';
-        $params = [
-            'p' => 1,
-        ];
-        $types  = [
-            't' => 2,
-        ];
+        $params = ['p' => 1];
+        $types  = ['t' => 2];
 
         /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|DbalLogger $dbalLoggerMock */
         $dbalLoggerMock = Mockery::mock(DbalLogger::class)
@@ -93,9 +89,7 @@ final class DbalLoggerTest extends TestCase
     public function testLog()
     {
         $message = 'test';
-        $context = [
-            'detail' => 'example',
-        ];
+        $context = ['detail' => 'example'];
 
         $loggerMock = $this->createLoggerMock();
         $loggerMock

@@ -27,9 +27,7 @@ trait ImageResize
      */
     private function createImageManager(): void
     {
-        $this->imageManager = new ImageManager([
-            'driver' => 'gd',
-        ]);
+        $this->imageManager = new ImageManager(['driver' => 'gd']);
     }
 
     /**

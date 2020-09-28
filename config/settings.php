@@ -39,9 +39,7 @@ $settings['session'] = [
 
 // logger
 $getLoggerSetting = function () {
-    $settings = [
-        'name' => 'app',
-    ];
+    $settings = ['name' => 'app'];
 
     if (APP_DEBUG) {
         $settings['browser_console'] = [
@@ -49,9 +47,7 @@ $getLoggerSetting = function () {
         ];
     }
 
-    $settings['buffer'] = [
-        'limit' => 0, // ひとまず無制限とする
-    ];
+    $settings['buffer'] = ['limit' => 0]; // ひとまず無制限とする
 
     $settings['azure_blob_storage'] = [
         'level' => \Monolog\Logger::INFO,

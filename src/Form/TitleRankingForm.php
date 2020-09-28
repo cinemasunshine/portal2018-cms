@@ -64,9 +64,7 @@ class TitleRankingForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\Date::class,
-                    'options' => [
-                        'format' => 'Y/m/d',
-                    ],
+                    'options' => ['format' => 'Y/m/d'],
                 ],
             ],
         ]);
@@ -77,9 +75,7 @@ class TitleRankingForm extends BaseForm
             'validators' => [
                 [
                     'name' => Validator\Date::class,
-                    'options' => [
-                        'format' => 'Y/m/d',
-                    ],
+                    'options' => ['format' => 'Y/m/d'],
                 ],
             ],
         ]);
