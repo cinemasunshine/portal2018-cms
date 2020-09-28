@@ -84,15 +84,9 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
     public function getInputFilterSpecification()
     {
         return [
-            'system' => [
-                'required' => true,
-            ],
-            'sound' => [
-                'required' => true,
-            ],
-            'voice' => [
-                'required' => true,
-            ],
+            'system' => ['required' => true],
+            'sound' => ['required' => true],
+            'voice' => ['required' => true],
         ];
     }
 

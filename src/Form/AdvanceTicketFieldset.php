@@ -119,17 +119,13 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
     public function getInputFilterSpecification()
     {
         $specification = [
-            'id' => [
-                'required' => false,
-            ],
+            'id' => ['required' => false],
             'publishing_start_dt' => [
                 'required' => true,
                 'validators' => [
                     [
                         'name' => Validator\Date::class,
-                        'options' => [
-                            'format' => 'Y/m/d H:i',
-                        ],
+                        'options' => ['format' => 'Y/m/d H:i'],
                     ],
                 ],
             ],
@@ -138,39 +134,23 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
                 'validators' => [
                     [
                         'name' => Validator\Date::class,
-                        'options' => [
-                            'format' => 'Y/m/d H:i',
-                        ],
+                        'options' => ['format' => 'Y/m/d H:i'],
                     ],
                 ],
             ],
-            'release_dt_text' => [
-                'required' => false,
-            ],
-            'is_sales_end' => [
-                'required' => false,
-            ],
-            'type' => [
-                'required' => true,
-            ],
-            'price_text' => [
-                'required' => true,
-            ],
-            'special_gift' => [
-                'required' => false,
-            ],
-            'special_gift_stock' => [
-                'required' => false,
-            ],
+            'release_dt_text' => ['required' => false],
+            'is_sales_end' => ['required' => false],
+            'type' => ['required' => true],
+            'price_text' => ['required' => true],
+            'special_gift' => ['required' => false],
+            'special_gift_stock' => ['required' => false],
             'special_gift_image' => [
                 'required' => false,
                 'allow_empty' => true,
                 'validators' => [
                     [
                         'name' => Validator\File\Size::class,
-                        'options' => [
-                            'max' => '10MB', // SASAKI-245
-                        ],
+                        'options' => ['max' => '10MB'], // SASAKI-245
                     ],
                     [
                         'name' => Validator\File\MimeType::class,
@@ -180,9 +160,7 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
                     ],
                 ],
             ],
-            'delete_special_gift_image' => [
-                'required' => false,
-            ],
+            'delete_special_gift_image' => ['required' => false],
         ];
 
         return $specification;

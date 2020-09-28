@@ -45,9 +45,7 @@ class AdvanceTicketController extends BaseController
 
         if ($user->isTheater()) {
             // ひとまず検索のパラメータとして扱う
-            $cleanValues['theater'] = [
-                $user->getTheater()->getId()
-            ];
+            $cleanValues['theater'] = [$user->getTheater()->getId()];
         }
 
         $this->data->set('form', $form);

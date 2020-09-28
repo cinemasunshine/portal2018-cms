@@ -49,12 +49,8 @@ class PublicationCampaignFieldset extends Fieldset implements InputFilterProvide
     public function getInputFilterSpecification()
     {
         return [
-            'campaign_id' => [
-                'required' => true,
-            ],
-            'display_order' => [
-                'required' => true,
-            ],
+            'campaign_id' => ['required' => true],
+            'display_order' => ['required' => true],
         ];
     }
 }

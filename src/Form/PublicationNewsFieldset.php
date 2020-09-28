@@ -49,12 +49,8 @@ class PublicationNewsFieldset extends Fieldset implements InputFilterProviderInt
     public function getInputFilterSpecification()
     {
         return [
-            'news_id' => [
-                'required' => true,
-            ],
-            'display_order' => [
-                'required' => true,
-            ],
+            'news_id' => ['required' => true],
+            'display_order' => ['required' => true],
         ];
     }
 }

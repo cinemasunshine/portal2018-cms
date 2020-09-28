@@ -332,7 +332,7 @@ class MainBannerController extends BaseController
             $mainBanner->setUpdatedUser($this->auth->getUser());
 
             $this->logger->debug('Soft delete "MainBanner".', [
-                'id' => $mainBanner->getId()
+                'id' => $mainBanner->getId(),
             ]);
 
             $this->em->flush();
@@ -342,27 +342,21 @@ class MainBannerController extends BaseController
                 ->getRepository(Entity\PageMainBanner::class)
                 ->deleteByMainBanner($mainBanner);
 
-            $this->logger->debug('Delete "PageMainBanner"', [
-                'count' => $pageMainBannerDeleteCount
-            ]);
+            $this->logger->debug('Delete "PageMainBanner"', ['count' => $pageMainBannerDeleteCount]);
 
 
             $theaterMainBannerDeleteCount = $this->em
                 ->getRepository(Entity\TheaterMainBanner::class)
                 ->deleteByMainBanner($mainBanner);
 
-            $this->logger->debug('Delete "TheaterMainBanner"', [
-                'count' => $theaterMainBannerDeleteCount
-            ]);
+            $this->logger->debug('Delete "TheaterMainBanner"', ['count' => $theaterMainBannerDeleteCount]);
 
 
             $specialSiteMainBannerDeleteCount = $this->em
                 ->getRepository(Entity\SpecialSiteMainBanner::class)
                 ->deleteByMainBanner($mainBanner);
 
-            $this->logger->debug('Delete "SpecialSiteMainBanner"', [
-                'count' => $specialSiteMainBannerDeleteCount
-            ]);
+            $this->logger->debug('Delete "SpecialSiteMainBanner"', ['count' => $specialSiteMainBannerDeleteCount]);
 
             $this->em->getConnection()->commit();
         } catch (\Exception $e) {
