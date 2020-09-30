@@ -20,7 +20,7 @@ class AdminUserResponder extends BaseResponder
     /**
      * list
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
@@ -32,7 +32,7 @@ class AdminUserResponder extends BaseResponder
     /**
      * new
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */

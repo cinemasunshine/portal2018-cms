@@ -20,7 +20,7 @@ class MainBannerResponder extends BaseResponder
     /**
      * list
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
@@ -32,7 +32,7 @@ class MainBannerResponder extends BaseResponder
     /**
      * new
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
@@ -44,7 +44,7 @@ class MainBannerResponder extends BaseResponder
     /**
      * edit
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
@@ -56,7 +56,7 @@ class MainBannerResponder extends BaseResponder
     /**
      * publication
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */

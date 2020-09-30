@@ -144,7 +144,7 @@ abstract class AbstractController
      * build response
      *
      * @param Response    $response
-     * @param string|null $method responder method
+     * @param string|null $method   responder method
      * @return Response
      */
     protected function buildResponse(Response $response, string $method = null): Response
@@ -164,7 +164,7 @@ abstract class AbstractController
      * call
      *
      * @param string $name
-     * @param array $argments
+     * @param array  $argments
      * @return mixed
      * @throws \LogicException
      */

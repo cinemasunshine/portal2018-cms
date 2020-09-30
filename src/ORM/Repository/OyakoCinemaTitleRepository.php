@@ -20,8 +20,8 @@ class OyakoCinemaTitleRepository extends EntityRepository
     /**
      * find for list page
      *
-     * @param int   $page
-     * @param int   $maxPerPage
+     * @param int $page
+     * @param int $maxPerPage
      * @return DoctrinePaginator
      */
     public function findForList(int $page, int $maxPerPage = 10)

@@ -39,8 +39,8 @@ class AdvanceSaleForm extends BaseForm
     /**
      * construct
      *
-     * @param int $type
-     * @param EntityManager $em
+     * @param int              $type
+     * @param EntityManager    $em
      * @param Entity\AdminUser $adminUser
      */
     public function __construct(int $type, EntityManager $em, Entity\AdminUser $adminUser)

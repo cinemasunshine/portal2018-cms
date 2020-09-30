@@ -257,7 +257,7 @@ class OyakoCinemaController extends BaseController
      * do update
      *
      * @param Entity\OyakoCinemaTitle $oyakoCinemaTitle
-     * @param array $data
+     * @param array                   $data
      * @return void
      */
     protected function doUpdate(Entity\OyakoCinemaTitle $oyakoCinemaTitle, array $data)
@@ -437,7 +437,7 @@ class OyakoCinemaController extends BaseController
      * do setting update
      *
      * @param Entity\TheaterMeta $theaterMeta
-     * @param array $data
+     * @param array              $data
      * @return void
      */
     protected function doSettingUpdate(Entity\TheaterMeta $theaterMeta, array $data)

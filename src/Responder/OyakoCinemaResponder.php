@@ -20,7 +20,7 @@ class OyakoCinemaResponder extends BaseResponder
     /**
      * list
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
@@ -32,7 +32,7 @@ class OyakoCinemaResponder extends BaseResponder
     /**
      * new
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
@@ -44,7 +44,7 @@ class OyakoCinemaResponder extends BaseResponder
     /**
      * edit
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
@@ -56,7 +56,7 @@ class OyakoCinemaResponder extends BaseResponder
     /**
      * setting
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
@@ -68,7 +68,7 @@ class OyakoCinemaResponder extends BaseResponder
     /**
      * setting edit
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */

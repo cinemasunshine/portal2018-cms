@@ -21,7 +21,7 @@ class ResponderFactory
      * factory
      *
      * @param string $name
-     * @param Twig $view
+     * @param Twig   $view
      * @return BaseResponder
      */
     public static function factory(string $name, Twig $view): BaseResponder

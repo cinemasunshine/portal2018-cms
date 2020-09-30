@@ -78,7 +78,7 @@ class ViewCommand extends BaseCommand
     /**
      * clear filesystem cache
      *
-     * @param string $dir
+     * @param string          $dir
      * @param OutputInterface $output
      * @return void
      */

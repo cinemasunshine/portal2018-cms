@@ -20,7 +20,7 @@ class IndexResponder extends BaseResponder
     /**
      * index
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
