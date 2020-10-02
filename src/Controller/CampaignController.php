@@ -267,14 +267,12 @@ class CampaignController extends BaseController
             $oldImage = $campaign->getImage();
             $campaign->setImage($file);
 
-
             // @todo preUpdateで出来ないか？ hasChangedField()
             $this->em->remove($oldImage);
 
             // @todo postRemoveイベントへ
             $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
         }
-
 
         $title = null;
 
@@ -362,13 +360,11 @@ class CampaignController extends BaseController
 
             $this->em->flush();
 
-
             $pageCampaignDeleteCount = $this->em
                 ->getRepository(Entity\PageCampaign::class)
                 ->deleteByCampaign($campaign);
 
             $this->logger->debug('Delete "PageCampaign"', ['count' => $pageCampaignDeleteCount]);
-
 
             $theaterCampaignDeleteCount = $this->em
                 ->getRepository(Entity\TheaterCampaign::class)
@@ -376,13 +372,11 @@ class CampaignController extends BaseController
 
             $this->logger->debug('Delete "TheaterCampaign"', ['count' => $theaterCampaignDeleteCount]);
 
-
             $specialSiteCampaignDeleteCount = $this->em
                 ->getRepository(Entity\SpecialSiteCampaign::class)
                 ->deleteByCampaign($campaign);
 
             $this->logger->debug('Delete "SpecialSiteCampaign"', ['count' => $specialSiteCampaignDeleteCount]);
-
 
             $this->em->getConnection()->commit();
         } catch (\Exception $e) {

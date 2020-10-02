@@ -25,10 +25,10 @@ class PageRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('p');
         $qb->where('p.isDeleted = false');
-        
+
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * find by ids
      *
@@ -42,10 +42,10 @@ class PageRepository extends EntityRepository
             ->where('p.isDeleted = false')
             ->andWhere('p.id IN (:ids)')
             ->setParameter('ids', $ids);
-        
+
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * find one by id
      *
@@ -59,7 +59,7 @@ class PageRepository extends EntityRepository
             ->where('p.id = :id')
             ->andWhere('p.isDeleted = false')
             ->setParameter('id', $id);
-            
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 }

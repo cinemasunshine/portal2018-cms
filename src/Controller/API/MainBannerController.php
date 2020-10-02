@@ -36,7 +36,6 @@ class MainBannerController extends BaseController
                 ->getRepository(Entity\MainBanner::class)
                 ->findForListApi($name);
 
-
             foreach ($mainBannerList as $mainBanner) {
                 /** @var Entity\MainBanner $mainBanner */
 

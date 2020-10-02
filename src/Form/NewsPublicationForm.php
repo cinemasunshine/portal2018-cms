@@ -83,7 +83,6 @@ class NewsPublicationForm extends BaseForm
             ],
         ]);
 
-
         $inputFilter = new InputFilter();
 
         if ($this->target === self::TARGET_PAGE) {

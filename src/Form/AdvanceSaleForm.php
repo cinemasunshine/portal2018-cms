@@ -137,7 +137,6 @@ class AdvanceSaleForm extends BaseForm
             ],
         ]);
 
-
         $inputFilter = new InputFilter();
 
         if ($this->type === self::TYPE_EDIT) {

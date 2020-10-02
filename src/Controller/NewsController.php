@@ -301,7 +301,6 @@ class NewsController extends BaseController
             $news->setImage($file);
         }
 
-
         $title = null;
 
         if ($cleanData['title_id']) {
@@ -389,13 +388,11 @@ class NewsController extends BaseController
 
             $this->em->flush();
 
-
             $pageNewsDeleteCount = $this->em
                 ->getRepository(Entity\PageNews::class)
                 ->deleteByNews($news);
 
             $this->logger->debug('Delete "PageNews"', ['count' => $pageNewsDeleteCount]);
-
 
             $theaterNewsDeleteCount = $this->em
                 ->getRepository(Entity\TheaterNews::class)
@@ -403,13 +400,11 @@ class NewsController extends BaseController
 
             $this->logger->debug('Delete "TheaterNews"', ['count' => $theaterNewsDeleteCount]);
 
-
             $specialSitesNewsDeleteCount = $this->em
                 ->getRepository(Entity\SpecialSiteNews::class)
                 ->deleteByNews($news);
 
             $this->logger->debug('Delete "SpecialSiteNews"', ['count' => $specialSitesNewsDeleteCount]);
-
 
             $this->em->getConnection()->commit();
         } catch (\Exception $e) {

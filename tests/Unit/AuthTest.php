@@ -178,7 +178,6 @@ final class AuthTest extends TestCase
         $inputName     = 'invalid';
         $inputPassword = $password;
 
-
         $repositoryMock = $this->createAdminUserRepositoryMock();
         $repositoryMock
             ->shouldReceive('findOneByName')

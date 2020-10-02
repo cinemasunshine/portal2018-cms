@@ -36,7 +36,6 @@ class CampaignController extends BaseController
                 ->getRepository(Entity\Campaign::class)
                 ->findForListApi($name);
 
-
             foreach ($campaigns as $campaign) {
                 /** @var Entity\Campaign $campaign */
 

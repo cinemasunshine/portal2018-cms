@@ -15,7 +15,6 @@ use App\Responder\AbstractResponder;
  */
 abstract class BaseResponder extends AbstractResponder
 {
-    
     /**
      * contsruct
      */

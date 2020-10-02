@@ -18,10 +18,10 @@ class DbalLogger implements SQLLogger
 {
     /** @var Logger */
     protected $logger;
-    
+
     /** @var int */
     protected $count;
-    
+
     /**
      * construct
      *
@@ -31,7 +31,7 @@ class DbalLogger implements SQLLogger
     {
         $this->logger = $logger;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -42,14 +42,14 @@ class DbalLogger implements SQLLogger
             'types' => $types,
         ]);
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function stopQuery()
     {
     }
-    
+
     /**
      * log
      *

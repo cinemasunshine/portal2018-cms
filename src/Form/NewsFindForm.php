@@ -107,7 +107,6 @@ class NewsFindForm extends BaseForm
             ],
         ]);
 
-
         $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
 
         foreach ($specialSites as $specialSite) {

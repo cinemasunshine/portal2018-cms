@@ -105,7 +105,6 @@ class NewsForm extends BaseForm
             'type' => 'Checkbox',
         ]);
 
-
         $inputFilter = new InputFilter();
 
         if ($this->type === self::TYPE_EDIT) {

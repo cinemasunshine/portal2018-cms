@@ -25,10 +25,10 @@ class SpecialSiteRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('s');
         $qb->where('s.isDeleted = false');
-        
+
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * find by ids
      *
@@ -42,10 +42,10 @@ class SpecialSiteRepository extends EntityRepository
             ->where('s.isDeleted = false')
             ->andWhere('s.id IN (:ids)')
             ->setParameter('ids', $ids);
-        
+
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * find one by id
      *
@@ -59,7 +59,7 @@ class SpecialSiteRepository extends EntityRepository
             ->where('s.id = :id')
             ->andWhere('s.isDeleted = false')
             ->setParameter('id', $id);
-            
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 }

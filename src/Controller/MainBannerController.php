@@ -253,7 +253,6 @@ class MainBannerController extends BaseController
             $oldImage = $mainBanner->getImage();
             $mainBanner->setImage($file);
 
-
             // @todo preUpdateで出来ないか？ hasChangedField()
             $this->em->remove($oldImage);
 
@@ -337,20 +336,17 @@ class MainBannerController extends BaseController
 
             $this->em->flush();
 
-
             $pageMainBannerDeleteCount = $this->em
                 ->getRepository(Entity\PageMainBanner::class)
                 ->deleteByMainBanner($mainBanner);
 
             $this->logger->debug('Delete "PageMainBanner"', ['count' => $pageMainBannerDeleteCount]);
 
-
             $theaterMainBannerDeleteCount = $this->em
                 ->getRepository(Entity\TheaterMainBanner::class)
                 ->deleteByMainBanner($mainBanner);
 
             $this->logger->debug('Delete "TheaterMainBanner"', ['count' => $theaterMainBannerDeleteCount]);
-
 
             $specialSiteMainBannerDeleteCount = $this->em
                 ->getRepository(Entity\SpecialSiteMainBanner::class)

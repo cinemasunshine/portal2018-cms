@@ -74,7 +74,6 @@ class AdminUserForm extends BaseForm
             ],
         ]);
 
-
         $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
 
         foreach ($theaters as $theater) {

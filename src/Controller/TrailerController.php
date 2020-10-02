@@ -378,7 +378,6 @@ class TrailerController extends BaseController
             }
         }
 
-
         $trailer->getSpecialSiteTrailers()->clear();
 
         if ($cleanData['special_site']) {

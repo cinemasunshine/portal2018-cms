@@ -434,7 +434,6 @@ class AdvanceTicketController extends BaseController
         // 関連データの処理はイベントで対応する
         $advanceTicket->setIsDeleted(true);
 
-
         $advanceSale = $advanceTicket->getAdvanceSale();
         $advanceSale->setUpdatedUser($this->auth->getUser());
 

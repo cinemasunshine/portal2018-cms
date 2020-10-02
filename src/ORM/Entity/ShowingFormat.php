@@ -90,6 +90,7 @@ class ShowingFormat extends BaseShowingFormat
     {
         return self::$systemList[$this->getSystem()] ?? null;
     }
+
     /**
      * get voice label
      *
