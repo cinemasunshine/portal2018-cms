@@ -23,7 +23,7 @@ class Error extends BaseHandler
      * construct
      *
      * @param Logger $logger
-     * @param bool $displayErrorDetails
+     * @param bool   $displayErrorDetails
      */
     public function __construct(Logger $logger, bool $displayErrorDetails = false)
     {

@@ -20,7 +20,7 @@ class TheaterMetaResponder extends BaseResponder
     /**
      * opening hour
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
@@ -32,7 +32,7 @@ class TheaterMetaResponder extends BaseResponder
     /**
      * opening hour edit
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */

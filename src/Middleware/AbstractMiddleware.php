@@ -17,7 +17,7 @@ abstract class AbstractMiddleware
 {
     /** @var ContainerInterface */
     protected $container;
-    
+
     /**
      * construct
      *

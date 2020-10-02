@@ -17,7 +17,7 @@ abstract class BaseResponder extends AbstractResponder
 {
     /** @var Twig view */
     protected $view;
-    
+
     /**
      * contsruct
      *

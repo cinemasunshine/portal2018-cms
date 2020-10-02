@@ -34,14 +34,14 @@ class AdvanceTicketRepository extends EntityRepository
             ->where('sale.isDeleted = false')
             ->andWhere('at.isDeleted = false')
             ->orderBy('at.createdAt', 'DESC');
-        
+
         if (isset($params['theater']) && count($params['theater']) > 0) {
             $qb->andWhere($qb->expr()->in('sale.theater', $params['theater']));
         }
-        
+
         if (isset($params['status']) && count($params['status']) > 0) {
             $or = $qb->expr()->orX();
-            
+
             if (in_array(AdvanceTicketFindForm::STATUS_SALE, $params['status'])) {
                 $or->add($qb->expr()->andX(
                     $qb->expr()->eq('at.isSalesEnd', 'false'),
@@ -52,14 +52,14 @@ class AdvanceTicketRepository extends EntityRepository
                     )
                 ));
             }
-            
+
             if (in_array(AdvanceTicketFindForm::STATUS_PRE_SALE, $params['status'])) {
                 $or->add($qb->expr()->andX(
                     $qb->expr()->eq('at.isSalesEnd', 'false'),
                     $qb->expr()->gt('at.releaseDt', 'CURRENT_TIMESTAMP()')
                 ));
             }
-            
+
             if (in_array(AdvanceTicketFindForm::STATUS_SALE_END, $params['status'])) {
                 $or->add($qb->expr()->orX(
                     $qb->expr()->eq('at.isSalesEnd', 'true'),
@@ -69,21 +69,21 @@ class AdvanceTicketRepository extends EntityRepository
                     )
                 ));
             }
-            
+
             $qb->andWhere($or);
         }
-        
+
         if (isset($params['release_dt']) && ! empty($params['release_dt'])) {
             $qb
                 ->andWhere('at.releaseDt = :release_dt')
                 ->setParameter('release_dt', $params['release_dt']);
         }
-        
+
         $query = $qb->getQuery();
-        
+
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
-    
+
     /**
      * find one by id
      *
@@ -97,7 +97,7 @@ class AdvanceTicketRepository extends EntityRepository
             ->where('at.id = :id')
             ->andWhere('at.isDeleted = false')
             ->setParameter('id', $id);
-        
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 }

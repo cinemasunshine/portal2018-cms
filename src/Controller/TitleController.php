@@ -323,7 +323,7 @@ class TitleController extends BaseController
      * do update
      *
      * @param Entity\Title $title
-     * @param array $data
+     * @param array        $data
      * @return void
      */
     protected function doUpdate(Entity\Title $title, array $data)

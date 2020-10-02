@@ -27,10 +27,10 @@ class TheaterRepository extends EntityRepository
         $qb
             ->where('t.isDeleted = false')
             ->orderBy('t.displayOrder', 'ASC');
-        
+
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * find by ids
      *
@@ -45,10 +45,10 @@ class TheaterRepository extends EntityRepository
             ->andWhere('t.id IN (:ids)')
             ->orderBy('t.displayOrder', 'ASC')
             ->setParameter('ids', $ids);
-        
+
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * find one by id
      *
@@ -62,7 +62,7 @@ class TheaterRepository extends EntityRepository
             ->where('t.id = :id')
             ->andWhere('t.isDeleted = false')
             ->setParameter('id', $id);
-            
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 }

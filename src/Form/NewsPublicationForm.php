@@ -32,7 +32,7 @@ class NewsPublicationForm extends BaseForm
     /**
      * construct
      *
-     * @param string $target
+     * @param string        $target
      * @param EntityManager $em
      */
     public function __construct(string $target, EntityManager $em)
@@ -82,7 +82,6 @@ class NewsPublicationForm extends BaseForm
                 ],
             ],
         ]);
-
 
         $inputFilter = new InputFilter();
 

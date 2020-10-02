@@ -36,7 +36,6 @@ class NewsController extends BaseController
                 ->getRepository(Entity\News::class)
                 ->findForListApi($headline);
 
-
             foreach ($newsList as $news) {
                 /** @var Entity\News $news */
 

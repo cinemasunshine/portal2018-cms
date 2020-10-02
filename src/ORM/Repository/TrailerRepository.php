@@ -31,36 +31,36 @@ class TrailerRepository extends EntityRepository
         $qb
             ->where('t.isDeleted = false')
             ->orderBy('t.createdAt', 'DESC');
-        
+
         if (isset($params['name'])) {
             $qb
                 ->andWhere('t.name LIKE :name')
                 ->setParameter('name', '%' . $params['name'] . '%');
         }
-        
+
         if (isset($params['page']) && count($params['page']) > 0) {
             $qb
                 ->join('t.pageTrailers', 'pt')
                 ->andWhere($qb->expr()->in('pt.page', $params['page']));
         }
-        
+
         if (isset($params['theater']) && count($params['theater']) > 0) {
             $qb
                 ->join('t.theaterTrailers', 'tt')
                 ->andWhere($qb->expr()->in('tt.theater', $params['theater']));
         }
-        
+
         if (isset($params['special_site']) && count($params['special_site']) > 0) {
             $qb
                 ->join('t.specialSiteTrailers', 'st')
                 ->andWhere($qb->expr()->in('st.specialSite', $params['special_site']));
         }
-        
+
         $query = $qb->getQuery();
-        
+
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
-    
+
     /**
      * find one by id
      *
@@ -74,7 +74,7 @@ class TrailerRepository extends EntityRepository
             ->where('t.id = :id')
             ->andWhere('t.isDeleted = false')
             ->setParameter('id', $id);
-        
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 }

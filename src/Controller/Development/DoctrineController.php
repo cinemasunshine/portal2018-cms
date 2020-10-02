@@ -95,7 +95,7 @@ class DoctrineController extends BaseController
 
     /**
      * @param CacheProvider $cacheDriver
-     * @param boolean $flush
+     * @param boolean       $flush
      * @return string
      */
     protected function doClear(CacheProvider $cacheDriver, bool $flush = false): string

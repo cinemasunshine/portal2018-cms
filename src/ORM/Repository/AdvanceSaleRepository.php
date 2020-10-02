@@ -30,7 +30,7 @@ class AdvanceSaleRepository extends EntityRepository
             ->where('sale.id = :id')
             ->andWhere('sale.isDeleted = false')
             ->setParameter('id', $id);
-        
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 }

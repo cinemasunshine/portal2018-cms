@@ -17,7 +17,7 @@ class RedirectException extends \Exception
 {
     protected $url;
     protected $status;
-    
+
     /**
      * Undocumented function
      *
@@ -28,10 +28,10 @@ class RedirectException extends \Exception
     {
         $this->url    = $url;
         $this->status = $status;
-        
+
         parent::__construct('redirect');
     }
-    
+
     /**
      * get url
      *
@@ -41,7 +41,7 @@ class RedirectException extends \Exception
     {
         return $this->url;
     }
-    
+
     /**
      * get status
      *

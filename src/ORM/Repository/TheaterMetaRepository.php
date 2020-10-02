@@ -28,10 +28,10 @@ class TheaterMetaRepository extends EntityRepository
             ->join('tm.theater', 't')
             ->where('t.isDeleted = false')
             ->orderBy('t.displayOrder', 'ASC');
-        
+
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * find one by theater id
      *
@@ -46,7 +46,7 @@ class TheaterMetaRepository extends EntityRepository
             ->where('t.id = :id')
             ->andWhere('t.isDeleted = false')
             ->setParameter('id', $theaterId);
-        
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 }

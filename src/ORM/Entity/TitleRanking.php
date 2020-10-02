@@ -55,7 +55,7 @@ class TitleRanking extends BaseTitleRanking
     /**
      * set rank
      *
-     * @param int   $rank
+     * @param int        $rank
      * @param Title|null $title
      * @return void
      * @throws \InvalidArgumentException

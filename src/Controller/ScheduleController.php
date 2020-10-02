@@ -244,7 +244,6 @@ class ScheduleController extends BaseController
 
         $cleanData = $form->getData();
 
-
         $title =  $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
         $schedule->setTitle($title);
 
@@ -268,7 +267,6 @@ class ScheduleController extends BaseController
             $showingTheater->setSchedule($schedule);
             $showingTheater->setTheater($theater);
         }
-
 
         $schedule->getShowingFormats()->clear();
 

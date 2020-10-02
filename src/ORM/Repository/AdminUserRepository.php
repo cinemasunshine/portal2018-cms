@@ -31,12 +31,12 @@ class AdminUserRepository extends EntityRepository
         $qb
             ->where('au.isDeleted = false')
             ->orderBy('au.id', 'ASC');
-        
+
         $query = $qb->getQuery();
-        
+
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
-    
+
     /**
      * find one by id
      *
@@ -50,10 +50,10 @@ class AdminUserRepository extends EntityRepository
             ->where('au.id = :id')
             ->andWhere('au.isDeleted = false')
             ->setParameter('id', $id);
-        
+
         return $qb->getQuery()->getOneOrNullResult();
     }
-    
+
     /**
      * find one by name
      *
@@ -67,7 +67,7 @@ class AdminUserRepository extends EntityRepository
             ->where('au.name = :name')
             ->andWhere('au.isDeleted = false')
             ->setParameter('name', $name);
-        
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 }

@@ -79,7 +79,6 @@ class CampaignForm extends BaseForm
             'type' => 'File',
         ]);
 
-
         $inputFilter = new InputFilter();
         $inputFilter->add([
             'name' => 'name',

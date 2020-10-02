@@ -31,18 +31,18 @@ class MainBannerRepository extends EntityRepository
         $qb
             ->where('mb.isDeleted = false')
             ->orderBy('mb.createdAt', 'DESC');
-        
+
         if (isset($params['name']) && ! empty($params['name'])) {
             $qb
                 ->andWhere('mb.name LIKE :name')
                 ->setParameter('name', '%' . $params['name'] . '%');
         }
-        
+
         $query = $qb->getQuery();
-        
+
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
-    
+
     /**
      * find for list API
      *
@@ -54,17 +54,17 @@ class MainBannerRepository extends EntityRepository
         if (empty($name)) {
             throw new \InvalidArgumentException('invalid "name".');
         }
-        
+
         $qb = $this->createQueryBuilder('mb');
         $qb
             ->where('mb.isDeleted = false')
             ->andWhere('mb.name LIKE :name')
             ->orderBy('mb.createdAt', 'DESC')
             ->setParameter('name', '%' . $name . '%');
-        
+
         return $qb->getQuery()->getResult();
     }
-    
+
     /**
      * find one by id
      *
@@ -78,7 +78,7 @@ class MainBannerRepository extends EntityRepository
             ->where('mb.id = :id')
             ->andWhere('mb.isDeleted = false')
             ->setParameter('id', $id);
-        
+
         return $qb->getQuery()->getOneOrNullResult();
     }
 }

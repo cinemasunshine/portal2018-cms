@@ -20,7 +20,7 @@ class AuthResponder extends BaseResponder
     /**
      * login
      *
-     * @param Response $response
+     * @param Response   $response
      * @param Collection $data
      * @return ResponseInterface
      */
