@@ -99,10 +99,9 @@ $getDoctrineSetting = function () {
         ],
     ];
 
-    if (getenv('MYSQLCONNSTR_SSL') === 'true') {
-        // https://docs.microsoft.com/ja-jp/azure/mysql/howto-configure-ssl
-        $cafile = APP_ROOT . '/cert/BaltimoreCyberTrustRoot.crt.pem';
+    $cafile = getenv('MYSQLCONNSTR_SSL_CA');
 
+    if ($cafile) {
         $settings['connection']['driverOptions'][PDO::MYSQL_ATTR_SSL_CA] = $cafile;
     }
 
