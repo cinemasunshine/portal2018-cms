@@ -72,6 +72,7 @@ Azure Web Appsのアプリケーション設定で設定する場合はプレフ
 |MYSQLCONNSTR_USER|*String*|○|MySQLのユーザ名|
 |MYSQLCONNSTR_PASSWORD|*String*|○|MySQLのユーザパスワード|
 |MYSQLCONNSTR_SSL|*Boolean*|○|MySQLにSSL接続するか|
+|MYSQLCONNSTR_SSL_CA|*String*|-|CA証明書のファイルパス|
 |CUSTOMCONNSTR_STORAGE_SECURE|*Boolean*|-|HTTPS接続するか。デフォルト: true|
 |CUSTOMCONNSTR_STORAGE_NAME|*String*|○|Azure Storage名|
 |CUSTOMCONNSTR_STORAGE_KEY|*String*|○|Azure Sotrageのアクセスキー|
