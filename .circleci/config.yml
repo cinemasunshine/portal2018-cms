@@ -2,6 +2,20 @@
 
 version: 2.1
 
+# YAML記法を使った参照（CircleCIの設定ではない）
+# https://circleci.com/docs/ja/2.0/writing-yaml/#%E3%82%A2%E3%83%B3%E3%82%AB%E3%83%BC%E3%81%A8%E3%82%A8%E3%82%A4%E3%83%AA%E3%82%A2%E3%82%B9
+references:
+
+  # https://circleci.com/docs/ja/2.0/private-images/
+  # https://m-p.backlog.jp/alias/file/7162903
+  docker_hub_authentication: &docker_hub_authentication
+    auth:
+      username: $DOCKERHUB_ID
+      password: $DOCKERHUB_PASSWORD
+
+  job_setup: &job_setup
+    context: docker-hub-creds
+
 commands:
   file_exists:
     description: "Checks whether a file exists"
@@ -125,10 +139,12 @@ executors:
   build:
     docker:
       - image: circleci/php:7.3
+        <<: *docker_hub_authentication
 
   deployment:
     docker:
       - image: cimg/base:stable
+        <<: *docker_hub_authentication
 
 jobs:
   build_development:
@@ -338,21 +354,25 @@ workflows:
   deploy_development:
     jobs:
       - build_development:
+          <<: *job_setup
           filters:
             branches:
               only: develop
 
       - test:
+          <<: *job_setup
           requires:
             - build_development
 
       - deploy_to_dev:
+          <<: *job_setup
           requires:
             - build_development
 
   deploy_development_feature:
     jobs:
       - build_development:
+          <<: *job_setup
           filters:
             branches:
               ignore:
@@ -360,6 +380,7 @@ workflows:
                 - master
 
       - test:
+          <<: *job_setup
           requires:
             - build_development
 
@@ -369,21 +390,25 @@ workflows:
             - build_development
 
       - deploy_to_test:
+          <<: *job_setup
           requires:
             - deploy_approval
 
   deploy_production:
     jobs:
       - build_development:
+          <<: *job_setup
           filters:
             branches:
               only: master
 
       - test:
+          <<: *job_setup
           requires:
             - build_development
 
       - build_production:
+          <<: *job_setup
           requires:
             - test
 
@@ -393,5 +418,6 @@ workflows:
             - build_production
 
       - deploy_to_prod_release:
+          <<: *job_setup
           requires:
             - deploy_approval
