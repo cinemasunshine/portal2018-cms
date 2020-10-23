@@ -48,7 +48,8 @@
         "phpstan/phpstan-phpunit": "^0.12.16",
         "phpstan/phpstan-mockery": "^0.12.7",
         "php-parallel-lint/php-parallel-lint": "^1.2",
-        "mp-okui/php-coding-standard": "v0.1.0-alpha"
+        "mp-okui/php-coding-standard": "v0.1.0-alpha",
+        "slevomat/coding-standard": "^6.4"
     },
     "scripts": {
         "phplint": "vendor/bin/parallel-lint --no-progress --exclude vendor --exclude cache .",
