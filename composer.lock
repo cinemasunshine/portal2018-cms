@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ecb87e539a110c5da3bc7cddc7db3e76",
+    "content-hash": "65c3a3a9f7d173166fc62c629debb052",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -4815,16 +4815,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.47",
+            "version": "0.12.50",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "74325a6ae15378db0df71b969ded245378d2e058"
+                "reference": "b8248f9c81265af75d6d969ca3252aaf3e998f3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/74325a6ae15378db0df71b969ded245378d2e058",
-                "reference": "74325a6ae15378db0df71b969ded245378d2e058",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b8248f9c81265af75d6d969ca3252aaf3e998f3a",
+                "reference": "b8248f9c81265af75d6d969ca3252aaf3e998f3a",
                 "shasum": ""
             },
             "require": {
@@ -4867,7 +4867,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-09-29T13:35:39+00:00"
+            "time": "2020-10-16T12:22:23+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
