@@ -165,7 +165,7 @@ class NewsController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('news_edit', [ 'id' => $news->getId() ]),
+            $this->router->pathFor('news_edit', ['id' => $news->getId()]),
             303
         );
     }
@@ -330,7 +330,7 @@ class NewsController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('news_edit', [ 'id' => $news->getId() ]),
+            $this->router->pathFor('news_edit', ['id' => $news->getId()]),
             303
         );
     }

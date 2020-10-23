@@ -75,7 +75,7 @@ final class DbalLoggerTest extends TestCase
         $dbalLoggerMock
             ->shouldReceive('log')
             ->once()
-            ->with($sql, [ 'params' => $params, 'types' => $types ]);
+            ->with($sql, ['params' => $params, 'types' => $types]);
 
         $dbalLoggerMock->startQuery($sql, $params, $types);
     }

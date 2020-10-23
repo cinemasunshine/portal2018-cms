@@ -104,7 +104,7 @@ class OyakoCinemaController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('oyako_cinema_edit', [ 'id' => $oyakoCinemaTitle->getId() ]),
+            $this->router->pathFor('oyako_cinema_edit', ['id' => $oyakoCinemaTitle->getId()]),
             303
         );
     }
@@ -248,7 +248,7 @@ class OyakoCinemaController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('oyako_cinema_edit', [ 'id' => $oyakoCinemaTitle->getId() ]),
+            $this->router->pathFor('oyako_cinema_edit', ['id' => $oyakoCinemaTitle->getId()]),
             303
         );
     }
@@ -428,7 +428,7 @@ class OyakoCinemaController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('oyako_cinema_setting_edit', [ 'id' => $theater->getId() ]),
+            $this->router->pathFor('oyako_cinema_setting_edit', ['id' => $theater->getId()]),
             303
         );
     }

@@ -32,7 +32,7 @@ class OyakoCinemaTitle extends BaseOyakoCinemaTitle
     public function getOyakoCinemaSchedules(): Collection
     {
         $criteria = Criteria::create()
-            ->orderBy([ 'date' => Criteria::ASC ]);
+            ->orderBy(['date' => Criteria::ASC]);
 
         return $this->oyakoCinemaSchedules->matching($criteria);
     }

@@ -154,7 +154,7 @@ class ScheduleController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('schedule_edit', [ 'id' => $schedule->getId() ]),
+            $this->router->pathFor('schedule_edit', ['id' => $schedule->getId()]),
             303
         );
     }
@@ -293,7 +293,7 @@ class ScheduleController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('schedule_edit', [ 'id' => $schedule->getId() ]),
+            $this->router->pathFor('schedule_edit', ['id' => $schedule->getId()]),
             303
         );
     }

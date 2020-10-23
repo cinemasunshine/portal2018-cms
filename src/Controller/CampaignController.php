@@ -160,7 +160,7 @@ class CampaignController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('campaign_edit', [ 'id' => $campaign->getId() ]),
+            $this->router->pathFor('campaign_edit', ['id' => $campaign->getId()]),
             303
         );
     }
@@ -302,7 +302,7 @@ class CampaignController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('campaign_edit', [ 'id' => $campaign->getId() ]),
+            $this->router->pathFor('campaign_edit', ['id' => $campaign->getId()]),
             303
         );
     }

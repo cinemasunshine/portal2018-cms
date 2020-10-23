@@ -184,7 +184,7 @@ class AdvanceTicketController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('advance_ticket_edit', [ 'id' => $advanceSale->getId() ]),
+            $this->router->pathFor('advance_ticket_edit', ['id' => $advanceSale->getId()]),
             303
         );
     }
@@ -408,7 +408,7 @@ class AdvanceTicketController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('advance_ticket_edit', [ 'id' => $advanceSale->getId() ]),
+            $this->router->pathFor('advance_ticket_edit', ['id' => $advanceSale->getId()]),
             303
         );
     }
