@@ -132,7 +132,7 @@ class TheaterMetaController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('opening_hour_edit', [ 'id' => $theater->getId() ]),
+            $this->router->pathFor('opening_hour_edit', ['id' => $theater->getId()]),
             303
         );
     }

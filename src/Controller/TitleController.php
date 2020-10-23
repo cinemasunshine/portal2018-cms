@@ -119,7 +119,7 @@ class TitleController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
+            $this->router->pathFor('title_edit', ['id' => $title->getId()]),
             303
         );
     }
@@ -314,7 +314,7 @@ class TitleController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('title_edit', [ 'id' => $title->getId() ]),
+            $this->router->pathFor('title_edit', ['id' => $title->getId()]),
             303
         );
     }

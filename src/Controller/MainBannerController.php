@@ -152,7 +152,7 @@ class MainBannerController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('main_banner_edit', [ 'id' => $mainBanner->getId() ]),
+            $this->router->pathFor('main_banner_edit', ['id' => $mainBanner->getId()]),
             303
         );
     }
@@ -278,7 +278,7 @@ class MainBannerController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('main_banner_edit', [ 'id' => $mainBanner->getId() ]),
+            $this->router->pathFor('main_banner_edit', ['id' => $mainBanner->getId()]),
             303
         );
     }

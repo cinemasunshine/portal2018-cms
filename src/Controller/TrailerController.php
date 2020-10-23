@@ -207,7 +207,7 @@ class TrailerController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('trailer_edit', [ 'id' => $trailer->getId() ]),
+            $this->router->pathFor('trailer_edit', ['id' => $trailer->getId()]),
             303
         );
     }
@@ -409,7 +409,7 @@ class TrailerController extends BaseController
         ]);
 
         $this->redirect(
-            $this->router->pathFor('trailer_edit', [ 'id' => $trailer->getId() ]),
+            $this->router->pathFor('trailer_edit', ['id' => $trailer->getId()]),
             303
         );
     }
