@@ -18,11 +18,11 @@ references:
 
 commands:
   fix_composer_version:
-    description: "V2安定まで取り急ぎV1固定 SASAKI-607"
+    description: "Composerのバージョンを固定"
     steps:
       - run:
-          name: Using Composer version 1
-          command: sudo composer self-update --1
+          name: Using Composer version 2
+          command: sudo composer self-update --2
 
   file_exists:
     description: "Checks whether a file exists"
