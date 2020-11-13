@@ -2,6 +2,7 @@
     "name": "cinemasunshine/portal2018-admin",
     "description": "Cinemasunshine Portal2018 Admin",
     "type": "project",
+    "license": "proprietary",
     "minimum-stability": "stable",
     "repositories": {
         "cinemasunshine/portal2018-orm": {
