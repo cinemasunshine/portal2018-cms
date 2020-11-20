@@ -39,7 +39,7 @@
         "symfony/console": "^4.4",
         "symfony/filesystem": "^4.4",
         "blue32a/monolog-azure-blob": "^0.2",
-        "cinemasunshine/portal2018-orm": "^1.1"
+        "cinemasunshine/portal2018-orm": "^1.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5",
