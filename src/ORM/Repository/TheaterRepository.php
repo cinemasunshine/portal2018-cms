@@ -9,58 +9,54 @@
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Theater;
-use Doctrine\ORM\EntityRepository;
+use Cinemasunshine\ORM\Repositories\TheaterRepository as BaseRepository;
 
 /**
- * Theater repository class
+ * @extends BaseRepository<Theater>
  */
-class TheaterRepository extends EntityRepository
+class TheaterRepository extends BaseRepository
 {
     /**
-     * find
-     *
      * @return Theater[]
      */
     public function findActive()
     {
-        $qb = $this->createQueryBuilder('t');
-        $qb
-            ->where('t.isDeleted = false')
-            ->orderBy('t.displayOrder', 'ASC');
+        $alias = 't';
+        $qb    = $this->createQueryBuilder($alias);
+
+        $qb->orderBy($alias . '.displayOrder', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
 
     /**
-     * find by ids
-     *
      * @param array $ids
      * @return Theater[]
      */
     public function findByIds(array $ids)
     {
-        $qb = $this->createQueryBuilder('t');
+        $alias = 't';
+        $qb    = $this->createQueryBuilder($alias);
+
         $qb
-            ->where('t.isDeleted = false')
-            ->andWhere('t.id IN (:ids)')
-            ->orderBy('t.displayOrder', 'ASC')
-            ->setParameter('ids', $ids);
+            ->andWhere($alias . '.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->orderBy($alias . '.displayOrder', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
 
     /**
-     * find one by id
-     *
      * @param int $id
      * @return Theater|null
      */
     public function findOneById(int $id)
     {
-        $qb = $this->createQueryBuilder('t');
+        $alias = 't';
+        $qb    = $this->createQueryBuilder($alias);
+
         $qb
-            ->where('t.id = :id')
-            ->andWhere('t.isDeleted = false')
+            ->andWhere($alias . '.id = :id')
             ->setParameter('id', $id);
 
         return $qb->getQuery()->getOneOrNullResult();

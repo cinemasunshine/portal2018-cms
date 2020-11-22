@@ -14,7 +14,7 @@ use App\Pagination\DoctrinePaginator;
 use Cinemasunshine\ORM\Repositories\ScheduleRepository as BaseRepository;
 
 /**
- * Schedule repository class
+ * @extends BaseRepository<Schedule>
  */
 class ScheduleRepository extends BaseRepository
 {
