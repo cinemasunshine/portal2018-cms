@@ -50,12 +50,18 @@ final class TheaterRepositoryTest extends TestCase
         $queryBuilderMock = $this->createQueryBuilderMock();
 
         $targetMock = $this->createTargetMock();
-        $targetMock->makePartial();
+        $targetMock
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
         $targetMock
             ->shouldReceive('createQueryBuilder')
             ->once()
             ->with($alias)
             ->andReturn($queryBuilderMock);
+        $targetMock
+            ->shouldReceive('addActiveQuery')
+            ->once()
+            ->with($queryBuilderMock, $alias);
 
         $queryBuilderMock
             ->shouldReceive('orderBy')
@@ -88,12 +94,18 @@ final class TheaterRepositoryTest extends TestCase
         $queryBuilderMock = $this->createQueryBuilderMock();
 
         $targetMock = $this->createTargetMock();
-        $targetMock->makePartial();
+        $targetMock
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
         $targetMock
             ->shouldReceive('createQueryBuilder')
             ->once()
             ->with($alias)
             ->andReturn($queryBuilderMock);
+        $targetMock
+            ->shouldReceive('addActiveQuery')
+            ->once()
+            ->with($queryBuilderMock, $alias);
 
         $queryBuilderMock
             ->shouldReceive('andWhere')
@@ -138,12 +150,19 @@ final class TheaterRepositoryTest extends TestCase
         $queryBuilderMock = $this->createQueryBuilderMock();
 
         $targetMock = $this->createTargetMock();
-        $targetMock->makePartial();
+        $targetMock
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
         $targetMock
             ->shouldReceive('createQueryBuilder')
             ->once()
             ->with($alias)
             ->andReturn($queryBuilderMock);
+        $targetMock
+            ->shouldReceive('addActiveQuery')
+            ->once()
+            ->with($queryBuilderMock, $alias);
 
         $queryBuilderMock
             ->shouldReceive('andWhere')
