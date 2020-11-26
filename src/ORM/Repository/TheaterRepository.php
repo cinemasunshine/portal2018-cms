@@ -24,6 +24,8 @@ class TheaterRepository extends BaseRepository
         $alias = 't';
         $qb    = $this->createQueryBuilder($alias);
 
+        $this->addActiveQuery($qb, $alias);
+
         $qb->orderBy($alias . '.displayOrder', 'ASC');
 
         return $qb->getQuery()->getResult();
@@ -37,6 +39,8 @@ class TheaterRepository extends BaseRepository
     {
         $alias = 't';
         $qb    = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
 
         $qb
             ->andWhere($alias . '.id IN (:ids)')
@@ -54,6 +58,8 @@ class TheaterRepository extends BaseRepository
     {
         $alias = 't';
         $qb    = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
 
         $qb
             ->andWhere($alias . '.id = :id')
