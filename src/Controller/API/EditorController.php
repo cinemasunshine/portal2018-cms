@@ -11,6 +11,8 @@ namespace App\Controller\API;
 use App\Controller\Traits\AzureBlobStorage;
 use App\Form;
 use App\Form\API as ApiForm;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * Editor API controller
@@ -29,12 +31,12 @@ class EditorController extends BaseController
     /**
      * upload action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeUpload($request, $response, $args)
+    public function executeUpload(Request $request, Response $response, array $args)
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -50,8 +52,7 @@ class EditorController extends BaseController
                 $errors[] = ['title' => $message];
             }
 
-            $this->data->set('errors', $errors);
-            return;
+            return $response->withJson(['errors' => $errors]);
         }
 
         $cleanData = $form->getData();
@@ -79,6 +80,6 @@ class EditorController extends BaseController
             'url'  => $url,
         ];
 
-        $this->data->set('data', $data);
+        return $response->withJson(['data' => $data]);
     }
 }

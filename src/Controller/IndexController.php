@@ -8,6 +8,9 @@
 
 namespace App\Controller;
 
+use Slim\Http\Request;
+use Slim\Http\Response;
+
 /**
  * Index controller
  */
@@ -16,12 +19,13 @@ class IndexController extends BaseController
     /**
      * index action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeIndex($request, $response, $args)
+    public function executeIndex(Request $request, Response $response, array $args)
     {
+        return $this->render($response, 'index/index.html.twig');
     }
 }

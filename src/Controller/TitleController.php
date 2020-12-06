@@ -14,6 +14,8 @@ use App\Form;
 use App\ORM\Entity;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use Slim\Exception\NotFoundException;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * Title controller
@@ -22,10 +24,7 @@ class TitleController extends BaseController
 {
     use ImageResize;
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function preExecute($request, $response): void
+    protected function preExecute(Request $request, Response $response): void
     {
         $user = $this->auth->getUser();
 
@@ -39,60 +38,75 @@ class TitleController extends BaseController
     /**
      * list action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeList($request, $response, $args)
+    public function executeList(Request $request, Response $response, array $args)
     {
         $page = (int) $request->getParam('p', 1);
-        $this->data->set('page', $page);
 
         $form = new Form\TitleFindForm();
         $form->setData($request->getParams());
+
         $cleanValues = [];
+        $errors      = [];
 
         if ($form->isValid()) {
             $cleanValues = $form->getData();
             $values      = $cleanValues;
         } else {
             $values = $request->getParams();
-            $this->data->set('errors', $form->getMessages());
+            $errors = $form->getMessages();
         }
-
-        $this->data->set('values', $values);
-        $this->data->set('params', $cleanValues);
 
         /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\Title::class)->findForList($cleanValues, $page);
 
-        $this->data->set('pagenater', $pagenater);
+        return $this->render($response, 'title/list.html.twig', [
+            'page' => $page,
+            'values' => $values,
+            'errors' => $errors,
+            'params' => $cleanValues,
+            'pagenater' => $pagenater,
+        ]);
     }
 
     /**
      * new action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeNew($request, $response, $args)
+    public function executeNew(Request $request, Response $response, array $args)
     {
         $form = new Form\TitleForm();
-        $this->data->set('form', $form);
+
+        return $this->renderNew($response, ['form' => $form]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderNew(Response $response, array $data = [])
+    {
+        return $this->render($response, 'title/new.html.twig', $data);
     }
 
     /**
      * create action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeCreate($request, $response, $args)
+    public function executeCreate(Request $request, Response $response, array $args)
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -101,12 +115,12 @@ class TitleController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'new';
+            return $this->renderNew($response, [
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -222,12 +236,12 @@ class TitleController extends BaseController
     /**
      * edit action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeEdit($request, $response, $args)
+    public function executeEdit(Request $request, Response $response, array $args)
     {
         $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
 
@@ -237,10 +251,7 @@ class TitleController extends BaseController
 
         /**@var Entity\Title $title */
 
-        $this->data->set('title', $title);
-
         $form = new Form\TitleForm();
-        $this->data->set('form', $form);
 
         $values = [
             'id'            => $title->getId(),
@@ -267,18 +278,32 @@ class TitleController extends BaseController
             $values['not_exist_publishing_expected_date'] = '1';
         }
 
-        $this->data->set('values', $values);
+        return $this->renderEdit($response, [
+            'title' => $title,
+            'form' => $form,
+            'values' => $values,
+        ]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderEdit(Response $response, array $data = [])
+    {
+        return $this->render($response, 'title/edit.html.twig', $data);
     }
 
     /**
      * update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeUpdate($request, $response, $args)
+    public function executeUpdate(Request $request, Response $response, array $args)
     {
         $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
 
@@ -295,13 +320,13 @@ class TitleController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('title', $title);
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'edit';
+            return $this->renderEdit($response, [
+                'title' => $title,
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -409,12 +434,12 @@ class TitleController extends BaseController
     /**
      * delete action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return void
      */
-    public function executeDelete($request, $response, $args)
+    public function executeDelete(Request $request, Response $response, array $args)
     {
         $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
 

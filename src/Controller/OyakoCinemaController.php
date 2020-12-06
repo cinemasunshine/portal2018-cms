@@ -13,16 +13,15 @@ use App\Form\OyakoCinemaForm as Form;
 use App\Form\OyakoCinemaSettingForm as SettingForm;
 use App\ORM\Entity;
 use Slim\Exception\NotFoundException;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * OyakoCinema controller
  */
 class OyakoCinemaController extends BaseController
 {
-    /**
-     * {@inheritDoc}
-     */
-    protected function preExecute($request, $response): void
+    protected function preExecute(Request $request, Response $response): void
     {
         $user = $this->auth->getUser();
 
@@ -36,56 +35,70 @@ class OyakoCinemaController extends BaseController
     /**
      * list action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeList($request, $response, $args)
+    public function executeList(Request $request, Response $response, array $args)
     {
         $page = (int) $request->getParam('p', 1);
-        $this->data->set('page', $page);
 
         /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
             ->findForList($page);
 
-        $this->data->set('pagenater', $pagenater);
+        return $this->render($response, 'oyako_cinema/list.html.twig', [
+            'page' => $page,
+            'pagenater' => $pagenater,
+        ]);
     }
 
     /**
      * new action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeNew($request, $response, $args)
+    public function executeNew(Request $request, Response $response, array $args)
     {
-        $this->data->set('form', new Form(Form::TYPE_NEW, $this->em));
+        $form =  new Form(Form::TYPE_NEW, $this->em);
+
+        return $this->renderNew($response, ['form' => $form]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderNew(Response $response, array $data = [])
+    {
+        return $this->render($response, 'oyako_cinema/new.html.twig', $data);
     }
 
     /**
      * create action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeCreate($request, $response, $args)
+    public function executeCreate(Request $request, Response $response, $args)
     {
         $form = new Form(Form::TYPE_NEW, $this->em);
         $form->setData($request->getParams());
 
         if (! $form->isValid()) {
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'new';
+            return $this->renderNew($response, [
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         /** @var array $cleanData */
@@ -154,12 +167,12 @@ class OyakoCinemaController extends BaseController
     /**
      * edit action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeEdit($request, $response, $args)
+    public function executeEdit(Request $request, Response $response, array $args)
     {
         $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
             ->findOneById($args['id']);
@@ -169,8 +182,6 @@ class OyakoCinemaController extends BaseController
         }
 
         /**@var Entity\OyakoCinemaTitle $oyakoCinemaTitle */
-
-        $this->data->set('oyakoCinemaTitle', $oyakoCinemaTitle);
 
         $values = [
             'id' => $oyakoCinemaTitle->getId(),
@@ -195,20 +206,34 @@ class OyakoCinemaController extends BaseController
             $values['schedules'][] = $scheduleValue;
         }
 
-        $this->data->set('values', $values);
+        $form = new Form(Form::TYPE_EDIT, $this->em);
 
-        $this->data->set('form', new Form(Form::TYPE_EDIT, $this->em));
+        return $this->renderEdit($response, [
+            'oyakoCinemaTitle' => $oyakoCinemaTitle,
+            'form' => $form,
+            'values' => $values,
+        ]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderEdit(Response $response, array $data = [])
+    {
+        return $this->render($response, 'oyako_cinema/edit.html.twig', $data);
     }
 
     /**
      * update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeUpdate($request, $response, $args)
+    public function executeUpdate(Request $request, Response $response, array $args)
     {
         $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
             ->findOneById($args['id']);
@@ -223,13 +248,13 @@ class OyakoCinemaController extends BaseController
         $form->setData($request->getParams());
 
         if (! $form->isValid()) {
-            $this->data->set('oyakoCinemaTitle', $oyakoCinemaTitle);
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'edit';
+            return $this->renderEdit($response, [
+                'oyakoCinemaTitle' => $oyakoCinemaTitle,
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         /** @var array $cleanData */
@@ -296,12 +321,12 @@ class OyakoCinemaController extends BaseController
     /**
      * delete action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return void
      */
-    public function executeDelete($request, $response, $args)
+    public function executeDelete(Request $request, Response $response, array $args)
     {
         $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
             ->findOneById($args['id']);
@@ -344,27 +369,27 @@ class OyakoCinemaController extends BaseController
     /**
      * setting action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeSetting($request, $response, $args)
+    public function executeSetting(Request $request, Response $response, array $args)
     {
         $theaterMetas = $this->em->getRepository(Entity\TheaterMeta::class)->findActive();
 
-        $this->data->set('theaterMetas', $theaterMetas);
+        return $this->render($response, 'oyako_cinema/setting/index.html.twig', ['theaterMetas' => $theaterMetas]);
     }
 
     /**
      * setting edit action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeSettingEdit($request, $response, $args)
+    public function executeSettingEdit(Request $request, Response $response, array $args)
     {
         $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
 
@@ -374,24 +399,35 @@ class OyakoCinemaController extends BaseController
 
         /**@var Entity\Theater $theater */
 
-        $this->data->set('theater', $theater);
-
         $values = [
             'oyako_cinema_url' => $theater->getMeta()->getOyakoCinemaUrl(),
         ];
 
-        $this->data->set('values', $values);
+        return $this->renderSettingEdit($response, [
+            'theater' => $theater,
+            'values' => $values,
+        ]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderSettingEdit(Response $response, array $data = [])
+    {
+        return $this->render($response, 'oyako_cinema/setting/edit.html.twig', $data);
     }
 
     /**
      * setting update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeSettingUpdate($request, $response, $args)
+    public function executeSettingUpdate(Request $request, Response $response, $args)
     {
         $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
 
@@ -405,12 +441,12 @@ class OyakoCinemaController extends BaseController
         $form->setData($request->getParams());
 
         if (! $form->isValid()) {
-            $this->data->set('theater', $theater);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'settingEdit';
+            return $this->renderSettingEdit($response, [
+                'theater' => $theater,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();

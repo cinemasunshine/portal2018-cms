@@ -8,10 +8,8 @@
 
 namespace App\Controller;
 
-use App\Responder\AbstractResponder;
-use App\Responder\ResponderFactory;
-use Psr\Container\ContainerInterface;
-use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * Base controller
@@ -21,37 +19,35 @@ abstract class BaseController extends AbstractController
     /**
      * pre execute
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
+     * @param Request  $request
+     * @param Response $response
      * @return void
      */
-    protected function preExecute($request, $response): void
+    protected function preExecute(Request $request, Response $response): void
     {
     }
 
     /**
      * post execute
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
+     * @param Request  $request
+     * @param Response $response
      * @return void
      */
-    protected function postExecute($request, $response): void
+    protected function postExecute(Request $request, Response $response): void
     {
-        $this->data->set('user', $this->auth->getUser());
-        $this->data->set('alerts', $this->flash->getMessage('alerts'));
+        $this->view->getEnvironment()->addGlobal('user', $this->auth->getUser());
+        $this->view->getEnvironment()->addGlobal('alerts', $this->flash->getMessage('alerts'));
     }
 
     /**
-     * get responder
-     *
-     * @return AbstractResponder
+     * @param Response $response
+     * @param string   $template
+     * @param array    $data
+     * @return Response
      */
-    protected function getResponder(): AbstractResponder
+    protected function render(Response $response, string $template, array $data = []): Response
     {
-        $path = explode('\\', static::class);
-        $name = str_replace('Controller', '', array_pop($path));
-
-        return ResponderFactory::factory($name, $this->view);
+        return $this->view->render($response, $template, $data);
     }
 }

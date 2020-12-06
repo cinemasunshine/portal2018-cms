@@ -12,16 +12,15 @@ use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
 use Slim\Exception\NotFoundException;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * Trailer controller
  */
 class TrailerController extends BaseController
 {
-    /**
-     * {@inheritDoc}
-     */
-    protected function preExecute($request, $response): void
+    protected function preExecute(Request $request, Response $response): void
     {
         $user = $this->auth->getUser();
 
@@ -35,62 +34,76 @@ class TrailerController extends BaseController
     /**
      * list action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeList($request, $response, $args)
+    public function executeList(Request $request, Response $response, array $args)
     {
         $page = (int) $request->getParam('p', 1);
-        $this->data->set('page', $page);
 
         $form = new Form\TrailerFindForm($this->em);
-        $this->data->set('form', $form);
-
         $form->setData($request->getParams());
+
         $cleanValues = [];
+        $errors      = [];
 
         if ($form->isValid()) {
             $cleanValues = $form->getData();
             $values      = $cleanValues;
         } else {
             $values = $request->getParams();
-            $this->data->set('errors', $form->getMessages());
+            $errors = $form->getMessages();
         }
-
-        $this->data->set('values', $values);
-        $this->data->set('params', $cleanValues);
 
         /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\Trailer::class)->findForList($cleanValues, $page);
 
-        $this->data->set('pagenater', $pagenater);
+        return $this->render($response, 'trailer/list.html.twig', [
+            'page' => $page,
+            'form' => $form,
+            'values' => $values,
+            'errors' => $errors,
+            'params' => $cleanValues,
+            'pagenater' => $pagenater,
+        ]);
     }
 
     /**
      * new action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeNew($request, $response, $args)
+    public function executeNew(Request $request, Response $response, $args)
     {
         $form = new Form\TrailerForm(Form\TrailerForm::TYPE_NEW, $this->em);
-        $this->data->set('form', $form);
+
+        return $this->renderNew($response, ['form' => $form]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderNew(Response $response, array $data = [])
+    {
+        return $this->render($response, 'trailer/new.html.twig', $data);
     }
 
     /**
      * create action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeCreate($request, $response, $args)
+    public function executeCreate(Request $request, Response $response, array $args)
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -99,12 +112,12 @@ class TrailerController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'new';
+            return $this->renderNew($response, [
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -215,12 +228,12 @@ class TrailerController extends BaseController
     /**
      * edit action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeEdit($request, $response, $args)
+    public function executeEdit(Request $request, Response $response, array $args)
     {
         $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
 
@@ -229,8 +242,6 @@ class TrailerController extends BaseController
         }
 
         /**@var Entity\Trailer $trailer */
-
-        $this->data->set('trailer', $trailer);
 
         $values = [
             'id'              => $trailer->getId(),
@@ -264,21 +275,34 @@ class TrailerController extends BaseController
             $values['special_site'][] = $specialSiteTrailer->getSpecialSite()->getId();
         }
 
-        $this->data->set('values', $values);
-
         $form = new Form\TrailerForm(Form\TrailerForm::TYPE_EDIT, $this->em);
-        $this->data->set('form', $form);
+
+        return $this->renderEdit($response, [
+            'trailer' => $trailer,
+            'form' => $form,
+            'values' => $values,
+        ]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderEdit(Response $response, array $data = [])
+    {
+        return $this->render($response, 'trailer/edit.html.twig', $data);
     }
 
     /**
      * update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeUpdate($request, $response, $args)
+    public function executeUpdate(Request $request, Response $response, array $args)
     {
         $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
 
@@ -295,13 +319,13 @@ class TrailerController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('trailer', $trailer);
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'edit';
+            return $this->renderEdit($response, [
+                'trailer' => $trailer,
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -417,12 +441,12 @@ class TrailerController extends BaseController
     /**
      * delete action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return void
      */
-    public function executeDelete($request, $response, $args)
+    public function executeDelete(Request $request, Response $response, array $args)
     {
         $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
 

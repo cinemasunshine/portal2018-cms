@@ -10,6 +10,8 @@ namespace App\Controller\Development;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\CacheProvider;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * Doctrine controller
@@ -43,30 +45,37 @@ class DoctrineController extends BaseController
     /**
      * cache stats
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeCacheStats($request, $response, $args)
+    public function executeCacheStats(Request $request, Response $response, array $args)
     {
         $queryCacheDriver = $this->getQueryCacheImpl();
-        $this->data->set('query', $queryCacheDriver->getStats());
+        $query            = $queryCacheDriver->getStats();
 
         $metadataCacheDriver = $this->getMetadataCacheImpl();
-        $this->data->set('metadata', $metadataCacheDriver->getStats());
+        $metadata            = $metadataCacheDriver->getStats();
+
+        $data = [
+            'query' => $query,
+            'metadata' => $metadata,
+        ];
+
+        return $response->write('<pre>' . var_export($data, true) . '</pre>');
     }
 
     /**
      * cache clear action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      * @see Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand::execute()
      */
-    public function executeCacheClear($request, $response, $args)
+    public function executeCacheClear(Request $request, Response $response, array $args)
     {
         $target = $args['target'];
 
@@ -90,7 +99,9 @@ class DoctrineController extends BaseController
 
         $message = $this->doClear($cacheDriver, $flush);
 
-        $this->data->set('message', $message);
+        $data = ['message' => $message];
+
+        return $response->write('<pre>' . var_export($data, true) . '</pre>');
     }
 
     /**

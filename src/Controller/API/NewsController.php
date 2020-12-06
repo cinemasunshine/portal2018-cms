@@ -10,6 +10,8 @@ namespace App\Controller\API;
 
 use App\Controller\Traits\AzureBlobStorage;
 use App\ORM\Entity;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * News API controller
@@ -21,12 +23,12 @@ class NewsController extends BaseController
     /**
      * list action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeList($request, $response, $args)
+    public function executeList(Request $request, Response $response, array $args)
     {
         $headline = $request->getParam('headline');
         $data     = [];
@@ -57,6 +59,6 @@ class NewsController extends BaseController
             }
         }
 
-        $this->data->set('data', $data);
+        return $response->withJson(['data' => $data]);
     }
 }

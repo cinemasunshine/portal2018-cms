@@ -12,16 +12,15 @@ use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
 use Slim\Exception\NotFoundException;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * MainBanner controller
  */
 class MainBannerController extends BaseController
 {
-    /**
-     * {@inheritDoc}
-     */
-    protected function preExecute($request, $response): void
+    protected function preExecute(Request $request, Response $response): void
     {
         $user = $this->auth->getUser();
 
@@ -35,59 +34,75 @@ class MainBannerController extends BaseController
     /**
      * list action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeList($request, $response, $args)
+    public function executeList(Request $request, Response $response, array $args)
     {
         $page = (int) $request->getParam('p', 1);
-        $this->data->set('page', $page);
 
         $form = new Form\MainBannerFindForm();
         $form->setData($request->getParams());
+
         $cleanValues = [];
+        $errors      = [];
 
         if ($form->isValid()) {
             $cleanValues = $form->getData();
             $values      = $cleanValues;
         } else {
             $values = $request->getParams();
-            $this->data->set('errors', $form->getMessages());
+            $errors = $form->getMessages();
         }
-
-        $this->data->set('values', $values);
-        $this->data->set('params', $cleanValues);
 
         /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\MainBanner::class)->findForList($cleanValues, $page);
 
-        $this->data->set('pagenater', $pagenater);
+        return $this->render($response, 'main_banner/list.html.twig', [
+            'page' => $page,
+            'values' => $values,
+            'errors' => $errors,
+            'params' => $cleanValues,
+            'pagenater' => $pagenater,
+        ]);
     }
 
     /**
      * new action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeNew($request, $response, $args)
+    public function executeNew(Request $request, Response $response, array $args)
     {
-        $this->data->set('form', new Form\MainBannerForm(Form\MainBannerForm::TYPE_NEW));
+        return $this->renderNew($response, [
+            'form' => new Form\MainBannerForm(Form\MainBannerForm::TYPE_NEW),
+        ]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderNew(Response $response, array $data = [])
+    {
+        return $this->render($response, 'main_banner/new.html.twig', $data);
     }
 
     /**
      * create action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeCreate($request, $response, $args)
+    public function executeCreate(Request $request, Response $response, array $args)
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -96,12 +111,12 @@ class MainBannerController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'new';
+            return $this->renderNew($response, [
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -160,12 +175,12 @@ class MainBannerController extends BaseController
     /**
      * edit action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeEdit($request, $response, $args)
+    public function executeEdit(Request $request, Response $response, array $args)
     {
         $mainBanner = $this->em->getRepository(Entity\MainBanner::class)->findOneById($args['id']);
 
@@ -175,8 +190,6 @@ class MainBannerController extends BaseController
 
         /**@var Entity\MainBanner $mainBanner */
 
-        $this->data->set('mainBanner', $mainBanner);
-
         $values = [
             'id'        => $mainBanner->getId(),
             'name'      => $mainBanner->getName(),
@@ -184,20 +197,32 @@ class MainBannerController extends BaseController
             'link_url'  => $mainBanner->getLinkUrl(),
         ];
 
-        $this->data->set('values', $values);
+        return $this->renderEdit($response, [
+            'mainBanner' => $mainBanner,
+            'values' => $values,
+            'form' => new Form\MainBannerForm(Form\MainBannerForm::TYPE_EDIT),
+        ]);
+    }
 
-        $this->data->set('form', new Form\MainBannerForm(Form\MainBannerForm::TYPE_EDIT));
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderEdit(Response $response, array $data = [])
+    {
+        return $this->render($response, 'main_banner/edit.html.twig', $data);
     }
 
     /**
      * update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeUpdate($request, $response, $args)
+    public function executeUpdate(Request $request, Response $response, array $args)
     {
         $mainBanner = $this->em->getRepository(Entity\MainBanner::class)->findOneById($args['id']);
 
@@ -214,13 +239,13 @@ class MainBannerController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('mainBanner', $mainBanner);
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'edit';
+            return $this->renderEdit($response, [
+                'mainBanner' => $mainBanner,
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -286,12 +311,12 @@ class MainBannerController extends BaseController
     /**
      * delete action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return void
      */
-    public function executeDelete($request, $response, $args)
+    public function executeDelete(Request $request, Response $response, array $args)
     {
         $mainBanner = $this->em->getRepository(Entity\MainBanner::class)->findOneById($args['id']);
 
@@ -364,37 +389,40 @@ class MainBannerController extends BaseController
     /**
      * publication action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executePublication($request, $response, $args)
+    public function executePublication(Request $request, Response $response, array $args)
     {
         // @todo ユーザによって取得する情報を変更する
 
         /** @var Entity\Page[] */
         $pages = $this->em->getRepository(Entity\Page::class)->findActive();
-        $this->data->set('pages', $pages);
 
         /** @var Entity\Theater[] */
         $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
-        $this->data->set('theaters', $theaters);
 
         /** @var Entity\SpecialSite[] */
         $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
-        $this->data->set('specialSites', $specialSites);
+
+        return $this->render($response, 'main_banner/publication.html.twig', [
+            'pages' => $pages,
+            'theaters' => $theaters,
+            'specialSites' => $specialSites,
+        ]);
     }
 
     /**
      * publication update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return void
      */
-    public function executePublicationUpdate($request, $response, $args)
+    public function executePublicationUpdate(Request $request, Response $response, array $args)
     {
         $target = $args['target'];
 

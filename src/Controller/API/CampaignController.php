@@ -10,6 +10,8 @@ namespace App\Controller\API;
 
 use App\Controller\Traits\AzureBlobStorage;
 use App\ORM\Entity;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * Campaign API controller
@@ -21,12 +23,12 @@ class CampaignController extends BaseController
     /**
      * list action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeList($request, $response, $args)
+    public function executeList(Request $request, Response $response, array $args)
     {
         $name = $request->getParam('name');
         $data = [];
@@ -51,6 +53,6 @@ class CampaignController extends BaseController
             }
         }
 
-        $this->data->set('data', $data);
+        return $response->withJson(['data' => $data]);
     }
 }

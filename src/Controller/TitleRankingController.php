@@ -11,6 +11,8 @@ namespace App\Controller;
 use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * TitleRanking controller
@@ -31,10 +33,7 @@ class TitleRankingController extends BaseController
         return $entity;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function preExecute($request, $response): void
+    protected function preExecute(Request $request, Response $response): void
     {
         $user = $this->auth->getUser();
 
@@ -48,12 +47,12 @@ class TitleRankingController extends BaseController
     /**
      * edit action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeEdit($request, $response, $args)
+    public function executeEdit(Request $request, Response $response, array $args)
     {
         $titleRanking = $this->findEntity();
 
@@ -78,29 +77,39 @@ class TitleRankingController extends BaseController
             $values['ranks'][$rank]['title_name'] = $title->getName();
         }
 
-        $this->data->set('values', $values);
+        return $this->renderEdit($response, ['values' => $values]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderEdit(Response $response, array $data = [])
+    {
+        return $this->render($response, 'title_ranking/edit.html.twig', $data);
     }
 
     /**
      * update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeUpdate($request, $response, $args)
+    public function executeUpdate(Request $request, Response $response, array $args)
     {
         $form = new Form\TitleRankingForm();
         $form->setData($request->getParams());
 
         if (! $form->isValid()) {
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'edit';
+            return $this->renderEdit($response, [
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();

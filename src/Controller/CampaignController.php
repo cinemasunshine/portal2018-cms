@@ -12,16 +12,15 @@ use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
 use Slim\Exception\NotFoundException;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * Campaign controller
  */
 class CampaignController extends BaseController
 {
-    /**
-     * {@inheritDoc}
-     */
-    protected function preExecute($request, $response): void
+    protected function preExecute(Request $request, Response $response): void
     {
         $user = $this->auth->getUser();
 
@@ -35,59 +34,74 @@ class CampaignController extends BaseController
     /**
      * list action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeList($request, $response, $args)
+    public function executeList(Request $request, Response $response, array $args)
     {
         $page = (int) $request->getParam('p', 1);
-        $this->data->set('page', $page);
 
         $form = new Form\CampaignFindForm($this->em);
         $form->setData($request->getParams());
+
         $cleanValues = [];
+        $errors      = [];
 
         if ($form->isValid()) {
             $cleanValues = $form->getData();
             $values      = $cleanValues;
         } else {
             $values = $request->getParams();
-            $this->data->set('errors', $form->getMessages());
+            $errors = $form->getMessages();
         }
-
-        $this->data->set('form', $form);
-        $this->data->set('values', $values);
-        $this->data->set('params', $cleanValues);
 
         /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\Campaign::class)->findForList($cleanValues, $page);
 
-        $this->data->set('pagenater', $pagenater);
+        return $this->render($response, 'campaign/list.html.twig', [
+            'page' => $page,
+            'form' => $form,
+            'values' => $values,
+            'errors' => $errors,
+            'params' => $cleanValues,
+            'pagenater' => $pagenater,
+        ]);
     }
 
     /**
      * new action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeNew($request, $response, $args)
+    public function executeNew(Request $request, Response $response, array $args)
     {
+        return $this->renderNew($response);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderNew(Response $response, array $data = [])
+    {
+        return $this->render($response, 'campaign/new.html.twig', $data);
     }
 
     /**
      * create action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeCreate($request, $response, $args)
+    public function executeCreate(Request $request, Response $response, $args)
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -96,12 +110,12 @@ class CampaignController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'new';
+            return $this->renderNew($response, [
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -168,12 +182,12 @@ class CampaignController extends BaseController
     /**
      * edit action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeEdit($request, $response, $args)
+    public function executeEdit(Request $request, Response $response, array $args)
     {
         $campaign = $this->em->getRepository(Entity\Campaign::class)->findOneById($args['id']);
 
@@ -182,8 +196,6 @@ class CampaignController extends BaseController
         }
 
         /**@var Entity\Campaign $campaign */
-
-        $this->data->set('campaign', $campaign);
 
         $values = [
             'id'         => $campaign->getId(),
@@ -200,18 +212,31 @@ class CampaignController extends BaseController
             $values['title_name'] = $campaign->getTitle()->getName();
         }
 
-        $this->data->set('values', $values);
+        return $this->renderEdit($response, [
+            'campaign' => $campaign,
+            'values' => $values,
+        ]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderEdit(Response $response, array $data = [])
+    {
+        return $this->render($response, 'campaign/edit.html.twig', $data);
     }
 
     /**
      * update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
      * @return string|void
      */
-    public function executeUpdate($request, $response, $args)
+    public function executeUpdate(Request $request, Response $response, array $args)
     {
         $campaign = $this->em->getRepository(Entity\Campaign::class)->findOneById($args['id']);
 
@@ -228,13 +253,13 @@ class CampaignController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('campaign', $campaign);
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'edit';
+            return $this->renderEdit($response, [
+                'campaign' => $campaign,
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -310,12 +335,12 @@ class CampaignController extends BaseController
     /**
      * delete action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return void
      */
-    public function executeDelete($request, $response, $args)
+    public function executeDelete(Request $request, Response $response, array $args)
     {
         $campaign = $this->em->getRepository(Entity\Campaign::class)->findOneById($args['id']);
 
@@ -388,35 +413,38 @@ class CampaignController extends BaseController
     /**
      * publication action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executePublication($request, $response, $args)
+    public function executePublication(Request $request, Response $response, array $args)
     {
         /** @var Entity\Page[] */
         $pages = $this->em->getRepository(Entity\Page::class)->findActive();
-        $this->data->set('pages', $pages);
 
         /** @var Entity\Theater[] */
         $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
-        $this->data->set('theaters', $theaters);
 
         /** @var Entity\SpecialSite[] */
         $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
-        $this->data->set('specialSites', $specialSites);
+
+        return $this->render($response, 'campaign/publication.html.twig', [
+            'pages' => $pages,
+            'theaters' => $theaters,
+            'specialSites' => $specialSites,
+        ]);
     }
 
     /**
      * publication update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return void
      */
-    public function executePublicationUpdate($request, $response, $args)
+    public function executePublicationUpdate(Request $request, Response $response, $args)
     {
         $target = $args['target'];
 
