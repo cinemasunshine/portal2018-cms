@@ -10,7 +10,7 @@ use Mockery;
 final class NewsControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|NewsController
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&NewsController
      */
     protected function createTargetMock()
     {

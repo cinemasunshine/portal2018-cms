@@ -10,7 +10,7 @@ use Mockery;
 final class TheaterMetaControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|TheaterMetaController
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&TheaterMetaController
      */
     protected function createTargetMock()
     {

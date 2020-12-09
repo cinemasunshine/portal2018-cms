@@ -10,7 +10,7 @@ use Mockery;
 final class IndexControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|IndexController
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&IndexController
      */
     protected function createTargetMock()
     {

@@ -8,15 +8,17 @@ use App\Controller\TitleController;
 use App\Exception\ForbiddenException;
 use App\ORM\Entity\AdminUser;
 use Mockery;
+use Slim\Container;
 
 final class TitleControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|TitleController
+     * @param Container $container
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&TitleController
      */
-    protected function createTargetMock()
+    protected function createTargetMock(Container $container)
     {
-        return Mockery::mock(TitleController::class);
+        return Mockery::mock(TitleController::class, [$container]);
     }
 
     /**
@@ -60,18 +62,18 @@ final class TitleControllerTest extends BaseTestCase
             ->with()
             ->andReturn($userIsTheater);
 
-        $authMock = $this->createAuthMock();
-        $authMock
+        $container = $this->createContainer();
+
+        $container['auth']
             ->shouldReceive('getUser')
             ->once()
             ->with()
             ->andReturn($adminUserMock);
 
-        $targetMock = $this->createTargetMock();
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
-        $targetMock->auth = $authMock;
 
         $targetRef = $this->createTargetReflection();
 
@@ -82,7 +84,7 @@ final class TitleControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|AdminUser
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUser
      */
     protected function createAdminUserMock()
     {
@@ -98,7 +100,9 @@ final class TitleControllerTest extends BaseTestCase
         $responseMock = $this->createResponseMock();
         $data         = [];
 
-        $targetMock = $this->createTargetMock();
+        $container = $this->createContainer();
+
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
@@ -129,7 +133,9 @@ final class TitleControllerTest extends BaseTestCase
         $responseMock = $this->createResponseMock();
         $data         = [];
 
-        $targetMock = $this->createTargetMock();
+        $container = $this->createContainer();
+
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();

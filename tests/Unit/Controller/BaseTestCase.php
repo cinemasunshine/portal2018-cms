@@ -28,6 +28,7 @@ abstract class BaseTestCase extends TestCase
         $container = new Container();
 
         $container['auth']  = $this->createAuthMock();
+        $container['em']    = $this->createEntityManagerMock();
         $container['flash'] = $this->createFlashMock();
         $container['view']  = $this->createViewMock();
 

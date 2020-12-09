@@ -10,15 +10,17 @@ use App\ORM\Entity\AdminUser;
 use App\ORM\Repository\AdminUserRepository;
 use App\Pagination\DoctrinePaginator;
 use Mockery;
+use Slim\Container;
 
 final class AdminUserControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|AdminUserController
+     * @param Container $container
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUserController
      */
-    protected function createTargetMock()
+    protected function createTargetMock(Container $container)
     {
-        return Mockery::mock(AdminUserController::class);
+        return Mockery::mock(AdminUserController::class, [$container]);
     }
 
     /**
@@ -62,18 +64,18 @@ final class AdminUserControllerTest extends BaseTestCase
             ->with()
             ->andReturn($userIsMaster);
 
-        $authMock = $this->createAuthMock();
-        $authMock
+        $container = $this->createContainer();
+
+        $container['auth']
             ->shouldReceive('getUser')
             ->once()
             ->with()
             ->andReturn($adminUserMock);
 
-        $targetMock = $this->createTargetMock();
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
-        $targetMock->auth = $authMock;
 
         $targetRef = $this->createTargetReflection();
 
@@ -84,7 +86,7 @@ final class AdminUserControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|AdminUser
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUser
      */
     protected function createAdminUserMock()
     {
@@ -119,18 +121,18 @@ final class AdminUserControllerTest extends BaseTestCase
             ->with($params, $page)
             ->andReturn($paginatorMock);
 
-        $entityManagerMock = $this->createEntityManagerMock();
-        $entityManagerMock
+        $container = $this->createContainer();
+
+        $container['em']
             ->shouldReceive('getRepository')
             ->once()
             ->with(AdminUser::class)
             ->andReturn($repositoryMock);
 
-        $targetMock = $this->createTargetMock();
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
-        $targetMock->em = $entityManagerMock;
 
         $data = [
             'page' => $page,
@@ -150,7 +152,7 @@ final class AdminUserControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|AdminUserRepository
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUserRepository
      */
     protected function createAdminUserRepositoryMock()
     {
@@ -158,7 +160,7 @@ final class AdminUserControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|DoctrinePaginator
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&DoctrinePaginator
      */
     protected function createDoctrinePaginatorMock()
     {
@@ -174,7 +176,9 @@ final class AdminUserControllerTest extends BaseTestCase
         $responseMock = $this->createResponseMock();
         $data         = ['foo' => 'bar'];
 
-        $targetMock = $this->createTargetMock();
+        $container = $this->createContainer();
+
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();

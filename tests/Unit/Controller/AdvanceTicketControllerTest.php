@@ -10,7 +10,7 @@ use Mockery;
 final class AdvanceTicketControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|AdvanceTicketController
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdvanceTicketController
      */
     protected function createTargetMock()
     {

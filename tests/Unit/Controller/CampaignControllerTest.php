@@ -10,7 +10,7 @@ use Mockery;
 final class CampaignControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|CampaignController
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&CampaignController
      */
     protected function createTargetMock()
     {

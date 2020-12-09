@@ -8,15 +8,17 @@ use App\Controller\OyakoCinemaController;
 use App\Exception\ForbiddenException;
 use App\ORM\Entity\AdminUser;
 use Mockery;
+use Slim\Container;
 
 final class OyakoCinemaControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|OyakoCinemaController
+     * @param Container $container
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&OyakoCinemaController
      */
-    protected function createTargetMock()
+    protected function createTargetMock(Container $container)
     {
-        return Mockery::mock(OyakoCinemaController::class);
+        return Mockery::mock(OyakoCinemaController::class, [$container]);
     }
 
     /**
@@ -60,18 +62,18 @@ final class OyakoCinemaControllerTest extends BaseTestCase
             ->with()
             ->andReturn($userIsTheater);
 
-        $authMock = $this->createAuthMock();
-        $authMock
+        $container = $this->createContainer();
+
+        $container['auth']
             ->shouldReceive('getUser')
             ->once()
             ->with()
             ->andReturn($adminUserMock);
 
-        $targetMock = $this->createTargetMock();
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
-        $targetMock->auth = $authMock;
 
         $targetRef = $this->createTargetReflection();
 
@@ -82,7 +84,7 @@ final class OyakoCinemaControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|AdminUser
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUser
      */
     protected function createAdminUserMock()
     {
@@ -98,7 +100,9 @@ final class OyakoCinemaControllerTest extends BaseTestCase
         $responseMock = $this->createResponseMock();
         $data         = [];
 
-        $targetMock = $this->createTargetMock();
+        $container = $this->createContainer();
+
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
@@ -129,7 +133,9 @@ final class OyakoCinemaControllerTest extends BaseTestCase
         $responseMock = $this->createResponseMock();
         $data         = [];
 
-        $targetMock = $this->createTargetMock();
+        $container = $this->createContainer();
+
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
@@ -160,7 +166,9 @@ final class OyakoCinemaControllerTest extends BaseTestCase
         $responseMock = $this->createResponseMock();
         $data         = [];
 
-        $targetMock = $this->createTargetMock();
+        $container = $this->createContainer();
+
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();

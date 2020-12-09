@@ -10,7 +10,7 @@ use Mockery;
 final class AuthControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|AuthController
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AuthController
      */
     protected function createTargetMock()
     {
