@@ -31,31 +31,28 @@ final class ScheduleControllerTest extends BaseTestCase
      * @test
      * @return void
      */
-    public function testPreExecute()
+    public function testAuthorization()
     {
-        $this->invokePreExecute(false);
+        $this->invokeAuthorization(false);
     }
 
     /**
      * @test
      * @return void
      */
-    public function testPreExecuteForbidden()
+    public function testAuthorizationForbidden()
     {
         $this->expectException(ForbiddenException::class);
 
-        $this->invokePreExecute(true);
+        $this->invokeAuthorization(true);
     }
 
     /**
      * @param boolean $userIsTheater
      * @return void
      */
-    protected function invokePreExecute(bool $userIsTheater): void
+    protected function invokeAuthorization(bool $userIsTheater): void
     {
-        $requestMock  = $this->createRequestMock();
-        $responseMock = $this->createResponseMock();
-
         $adminUserMock = $this->createAdminUserMock();
         $adminUserMock
             ->shouldReceive('isTheater')
@@ -78,10 +75,10 @@ final class ScheduleControllerTest extends BaseTestCase
 
         $targetRef = $this->createTargetReflection();
 
-        $preExecuteMethodRef = $targetRef->getMethod('preExecute');
-        $preExecuteMethodRef->setAccessible(true);
+        $authorizationMethodRef = $targetRef->getMethod('authorization');
+        $authorizationMethodRef->setAccessible(true);
 
-        $preExecuteMethodRef->invoke($targetMock, $requestMock, $responseMock);
+        $authorizationMethodRef->invoke($targetMock);
     }
 
     /**

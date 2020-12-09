@@ -35,13 +35,22 @@ class TitleRankingController extends BaseController
 
     protected function preExecute(Request $request, Response $response): void
     {
+        $this->authorization();
+
+        parent::preExecute($request, $response);
+    }
+
+    /**
+     * @return void
+     * @throws ForbiddenException
+     */
+    protected function authorization()
+    {
         $user = $this->auth->getUser();
 
         if ($user->isTheater()) {
             throw new ForbiddenException();
         }
-
-        parent::preExecute($request, $response);
     }
 
     /**

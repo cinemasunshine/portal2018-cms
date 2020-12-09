@@ -25,6 +25,11 @@ abstract class BaseController extends AbstractController
      */
     protected function preExecute(Request $request, Response $response): void
     {
+        $viewEnvironment = $this->view->getEnvironment();
+
+        // おそらくrender()前に追加する必要があるので、今の仕組み上postExecute()では追加できない。
+        $viewEnvironment->addGlobal('user', $this->auth->getUser());
+        $viewEnvironment->addGlobal('alerts', $this->flash->getMessage('alerts'));
     }
 
     /**
@@ -36,8 +41,6 @@ abstract class BaseController extends AbstractController
      */
     protected function postExecute(Request $request, Response $response): void
     {
-        $this->view->getEnvironment()->addGlobal('user', $this->auth->getUser());
-        $this->view->getEnvironment()->addGlobal('alerts', $this->flash->getMessage('alerts'));
     }
 
     /**

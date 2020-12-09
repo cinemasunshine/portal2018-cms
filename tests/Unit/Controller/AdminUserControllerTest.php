@@ -33,31 +33,28 @@ final class AdminUserControllerTest extends BaseTestCase
      * @test
      * @return void
      */
-    public function testPreExecute()
+    public function testAuthorization()
     {
-        $this->invokePreExecute(true);
+        $this->invokeAuthorization(true);
     }
 
     /**
      * @test
      * @return void
      */
-    public function testPreExecuteForbidden()
+    public function testAuthorizationForbidden()
     {
         $this->expectException(ForbiddenException::class);
 
-        $this->invokePreExecute(false);
+        $this->invokeAuthorization(false);
     }
 
     /**
      * @param boolean $userIsMaster
      * @return void
      */
-    protected function invokePreExecute(bool $userIsMaster): void
+    protected function invokeAuthorization(bool $userIsMaster): void
     {
-        $requestMock  = $this->createRequestMock();
-        $responseMock = $this->createResponseMock();
-
         $adminUserMock = $this->createAdminUserMock();
         $adminUserMock
             ->shouldReceive('isMaster')
@@ -80,10 +77,10 @@ final class AdminUserControllerTest extends BaseTestCase
 
         $targetRef = $this->createTargetReflection();
 
-        $preExecuteMethodRef = $targetRef->getMethod('preExecute');
-        $preExecuteMethodRef->setAccessible(true);
+        $authorizationMethodRef = $targetRef->getMethod('authorization');
+        $authorizationMethodRef->setAccessible(true);
 
-        $preExecuteMethodRef->invoke($targetMock, $requestMock, $responseMock);
+        $authorizationMethodRef->invoke($targetMock);
     }
 
     /**
