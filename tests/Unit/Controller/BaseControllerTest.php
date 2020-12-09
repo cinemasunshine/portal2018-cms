@@ -12,6 +12,7 @@ use Slim\Container;
 final class BaseControllerTest extends BaseTestCase
 {
     /**
+     * @param Container $container
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&BaseController
      */
     protected function createTargetMock(Container $container)
