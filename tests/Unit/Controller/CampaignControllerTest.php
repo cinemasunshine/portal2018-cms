@@ -5,16 +5,20 @@ declare(strict_types=1);
 namespace Tests\Unit\Controller;
 
 use App\Controller\CampaignController;
+use App\Exception\ForbiddenException;
+use App\ORM\Entity\AdminUser;
 use Mockery;
+use Slim\Container;
 
 final class CampaignControllerTest extends BaseTestCase
 {
     /**
+     * @param Container $container
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&CampaignController
      */
-    protected function createTargetMock()
+    protected function createTargetMock(Container $container)
     {
-        return Mockery::mock(CampaignController::class);
+        return Mockery::mock(CampaignController::class, [$container]);
     }
 
     /**
@@ -29,13 +33,77 @@ final class CampaignControllerTest extends BaseTestCase
      * @test
      * @return void
      */
+    public function testAuthorization()
+    {
+        $this->invokeAuthorization(false);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testAuthorizationForbidden()
+    {
+        $this->expectException(ForbiddenException::class);
+
+        $this->invokeAuthorization(true);
+    }
+
+    /**
+     * @param boolean $userIsTheater
+     * @return void
+     */
+    protected function invokeAuthorization(bool $userIsTheater): void
+    {
+        $adminUserMock = $this->createAdminUserMock();
+        $adminUserMock
+            ->shouldReceive('isTheater')
+            ->once()
+            ->with()
+            ->andReturn($userIsTheater);
+
+        $container = $this->createContainer();
+
+        $container['auth']
+            ->shouldReceive('getUser')
+            ->once()
+            ->with()
+            ->andReturn($adminUserMock);
+
+        $targetMock = $this->createTargetMock($container);
+        $targetMock
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        $targetRef = $this->createTargetReflection();
+
+        $authorizationMethodRef = $targetRef->getMethod('authorization');
+        $authorizationMethodRef->setAccessible(true);
+
+        $authorizationMethodRef->invoke($targetMock);
+    }
+
+    /**
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUser
+     */
+    protected function createAdminUserMock()
+    {
+        return Mockery::mock(AdminUser::class);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function testExecuteNew()
     {
         $requestMock  = $this->createRequestMock();
         $responseMock = $this->createResponseMock();
         $args         = [];
 
-        $targetMock = $this->createTargetMock();
+        $container = $this->createContainer();
+
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
@@ -61,7 +129,9 @@ final class CampaignControllerTest extends BaseTestCase
         $responseMock = $this->createResponseMock();
         $data         = [];
 
-        $targetMock = $this->createTargetMock();
+        $container = $this->createContainer();
+
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
@@ -92,7 +162,9 @@ final class CampaignControllerTest extends BaseTestCase
         $responseMock = $this->createResponseMock();
         $data         = [];
 
-        $targetMock = $this->createTargetMock();
+        $container = $this->createContainer();
+
+        $targetMock = $this->createTargetMock($container);
         $targetMock
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
