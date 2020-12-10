@@ -79,4 +79,12 @@ class AdminUser extends BaseAdminUser
     {
         return $this->isGroup(self::GROUP_THEATER);
     }
+
+    /**
+     * @return string
+     */
+    public function getGroupLabel(): string
+    {
+        return self::$groups[$this->getGroup()] ?? '';
+    }
 }

@@ -11,6 +11,8 @@ namespace App\Controller;
 use App\Form;
 use App\ORM\Entity;
 use Slim\Exception\NotFoundException;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * AdvanceTicket controller
@@ -20,12 +22,12 @@ class AdvanceTicketController extends BaseController
     /**
      * list action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeList($request, $response, $args)
+    public function executeList(Request $request, Response $response, array $args)
     {
         $page = (int) $request->getParam('p', 1);
 
@@ -38,7 +40,6 @@ class AdvanceTicketController extends BaseController
             $values      = $cleanValues;
         } else {
             $values = $request->getParams();
-            $this->data->set('errors', $form->getMessages());
         }
 
         $user = $this->auth->getUser();
@@ -48,14 +49,16 @@ class AdvanceTicketController extends BaseController
             $cleanValues['theater'] = [$user->getTheater()->getId()];
         }
 
-        $this->data->set('form', $form);
-        $this->data->set('values', $values);
-        $this->data->set('params', $cleanValues);
-
         /** @var \App\Pagination\DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\AdvanceTicket::class)->findForList($cleanValues, $page);
 
-        $this->data->set('pagenater', $pagenater);
+        return $this->render($response, 'advance_ticket/list.html.twig', [
+            'form' => $form,
+            'errors' => $form->getMessages(),
+            'values' => $values,
+            'params' => $cleanValues,
+            'pagenater' => $pagenater,
+        ]);
     }
 
     /**
@@ -72,26 +75,37 @@ class AdvanceTicketController extends BaseController
     /**
      * new action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeNew($request, $response, $args)
+    public function executeNew(Request $request, Response $response, array $args)
     {
         $form = $this->getForm(Form\AdvanceSaleForm::TYPE_NEW);
-        $this->data->set('form', $form);
+
+        return $this->renderNew($response, ['form' => $form]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderNew(Response $response, array $data)
+    {
+        return $this->render($response, 'advance_ticket/new.html.twig', $data);
     }
 
     /**
      * create action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeCreate($request, $response, $args)
+    public function executeCreate(Request $request, Response $response, array $args)
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -100,12 +114,12 @@ class AdvanceTicketController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('form', $form);
-            $this->data->set('values', $params);
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'new';
+            return $this->renderNew($response, [
+                'form' => $form,
+                'values' => $params,
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -190,14 +204,24 @@ class AdvanceTicketController extends BaseController
     }
 
     /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderEdit(Response $response, array $data)
+    {
+        return $this->render($response, 'advance_ticket/edit.html.twig', $data);
+    }
+
+    /**
      * edit action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeEdit($request, $response, $args)
+    public function executeEdit(Request $request, Response $response, array $args)
     {
         $advanceSale = $this->em->getRepository(Entity\AdvanceSale::class)->findOneById($args['id']);
 
@@ -207,10 +231,7 @@ class AdvanceTicketController extends BaseController
 
         /**@var Entity\AdvanceSale $advanceSale */
 
-        $this->data->set('advanceSale', $advanceSale);
-
         $form = $this->getForm(Form\AdvanceSaleForm::TYPE_EDIT);
-        $this->data->set('form', $form);
 
         $values = [
             'id'         => $advanceSale->getId(),
@@ -248,18 +269,22 @@ class AdvanceTicketController extends BaseController
             $values['tickets'][] = $ticket;
         }
 
-        $this->data->set('values', $values);
+        return $this->renderEdit($response, [
+            'advanceSale' => $advanceSale,
+            'form' => $form,
+            'values' => $values,
+        ]);
     }
 
     /**
      * update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeUpdate($request, $response, $args)
+    public function executeUpdate(Request $request, Response $response, array $args)
     {
         $advanceSale = $this->em->getRepository(Entity\AdvanceSale::class)->findOneById($args['id']);
 
@@ -276,13 +301,13 @@ class AdvanceTicketController extends BaseController
         $form->setData($params);
 
         if (! $form->isValid()) {
-            $this->data->set('advanceSale', $advanceSale);
-            $this->data->set('form', $form);
-            $this->data->set('values', $params);
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'edit';
+            return $this->renderEdit($response, [
+                'advanceSale' => $advanceSale,
+                'form' => $form,
+                'values' => $params,
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData = $form->getData();
@@ -416,12 +441,12 @@ class AdvanceTicketController extends BaseController
     /**
      * delete action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return void
      */
-    public function executeDelete($request, $response, $args)
+    public function executeDelete(Request $request, Response $response, array $args)
     {
         $advanceTicket = $this->em->getRepository(Entity\AdvanceTicket::class)->findOneById($args['id']);
 

@@ -17,5 +17,17 @@ parameters:
 	dynamicConstantNames:
 		- APP_DEBUG
 
+	earlyTerminatingMethodCalls:
+		App\Controller\AbstractController:
+			- redirect
+
 	doctrine:
 		objectManagerLoader: %currentWorkingDirectory%/tests/entity-manager.php
+
+	ignoreErrors:
+		# https://github.com/phpstan/phpstan/issues/4141#issuecomment-735227578
+		# 多くのスタブを作成することになりそうなので除外する
+		-
+			message: "#^Method App\\\\Controller\\\\BaseController\\:\\:render\\(\\) should return Slim\\\\Http\\\\Response but returns Psr\\\\Http\\\\Message\\\\ResponseInterface\\.$#"
+			count: 1
+			path: src/Controller/BaseController.php

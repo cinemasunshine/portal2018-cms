@@ -9,15 +9,11 @@
 namespace App\Controller;
 
 use App\Exception\RedirectException;
-use App\Responder\AbstractResponder;
 use Psr\Container\ContainerInterface;
-use Slim\Collection;
-use Slim\Http\Response;
 use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
- * Abstract controller
- *
  * @property-read \App\Auth $auth
  * @property-read \MicrosoftAzure\Storage\Blob\BlobRestProxy $bc
  * @property-read \Doctrine\ORM\EntityManager $em
@@ -33,15 +29,6 @@ abstract class AbstractController
     /** @var ContainerInterface container */
     protected $container;
 
-    /**
-     * data
-     *
-     * Responderへ値を渡すために作成。
-     *
-     * @var Collection
-     */
-    protected $data;
-
     /** @var string */
     protected $actionName;
 
@@ -53,7 +40,6 @@ abstract class AbstractController
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-        $this->data      = new Collection();
     }
 
     /**
@@ -61,7 +47,6 @@ abstract class AbstractController
      *
      * 前後でpreExecute(),postExecute()処理を自動実行するために実装。
      * __call()からの呼び出しを想定。
-     *
      *
      * @param string   $actionMethod
      * @param Request  $request
@@ -81,8 +66,7 @@ abstract class AbstractController
 
             $this->logger->debug('Run {method}().', ['method' => $actionMethod]);
 
-            /** @var string|null */
-            $method = $this->$actionMethod($request, $response, $args);
+            $response = $this->$actionMethod($request, $response, $args);
 
             $this->logger->debug('Run postExecute().');
             $this->postExecute($request, $response);
@@ -95,9 +79,7 @@ abstract class AbstractController
             return $response->withRedirect($e->getUrl(), $e->getStatus());
         }
 
-        $this->logger->debug('Run buildResponse().');
-
-        return $this->buildResponse($response, $method);
+        return $response;
     }
 
     /**
@@ -110,7 +92,7 @@ abstract class AbstractController
      * @param Response $response
      * @return void
      */
-    abstract protected function preExecute($request, $response): void;
+    abstract protected function preExecute(Request $request, Response $response): void;
 
     /**
      * pre execute
@@ -122,7 +104,7 @@ abstract class AbstractController
      * @param Response $response
      * @return void
      */
-    abstract protected function postExecute($request, $response): void;
+    abstract protected function postExecute(Request $request, Response $response): void;
 
     /**
      * redirect
@@ -139,26 +121,6 @@ abstract class AbstractController
     {
         throw new RedirectException($url, $status);
     }
-
-    /**
-     * build response
-     *
-     * @param Response    $response
-     * @param string|null $method   responder method
-     * @return Response
-     */
-    protected function buildResponse(Response $response, string $method = null): Response
-    {
-        $responder = $this->getResponder();
-
-        if (empty($method)) {
-            $method = $this->actionName;
-        }
-
-        return $responder->$method($response, $this->data);
-    }
-
-    abstract protected function getResponder(): AbstractResponder;
 
     /**
      * call

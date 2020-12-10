@@ -12,6 +12,8 @@ use App\Form;
 use App\ORM\Entity;
 use Cinemasunshine\ORM\Entities\TheaterOpeningHour;
 use Slim\Exception\NotFoundException;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 /**
  * TheaterMeta controller
@@ -21,12 +23,12 @@ class TheaterMetaController extends BaseController
     /**
      * opening hour action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeOpeningHour($request, $response, $args)
+    public function executeOpeningHour(Request $request, Response $response, array $args)
     {
         $user       = $this->auth->getUser();
         $repository = $this->em->getRepository(Entity\TheaterMeta::class);
@@ -37,18 +39,18 @@ class TheaterMetaController extends BaseController
             $metas = $repository->findActive();
         }
 
-        $this->data->set('metas', $metas);
+        return $this->render($response, 'theater_meta/opening_hour/list.html.twig', ['metas' => $metas]);
     }
 
     /**
      * opening hour edit action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeOpeningHourEdit($request, $response, $args)
+    public function executeOpeningHourEdit(Request $request, Response $response, array $args)
     {
         $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
 
@@ -57,8 +59,6 @@ class TheaterMetaController extends BaseController
         }
 
         /**@var Entity\Theater $theater */
-
-        $this->data->set('theater', $theater);
 
         $values = [
             'hours' => [],
@@ -74,20 +74,34 @@ class TheaterMetaController extends BaseController
             ];
         }
 
-        $this->data->set('values', $values);
+        $form = new Form\TheaterOpeningHourForm();
 
-        $this->data->set('form', new Form\TheaterOpeningHourForm());
+        return $this->renderOpeningHourEdit($response, [
+            'theater' => $theater,
+            'form' => $form,
+            'values' => $values,
+        ]);
+    }
+
+    /**
+     * @param Response $response
+     * @param array    $data
+     * @return Response
+     */
+    protected function renderOpeningHourEdit(Response $response, array $data = [])
+    {
+        return $this->render($response, 'theater_meta/opening_hour/edit.html.twig', $data);
     }
 
     /**
      * opening hour update action
      *
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param array               $args
-     * @return string|void
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     * @return Response
      */
-    public function executeOpeningHourUpdate($request, $response, $args)
+    public function executeOpeningHourUpdate(Request $request, Response $response, array $args)
     {
         $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
 
@@ -101,13 +115,13 @@ class TheaterMetaController extends BaseController
         $form->setData($request->getParams());
 
         if (! $form->isValid()) {
-            $this->data->set('theater', $theater);
-            $this->data->set('form', $form);
-            $this->data->set('values', $request->getParams());
-            $this->data->set('errors', $form->getMessages());
-            $this->data->set('is_validated', true);
-
-            return 'openingHourEdit';
+            return $this->renderOpeningHourEdit($response, [
+                'theater' => $theater,
+                'form' => $form,
+                'values' => $request->getParams(),
+                'errors' => $form->getMessages(),
+                'is_validated' => true,
+            ]);
         }
 
         $cleanData    = $form->getData();
