@@ -142,6 +142,9 @@ commands:
       - store_artifacts:
           path: ./deploy
 
+orbs:
+  azure-cli: circleci/azure-cli@1.1.0
+
 executors:
   build:
     docker:
@@ -359,6 +362,23 @@ jobs:
           zip: production_app.zip
           async: "true"
 
+  swap_prod_release_to_production:
+    working_directory: ~/production
+    executor: azure-cli/azure-docker
+
+    steps:
+      - azure-cli/login-with-user:
+          alternate-tenant: true
+
+      - run:
+          name: Slot swap
+          command: >-
+            az webapp deployment slot swap
+              -g ssk-portal-win-prod
+              -n ssk-portal2018-admin-win-prod
+              --slot release
+              --target-slot production
+
 workflows:
   version: 2
 
@@ -432,3 +452,13 @@ workflows:
           <<: *job_setup
           requires:
             - deploy_approval
+
+      - swap_approval:
+          type: approval
+          requires:
+            - deploy_to_prod_release
+
+      - swap:
+          <<: *job_setup
+          requires:
+            - swap_approval
