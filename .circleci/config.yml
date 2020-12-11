@@ -458,7 +458,7 @@ workflows:
           requires:
             - deploy_to_prod_release
 
-      - swap:
+      - swap_prod_release_to_production:
           <<: *job_setup
           requires:
             - swap_approval
