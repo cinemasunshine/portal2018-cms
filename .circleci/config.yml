@@ -372,12 +372,7 @@ jobs:
 
       - run:
           name: Slot swap
-          command: >-
-            az webapp deployment slot swap
-              -g ssk-portal-win-prod
-              -n ssk-portal2018-admin-win-prod
-              --slot release
-              --target-slot production
+          command: az webapp deployment slot swap -g ssk-portal-win-prod -n ssk-portal2018-admin-win-prod --slot release --target-slot production
 
 workflows:
   version: 2
