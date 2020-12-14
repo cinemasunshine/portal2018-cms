@@ -2,8 +2,6 @@
 
 /**
  * TheaterMetaController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\Controller;
@@ -52,13 +50,12 @@ class TheaterMetaController extends BaseController
      */
     public function executeOpeningHourEdit(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Theater|null $theater */
         $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
 
         if (is_null($theater)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Theater $theater */
 
         $values = [
             'hours' => [],
@@ -103,13 +100,12 @@ class TheaterMetaController extends BaseController
      */
     public function executeOpeningHourUpdate(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Theater|null $theater */
         $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
 
         if (is_null($theater)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Theater $theater */
 
         $form = new Form\TheaterOpeningHourForm();
         $form->setData($request->getParams());

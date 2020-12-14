@@ -2,8 +2,6 @@
 
 /**
  * SpecialSiteRepository.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\ORM\Repository;

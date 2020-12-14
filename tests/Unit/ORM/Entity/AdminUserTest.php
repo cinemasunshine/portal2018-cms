@@ -31,6 +31,7 @@ final class AdminUserTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testGetGroupLabel()

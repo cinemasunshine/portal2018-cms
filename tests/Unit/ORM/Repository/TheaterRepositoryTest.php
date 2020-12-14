@@ -41,6 +41,7 @@ final class TheaterRepositoryTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testFindActive()
@@ -85,6 +86,7 @@ final class TheaterRepositoryTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testFindByIds()
@@ -141,6 +143,7 @@ final class TheaterRepositoryTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testFindOneById()

@@ -2,8 +2,6 @@
 
 /**
  * DbalLoggerTest.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 declare(strict_types=1);
@@ -37,6 +35,7 @@ final class DbalLoggerTest extends TestCase
      * test construct
      *
      * @test
+     *
      * @return void
      */
     public function testConstruct()
@@ -60,6 +59,7 @@ final class DbalLoggerTest extends TestCase
      * test startQuery
      *
      * @test
+     *
      * @return void
      */
     public function testStartQuery()
@@ -84,6 +84,7 @@ final class DbalLoggerTest extends TestCase
      * test log
      *
      * @test
+     *
      * @return void
      */
     public function testLog()

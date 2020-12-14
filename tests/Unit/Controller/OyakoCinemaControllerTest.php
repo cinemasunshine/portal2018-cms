@@ -31,6 +31,7 @@ final class OyakoCinemaControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testAuthorization()
@@ -40,6 +41,7 @@ final class OyakoCinemaControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testAuthorizationForbidden()
@@ -49,10 +51,6 @@ final class OyakoCinemaControllerTest extends BaseTestCase
         $this->invokeAuthorization(true);
     }
 
-    /**
-     * @param boolean $userIsTheater
-     * @return void
-     */
     protected function invokeAuthorization(bool $userIsTheater): void
     {
         $adminUserMock = $this->createAdminUserMock();
@@ -93,6 +91,7 @@ final class OyakoCinemaControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testRenderNew()
@@ -126,6 +125,7 @@ final class OyakoCinemaControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testRenderEdit()
@@ -159,6 +159,7 @@ final class OyakoCinemaControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testRenderSettingEdit()

@@ -33,6 +33,7 @@ final class AdminUserControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testAuthorization()
@@ -42,6 +43,7 @@ final class AdminUserControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testAuthorizationForbidden()
@@ -51,10 +53,6 @@ final class AdminUserControllerTest extends BaseTestCase
         $this->invokeAuthorization(false);
     }
 
-    /**
-     * @param boolean $userIsMaster
-     * @return void
-     */
     protected function invokeAuthorization(bool $userIsMaster): void
     {
         $adminUserMock = $this->createAdminUserMock();
@@ -95,6 +93,7 @@ final class AdminUserControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testExecuteList()
@@ -169,6 +168,7 @@ final class AdminUserControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testRenderNew()

@@ -2,8 +2,6 @@
 
 /**
  * TheaterOpeningHourForm.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\Form;

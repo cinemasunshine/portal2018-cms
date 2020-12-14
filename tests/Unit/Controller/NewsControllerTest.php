@@ -27,6 +27,7 @@ final class NewsControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testRenderNew()
@@ -58,6 +59,7 @@ final class NewsControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testRenderEdit()

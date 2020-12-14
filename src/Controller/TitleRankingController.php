@@ -2,8 +2,6 @@
 
 /**
  * TitleRankingController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\Controller;
@@ -19,9 +17,6 @@ use Slim\Http\Response;
  */
 class TitleRankingController extends BaseController
 {
-    /**
-     * @return Entity\TitleRanking
-     */
     protected function findEntity(): Entity\TitleRanking
     {
         $entity = $this->em->find(Entity\TitleRanking::class, 1);
@@ -42,6 +37,7 @@ class TitleRankingController extends BaseController
 
     /**
      * @return void
+     *
      * @throws ForbiddenException
      */
     protected function authorization()
@@ -75,13 +71,13 @@ class TitleRankingController extends BaseController
         ];
 
         for ($rank = 1; $rank <= 5; $rank++) {
+            /** @var Entity\Title|null $title */
             $title = $titleRanking->getRank($rank);
 
             if (! $title) {
                 continue;
             }
 
-            /** @var Entity\Title $title */
             $values['ranks'][$rank]['title_id']   = $title->getId();
             $values['ranks'][$rank]['title_name'] = $title->getName();
         }

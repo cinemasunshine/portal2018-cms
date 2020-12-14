@@ -2,8 +2,6 @@
 
 /**
  * ViewCommand.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 declare(strict_types=1);
@@ -24,9 +22,6 @@ use Twig\Cache\NullCache;
  */
 class ViewCommand extends BaseCommand
 {
-    /**
-     * @inheritDoc
-     */
     protected static $defaultName = 'cache:clear:view';
 
     /** @var Twig */
@@ -44,16 +39,10 @@ class ViewCommand extends BaseCommand
         parent::__construct();
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function configure()
     {
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var CacheInterface $cache */

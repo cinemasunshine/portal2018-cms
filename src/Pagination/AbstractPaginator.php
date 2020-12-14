@@ -2,8 +2,6 @@
 
 /**
  * AbstractPaginator.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\Pagination;
@@ -49,7 +47,6 @@ abstract class AbstractPaginator
      * Returns an array of page numbers to use in pagination links.
      *
      * @param  int $numLinks The maximum number of page numbers to return
-     *
      * @return array
      */
     public function getLinks(int $numLinks = 5)

@@ -2,8 +2,6 @@
 
 /**
  * AzureBlobStorageHandlerTest.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 declare(strict_types=1);
@@ -59,6 +57,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
      * test createBlob (Blob Existing)
      *
      * @test
+     *
      * @return void
      */
     public function testCreateBlobExisting()
@@ -102,6 +101,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
      * test createBlob (Blob Not Found)
      *
      * @test
+     *
      * @return void
      */
     public function testCreateBlobNotFound()
@@ -148,6 +148,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
      * test createBlob (Service Error)
      *
      * @test
+     *
      * @return void
      */
     public function testCreateBlobServiceError()
@@ -228,6 +229,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
      * test write
      *
      * @test
+     *
      * @return void
      */
     public function testWrite()
@@ -270,6 +272,7 @@ final class AzureBlobStorageHandlerTest extends TestCase
      * test write (Is Blob Created)
      *
      * @test
+     *
      * @return void
      */
     public function testWriteIsBlobCreated()

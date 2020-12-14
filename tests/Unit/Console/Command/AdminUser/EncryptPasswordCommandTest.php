@@ -2,8 +2,6 @@
 
 /**
  * EncryptPasswordCommandTest.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 declare(strict_types=1);
@@ -49,6 +47,7 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
      * test configure
      *
      * @test
+     *
      * @return void
      */
     public function testConfigure()
@@ -79,6 +78,7 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
      * test execute
      *
      * @test
+     *
      * @return void
      */
     public function testExecute()
@@ -131,9 +131,10 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
     /**
      * test encryptPassword
      *
-     * @test
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @test
+     *
      * @return void
      */
     public function testEncryptPassword()

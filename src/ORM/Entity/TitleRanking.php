@@ -2,8 +2,6 @@
 
 /**
  * TitleRanking.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 declare(strict_types=1);
@@ -33,6 +31,7 @@ class TitleRanking extends BaseTitleRanking
      *
      * @param int $rank
      * @return Title|null
+     *
      * @throws \InvalidArgumentException
      */
     public function getRank(int $rank)
@@ -58,6 +57,7 @@ class TitleRanking extends BaseTitleRanking
      * @param int        $rank
      * @param Title|null $title
      * @return void
+     *
      * @throws \InvalidArgumentException
      */
     public function setRank(int $rank, $title)

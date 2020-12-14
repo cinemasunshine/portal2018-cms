@@ -2,8 +2,6 @@
 
 /**
  * DoctrineController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\Controller\Development;
@@ -69,11 +67,12 @@ class DoctrineController extends BaseController
     /**
      * cache clear action
      *
+     * @see Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand::execute()
+     *
      * @param Request  $request
      * @param Response $response
      * @param array    $args
      * @return Response
-     * @see Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand::execute()
      */
     public function executeCacheClear(Request $request, Response $response, array $args)
     {
@@ -104,11 +103,6 @@ class DoctrineController extends BaseController
         return $response->write('<pre>' . var_export($data, true) . '</pre>');
     }
 
-    /**
-     * @param CacheProvider $cacheDriver
-     * @param boolean       $flush
-     * @return string
-     */
     protected function doClear(CacheProvider $cacheDriver, bool $flush = false): string
     {
         $result  = $cacheDriver->deleteAll();

@@ -2,8 +2,6 @@
 
 /**
  * TitleController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\Controller;
@@ -33,6 +31,7 @@ class TitleController extends BaseController
 
     /**
      * @return void
+     *
      * @throws ForbiddenException
      */
     protected function authorization()
@@ -252,13 +251,12 @@ class TitleController extends BaseController
      */
     public function executeEdit(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Title|null $title */
         $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
 
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Title $title */
 
         $form = new Form\TitleForm();
 
@@ -314,13 +312,12 @@ class TitleController extends BaseController
      */
     public function executeUpdate(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Title|null $title */
         $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
 
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Title $title */
 
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -450,13 +447,12 @@ class TitleController extends BaseController
      */
     public function executeDelete(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Title|null $title */
         $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
 
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Title $title */
 
         $title->setIsDeleted(true);
         $title->setUpdatedUser($this->auth->getUser());

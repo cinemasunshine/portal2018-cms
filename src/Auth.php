@@ -2,8 +2,6 @@
 
 /**
  * Auth.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App;
@@ -38,13 +36,13 @@ class Auth
     public function login($name, $password)
     {
         $repository = $this->em->getRepository(AdminUser::class);
-        $adminUser  = $repository->findOneByName($name);
+
+        /** @var AdminUser|null $adminUser */
+        $adminUser = $repository->findOneByName($name);
 
         if (is_null($adminUser)) {
             return false;
         }
-
-        /** @var AdminUser $adminUser */
 
         if (! password_verify($password, $adminUser->getPassword())) {
             return false;

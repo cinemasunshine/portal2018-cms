@@ -2,8 +2,6 @@
 
 /**
  * ErrorTest.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 declare(strict_types=1);
@@ -51,6 +49,7 @@ final class ErrorTest extends TestCase
      * test construct
      *
      * @test
+     *
      * @return void
      */
     public function testConstruct()
@@ -111,6 +110,7 @@ final class ErrorTest extends TestCase
      * test log
      *
      * @test
+     *
      * @return void
      */
     public function testLog()
@@ -148,8 +148,9 @@ final class ErrorTest extends TestCase
      *
      * 定数を使うので別プロセスで実行。
      *
-     * @test
      * @runInSeparateProcess
+     * @test
+     *
      * @return void
      */
     public function testRenderHtmlErrorMessageDebugOn()
@@ -179,8 +180,9 @@ final class ErrorTest extends TestCase
      *
      * 定数を使うので別プロセスで実行。
      *
-     * @test
      * @runInSeparateProcess
+     * @test
+     *
      * @return void
      */
     public function testRenderHtmlErrorMessageDebugOff()

@@ -2,8 +2,6 @@
 
 /**
  * AdvanceTicketController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\Controller;
@@ -223,13 +221,12 @@ class AdvanceTicketController extends BaseController
      */
     public function executeEdit(Request $request, Response $response, array $args)
     {
+        /**@var Entity\AdvanceSale|null $advanceSale */
         $advanceSale = $this->em->getRepository(Entity\AdvanceSale::class)->findOneById($args['id']);
 
         if (is_null($advanceSale)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\AdvanceSale $advanceSale */
 
         $form = $this->getForm(Form\AdvanceSaleForm::TYPE_EDIT);
 
@@ -286,13 +283,12 @@ class AdvanceTicketController extends BaseController
      */
     public function executeUpdate(Request $request, Response $response, array $args)
     {
+        /**@var Entity\AdvanceSale|null $advanceSale */
         $advanceSale = $this->em->getRepository(Entity\AdvanceSale::class)->findOneById($args['id']);
 
         if (is_null($advanceSale)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\AdvanceSale $advanceSale */
 
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -330,7 +326,11 @@ class AdvanceTicketController extends BaseController
             // 前売券削除
 
             foreach ($cleanData['delete_tickets'] as $advanceTicketId) {
-                // indexByでidをindexにしている
+                /**
+                 * indexByでidをindexにしている
+                 *
+                 * @var Entity\AdvanceTicket|null $advanceTicket
+                 */
                 $advanceTicket = $advanceTickets->get($advanceTicketId);
 
                 if (
@@ -340,8 +340,6 @@ class AdvanceTicketController extends BaseController
                     throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $advanceTicketId));
                 }
 
-                /** @var Entity\AdvanceTicket $advanceTicket */
-
                 $advanceTicket->setIsDeleted(true);
             }
         }
@@ -350,7 +348,11 @@ class AdvanceTicketController extends BaseController
             if ($ticket['id']) {
                 // 前売券編集
 
-                // indexByでidをindexにしている
+                /**
+                 * indexByでidをindexにしている
+                 *
+                 * @var Entity\AdvanceTicket|null $advanceTicket
+                 */
                 $advanceTicket = $advanceTickets->get($ticket['id']);
 
                 if (
@@ -359,8 +361,6 @@ class AdvanceTicketController extends BaseController
                 ) {
                     throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $ticket['id']));
                 }
-
-                /** @var Entity\AdvanceTicket $advanceTicket */
             } else {
                 // 前売券登録
 
@@ -448,13 +448,12 @@ class AdvanceTicketController extends BaseController
      */
     public function executeDelete(Request $request, Response $response, array $args)
     {
+        /** @var Entity\AdvanceTicket|null $advanceTicket */
         $advanceTicket = $this->em->getRepository(Entity\AdvanceTicket::class)->findOneById($args['id']);
 
         if (is_null($advanceTicket)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\AdvanceTicket $advanceTicket */
 
         // 関連データの処理はイベントで対応する
         $advanceTicket->setIsDeleted(true);

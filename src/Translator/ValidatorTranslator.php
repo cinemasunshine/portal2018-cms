@@ -2,8 +2,6 @@
 
 /**
  * ValidatorTranslator.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\Translator;

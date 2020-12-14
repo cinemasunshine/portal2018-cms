@@ -2,8 +2,6 @@
 
 /**
  * AdminUserController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 namespace App\Controller;
@@ -28,6 +26,7 @@ class AdminUserController extends BaseController
 
     /**
      * @return void
+     *
      * @throws ForbiddenException
      */
     protected function authorization()
