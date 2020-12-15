@@ -241,7 +241,7 @@ class CampaignController extends BaseController
      * @param Request  $request
      * @param Response $response
      * @param array    $args
-     * @return string|void
+     * @return Response
      */
     public function executeUpdate(Request $request, Response $response, array $args)
     {
