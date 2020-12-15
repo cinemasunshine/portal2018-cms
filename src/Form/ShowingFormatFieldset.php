@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ShowingFormatFieldset.php
- */
-
 namespace App\Form;
 
 use App\ORM\Entity\ShowingFormat;

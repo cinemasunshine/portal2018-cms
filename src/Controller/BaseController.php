@@ -1,9 +1,5 @@
 <?php
 
-/**
- * BaseController.php
- */
-
 namespace App\Controller;
 
 use Slim\Http\Request;

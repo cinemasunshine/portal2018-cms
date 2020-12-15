@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CampaignController.php
- */
-
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * RedirectException.php
- */
-
 namespace App\Exception;
 
 use Psr\Http\Message\UriInterface;

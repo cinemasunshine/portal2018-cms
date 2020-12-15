@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NewsController.php
- */
-
 namespace App\Controller\API;
 
 use App\Controller\Traits\AzureBlobStorage;

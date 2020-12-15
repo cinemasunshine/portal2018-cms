@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SpecialSiteMainBannerRepository.php
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\MainBanner;

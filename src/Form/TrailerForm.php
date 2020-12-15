@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TrailerForm.php
- */
-
 namespace App\Form;
 
 use App\ORM\Entity;

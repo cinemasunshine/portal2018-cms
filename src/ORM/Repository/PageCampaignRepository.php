@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PageCampaignRepository.php
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Campaign;

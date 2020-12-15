@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AbstractPaginator.php
- */
-
 namespace App\Pagination;
 
 /**

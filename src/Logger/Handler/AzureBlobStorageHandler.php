@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AzureBlobStorageHandler.php
- */
-
 namespace App\Logger\Handler;
 
 use Blue32a\Monolog\Handler\AzureBlobStorageHandler as BaseHandler;

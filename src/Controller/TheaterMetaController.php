@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TheaterMetaController.php
- */
-
 namespace App\Controller;
 
 use App\Form;

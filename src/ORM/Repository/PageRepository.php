@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PageRepository.php
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Page;

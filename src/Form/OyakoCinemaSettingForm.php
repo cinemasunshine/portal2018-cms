@@ -1,9 +1,5 @@
 <?php
 
-/**
- * OyakoCinemaSettingForm.php
- */
-
 namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;

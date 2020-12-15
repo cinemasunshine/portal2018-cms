@@ -1,9 +1,5 @@
 <?php
 
-/**
- * BaseController.php
- */
-
 namespace App\Controller\API;
 
 use App\Controller\AbstractController;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Auth.php
- */
-
 namespace App;
 
 use App\ORM\Entity\AdminUser;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MainBannerFindForm.php
- */
-
 namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;

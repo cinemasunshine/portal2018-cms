@@ -1,9 +1,5 @@
 <?php
 
-/**
- * DbalLogger.php
- */
-
 namespace App\Logger;
 
 use Doctrine\DBAL\Logging\SQLLogger;

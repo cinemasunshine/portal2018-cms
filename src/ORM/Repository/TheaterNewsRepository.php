@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TheaterNewsRepository.php
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\News;

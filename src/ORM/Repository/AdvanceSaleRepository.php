@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AdvanceSaleRepository.php
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\AdvanceSale;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TitleRankingForm.php
- */
-
 namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;

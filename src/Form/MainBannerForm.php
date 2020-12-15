@@ -1,9 +1,5 @@
 <?php
 
-/**
- * MainBannerForm.php
- */
-
 namespace App\Form;
 
 use App\ORM\Entity\MainBanner;

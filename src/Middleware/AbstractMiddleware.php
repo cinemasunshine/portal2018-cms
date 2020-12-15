@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AbstractMiddleware.php
- */
-
 namespace App\Middleware;
 
 use Psr\Container\ContainerInterface;

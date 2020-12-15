@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SessionManager.php
- */
-
 namespace App\Session;
 
 use Laminas\Session\Config\ConfigInterface;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ForbiddenException.php
- */
-
 namespace App\Exception;
 
 use Exception;

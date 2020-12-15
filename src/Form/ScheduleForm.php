@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ScheduleForm.php
- */
-
 namespace App\Form;
 
 use App\ORM\Entity\Theater;

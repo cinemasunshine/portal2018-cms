@@ -1,9 +1,5 @@
 <?php
 
-/**
- * DoctrineController.php
- */
-
 namespace App\Controller\Development;
 
 use Doctrine\Common\Cache\Cache;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NotFound.php
- */
-
 namespace App\Application\Handlers;
 
 use Psr\Http\Message\ServerRequestInterface;

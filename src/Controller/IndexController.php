@@ -1,9 +1,5 @@
 <?php
 
-/**
- * IndexController.php
- */
-
 namespace App\Controller;
 
 use Slim\Http\Request;

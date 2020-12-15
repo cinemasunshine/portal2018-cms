@@ -1,9 +1,5 @@
 <?php
 
-/**
- * OyakoCinemaForm.php
- */
-
 namespace App\Form;
 
 use Doctrine\ORM\EntityManager;

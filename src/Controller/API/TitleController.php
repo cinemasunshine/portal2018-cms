@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TitleController.php
- */
-
 namespace App\Controller\API;
 
 use App\ORM\Entity;

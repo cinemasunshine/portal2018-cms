@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TitleRankingController.php
- */
-
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CampaignForm.php
- */
-
 namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;

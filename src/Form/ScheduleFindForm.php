@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ScheduleFindForm.php
- */
-
 namespace App\Form;
 
 use App\ORM\Entity\ShowingFormat;

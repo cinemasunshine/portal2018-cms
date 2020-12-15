@@ -1,9 +1,5 @@
 <?php
 
-/**
- * NewsPublicationForm.php
- */
-
 namespace App\Form;
 
 use App\ORM\Entity;

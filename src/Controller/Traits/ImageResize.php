@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ImageResize.php
- */
-
 namespace App\Controller\Traits;
 
 use Intervention\Image\ImageManager;

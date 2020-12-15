@@ -1,9 +1,5 @@
 <?php
 
-/**
- * OpeningHourFieldset.php
- */
-
 namespace App\Form;
 
 use Cinemasunshine\ORM\Entities\TheaterOpeningHour;

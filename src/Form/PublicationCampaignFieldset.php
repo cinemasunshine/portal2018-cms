@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PublicationCampaignFieldset.php
- */
-
 namespace App\Form;
 
 use Laminas\Form\Fieldset;

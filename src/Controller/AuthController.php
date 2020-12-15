@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AuthController.php
- */
-
 namespace App\Controller;
 
 use App\Form\LoginForm;

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AbstractController.php
- */
-
 namespace App\Controller;
 
 use App\Exception\RedirectException;

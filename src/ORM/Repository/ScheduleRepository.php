@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ScheduleRepository.php
- */
-
 namespace App\ORM\Repository;
 
 use App\Form\ScheduleFindForm;

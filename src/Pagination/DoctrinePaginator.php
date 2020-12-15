@@ -1,9 +1,5 @@
 <?php
 
-/**
- * DoctrinePaginator.php
- */
-
 namespace App\Pagination;
 
 use Doctrine\ORM\Query;

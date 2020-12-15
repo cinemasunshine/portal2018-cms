@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ScheduleController.php
- */
-
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;

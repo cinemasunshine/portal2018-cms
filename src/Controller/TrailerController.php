@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TrailerController.php
- */
-
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;

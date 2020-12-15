@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AdvanceTicketController.php
- */
-
 namespace App\Controller;
 
 use App\Form;

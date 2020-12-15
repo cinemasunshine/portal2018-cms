@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TheaterMetaRepository.php
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\TheaterMeta;

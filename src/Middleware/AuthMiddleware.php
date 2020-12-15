@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AuthMiddleware.php
- */
-
 namespace App\Middleware;
 
 use Slim\Http\Response;

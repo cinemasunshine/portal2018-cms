@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CampaignPublicationInterface.php
- */
-
 namespace App\ORM\Entity;
 
 use Doctrine\Common\Collections\Collection;

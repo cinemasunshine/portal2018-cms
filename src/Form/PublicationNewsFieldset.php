@@ -1,9 +1,5 @@
 <?php
 
-/**
- * PublicationNewsFieldset.php
- */
-
 namespace App\Form;
 
 use Laminas\Form\Fieldset;

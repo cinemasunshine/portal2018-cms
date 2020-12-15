@@ -1,9 +1,5 @@
 <?php
 
-/**
- * EditorUploadForm.php
- */
-
 namespace App\Form\API;
 
 use App\Form\BaseForm;

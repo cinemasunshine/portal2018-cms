@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TitleFindForm.php
- */
-
 namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;

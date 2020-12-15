@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CampaignController.php
- */
-
 namespace App\Controller\API;
 
 use App\Controller\Traits\AzureBlobStorage;

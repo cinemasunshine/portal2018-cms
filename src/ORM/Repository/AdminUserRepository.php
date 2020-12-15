@@ -1,9 +1,5 @@
 <?php
 
-/**
- * AdminUserRepository.php
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\AdminUser;

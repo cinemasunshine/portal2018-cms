@@ -1,9 +1,5 @@
 <?php
 
-/**
- * SpecialSiteRepository.php
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\SpecialSite;

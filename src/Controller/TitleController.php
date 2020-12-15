@@ -1,9 +1,5 @@
 <?php
 
-/**
- * TitleController.php
- */
-
 namespace App\Controller;
 
 use App\Controller\Traits\ImageResize;

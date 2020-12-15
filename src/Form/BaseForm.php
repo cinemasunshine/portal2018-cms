@@ -1,9 +1,5 @@
 <?php
 
-/**
- * LoginForm.php
- */
-
 namespace App\Form;
 
 use App\Translator\ValidatorTranslator;

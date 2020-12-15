@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Error.php
- */
-
 namespace App\Application\Handlers;
 
 use Monolog\Logger;

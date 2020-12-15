@@ -1,9 +1,5 @@
 <?php
 
-/**
- * ValidatorTranslator.php
- */
-
 namespace App\Translator;
 
 use Laminas\I18n\Translator\Translator;
