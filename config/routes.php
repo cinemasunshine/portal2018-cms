@@ -2,8 +2,6 @@
 
 /**
  * routes.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 use App\Controller\{
@@ -30,6 +28,10 @@ use App\Controller\API\{
 };
 use App\Controller\Development\DoctrineController;
 use App\Middleware\AuthMiddleware;
+
+// phpcs:disable SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration
+/** @var \Slim\App $app */
+// phpcs:enable
 
 $app->get('/login', AuthController::class . ':login')->setName('login');
 $app->post('/auth', AuthController::class . ':auth')->setName('auth');

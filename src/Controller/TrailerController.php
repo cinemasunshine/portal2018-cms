@@ -1,11 +1,5 @@
 <?php
 
-/**
- * TrailerController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -29,6 +23,7 @@ class TrailerController extends BaseController
 
     /**
      * @return void
+     *
      * @throws ForbiddenException
      */
     protected function authorization()
@@ -244,13 +239,12 @@ class TrailerController extends BaseController
      */
     public function executeEdit(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Trailer|null $trailer */
         $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
 
         if (is_null($trailer)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Trailer $trailer */
 
         $values = [
             'id'              => $trailer->getId(),
@@ -313,13 +307,12 @@ class TrailerController extends BaseController
      */
     public function executeUpdate(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Trailer|null $trailer */
         $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
 
         if (is_null($trailer)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Trailer $trailer */
 
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -457,13 +450,12 @@ class TrailerController extends BaseController
      */
     public function executeDelete(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Trailer|null $trailer */
         $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
 
         if (is_null($trailer)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Trailer $trailer */
 
         $trailer->setIsDeleted(true);
         $trailer->setUpdatedUser($this->auth->getUser());

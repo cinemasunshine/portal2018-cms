@@ -1,11 +1,5 @@
 <?php
 
-/**
- * TheaterMainBannerRepository.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\MainBanner;

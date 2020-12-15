@@ -1,11 +1,5 @@
 <?php
 
-/**
- * ViewCommand.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 declare(strict_types=1);
 
 namespace App\Console\Command\Cache\Clear;
@@ -24,9 +18,6 @@ use Twig\Cache\NullCache;
  */
 class ViewCommand extends BaseCommand
 {
-    /**
-     * @inheritDoc
-     */
     protected static $defaultName = 'cache:clear:view';
 
     /** @var Twig */
@@ -44,16 +35,10 @@ class ViewCommand extends BaseCommand
         parent::__construct();
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function configure()
     {
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var CacheInterface $cache */

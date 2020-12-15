@@ -19,6 +19,7 @@ final class IndexControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testExecuteIndex()

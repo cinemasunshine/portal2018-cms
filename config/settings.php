@@ -3,8 +3,6 @@
 /**
  * settings.php
  *
- * @author Atsushi Okui <okui@motionpicture.jp>
- *
  * @return array
  */
 
@@ -63,8 +61,9 @@ $settings['logger'] = $getLoggerSetting();
 /**
  * doctrine
  *
- * @return array
  * @link https://www.doctrine-project.org/projects/doctrine-orm/en/2.6/reference/configuration.html#installation-and-configuration
+ *
+ * @return array
  */
 $getDoctrineSetting = function () {
     $settings = [

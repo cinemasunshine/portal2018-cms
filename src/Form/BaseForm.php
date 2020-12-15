@@ -1,11 +1,5 @@
 <?php
 
-/**
- * LoginForm.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Form;
 
 use App\Translator\ValidatorTranslator;

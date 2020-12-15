@@ -3,7 +3,6 @@
 /**
  * entity-manager.php
  *
- * @author Atsushi Okui <okui@motionpicture.jp>
  * @link https://github.com/phpstan/phpstan-doctrine
  */
 

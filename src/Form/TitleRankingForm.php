@@ -1,11 +1,5 @@
 <?php
 
-/**
- * TitleRankingForm.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;

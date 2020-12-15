@@ -2,8 +2,6 @@
 
 /**
  * ViewCommandTest.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
  */
 
 declare(strict_types=1);
@@ -60,6 +58,7 @@ final class ViewCommandTest extends AbstructTestCase
      * test construct
      *
      * @test
+     *
      * @return void
      */
     public function testConstruct()
@@ -82,6 +81,7 @@ final class ViewCommandTest extends AbstructTestCase
      * test execute (user FilesystemCache)
      *
      * @test
+     *
      * @return void
      */
     public function testExecuteUseFilesystemCache()
@@ -164,6 +164,7 @@ final class ViewCommandTest extends AbstructTestCase
      * test execute (user NullCahce)
      *
      * @test
+     *
      * @return void
      */
     public function testExecuteUseNullCache()
@@ -230,6 +231,7 @@ final class ViewCommandTest extends AbstructTestCase
      * test execute (use other cache)
      *
      * @test
+     *
      * @return void
      */
     public function testExecuteUseOtherCache()
@@ -288,9 +290,10 @@ final class ViewCommandTest extends AbstructTestCase
     /**
      * test clearFilesystemCache
      *
-     * @test
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @test
+     *
      * @return void
      */
     public function testClearFilesystemCache()

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * AdminUser.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 declare(strict_types=1);
 
 namespace App\ORM\Entity;
@@ -80,9 +74,6 @@ class AdminUser extends BaseAdminUser
         return $this->isGroup(self::GROUP_THEATER);
     }
 
-    /**
-     * @return string
-     */
     public function getGroupLabel(): string
     {
         return self::$groups[$this->getGroup()] ?? '';

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * BaseController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller;
 
 use Slim\Http\Request;

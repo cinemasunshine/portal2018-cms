@@ -1,11 +1,5 @@
 <?php
 
-/**
- * SpecialSiteCampaignRepository.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Campaign;

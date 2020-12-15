@@ -1,11 +1,5 @@
 <?php
 
-/**
- * DbalLogger.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Logger;
 
 use Doctrine\DBAL\Logging\SQLLogger;

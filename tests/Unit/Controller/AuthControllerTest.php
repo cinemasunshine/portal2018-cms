@@ -27,6 +27,7 @@ final class AuthControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testRenderLogin()
@@ -58,6 +59,7 @@ final class AuthControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testExecuteLogin()

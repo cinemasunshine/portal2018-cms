@@ -1,11 +1,5 @@
 <?php
 
-/**
- * NewsController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller;
 
 use App\Controller\Traits\ImageResize;
@@ -197,13 +191,12 @@ class NewsController extends BaseController
      */
     public function executeEdit(Request $request, Response $response, array $args)
     {
+        /** @var Entity\News|null $news */
         $news = $this->em->getRepository(Entity\News::class)->findOneById($args['id']);
 
         if (is_null($news)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\News $news */
 
         $values = [
             'id'         => $news->getId(),
@@ -250,13 +243,12 @@ class NewsController extends BaseController
      */
     public function executeUpdate(Request $request, Response $response, array $args)
     {
+        /** @var Entity\News|null $news */
         $news = $this->em->getRepository(Entity\News::class)->findOneById($args['id']);
 
         if (is_null($news)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\News $news */
 
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -373,13 +365,12 @@ class NewsController extends BaseController
      */
     public function executeDelete(Request $request, Response $response, array $args)
     {
+        /** @var Entity\News|null $news */
         $news = $this->em->getRepository(Entity\News::class)->findOneById($args['id']);
 
         if (is_null($news)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\News $news */
 
         $this->doDelete($news);
 
@@ -453,14 +444,14 @@ class NewsController extends BaseController
     {
         $user = $this->auth->getUser();
 
-        /** @var Entity\Page[] $pages */
-        $pages = [];
-
-        /** @var Entity\SpecialSite[] $specialSites */
+        $pages        = [];
         $specialSites = [];
 
         if (! $user->isTheater()) {
-            $pages        = $this->em->getRepository(Entity\Page::class)->findActive();
+            /** @var Entity\Page[] $pages */
+            $pages = $this->em->getRepository(Entity\Page::class)->findActive();
+
+            /** @var Entity\SpecialSite[] $specialSites */
             $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
         }
 
@@ -536,6 +527,7 @@ class NewsController extends BaseController
         foreach ($cleanData['news_list'] as $newsData) {
             $publication = clone $basePublication;
 
+            /** @var Entity\News|null $news */
             $news = $this->em
                 ->getRepository(Entity\News::class)
                 ->findOneById((int) $newsData['news_id']);
@@ -544,8 +536,6 @@ class NewsController extends BaseController
                 // @todo formで検証したい
                 throw new \LogicException('invalid news.');
             }
-
-            /** @var Entity\News $news */
 
             $publication->setNews($news);
             $publication->setDisplayOrder((int) $newsData['display_order']);

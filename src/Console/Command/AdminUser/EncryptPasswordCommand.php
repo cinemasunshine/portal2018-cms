@@ -1,11 +1,5 @@
 <?php
 
-/**
- * EncryptPasswordCommand.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 declare(strict_types=1);
 
 namespace App\Console\Command\AdminUser;
@@ -21,14 +15,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class EncryptPasswordCommand extends BaseCommand
 {
-    /**
-     * @inheritDoc
-     */
     protected static $defaultName = 'admin-user:encrypt-psw';
 
-    /**
-     * @inheritDoc
-     */
     protected function configure()
     {
         // Description & Help
@@ -38,9 +26,6 @@ class EncryptPasswordCommand extends BaseCommand
         $this->addArgument('password', InputArgument::REQUIRED, 'Plain text.');
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $password = $input->getArgument('password');

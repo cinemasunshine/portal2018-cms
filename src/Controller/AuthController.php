@@ -1,11 +1,5 @@
 <?php
 
-/**
- * AuthController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller;
 
 use App\Form\LoginForm;

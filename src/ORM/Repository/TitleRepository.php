@@ -1,11 +1,5 @@
 <?php
 
-/**
- * TitleRepository.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Title;
@@ -82,9 +76,10 @@ class TitleRepository extends EntityRepository
     /**
      * find for autocomplete
      *
+     * @link https://github.com/sergiodlopes/jquery-flexdatalist
+     *
      * @param array $params
      * @return Title[]
-     * @link https://github.com/sergiodlopes/jquery-flexdatalist
      */
     public function findForAutocomplete(array $params)
     {

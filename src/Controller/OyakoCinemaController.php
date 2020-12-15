@@ -1,11 +1,5 @@
 <?php
 
-/**
- * OyakoCinemaController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -30,6 +24,7 @@ class OyakoCinemaController extends BaseController
 
     /**
      * @return void
+     *
      * @throws ForbiddenException
      */
     protected function authorization()
@@ -183,14 +178,13 @@ class OyakoCinemaController extends BaseController
      */
     public function executeEdit(Request $request, Response $response, array $args)
     {
+        /** @var Entity\OyakoCinemaTitle|null $oyakoCinemaTitle */
         $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
             ->findOneById($args['id']);
 
         if (is_null($oyakoCinemaTitle)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\OyakoCinemaTitle $oyakoCinemaTitle */
 
         $values = [
             'id' => $oyakoCinemaTitle->getId(),
@@ -244,14 +238,13 @@ class OyakoCinemaController extends BaseController
      */
     public function executeUpdate(Request $request, Response $response, array $args)
     {
+        /** @var Entity\OyakoCinemaTitle|null $oyakoCinemaTitle */
         $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
             ->findOneById($args['id']);
 
         if (is_null($oyakoCinemaTitle)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\OyakoCinemaTitle $oyakoCinemaTitle */
 
         $form = new Form(Form::TYPE_EDIT, $this->em);
         $form->setData($request->getParams());
@@ -337,14 +330,13 @@ class OyakoCinemaController extends BaseController
      */
     public function executeDelete(Request $request, Response $response, array $args)
     {
+        /** @var Entity\OyakoCinemaTitle|null $oyakoCinemaTitle */
         $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
             ->findOneById($args['id']);
 
         if (is_null($oyakoCinemaTitle)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\OyakoCinemaTitle $oyakoCinemaTitle */
 
         $this->doDelete($oyakoCinemaTitle);
 
@@ -400,13 +392,12 @@ class OyakoCinemaController extends BaseController
      */
     public function executeSettingEdit(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Theater|null $theater */
         $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
 
         if (is_null($theater)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Theater $theater */
 
         $values = [
             'oyako_cinema_url' => $theater->getMeta()->getOyakoCinemaUrl(),
@@ -438,13 +429,12 @@ class OyakoCinemaController extends BaseController
      */
     public function executeSettingUpdate(Request $request, Response $response, $args)
     {
+        /** @var Entity\Theater|null $theater */
         $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
 
         if (is_null($theater)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Theater $theater */
 
         $form = new SettingForm();
         $form->setData($request->getParams());

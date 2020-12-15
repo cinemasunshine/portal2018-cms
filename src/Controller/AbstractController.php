@@ -1,11 +1,5 @@
 <?php
 
-/**
- * AbstractController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller;
 
 use App\Exception\RedirectException;
@@ -115,6 +109,7 @@ abstract class AbstractController
      * @param string|\Psr\Http\Message\UriInterface $url
      * @param int|null                              $status
      * @return void
+     *
      * @throws RedirectException
      */
     protected function redirect($url, $status = null): void
@@ -128,6 +123,7 @@ abstract class AbstractController
      * @param string $name
      * @param array  $argments
      * @return mixed
+     *
      * @throws \LogicException
      */
     public function __call($name, $argments)

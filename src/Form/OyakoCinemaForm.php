@@ -1,11 +1,5 @@
 <?php
 
-/**
- * OyakoCinemaForm.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Form;
 
 use Doctrine\ORM\EntityManager;

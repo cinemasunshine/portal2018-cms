@@ -1,11 +1,5 @@
 <?php
 
-/**
- * BaseController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller\API;
 
 use App\Controller\AbstractController;

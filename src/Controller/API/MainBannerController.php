@@ -1,11 +1,5 @@
 <?php
 
-/**
- * MainBannerController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller\API;
 
 use App\Controller\Traits\AzureBlobStorage;

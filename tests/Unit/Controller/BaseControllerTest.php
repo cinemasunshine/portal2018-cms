@@ -30,6 +30,7 @@ final class BaseControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testPreExecute()

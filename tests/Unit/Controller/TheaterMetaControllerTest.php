@@ -27,6 +27,7 @@ final class TheaterMetaControllerTest extends BaseTestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testRenderOpeningHourEdit()

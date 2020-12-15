@@ -1,11 +1,5 @@
 <?php
 
-/**
- * DoctrinePaginator.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Pagination;
 
 use Doctrine\ORM\Query;
@@ -76,9 +70,6 @@ class DoctrinePaginator extends AbstractPaginator
         return $this->resultsInPage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNumResults(): int
     {
         return $this->numResults;

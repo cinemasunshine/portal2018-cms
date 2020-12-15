@@ -1,11 +1,5 @@
 <?php
 
-/**
- * AuthMiddleware.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Middleware;
 
 use Slim\Http\Response;

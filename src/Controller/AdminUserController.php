@@ -1,11 +1,5 @@
 <?php
 
-/**
- * AdminUserController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -28,6 +22,7 @@ class AdminUserController extends BaseController
 
     /**
      * @return void
+     *
      * @throws ForbiddenException
      */
     protected function authorization()

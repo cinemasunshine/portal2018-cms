@@ -1,11 +1,5 @@
 <?php
 
-/**
- * CampaignPublicationForm.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Form;
 
 use App\ORM\Entity;

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * OpeningHourFieldset.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Form;
 
 use Cinemasunshine\ORM\Entities\TheaterOpeningHour;

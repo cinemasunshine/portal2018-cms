@@ -1,11 +1,5 @@
 <?php
 
-/**
- * EditorUploadForm.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Form\API;
 
 use App\Form\BaseForm;

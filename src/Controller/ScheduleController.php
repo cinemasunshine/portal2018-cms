@@ -1,11 +1,5 @@
 <?php
 
-/**
- * ScheduleController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -29,6 +23,7 @@ class ScheduleController extends BaseController
 
     /**
      * @return void
+     *
      * @throws ForbiddenException
      */
     protected function authorization()
@@ -192,13 +187,12 @@ class ScheduleController extends BaseController
      */
     public function executeEdit(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Schedule|null $schedule */
         $schedule = $this->em->getRepository(Entity\Schedule::class)->findOneById($args['id']);
 
         if (is_null($schedule)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Schedule $schedule */
 
         $values = [
             'id' => $schedule->getId(),
@@ -256,13 +250,12 @@ class ScheduleController extends BaseController
      */
     public function executeUpdate(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Schedule|null $schedule */
         $schedule = $this->em->getRepository(Entity\Schedule::class)->findOneById($args['id']);
 
         if (is_null($schedule)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Schedule $schedule */
 
         $form = new Form\ScheduleForm(Form\ScheduleForm::TYPE_EDIT, $this->em);
         $form->setData($request->getParams());
@@ -343,13 +336,12 @@ class ScheduleController extends BaseController
      */
     public function executeDelete(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Schedule|null $schedule */
         $schedule = $this->em->getRepository(Entity\Schedule::class)->findOneById($args['id']);
 
         if (is_null($schedule)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Schedule $schedule */
 
         $schedule->setIsDeleted(true);
         $schedule->setUpdatedUser($this->auth->getUser());

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * CampaignController.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -29,6 +23,7 @@ class CampaignController extends BaseController
 
     /**
      * @return void
+     *
      * @throws ForbiddenException
      */
     protected function authorization()
@@ -198,13 +193,12 @@ class CampaignController extends BaseController
      */
     public function executeEdit(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Campaign|null $campaign */
         $campaign = $this->em->getRepository(Entity\Campaign::class)->findOneById($args['id']);
 
         if (is_null($campaign)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Campaign $campaign */
 
         $values = [
             'id'         => $campaign->getId(),
@@ -243,17 +237,16 @@ class CampaignController extends BaseController
      * @param Request  $request
      * @param Response $response
      * @param array    $args
-     * @return string|void
+     * @return Response
      */
     public function executeUpdate(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Campaign|null $campaign */
         $campaign = $this->em->getRepository(Entity\Campaign::class)->findOneById($args['id']);
 
         if (is_null($campaign)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Campaign $campaign */
 
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -351,13 +344,12 @@ class CampaignController extends BaseController
      */
     public function executeDelete(Request $request, Response $response, array $args)
     {
+        /** @var Entity\Campaign|null $campaign */
         $campaign = $this->em->getRepository(Entity\Campaign::class)->findOneById($args['id']);
 
         if (is_null($campaign)) {
             throw new NotFoundException($request, $response);
         }
-
-        /**@var Entity\Campaign $campaign */
 
         $this->doDelete($campaign);
 
@@ -429,13 +421,13 @@ class CampaignController extends BaseController
      */
     public function executePublication(Request $request, Response $response, array $args)
     {
-        /** @var Entity\Page[] */
+        /** @var Entity\Page[] $pages */
         $pages = $this->em->getRepository(Entity\Page::class)->findActive();
 
-        /** @var Entity\Theater[] */
+        /** @var Entity\Theater[] $theaters */
         $theaters = $this->em->getRepository(Entity\Theater::class)->findActive();
 
-        /** @var Entity\SpecialSite[] */
+        /** @var Entity\SpecialSite[] $specialSites */
         $specialSites = $this->em->getRepository(Entity\SpecialSite::class)->findActive();
 
         return $this->render($response, 'campaign/publication.html.twig', [
@@ -500,6 +492,7 @@ class CampaignController extends BaseController
         foreach ($cleanData['campaigns'] as $campaignData) {
             $publication = clone $basePublication;
 
+            /** @var Entity\Campaign|null $campaign */
             $campaign = $this->em
                 ->getRepository(Entity\Campaign::class)
                 ->findOneById((int) $campaignData['campaign_id']);
@@ -508,8 +501,6 @@ class CampaignController extends BaseController
                 // @todo formで検証したい
                 throw new \LogicException('invalid campaign.');
             }
-
-            /** @var Entity\Campaign $campaign */
 
             $publication->setCampaign($campaign);
             $publication->setDisplayOrder((int) $campaignData['display_order']);

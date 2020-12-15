@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Error.php
- *
- * @author Atsushi Okui <okui@motionpicture.jp>
- */
-
 namespace App\Application\Handlers;
 
 use Monolog\Logger;
@@ -33,9 +27,10 @@ class Error extends BaseHandler
     }
 
     /**
+     * @see Slim\Handlers\AbstractError
+     *
      * @param \Exception|\Throwable $throwable
      * @return void
-     * @see Slim\Handlers\AbstractError
      */
     protected function writeToErrorLog($throwable)
     {
