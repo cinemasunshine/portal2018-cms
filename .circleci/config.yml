@@ -239,8 +239,8 @@ jobs:
           command: cp ./public/Web.config.prod ./public/Web.config
 
       - run:
-          name: Create .user.ini file
-          command: cp .user.ini.prod .user.ini
+          name: Create PHP configuration file (for Azure)
+          command: cp ./azure/ini/settings.ini-prod ./azure/ini/settings.ini
 
       - run:
           name: Create .env file
@@ -262,7 +262,7 @@ jobs:
           name: ZIP archive
           command: >-
             zip -r production_app.zip
-            azure bin cert config error public src template vendor .user.ini cli-config.php INSTALL.md README.md version.txt
+            azure bin cert config error public src template vendor cli-config.php INSTALL.md README.md version.txt
             -x public/.htaccess.example public/Web.config.example public/Web.config.prod
 
       - store_artifacts:

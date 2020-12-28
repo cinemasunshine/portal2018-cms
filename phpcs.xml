@@ -19,13 +19,9 @@
     <!-- Base rule -->
     <rule ref="Motionpicture"/>
 
-    <!-- Require specific order of phpDoc annotations with empty newline between specific groups -->
     <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
         <properties>
-            <property name="linesCountBeforeFirstContent" value="0"/>
-            <property name="linesCountAfterLastContent" value="0"/>
-            <property name="linesCountBetweenDescriptionAndAnnotations" value="1"/>
-            <property name="linesCountBetweenAnnotationsGroups" value="1"/>
+            <!-- Add vendor annotations -->
             <property name="annotationsGroups" type="array">
                 <element value="
                     @internal,
@@ -38,10 +34,8 @@
                     @uses,
                 "/>
 
-                <!-- Vendor annotations -->
                 <element value="@ORM\"/>
 
-                <!-- PHPUnit annotations -->
                 <element value="
                     @runInSeparateProcess,
                     @preserveGlobalState,
@@ -56,35 +50,4 @@
             </property>
         </properties>
     </rule>
-    <!-- Forbid empty comments -->
-    <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
-    <!-- Forbid useless annotations -->
-    <rule ref="SlevomatCodingStandard.Commenting.ForbiddenAnnotations">
-        <properties>
-            <property name="forbiddenAnnotations" type="array">
-                <!-- We have version control systems -->
-                <element value="@author"/>
-                <element value="@created"/>
-                <element value="@since"/>
-                <element value="@version"/>
-
-                <!-- We have namespaces -->
-                <element value="@category"/>
-                <element value="@package"/>
-                <element value="@subpackage"/>
-
-                <!-- It's not necessary to repeat licensing information in each file -->
-                <element value="@license"/>
-                <element value="@copyright"/>
-            </property>
-        </properties>
-    </rule>
-    <!-- Report invalid format of inline phpDocs with @var -->
-    <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
-    <!-- Require comments with single line written as one-liners -->
-    <rule ref="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment"/>
-    <!-- Forbid useless phpDocs for functions -->
-    <rule ref="SlevomatCodingStandard.Commenting.UselessFunctionDocComment"/>
-    <!-- Forbid useless inherit doc comment -->
-    <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
 </ruleset>
