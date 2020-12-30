@@ -34,17 +34,25 @@ class TitleRanking extends BaseTitleRanking
     {
         if ($rank === 1) {
             return $this->getRank1Title();
-        } elseif ($rank === 2) {
-            return $this->getRank2Title();
-        } elseif ($rank === 3) {
-            return $this->getRank3Title();
-        } elseif ($rank === 4) {
-            return $this->getRank4Title();
-        } elseif ($rank === 5) {
-            return $this->getRank5Title();
-        } else {
-            throw new \InvalidArgumentException('invalid "rank".');
         }
+
+        if ($rank === 2) {
+            return $this->getRank2Title();
+        }
+
+        if ($rank === 3) {
+            return $this->getRank3Title();
+        }
+
+        if ($rank === 4) {
+            return $this->getRank4Title();
+        }
+
+        if ($rank === 5) {
+            return $this->getRank5Title();
+        }
+
+        throw new \InvalidArgumentException('invalid "rank".');
     }
 
     /**

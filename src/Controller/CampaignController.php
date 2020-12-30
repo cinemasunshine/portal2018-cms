@@ -407,6 +407,7 @@ class CampaignController extends BaseController
             $this->em->getConnection()->commit();
         } catch (\Exception $e) {
             $this->em->getConnection()->rollBack();
+
             throw $e;
         }
     }

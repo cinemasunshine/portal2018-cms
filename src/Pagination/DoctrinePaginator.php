@@ -49,7 +49,7 @@ class DoctrinePaginator extends AbstractPaginator
         $this->wrapPaginator = $paginator;
         $this->numResults    = count($paginator);
 
-        if (0 === $page || 0 === $maxPerPage || 0 === $this->numResults) {
+        if ($page === 0 || $maxPerPage === 0 || $this->numResults === 0) {
             $this->lastPage = 0;
         } else {
             $this->lastPage = (int) ceil($this->numResults / $maxPerPage);

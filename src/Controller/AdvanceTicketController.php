@@ -389,31 +389,33 @@ class AdvanceTicketController extends BaseController
                 $advanceTicket->setSpecialGiftImage(null);
             }
 
-            if ($image['name']) {
-                // rename
-                $newName = Entity\File::createName($image['name']);
-
-                // upload storage
-                // @todo storageと同期するような仕組みをFileへ
-                $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
-                $options->setContentType($image['type']);
-                $this->bc->createBlockBlob(
-                    Entity\File::getBlobContainer(),
-                    $newName,
-                    fopen($image['tmp_name'], 'r'),
-                    $options
-                );
-
-                $file = new Entity\File();
-                $file->setName($newName);
-                $file->setOriginalName($image['name']);
-                $file->setMimeType($image['type']);
-                $file->setSize((int) $image['size']);
-
-                $this->em->persist($file);
-
-                $advanceTicket->setSpecialGiftImage($file);
+            if (! $image['name']) {
+                continue;
             }
+
+            // rename
+            $newName = Entity\File::createName($image['name']);
+
+            // upload storage
+            // @todo storageと同期するような仕組みをFileへ
+            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options->setContentType($image['type']);
+            $this->bc->createBlockBlob(
+                Entity\File::getBlobContainer(),
+                $newName,
+                fopen($image['tmp_name'], 'r'),
+                $options
+            );
+
+            $file = new Entity\File();
+            $file->setName($newName);
+            $file->setOriginalName($image['name']);
+            $file->setMimeType($image['type']);
+            $file->setSize((int) $image['size']);
+
+            $this->em->persist($file);
+
+            $advanceTicket->setSpecialGiftImage($file);
         }
 
         $this->em->flush();
