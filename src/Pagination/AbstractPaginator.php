@@ -131,7 +131,7 @@ abstract class AbstractPaginator
      */
     public function isFirstPage()
     {
-        return 1 == $this->getPage();
+        return $this->getPage() == 1;
     }
 
     /**
@@ -153,9 +153,9 @@ abstract class AbstractPaginator
     {
         if ($this->getPage() == 0) {
             return 1;
-        } else {
-            return ($this->getPage() - 1) * $this->getMaxPerPage() + 1;
         }
+
+        return ($this->getPage() - 1) * $this->getMaxPerPage() + 1;
     }
 
     /**
@@ -167,12 +167,12 @@ abstract class AbstractPaginator
     {
         if ($this->getPage() == 0) {
             return $this->getNumResults();
-        } else {
-            if ($this->getPage() * $this->getMaxPerPage() >= $this->getNumResults()) {
-                return $this->getNumResults();
-            } else {
-                return $this->getPage() * $this->getMaxPerPage();
-            }
         }
+
+        if ($this->getPage() * $this->getMaxPerPage() >= $this->getNumResults()) {
+            return $this->getNumResults();
+        }
+
+        return $this->getPage() * $this->getMaxPerPage();
     }
 }

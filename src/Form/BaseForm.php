@@ -73,20 +73,23 @@ class BaseForm extends Form
                 if (is_array($uploadedFile)) {
                     $parsed[$field] = static::parseUploadedFiles($uploadedFile);
                 }
+
                 continue;
             }
 
             $parsed[$field] = [];
+
             if (! is_array($uploadedFile['error'])) {
                 $parsed[$field] = [
                     'tmp_name' => $uploadedFile['tmp_name'],
-                    'name'     => isset($uploadedFile['name']) ? $uploadedFile['name'] : null,
-                    'type'     => isset($uploadedFile['type']) ? $uploadedFile['type'] : null,
-                    'size'     => isset($uploadedFile['size']) ? $uploadedFile['size'] : null,
+                    'name'     => $uploadedFile['name'] ?? null,
+                    'type'     => $uploadedFile['type'] ?? null,
+                    'size'     => $uploadedFile['size'] ?? null,
                     'error'    => $uploadedFile['error'],
                 ];
             } else {
                 $subArray = [];
+
                 foreach ($uploadedFile['error'] as $fileIdx => $error) {
                     // normalise subarray and re-parse to move the input's keyname up a level
                     $subArray[$fileIdx]['name']     = $uploadedFile['name'][$fileIdx];

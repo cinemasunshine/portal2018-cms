@@ -117,9 +117,7 @@ $getStorageSettings = function () {
         'account_key' => getenv('CUSTOMCONNSTR_STORAGE_KEY'),
     ];
 
-    $settings['secure'] = (getenv('CUSTOMCONNSTR_STORAGE_SECURE') === 'false')
-        ? false
-        : true;
+    $settings['secure'] = (getenv('CUSTOMCONNSTR_STORAGE_SECURE') !== 'false');
 
     $settings['blob_endpoint'] = (getenv('CUSTOMCONNSTR_STORAGE_BLOB_ENDPOINT')) ?: null;
 

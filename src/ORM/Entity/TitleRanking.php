@@ -32,18 +32,24 @@ class TitleRanking extends BaseTitleRanking
      */
     public function getRank(int $rank)
     {
-        if ($rank === 1) {
-            return $this->getRank1Title();
-        } elseif ($rank === 2) {
-            return $this->getRank2Title();
-        } elseif ($rank === 3) {
-            return $this->getRank3Title();
-        } elseif ($rank === 4) {
-            return $this->getRank4Title();
-        } elseif ($rank === 5) {
-            return $this->getRank5Title();
-        } else {
-            throw new \InvalidArgumentException('invalid "rank".');
+        switch ($rank) {
+            case 1:
+                return $this->getRank1Title();
+
+            case 2:
+                return $this->getRank2Title();
+
+            case 3:
+                return $this->getRank3Title();
+
+            case 4:
+                return $this->getRank4Title();
+
+            case 5:
+                return $this->getRank5Title();
+
+            default:
+                throw new \InvalidArgumentException('invalid "rank".');
         }
     }
 
@@ -58,18 +64,29 @@ class TitleRanking extends BaseTitleRanking
      */
     public function setRank(int $rank, $title)
     {
-        if ($rank === 1) {
-            $this->setRank1Title($title);
-        } elseif ($rank === 2) {
-            $this->setRank2Title($title);
-        } elseif ($rank === 3) {
-            $this->setRank3Title($title);
-        } elseif ($rank === 4) {
-            $this->setRank4Title($title);
-        } elseif ($rank === 5) {
-            $this->setRank5Title($title);
-        } else {
-            throw new \InvalidArgumentException('invalid "rank".');
+        switch ($rank) {
+            case 1:
+                $this->setRank1Title($title);
+                break;
+
+            case 2:
+                $this->setRank2Title($title);
+                break;
+
+            case 3:
+                $this->setRank3Title($title);
+                break;
+
+            case 4:
+                $this->setRank4Title($title);
+                break;
+
+            case 5:
+                $this->setRank5Title($title);
+                break;
+
+            default:
+                throw new \InvalidArgumentException('invalid "rank".');
         }
     }
 }
