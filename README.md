@@ -52,7 +52,7 @@ $ docker-compose up
 ## アプリケーション コンソール コマンド
 
 ```sh
-$ php bin/concole help
+$ php bin/console help
 ```
 
 ## その他 コマンド
