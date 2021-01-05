@@ -53,7 +53,7 @@ trait ImageResize
         $imageManager = $this->getImageManager();
         $image        = $imageManager
             ->make($data)
-            ->resize($width, $height, function ($constraint) {
+            ->resize($width, $height, static function ($constraint) {
                 $constraint->aspectRatio(); // アスペクト比を固定
                 $constraint->upsize(); // アップサイズしない
             });

@@ -405,7 +405,7 @@ class CampaignController extends BaseController
             $this->logger->debug('Delete "SpecialSiteCampaign"', ['count' => $specialSiteCampaignDeleteCount]);
 
             $this->em->getConnection()->commit();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->em->getConnection()->rollBack();
 
             throw $e;

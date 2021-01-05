@@ -116,13 +116,13 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
 
         $outputSpy
             ->shouldHaveReceived('writeln')
-            ->with(Mockery::on(function ($argument) use ($password) {
+            ->with(Mockery::on(static function ($argument) use ($password) {
                 return strpos($argument, $password) !== false;
             }))
             ->once();
         $outputSpy
             ->shouldHaveReceived('writeln')
-            ->with(Mockery::on(function ($argument) use ($encryptedPassword) {
+            ->with(Mockery::on(static function ($argument) use ($encryptedPassword) {
                 return strpos($argument, $encryptedPassword) !== false;
             }))
             ->once();

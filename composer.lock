@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "229a76b4eb1eae7ec0632270349a0de7",
+    "content-hash": "00dd18d328a0720ad8da019200483172",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -4339,16 +4339,16 @@
         },
         {
             "name": "mp-okui/php-coding-standard",
-            "version": "v0.4.0-alpha",
+            "version": "v0.5.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MP-okui/php-coding-standard.git",
-                "reference": "c099805ac8f2b6e11b2edd68f523caff84fe6736"
+                "reference": "5d62b579f8be6f82eb5e73d1a3ffefda562d4f17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/c099805ac8f2b6e11b2edd68f523caff84fe6736",
-                "reference": "c099805ac8f2b6e11b2edd68f523caff84fe6736",
+                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/5d62b579f8be6f82eb5e73d1a3ffefda562d4f17",
+                "reference": "5d62b579f8be6f82eb5e73d1a3ffefda562d4f17",
                 "shasum": ""
             },
             "require": {
@@ -4365,9 +4365,9 @@
             "description": "The PHP coding standard of the Motionpicture projects. (temporary)",
             "support": {
                 "issues": "https://github.com/MP-okui/php-coding-standard/issues",
-                "source": "https://github.com/MP-okui/php-coding-standard/tree/v0.4.0-alpha"
+                "source": "https://github.com/MP-okui/php-coding-standard/tree/v0.5.0-alpha"
             },
-            "time": "2020-12-21T03:36:39+00:00"
+            "time": "2021-01-05T04:37:13+00:00"
         },
         {
             "name": "myclabs/deep-copy",

@@ -426,7 +426,7 @@ class NewsController extends BaseController
             $this->logger->debug('Delete "SpecialSiteNews"', ['count' => $specialSitesNewsDeleteCount]);
 
             $this->em->getConnection()->commit();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $this->em->getConnection()->rollBack();
 
             throw $e;
