@@ -148,7 +148,7 @@ final class AuthMiddlewareTest extends TestCase
 
         $requestMock = $this->createRequestMock();
 
-        $next = function ($request, $response) {
+        $next = static function ($request, $response) {
             return $response;
         };
 
@@ -194,7 +194,7 @@ final class AuthMiddlewareTest extends TestCase
 
         $requestMock = $this->createRequestMock();
 
-        $next = function ($request, $response) {
+        $next = static function ($request, $response) {
             return $response;
         };
 

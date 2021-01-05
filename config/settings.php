@@ -36,7 +36,7 @@ $settings['session'] = [
 ];
 
 // logger
-$getLoggerSetting = function () {
+$getLoggerSetting = static function () {
     $settings = ['name' => 'app'];
 
     if (APP_DEBUG) {
@@ -65,7 +65,7 @@ $settings['logger'] = $getLoggerSetting();
  *
  * @return array
  */
-$getDoctrineSetting = function () {
+$getDoctrineSetting = static function () {
     $settings = [
         /**
          * ビルドに影響するのでtrueにするのはローカルモードに限定しておく。
@@ -111,7 +111,7 @@ $settings['doctrine'] = $getDoctrineSetting();
 
 
 // storage
-$getStorageSettings = function () {
+$getStorageSettings = static function () {
     $settings = [
         'account_name' => getenv('CUSTOMCONNSTR_STORAGE_NAME'),
         'account_key' => getenv('CUSTOMCONNSTR_STORAGE_KEY'),

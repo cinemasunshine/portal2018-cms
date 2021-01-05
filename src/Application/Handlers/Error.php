@@ -54,6 +54,8 @@ class Error extends BaseHandler
 
     /**
      * {@inheritdoc}
+     *
+     * @phpcsSuppress SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly.ReferencedGeneralException
      */
     protected function renderHtmlErrorMessage(\Exception $exception)
     {
