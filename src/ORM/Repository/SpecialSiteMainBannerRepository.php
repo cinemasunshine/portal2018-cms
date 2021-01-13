@@ -3,7 +3,6 @@
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\MainBanner;
-use App\ORM\Entity\SpecialSiteMainBanner;
 use Doctrine\ORM\EntityRepository;
 
 /**

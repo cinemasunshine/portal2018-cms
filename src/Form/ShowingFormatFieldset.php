@@ -5,7 +5,6 @@ namespace App\Form;
 use App\ORM\Entity\ShowingFormat;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilterProviderInterface;
-use Laminas\Validator;
 
 /**
  * ShowingFormat fieldset class

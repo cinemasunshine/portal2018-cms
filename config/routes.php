@@ -4,29 +4,25 @@
  * routes.php
  */
 
-use App\Controller\{
-    AdminUserController,
-    AuthController,
-    AdvanceTicketController,
-    CampaignController,
-    IndexController,
-    MainBannerController,
-    NewsController,
-    OyakoCinemaController,
-    ScheduleController,
-    TheaterMetaController,
-    TitleController,
-    TitleRankingController,
-    TrailerController
-};
-use App\Controller\API\{
-    CampaignController as CampaignApiController,
-    EditorController as EditorApiController,
-    MainBannerController as MainBannerApiController,
-    NewsController as NewsApiController,
-    TitleController as TitleApiController
-};
+use App\Controller\AdminUserController;
+use App\Controller\AdvanceTicketController;
+use App\Controller\API\CampaignController as CampaignApiController;
+use App\Controller\API\EditorController as EditorApiController;
+use App\Controller\API\MainBannerController as MainBannerApiController;
+use App\Controller\API\NewsController as NewsApiController;
+use App\Controller\API\TitleController as TitleApiController;
+use App\Controller\AuthController;
+use App\Controller\CampaignController;
 use App\Controller\Development\DoctrineController;
+use App\Controller\IndexController;
+use App\Controller\MainBannerController;
+use App\Controller\NewsController;
+use App\Controller\OyakoCinemaController;
+use App\Controller\ScheduleController;
+use App\Controller\TheaterMetaController;
+use App\Controller\TitleController;
+use App\Controller\TitleRankingController;
+use App\Controller\TrailerController;
 use App\Middleware\AuthMiddleware;
 
 // phpcs:disable SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration

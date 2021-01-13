@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Translator\ValidatorTranslator;
 use Laminas\Form\Form;
 use Laminas\I18n\Translator\Resources;
-use Laminas\Validator\Translator;
 use Laminas\Validator\AbstractValidator;
 
 /**

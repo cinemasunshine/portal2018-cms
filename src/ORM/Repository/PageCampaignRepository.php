@@ -3,7 +3,6 @@
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Campaign;
-use App\ORM\Entity\PageCampaign;
 use Doctrine\ORM\EntityRepository;
 
 /**

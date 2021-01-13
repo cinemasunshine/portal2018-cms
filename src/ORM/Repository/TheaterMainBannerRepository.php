@@ -3,7 +3,6 @@
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\MainBanner;
-use App\ORM\Entity\TheaterMainBanner;
 use Doctrine\ORM\EntityRepository;
 
 /**
