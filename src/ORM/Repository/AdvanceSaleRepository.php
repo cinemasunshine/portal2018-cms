@@ -3,7 +3,6 @@
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\AdvanceSale;
-use App\Pagination\DoctrinePaginator;
 use Doctrine\ORM\EntityRepository;
 
 /**

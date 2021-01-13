@@ -3,7 +3,6 @@
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\News;
-use App\ORM\Entity\PageNews;
 use Doctrine\ORM\EntityRepository;
 
 /**

@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Tests\Unit\Logger\Handler;
 
 use App\Logger\Handler\AzureBlobStorageHandler as Handler;
-use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 

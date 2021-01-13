@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Console\Command\Cache\Clear;
 
 use App\Console\Command\BaseCommand;
+use Slim\Views\Twig;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Slim\Views\Twig;
 use Twig\Cache\CacheInterface;
 use Twig\Cache\FilesystemCache;
 use Twig\Cache\NullCache;

@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\ValidatorTranslator;
 use Laminas\InputFilter\InputFilter;
 
 /**

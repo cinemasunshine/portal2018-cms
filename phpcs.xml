@@ -51,20 +51,32 @@
         </properties>
     </rule>
 
-    <!-- Forbid useless unreachable catch blocks -->
-    <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
-    <!-- Require using Throwable instead of Exception -->
-    <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly"/>
-    <!-- Ensure Arrow Functions declaration format -->
-    <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration">
+    <!-- Require use statements to be alphabetically sorted -->
+    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
+    <!-- Forbid fancy group uses -->
+    <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
+    <!-- Forbid multiple use statements on same line -->
+    <rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
+    <!-- Require newlines around namespace declaration -->
+    <rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing"/>
+    <!-- Forbid unused use statements -->
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
         <properties>
-            <property name="spacesCountAfterKeyword" value="1"/>
-            <property name="spacesCountBeforeArrow" value="1"/>
-            <property name="spacesCountAfterArrow" value="1"/>
+            <property name="searchAnnotations" value="true"/>
         </properties>
     </rule>
-    <!-- Require closures not referencing $this be static -->
-    <rule ref="SlevomatCodingStandard.Functions.StaticClosure"/>
-    <!-- Forbid unused variables passed to closures via `use` -->
-    <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
+    <!-- Forbid superfluous leading backslash in use statements -->
+    <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
+    <!-- Forbid useless uses of the same namespace -->
+    <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
+    <!-- Require empty newlines before and after uses -->
+    <rule ref="SlevomatCodingStandard.Namespaces.UseSpacing">
+        <properties>
+            <property name="linesCountAfterLastUse" value="1"/>
+            <property name="linesCountBeforeFirstUse" value="1"/>
+            <property name="linesCountBetweenUseTypes" value="1"/>
+        </properties>
+    </rule>
+    <!-- Forbid useless alias for classes, constants and functions -->
+    <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
 </ruleset>

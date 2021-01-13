@@ -6,8 +6,8 @@ namespace Tests\Unit\Controller;
 
 use App\Controller\BaseController;
 use Mockery;
-use Twig\Environment;
 use Slim\Container;
+use Twig\Environment;
 
 final class BaseControllerTest extends BaseTestCase
 {

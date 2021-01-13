@@ -5,7 +5,6 @@ namespace App\Form;
 use App\ORM\Entity;
 use Doctrine\ORM\EntityManager;
 use Laminas\InputFilter\InputFilter;
-use Laminas\Validator;
 
 /**
  * Campaign find form class

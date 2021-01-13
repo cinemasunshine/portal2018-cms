@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Unit\ORM\Repository;
 
-use App\ORM\Entity\Theater;
 use App\ORM\Repository\TheaterRepository;
 use Doctrine\ORM\QueryBuilder;
 use Mockery;
