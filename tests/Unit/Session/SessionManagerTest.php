@@ -12,6 +12,7 @@ use App\Session\SessionManager;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * Session Manager test
@@ -35,7 +36,7 @@ final class SessionManagerTest extends TestCase
         $name   = 'test';
         $result = $sessionManagerMock->getContainer($name);
 
-        $sessionManagerRef = new \ReflectionClass(SessionManager::class);
+        $sessionManagerRef = new ReflectionClass(SessionManager::class);
 
         $containersPropertyRef = $sessionManagerRef->getProperty('containers');
         $containersPropertyRef->setAccessible(true);

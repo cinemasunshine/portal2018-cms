@@ -6,11 +6,14 @@ namespace Tests\Unit\Controller;
 
 use App\Controller\NewsController;
 use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use ReflectionClass;
 
 final class NewsControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&NewsController
+     * @return MockInterface&LegacyMockInterface&NewsController
      */
     protected function createTargetMock()
     {
@@ -18,11 +21,11 @@ final class NewsControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(NewsController::class);
+        return new ReflectionClass(NewsController::class);
     }
 
     /**

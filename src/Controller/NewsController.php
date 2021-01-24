@@ -5,9 +5,13 @@ namespace App\Controller;
 use App\Controller\Traits\ImageResize;
 use App\Form;
 use App\ORM\Entity;
+use App\Pagination\DoctrinePaginator;
+use LogicException;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use Slim\Exception\NotFoundException;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Throwable;
 
 /**
  * News controller
@@ -49,7 +53,7 @@ class NewsController extends BaseController
             $cleanValues['user'] = $user->getId();
         }
 
-        /** @var \App\Pagination\DoctrinePaginator $pagenater */
+        /** @var DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\News::class)->findForList($cleanValues, $page);
 
         return $this->render($response, 'news/list.html.twig', [
@@ -125,7 +129,7 @@ class NewsController extends BaseController
 
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
-            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options = new CreateBlockBlobOptions();
             $options->setContentType($image['type']);
             $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),
@@ -291,7 +295,7 @@ class NewsController extends BaseController
 
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
-            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options = new CreateBlockBlobOptions();
             $options->setContentType($image['type']);
             $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),
@@ -426,7 +430,7 @@ class NewsController extends BaseController
             $this->logger->debug('Delete "SpecialSiteNews"', ['count' => $specialSitesNewsDeleteCount]);
 
             $this->em->getConnection()->commit();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $this->em->getConnection()->rollBack();
 
             throw $e;
@@ -489,7 +493,7 @@ class NewsController extends BaseController
         $form->setData($request->getParams());
 
         if (! $form->isValid()) {
-            throw new \LogicException('invalid parameters.');
+            throw new LogicException('invalid parameters.');
         }
 
         $cleanData       = $form->getData();
@@ -535,7 +539,7 @@ class NewsController extends BaseController
 
             if (! $news) {
                 // @todo formで検証したい
-                throw new \LogicException('invalid news.');
+                throw new LogicException('invalid news.');
             }
 
             $publication->setNews($news);

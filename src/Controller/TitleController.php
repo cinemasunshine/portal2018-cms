@@ -6,7 +6,11 @@ use App\Controller\Traits\ImageResize;
 use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
+use App\Pagination\DoctrinePaginator;
+use DateTime;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use Psr\Http\Message\StreamInterface;
 use Slim\Exception\NotFoundException;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -65,7 +69,7 @@ class TitleController extends BaseController
             $errors = $form->getMessages();
         }
 
-        /** @var \App\Pagination\DoctrinePaginator $pagenater */
+        /** @var DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\Title::class)->findForList($cleanValues, $page);
 
         return $this->render($response, 'title/list.html.twig', [
@@ -191,7 +195,7 @@ class TitleController extends BaseController
      * resize title image
      *
      * @param string $path
-     * @return \Psr\Http\Message\StreamInterface
+     * @return StreamInterface
      */
     protected function resizeTitleImage(string $path)
     {
@@ -211,7 +215,7 @@ class TitleController extends BaseController
 
         $imageStream = $this->resizeTitleImage($image['tmp_name']);
 
-        $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($image['type']);
         $createBlobResult = $this->bc->createBlockBlob(
             Entity\File::getBlobContainer(),
@@ -273,7 +277,7 @@ class TitleController extends BaseController
 
         $publishingExpectedDate = $title->getPublishingExpectedDate();
 
-        if ($publishingExpectedDate instanceof \DateTime) {
+        if ($publishingExpectedDate instanceof DateTime) {
             $values['publishing_expected_date']           = $publishingExpectedDate->format('Y/m/d');
             $values['not_exist_publishing_expected_date'] = null;
         } else {

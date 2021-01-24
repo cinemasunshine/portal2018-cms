@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use App\Form;
 use App\ORM\Entity;
+use App\Pagination\DoctrinePaginator;
+use DateTime;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
+use RuntimeException;
 use Slim\Exception\NotFoundException;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -43,7 +47,7 @@ class AdvanceTicketController extends BaseController
             $cleanValues['theater'] = [$user->getTheater()->getId()];
         }
 
-        /** @var \App\Pagination\DoctrinePaginator $pagenater */
+        /** @var DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\AdvanceTicket::class)->findForList($cleanValues, $page);
 
         return $this->render($response, 'advance_ticket/list.html.twig', [
@@ -156,7 +160,7 @@ class AdvanceTicketController extends BaseController
 
                 // upload storage
                 // @todo storageと同期するような仕組みをFileへ
-                $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+                $options = new CreateBlockBlobOptions();
                 $options->setContentType($image['type']);
                 $this->bc->createBlockBlob(
                     Entity\File::getBlobContainer(),
@@ -237,7 +241,7 @@ class AdvanceTicketController extends BaseController
 
         $publishingExpectedDate = $advanceSale->getPublishingExpectedDate();
 
-        if ($publishingExpectedDate instanceof \DateTime) {
+        if ($publishingExpectedDate instanceof DateTime) {
             $values['publishing_expected_date']           = $publishingExpectedDate->format('Y/m/d');
             $values['not_exist_publishing_expected_date'] = null;
         } else {
@@ -333,7 +337,7 @@ class AdvanceTicketController extends BaseController
                     ! $advanceTicket
                     || $advanceTicket->getId() !== (int) $advanceTicketId // 念のため確認
                 ) {
-                    throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $advanceTicketId));
+                    throw new RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $advanceTicketId));
                 }
 
                 $advanceTicket->setIsDeleted(true);
@@ -355,7 +359,7 @@ class AdvanceTicketController extends BaseController
                     ! $advanceTicket
                     || $advanceTicket->getId() !== (int) $ticket['id'] // 念のため確認
                 ) {
-                    throw new \RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $ticket['id']));
+                    throw new RuntimeException(sprintf('advance_ticket(%s) dose not eixist.', $ticket['id']));
                 }
             } else {
                 // 前売券登録
@@ -398,7 +402,7 @@ class AdvanceTicketController extends BaseController
 
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
-            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options = new CreateBlockBlobOptions();
             $options->setContentType($image['type']);
             $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),

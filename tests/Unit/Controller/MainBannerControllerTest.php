@@ -8,13 +8,16 @@ use App\Controller\MainBannerController;
 use App\Exception\ForbiddenException;
 use App\ORM\Entity\AdminUser;
 use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use ReflectionClass;
 use Slim\Container;
 
 final class MainBannerControllerTest extends BaseTestCase
 {
     /**
      * @param Container $container
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&MainBannerController
+     * @return MockInterface&LegacyMockInterface&MainBannerController
      */
     protected function createTargetMock(Container $container)
     {
@@ -22,11 +25,11 @@ final class MainBannerControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(MainBannerController::class);
+        return new ReflectionClass(MainBannerController::class);
     }
 
     /**
@@ -82,7 +85,7 @@ final class MainBannerControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUser
+     * @return MockInterface&LegacyMockInterface&AdminUser
      */
     protected function createAdminUserMock()
     {

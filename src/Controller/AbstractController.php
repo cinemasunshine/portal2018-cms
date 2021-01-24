@@ -2,21 +2,31 @@
 
 namespace App\Controller;
 
+use App\Auth;
 use App\Exception\RedirectException;
+use App\Session\SessionManager;
+use Doctrine\ORM\EntityManager;
+use LogicException;
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+use Monolog\Logger;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\UriInterface;
+use Slim\Flash\Messages as FlashMessages;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Router;
+use Slim\Views\Twig;
 
 /**
- * @property-read \App\Auth $auth
- * @property-read \MicrosoftAzure\Storage\Blob\BlobRestProxy $bc
- * @property-read \Doctrine\ORM\EntityManager $em
- * @property-read \Slim\Flash\Messages $flash
- * @property-read \Monolog\Logger $logger
- * @property-read \Slim\Router $router
+ * @property-read Auth $auth
+ * @property-read BlobRestProxy $bc
+ * @property-read EntityManager $em
+ * @property-read FlashMessages $flash
+ * @property-read Logger $logger
+ * @property-read Router $router
  * @property-read array $settings
- * @property-read \App\Session\SessionManager $sm
- * @property-read \Slim\Views\Twig $view
+ * @property-read SessionManager $sm
+ * @property-read Twig $view
  */
 abstract class AbstractController
 {
@@ -106,8 +116,8 @@ abstract class AbstractController
      * withRedirect()ではなくこちらを使う。
      * すぐにリダイレクトさせるためにExceptionを利用している。
      *
-     * @param string|\Psr\Http\Message\UriInterface $url
-     * @param int|null                              $status
+     * @param string|UriInterface $url
+     * @param int|null            $status
      * @return void
      *
      * @throws RedirectException
@@ -124,7 +134,7 @@ abstract class AbstractController
      * @param array  $argments
      * @return mixed
      *
-     * @throws \LogicException
+     * @throws LogicException
      */
     public function __call($name, $argments)
     {
@@ -134,7 +144,7 @@ abstract class AbstractController
 
         // is_callable()は__call()があると常にtrueとなるので不可
         if (! method_exists($this, $actionMethod)) {
-            throw new \LogicException(sprintf('The method "%s" dose not exist.', $name));
+            throw new LogicException(sprintf('The method "%s" dose not exist.', $name));
         }
 
         $this->actionName = $name;

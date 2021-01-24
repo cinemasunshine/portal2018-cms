@@ -2,8 +2,10 @@
 
 namespace App\Application\Handlers;
 
+use Exception;
 use Monolog\Logger;
 use Slim\Handlers\PhpError as BaseHandler;
+use Throwable;
 
 /**
  * PHP Error handler
@@ -31,7 +33,7 @@ class PhpError extends BaseHandler
      *
      * @see Slim\Handlers\AbstractError
      *
-     * @param \Exception|\Throwable $throwable
+     * @param Exception|Throwable $throwable
      * @return void
      */
     protected function writeToErrorLog($throwable)
@@ -42,10 +44,10 @@ class PhpError extends BaseHandler
     /**
      * Undocumented function
      *
-     * @param \Throwable $error
+     * @param Throwable $error
      * @return void
      */
-    protected function log(\Throwable $error)
+    protected function log(Throwable $error)
     {
         $this->logger->error($error->getMessage(), [
             'type' => get_class($error),
@@ -59,7 +61,7 @@ class PhpError extends BaseHandler
     /**
      * {@inheritdoc}
      */
-    protected function renderHtmlErrorMessage(\Throwable $error)
+    protected function renderHtmlErrorMessage(Throwable $error)
     {
         if (APP_DEBUG) {
             return parent::renderHtmlErrorMessage($error);

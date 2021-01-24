@@ -11,8 +11,11 @@ namespace Tests\Unit\Middleware;
 use App\Middleware\AbstractMiddleware;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
 
 /**
  * Abstract Middleware test
@@ -24,7 +27,7 @@ final class AbstractMiddlewareTest extends TestCase
     /**
      * Create target mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|AbstractMiddleware
+     * @return MockInterface|LegacyMockInterface|AbstractMiddleware
      */
     protected function createTargetMock()
     {
@@ -34,17 +37,17 @@ final class AbstractMiddlewareTest extends TestCase
     /**
      * Create target reflection
      *
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(AbstractMiddleware::class);
+        return new ReflectionClass(AbstractMiddleware::class);
     }
 
     /**
      * Create Container mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|ContainerInterface
+     * @return MockInterface|LegacyMockInterface|ContainerInterface
      */
     protected function createContainerMock()
     {

@@ -6,11 +6,14 @@ namespace Tests\Unit\Controller;
 
 use App\Controller\AdvanceTicketController;
 use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use ReflectionClass;
 
 final class AdvanceTicketControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdvanceTicketController
+     * @return MockInterface&LegacyMockInterface&AdvanceTicketController
      */
     protected function createTargetMock()
     {
@@ -18,11 +21,11 @@ final class AdvanceTicketControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(AdvanceTicketController::class);
+        return new ReflectionClass(AdvanceTicketController::class);
     }
 
     /**

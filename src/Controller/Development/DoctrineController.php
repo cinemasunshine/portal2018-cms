@@ -4,6 +4,8 @@ namespace App\Controller\Development;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\CacheProvider;
+use InvalidArgumentException;
+use RuntimeException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -79,15 +81,15 @@ class DoctrineController extends BaseController
         } elseif ($target === 'metadata') {
             $cacheDriver = $this->getMetadataCacheImpl();
         } else {
-            throw new \InvalidArgumentException('Invalid "target".');
+            throw new InvalidArgumentException('Invalid "target".');
         }
 
         if (! $cacheDriver) {
-            throw new \InvalidArgumentException('No cache driver is configured on given EntityManager.');
+            throw new InvalidArgumentException('No cache driver is configured on given EntityManager.');
         }
 
         if (! $cacheDriver instanceof CacheProvider) {
-            throw new \InvalidArgumentException('This cache driver does not support clear.');
+            throw new InvalidArgumentException('This cache driver does not support clear.');
         }
 
         $flush = ($request->getParam('flush') === 'true');
@@ -110,7 +112,7 @@ class DoctrineController extends BaseController
         }
 
         if (! $result) {
-            throw new \RuntimeException($message);
+            throw new RuntimeException($message);
         }
 
         return $message;

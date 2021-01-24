@@ -8,6 +8,8 @@ use App\ORM\Repository\TheaterRepository;
 use Doctrine\ORM\QueryBuilder;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 
 final class TheaterRepositoryTest extends TestCase
@@ -15,7 +17,7 @@ final class TheaterRepositoryTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&TheaterRepository
+     * @return MockInterface&LegacyMockInterface&TheaterRepository
      */
     protected function createTargetMock()
     {
@@ -23,7 +25,7 @@ final class TheaterRepositoryTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
+     * @return MockInterface&LegacyMockInterface&QueryBuilder
      */
     protected function createQueryBuilderMock()
     {
@@ -31,7 +33,7 @@ final class TheaterRepositoryTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface
+     * @return MockInterface&LegacyMockInterface
      */
     protected function createQueryMock()
     {

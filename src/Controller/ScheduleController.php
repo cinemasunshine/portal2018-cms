@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
+use App\Pagination\DoctrinePaginator;
 use Slim\Exception\NotFoundException;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -61,7 +62,7 @@ class ScheduleController extends BaseController
             $errors = $form->getMessages();
         }
 
-        /** @var \App\Pagination\DoctrinePaginator $pagenater */
+        /** @var DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\Schedule::class)->findForList($cleanValues, $page);
 
         return $this->render($response, 'schedule/list.html.twig', [

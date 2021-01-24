@@ -6,6 +6,7 @@ use App\Exception\ForbiddenException;
 use App\Form\OyakoCinemaForm as Form;
 use App\Form\OyakoCinemaSettingForm as SettingForm;
 use App\ORM\Entity;
+use App\Pagination\DoctrinePaginator;
 use Slim\Exception\NotFoundException;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -48,7 +49,7 @@ class OyakoCinemaController extends BaseController
     {
         $page = (int) $request->getParam('p', 1);
 
-        /** @var \App\Pagination\DoctrinePaginator $pagenater */
+        /** @var DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
             ->findForList($page);
 

@@ -5,6 +5,7 @@ namespace App\ORM\Repository;
 use App\ORM\Entity\MainBanner;
 use App\Pagination\DoctrinePaginator;
 use Doctrine\ORM\EntityRepository;
+use InvalidArgumentException;
 
 /**
  * MainBanner repository class
@@ -46,7 +47,7 @@ class MainBannerRepository extends EntityRepository
     public function findForListApi(string $name)
     {
         if (empty($name)) {
-            throw new \InvalidArgumentException('invalid "name".');
+            throw new InvalidArgumentException('invalid "name".');
         }
 
         $qb = $this->createQueryBuilder('mb');

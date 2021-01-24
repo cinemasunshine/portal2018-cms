@@ -10,13 +10,16 @@ use App\ORM\Entity\AdminUser;
 use App\ORM\Repository\AdminUserRepository;
 use App\Pagination\DoctrinePaginator;
 use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use ReflectionClass;
 use Slim\Container;
 
 final class AdminUserControllerTest extends BaseTestCase
 {
     /**
      * @param Container $container
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUserController
+     * @return MockInterface&LegacyMockInterface&AdminUserController
      */
     protected function createTargetMock(Container $container)
     {
@@ -24,11 +27,11 @@ final class AdminUserControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(AdminUserController::class);
+        return new ReflectionClass(AdminUserController::class);
     }
 
     /**
@@ -84,7 +87,7 @@ final class AdminUserControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUser
+     * @return MockInterface&LegacyMockInterface&AdminUser
      */
     protected function createAdminUserMock()
     {
@@ -151,7 +154,7 @@ final class AdminUserControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUserRepository
+     * @return MockInterface&LegacyMockInterface&AdminUserRepository
      */
     protected function createAdminUserRepositoryMock()
     {
@@ -159,7 +162,7 @@ final class AdminUserControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&DoctrinePaginator
+     * @return MockInterface&LegacyMockInterface&DoctrinePaginator
      */
     protected function createDoctrinePaginatorMock()
     {

@@ -2,12 +2,13 @@
 
 namespace App\Exception;
 
+use Exception;
 use Psr\Http\Message\UriInterface;
 
 /**
  * redirect exception
  */
-class RedirectException extends \Exception
+class RedirectException extends Exception
 {
     protected $url;
     protected $status;
