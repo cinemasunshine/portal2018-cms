@@ -6,16 +6,20 @@ namespace Tests\Unit\ORM\Entity;
 
 use App\ORM\Entity\Title;
 use App\ORM\Entity\TitleRanking;
+use InvalidArgumentException;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 final class TitleRankingTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&TitleRanking
+     * @return MockInterface&LegacyMockInterface&TitleRanking
      */
     protected function createTargetMock()
     {
@@ -23,11 +27,11 @@ final class TitleRankingTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(TitleRanking::class);
+        return new ReflectionClass(TitleRanking::class);
     }
 
     /**
@@ -70,7 +74,7 @@ final class TitleRankingTest extends TestCase
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $targetMock->getRank(6);
     }
@@ -117,13 +121,13 @@ final class TitleRankingTest extends TestCase
         $titleMock = $this->createTitleMock();
         $titleMock->makePartial();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $targetMock->setRank(6, $titleMock);
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Title
+     * @return MockInterface&LegacyMockInterface&Title
      */
     protected function createTitleMock()
     {

@@ -5,9 +5,13 @@ namespace App\Controller;
 use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
+use App\Pagination\DoctrinePaginator;
+use LogicException;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use Slim\Exception\NotFoundException;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Throwable;
 
 /**
  * MainBanner controller
@@ -61,7 +65,7 @@ class MainBannerController extends BaseController
             $errors = $form->getMessages();
         }
 
-        /** @var \App\Pagination\DoctrinePaginator $pagenater */
+        /** @var DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\MainBanner::class)->findForList($cleanValues, $page);
 
         return $this->render($response, 'main_banner/list.html.twig', [
@@ -132,7 +136,7 @@ class MainBannerController extends BaseController
 
         // upload storage
         // @todo storageと同期するような仕組みをFileへ
-        $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($image['type']);
         $this->bc->createBlockBlob(
             Entity\File::getBlobContainer(),
@@ -260,7 +264,7 @@ class MainBannerController extends BaseController
 
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
-            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options = new CreateBlockBlobOptions();
             $options->setContentType($image['type']);
             $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),
@@ -381,7 +385,7 @@ class MainBannerController extends BaseController
             $this->logger->debug('Delete "SpecialSiteMainBanner"', ['count' => $specialSiteMainBannerDeleteCount]);
 
             $this->em->getConnection()->commit();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $this->em->getConnection()->rollBack();
 
             throw $e;
@@ -432,7 +436,7 @@ class MainBannerController extends BaseController
         $form->setData($request->getParams());
 
         if (! $form->isValid()) {
-            throw new \LogicException('invalid parameters.');
+            throw new LogicException('invalid parameters.');
         }
 
         $cleanData       = $form->getData();
@@ -478,7 +482,7 @@ class MainBannerController extends BaseController
 
             if (! $mainBanner) {
                 // @todo formで検証したい
-                throw new \LogicException('invalid main_banner.');
+                throw new LogicException('invalid main_banner.');
             }
 
             $publication->setMainBanner($mainBanner);

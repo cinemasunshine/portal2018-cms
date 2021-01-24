@@ -6,6 +6,7 @@ namespace App\ORM\Entity;
 
 use Cinemasunshine\ORM\Entities\TitleRanking as BaseTitleRanking;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 /**
  * TitleRanking entity class
@@ -28,7 +29,7 @@ class TitleRanking extends BaseTitleRanking
      * @param int $rank
      * @return Title|null
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getRank(int $rank)
     {
@@ -49,7 +50,7 @@ class TitleRanking extends BaseTitleRanking
                 return $this->getRank5Title();
 
             default:
-                throw new \InvalidArgumentException('invalid "rank".');
+                throw new InvalidArgumentException('invalid "rank".');
         }
     }
 
@@ -60,7 +61,7 @@ class TitleRanking extends BaseTitleRanking
      * @param Title|null $title
      * @return void
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setRank(int $rank, $title)
     {
@@ -86,7 +87,7 @@ class TitleRanking extends BaseTitleRanking
                 break;
 
             default:
-                throw new \InvalidArgumentException('invalid "rank".');
+                throw new InvalidArgumentException('invalid "rank".');
         }
     }
 }

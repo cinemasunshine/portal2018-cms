@@ -2,8 +2,10 @@
 
 namespace App\Application\Handlers;
 
+use Exception;
 use Monolog\Logger;
 use Slim\Handlers\Error as BaseHandler;
+use Throwable;
 
 /**
  * Error handler
@@ -29,7 +31,7 @@ class Error extends BaseHandler
     /**
      * @see Slim\Handlers\AbstractError
      *
-     * @param \Exception|\Throwable $throwable
+     * @param Exception|Throwable $throwable
      * @return void
      */
     protected function writeToErrorLog($throwable)
@@ -38,7 +40,7 @@ class Error extends BaseHandler
     }
 
     /**
-     * @param \Exception|\Throwable $exception
+     * @param Exception|Throwable $exception
      * @return void
      */
     protected function log($exception)
@@ -57,7 +59,7 @@ class Error extends BaseHandler
      *
      * @phpcsSuppress SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly.ReferencedGeneralException
      */
-    protected function renderHtmlErrorMessage(\Exception $exception)
+    protected function renderHtmlErrorMessage(Exception $exception)
     {
         if (APP_DEBUG) {
             return parent::renderHtmlErrorMessage($exception);

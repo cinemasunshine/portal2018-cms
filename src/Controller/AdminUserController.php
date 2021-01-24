@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Exception\ForbiddenException;
 use App\Form\AdminUserForm;
 use App\ORM\Entity;
+use App\Pagination\DoctrinePaginator;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -48,7 +49,7 @@ class AdminUserController extends BaseController
 
         $cleanValues = [];
 
-        /** @var \App\Pagination\DoctrinePaginator $pagenater */
+        /** @var DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\AdminUser::class)->findForList($cleanValues, $page);
 
         return $this->render($response, 'admin_user/list.html.twig', [

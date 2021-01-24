@@ -7,14 +7,17 @@ namespace Tests\Unit\ORM\Entity;
 use App\ORM\Entity\AdminUser;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 final class AdminUserTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AdminUser
+     * @return MockInterface&LegacyMockInterface&AdminUser
      */
     protected function createTargetMock()
     {
@@ -22,11 +25,11 @@ final class AdminUserTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(AdminUser::class);
+        return new ReflectionClass(AdminUser::class);
     }
 
     /**

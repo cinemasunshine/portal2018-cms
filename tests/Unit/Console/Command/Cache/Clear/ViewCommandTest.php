@@ -11,6 +11,10 @@ namespace Tests\Unit\Console\Command\Cache\Clear;
 use App\Console\Command\Cache\Clear\ViewCommand;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use ReflectionClass;
+use RuntimeException;
 use Slim\Views\Twig;
 use Symfony\Component\Filesystem\Filesystem;
 use Tests\Unit\Console\Command\AbstructTestCase;
@@ -27,7 +31,7 @@ final class ViewCommandTest extends AbstructTestCase
     /**
      * Create target mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|ViewCommand
+     * @return MockInterface|LegacyMockInterface|ViewCommand
      */
     protected function createTargetMock()
     {
@@ -37,17 +41,17 @@ final class ViewCommandTest extends AbstructTestCase
     /**
      * Create target reflection
      *
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(ViewCommand::class);
+        return new ReflectionClass(ViewCommand::class);
     }
 
     /**
      * Create Twig mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|Twig
+     * @return MockInterface|LegacyMockInterface|Twig
      */
     protected function createTwigMock()
     {
@@ -143,7 +147,7 @@ final class ViewCommandTest extends AbstructTestCase
     /**
      * Create TwigEnvironment mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
+     * @return MockInterface|LegacyMockInterface
      */
     protected function createTwigEnvironmentMock()
     {
@@ -153,7 +157,7 @@ final class ViewCommandTest extends AbstructTestCase
     /**
      * Create FilesystemCache mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|FilesystemCache
+     * @return MockInterface|LegacyMockInterface|FilesystemCache
      */
     protected function createFilesystemCacheMock()
     {
@@ -268,7 +272,7 @@ final class ViewCommandTest extends AbstructTestCase
         $viewPropertyRef->setAccessible(true);
         $viewPropertyRef->setValue($targetMock, $twigMock);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
         $executeMethodRef = $targetRef->getMethod('execute');
         $executeMethodRef->setAccessible(true);
@@ -280,7 +284,7 @@ final class ViewCommandTest extends AbstructTestCase
     /**
      * Create OtherCache mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
+     * @return MockInterface|LegacyMockInterface
      */
     protected function createOtherCacheMock()
     {
@@ -326,7 +330,7 @@ final class ViewCommandTest extends AbstructTestCase
     /**
      * Create Filesystem mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface
+     * @return MockInterface|LegacyMockInterface
      */
     protected function createFilesystemMock()
     {

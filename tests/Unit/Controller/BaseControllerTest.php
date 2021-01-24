@@ -6,6 +6,9 @@ namespace Tests\Unit\Controller;
 
 use App\Controller\BaseController;
 use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use ReflectionClass;
 use Slim\Container;
 use Twig\Environment;
 
@@ -13,7 +16,7 @@ final class BaseControllerTest extends BaseTestCase
 {
     /**
      * @param Container $container
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&BaseController
+     * @return MockInterface&LegacyMockInterface&BaseController
      */
     protected function createTargetMock(Container $container)
     {
@@ -21,11 +24,11 @@ final class BaseControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(BaseController::class);
+        return new ReflectionClass(BaseController::class);
     }
 
     /**
@@ -84,7 +87,7 @@ final class BaseControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Environment
+     * @return MockInterface&LegacyMockInterface&Environment
      */
     protected function createViewEnvironmentMock()
     {

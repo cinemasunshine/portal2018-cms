@@ -6,11 +6,14 @@ namespace Tests\Unit\Controller;
 
 use App\Controller\TheaterMetaController;
 use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use ReflectionClass;
 
 final class TheaterMetaControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&TheaterMetaController
+     * @return MockInterface&LegacyMockInterface&TheaterMetaController
      */
     protected function createTargetMock()
     {
@@ -18,11 +21,11 @@ final class TheaterMetaControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(TheaterMetaController::class);
+        return new ReflectionClass(TheaterMetaController::class);
     }
 
     /**

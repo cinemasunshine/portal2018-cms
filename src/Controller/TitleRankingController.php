@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
+use LogicException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -18,7 +19,7 @@ class TitleRankingController extends BaseController
         $entity = $this->em->find(Entity\TitleRanking::class, 1);
 
         if (! $entity) {
-            throw new \LogicException('TitleRanking does not exist.');
+            throw new LogicException('TitleRanking does not exist.');
         }
 
         return $entity;

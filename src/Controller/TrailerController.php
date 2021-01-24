@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Exception\ForbiddenException;
 use App\Form;
 use App\ORM\Entity;
+use App\Pagination\DoctrinePaginator;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use Slim\Exception\NotFoundException;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -61,7 +63,7 @@ class TrailerController extends BaseController
             $errors = $form->getMessages();
         }
 
-        /** @var \App\Pagination\DoctrinePaginator $pagenater */
+        /** @var DoctrinePaginator $pagenater */
         $pagenater = $this->em->getRepository(Entity\Trailer::class)->findForList($cleanValues, $page);
 
         return $this->render($response, 'trailer/list.html.twig', [
@@ -133,7 +135,7 @@ class TrailerController extends BaseController
 
         // upload storage
         // @todo storageと同期するような仕組みをFileへ
-        $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($bannerImage['type']);
         $this->bc->createBlockBlob(
             Entity\File::getBlobContainer(),
@@ -340,7 +342,7 @@ class TrailerController extends BaseController
 
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
-            $options = new \MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions();
+            $options = new CreateBlockBlobOptions();
             $options->setContentType($bannerImage['type']);
             $this->bc->createBlockBlob(
                 Entity\File::getBlobContainer(),

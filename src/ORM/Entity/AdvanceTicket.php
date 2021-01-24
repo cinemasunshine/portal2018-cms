@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\ORM\Entity;
 
 use Cinemasunshine\ORM\Entities\AdvanceTicket as BaseAdvanceTicket;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -69,7 +70,7 @@ class AdvanceTicket extends BaseAdvanceTicket
             return self::$statusList[self::STATUS_SALE_END];
         }
 
-        $now = new \DateTime('now');
+        $now = new DateTime('now');
         $end = $this->getAdvanceSale()->getPublishingExpectedDate();
 
         if ($end && $now > $end) {

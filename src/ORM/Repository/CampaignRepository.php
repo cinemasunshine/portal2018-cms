@@ -5,6 +5,7 @@ namespace App\ORM\Repository;
 use App\ORM\Entity\Campaign;
 use App\Pagination\DoctrinePaginator;
 use Doctrine\ORM\EntityRepository;
+use InvalidArgumentException;
 
 /**
  * Campaign repository class
@@ -75,7 +76,7 @@ class CampaignRepository extends EntityRepository
     public function findForListApi(string $name)
     {
         if (empty($name)) {
-            throw new \InvalidArgumentException('invalid "name".');
+            throw new InvalidArgumentException('invalid "name".');
         }
 
         $qb = $this->createQueryBuilder('c');

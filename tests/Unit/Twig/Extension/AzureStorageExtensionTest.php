@@ -12,7 +12,10 @@ use App\Twig\Extension\AzureStorageExtension;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use Twig\TwigFunction;
 
 /**
@@ -25,7 +28,7 @@ final class AzureStorageExtensionTest extends TestCase
     /**
      * Create BlobRestProxy mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|BlobRestProxy
+     * @return MockInterface|LegacyMockInterface|BlobRestProxy
      */
     protected function crateBlobRestProxyMock()
     {
@@ -45,7 +48,7 @@ final class AzureStorageExtensionTest extends TestCase
         $blobRestProxyMock         = $this->crateBlobRestProxyMock();
         $publicEndpoint            = 'http://example.com';
 
-        $azureStorageExtensionClassRef = new \ReflectionClass(AzureStorageExtension::class);
+        $azureStorageExtensionClassRef = new ReflectionClass(AzureStorageExtension::class);
 
         // execute constructor
         $constructorRef = $azureStorageExtensionClassRef->getConstructor();
@@ -101,7 +104,7 @@ final class AzureStorageExtensionTest extends TestCase
         $azureStorageExtensionMock = Mockery::mock(AzureStorageExtension::class)
             ->makePartial();
 
-        $azureStorageExtensionClassRef = new \ReflectionClass(AzureStorageExtension::class);
+        $azureStorageExtensionClassRef = new ReflectionClass(AzureStorageExtension::class);
 
         $publicEndpointPropertyRef = $azureStorageExtensionClassRef->getProperty('publicEndpoint');
         $publicEndpointPropertyRef->setAccessible(true);
@@ -142,7 +145,7 @@ final class AzureStorageExtensionTest extends TestCase
             ->with($container, $blob)
             ->andReturn($url);
 
-        $azureStorageExtensionClassRef = new \ReflectionClass(AzureStorageExtension::class);
+        $azureStorageExtensionClassRef = new ReflectionClass(AzureStorageExtension::class);
 
         $clientPropertyRef = $azureStorageExtensionClassRef->getProperty('client');
         $clientPropertyRef->setAccessible(true);

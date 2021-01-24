@@ -12,6 +12,9 @@ use App\Console\Command\AdminUser\EncryptPasswordCommand;
 use App\ORM\Entity\AdminUser;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use ReflectionClass;
 use Tests\Unit\Console\Command\AbstructTestCase;
 
 /**
@@ -26,7 +29,7 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
     /**
      * Create Target mock
      *
-     * @return \Mockery\MockInterface|\Mockery\LegacyMockInterface|EncryptPasswordCommand
+     * @return MockInterface|LegacyMockInterface|EncryptPasswordCommand
      */
     protected function createTargetMock()
     {
@@ -36,11 +39,11 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
     /**
      * Create target reflection
      *
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(EncryptPasswordCommand::class);
+        return new ReflectionClass(EncryptPasswordCommand::class);
     }
 
     /**

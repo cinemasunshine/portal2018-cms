@@ -6,11 +6,14 @@ namespace Tests\Unit\Controller;
 
 use App\Controller\AuthController;
 use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use ReflectionClass;
 
 final class AuthControllerTest extends BaseTestCase
 {
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AuthController
+     * @return MockInterface&LegacyMockInterface&AuthController
      */
     protected function createTargetMock()
     {
@@ -18,11 +21,11 @@ final class AuthControllerTest extends BaseTestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(AuthController::class);
+        return new ReflectionClass(AuthController::class);
     }
 
     /**

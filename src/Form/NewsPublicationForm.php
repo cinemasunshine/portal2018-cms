@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\ORM\Entity;
 use Doctrine\ORM\EntityManager;
+use InvalidArgumentException;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
 
@@ -31,7 +32,7 @@ class NewsPublicationForm extends BaseForm
     public function __construct(string $target, EntityManager $em)
     {
         if (! in_array($target, [self::TARGET_PAGE, self::TARGET_TEATER, self::TARGET_SPESICAL_SITE])) {
-            throw new \InvalidArgumentException('invalid target.');
+            throw new InvalidArgumentException('invalid target.');
         }
 
         $this->target = $target;
