@@ -343,9 +343,9 @@ jobs:
       - run:
           name: Deploy
           command: >-
-            az webapp deployment source config-zip
-              -g ssk-portal-win-test
-              -n ssk-portal2018-admin-win-test
+            az webapp deployment source config-zip \
+              -g ssk-portal-win-test \
+              -n ssk-portal2018-admin-win-test \
               --src development_app.zip
 
   deploy_to_prod_release:
