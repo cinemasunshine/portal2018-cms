@@ -266,7 +266,7 @@ jobs:
             az webapp deployment source config-zip \
               -g ssk-portal-win-prod \
               -n ssk-portal2018-admin-win-prod \
-              -s release
+              -s release \
               --src production_app.zip
 
   swap_prod_release_to_production:
