@@ -328,7 +328,7 @@ jobs:
 
   deploy_to_test:
     working_directory: ~/development
-    executor: deployment
+    executor: azure-cli/azure-docker
 
     steps:
       - attach_workspace:
@@ -337,12 +337,16 @@ jobs:
       - file_exists:
           file: development_app.zip
 
-      - azure_zip_deploy:
-          app: ssk-portal2018-admin-win-test
-          user: $TEST_AAS_USER
-          password: $TEST_AAS_PASSWORD
-          zip: development_app.zip
-          async: "true"
+      - azure-cli/login-with-user:
+          alternate-tenant: true
+
+      - run:
+          name: Deploy
+          command: >-
+            az webapp deployment source config-zip
+              -g ssk-portal-win-test
+              -n ssk-portal2018-admin-win-test
+              --src development_app.zip
 
   deploy_to_prod_release:
     working_directory: ~/production
