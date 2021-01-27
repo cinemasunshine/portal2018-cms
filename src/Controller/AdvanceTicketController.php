@@ -380,7 +380,7 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock'] ?: null);
 
             $image         = $ticket['special_gift_image'];
-            $isDeleteImage = ($ticket['delete_special_gift_image'] == '1') || $image['name'];
+            $isDeleteImage = ($ticket['delete_special_gift_image'] === '1') || $image['name'];
 
             if ($isDeleteImage && $advanceTicket->getSpecialGiftImage()) {
                 // @todo preUpdateで出来ないか？ hasChangedField()

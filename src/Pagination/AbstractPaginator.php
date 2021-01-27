@@ -131,7 +131,7 @@ abstract class AbstractPaginator
      */
     public function isFirstPage()
     {
-        return $this->getPage() == 1;
+        return $this->getPage() === 1;
     }
 
     /**
@@ -141,7 +141,7 @@ abstract class AbstractPaginator
      */
     public function isLastPage()
     {
-        return $this->getPage() == $this->getLastPage();
+        return $this->getPage() === $this->getLastPage();
     }
 
     /**
@@ -151,7 +151,7 @@ abstract class AbstractPaginator
      */
     public function getFirstIndice()
     {
-        if ($this->getPage() == 0) {
+        if ($this->getPage() === 0) {
             return 1;
         }
 
@@ -165,7 +165,7 @@ abstract class AbstractPaginator
      */
     public function getLastIndice()
     {
-        if ($this->getPage() == 0) {
+        if ($this->getPage() === 0) {
             return $this->getNumResults();
         }
 
