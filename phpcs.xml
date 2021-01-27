@@ -17,7 +17,10 @@
     <arg value="sp"/>
 
     <!-- Base rule -->
-    <rule ref="Motionpicture"/>
+    <rule ref="Motionpicture">
+        <!-- checked by SlevomatCodingStandard.Operators.SpreadOperatorSpacing -->
+        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterVariadic"/>
+    </rule>
 
     <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
         <properties>
@@ -51,46 +54,12 @@
         </properties>
     </rule>
 
-    <!-- Require use statements to be alphabetically sorted -->
-    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
-    <!-- Forbid fancy group uses -->
-    <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
-    <!-- Forbid multiple use statements on same line -->
-    <rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
-    <!-- Require newlines around namespace declaration -->
-    <rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing"/>
-    <!-- Forbid using absolute class name references (except global ones) -->
-    <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
-        <properties>
-            <property name="allowFallbackGlobalConstants" value="true"/>
-            <property name="allowFallbackGlobalFunctions" value="true"/>
-            <property name="allowFullyQualifiedGlobalClasses" value="false"/>
-            <property name="allowFullyQualifiedGlobalConstants" value="false"/>
-            <property name="allowFullyQualifiedGlobalFunctions" value="false"/>
-            <property name="allowFullyQualifiedNameForCollidingClasses" value="true"/>
-            <property name="allowFullyQualifiedNameForCollidingConstants" value="true"/>
-            <property name="allowFullyQualifiedNameForCollidingFunctions" value="true"/>
-            <property name="searchAnnotations" value="true"/>
-        </properties>
-    </rule>
-    <!-- Forbid unused use statements -->
-    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
-        <properties>
-            <property name="searchAnnotations" value="true"/>
-        </properties>
-    </rule>
-    <!-- Forbid superfluous leading backslash in use statements -->
-    <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
-    <!-- Forbid useless uses of the same namespace -->
-    <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
-    <!-- Require empty newlines before and after uses -->
-    <rule ref="SlevomatCodingStandard.Namespaces.UseSpacing">
-        <properties>
-            <property name="linesCountAfterLastUse" value="1"/>
-            <property name="linesCountBeforeFirstUse" value="1"/>
-            <property name="linesCountBetweenUseTypes" value="1"/>
-        </properties>
-    </rule>
-    <!-- Forbid useless alias for classes, constants and functions -->
-    <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
+    <!-- Forbid weak comparisons -->
+    <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
+    <!-- Forbid spacing before the negative operator `-` -->
+    <rule ref="SlevomatCodingStandard.Operators.NegationOperatorSpacing"/>
+    <!-- Require the usage of assignment operators, eg `+=`, `.=` when possible -->
+    <rule ref="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator"/>
+    <!-- Require no spacing after spread operator -->
+    <rule ref="SlevomatCodingStandard.Operators.SpreadOperatorSpacing"/>
 </ruleset>
