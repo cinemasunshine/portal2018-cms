@@ -121,9 +121,9 @@ $getStorageSettings = static function () {
 
     $settings['secure'] = (getenv('CUSTOMCONNSTR_STORAGE_SECURE') !== 'false');
 
-    $settings['blob_endpoint'] = (getenv('CUSTOMCONNSTR_STORAGE_BLOB_ENDPOINT')) ?: null;
+    $settings['blob_endpoint'] = getenv('CUSTOMCONNSTR_STORAGE_BLOB_ENDPOINT') ?: null;
 
-    $settings['public_endpoint'] = (getenv('CUSTOMCONNSTR_STORAGE_PUBLIC_ENDOPOINT')) ?: null;
+    $settings['public_endpoint'] = getenv('CUSTOMCONNSTR_STORAGE_PUBLIC_ENDOPOINT') ?: null;
 
     return $settings;
 };

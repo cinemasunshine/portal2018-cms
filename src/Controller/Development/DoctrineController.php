@@ -104,11 +104,11 @@ class DoctrineController extends BaseController
     protected function doClear(CacheProvider $cacheDriver, bool $flush = false): string
     {
         $result  = $cacheDriver->deleteAll();
-        $message = ($result) ? 'Successfully deleted cache entries.' : 'No cache entries were deleted.';
+        $message = $result ? 'Successfully deleted cache entries.' : 'No cache entries were deleted.';
 
         if ($flush) {
             $result  = $cacheDriver->flushAll();
-            $message = ($result) ? 'Successfully flushed cache entries.' : $message;
+            $message = $result ? 'Successfully flushed cache entries.' : $message;
         }
 
         if (! $result) {
