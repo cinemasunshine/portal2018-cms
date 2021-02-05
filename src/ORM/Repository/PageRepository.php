@@ -1,57 +1,61 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Page;
-use Doctrine\ORM\EntityRepository;
+use Cinemasunshine\ORM\Repositories\PageRepository as BaseRepository;
 
 /**
- * Page repository class
+ * @extends BaseRepository<Page>
  */
-class PageRepository extends EntityRepository
+class PageRepository extends BaseRepository
 {
     /**
-     * find
-     *
      * @return Page[]
      */
     public function findActive()
     {
-        $qb = $this->createQueryBuilder('p');
-        $qb->where('p.isDeleted = false');
+        $alias = 'p';
+        $qb    = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
 
         return $qb->getQuery()->getResult();
     }
 
     /**
-     * find by ids
-     *
      * @param array $ids
      * @return Page[]
      */
     public function findByIds(array $ids)
     {
-        $qb = $this->createQueryBuilder('p');
+        $alias = 'p';
+        $qb    = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
+
         $qb
-            ->where('p.isDeleted = false')
-            ->andWhere('p.id IN (:ids)')
+            ->andWhere($alias . '.id IN (:ids)')
             ->setParameter('ids', $ids);
 
         return $qb->getQuery()->getResult();
     }
 
     /**
-     * find one by id
-     *
      * @param int $id
      * @return Page|null
      */
     public function findOneById(int $id)
     {
-        $qb = $this->createQueryBuilder('p');
+        $alias = 'p';
+        $qb    = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
+
         $qb
-            ->where('p.id = :id')
-            ->andWhere('p.isDeleted = false')
+            ->andWhere($alias . '.id = :id')
             ->setParameter('id', $id);
 
         return $qb->getQuery()->getOneOrNullResult();
