@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "47edf654370cbe51f48d891749b0315d",
+    "content-hash": "68927f547c8d2c702644773fa6fe7446",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -51,16 +51,16 @@
         },
         {
             "name": "cinemasunshine/portal2018-orm",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cinemasunshine/portal2018-orm.git",
-                "reference": "ff8c40391500ccfd874558d972e603cac76065dd"
+                "reference": "1b1c37eb83d2dac039416d6fbdd3821ca23a86ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/ff8c40391500ccfd874558d972e603cac76065dd",
-                "reference": "ff8c40391500ccfd874558d972e603cac76065dd",
+                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/1b1c37eb83d2dac039416d6fbdd3821ca23a86ac",
+                "reference": "1b1c37eb83d2dac039416d6fbdd3821ca23a86ac",
                 "shasum": ""
             },
             "require": {
@@ -68,11 +68,11 @@
                 "php": "~7.2"
             },
             "require-dev": {
-                "mp-okui/php-coding-standard": "v0.2.0-alpha",
+                "mp-okui/php-coding-standard": "v0.7.0-alpha",
                 "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpstan/phpstan": "^0.12.56",
-                "phpstan/phpstan-doctrine": "^0.12.22",
-                "phpstan/phpstan-phpunit": "^0.12.16",
+                "phpstan/phpstan": "^0.12.71",
+                "phpstan/phpstan-doctrine": "^0.12.30",
+                "phpstan/phpstan-phpunit": "^0.12.17",
                 "phpunit/phpunit": "^8.5"
             },
             "type": "library",
@@ -108,10 +108,10 @@
             ],
             "description": "Cinemasunshine Portal2018 ORM",
             "support": {
-                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v1.2.0",
+                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v1.3.0",
                 "issues": "https://github.com/cinemasunshine/portal2018-orm/issues"
             },
-            "time": "2020-11-18T11:35:16+00:00"
+            "time": "2021-02-04T10:17:35+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
