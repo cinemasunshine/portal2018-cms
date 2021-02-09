@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity;
@@ -26,16 +28,9 @@ class AdvanceSaleForm extends BaseForm
     /** @var AdvanceTicketFieldset */
     protected $ticketFieldset;
 
-    /**@var array */
+    /** @var array<int, string> */
     protected $theaterChoices = [];
 
-    /**
-     * construct
-     *
-     * @param int              $type
-     * @param EntityManager    $em
-     * @param Entity\AdminUser $adminUser
-     */
     public function __construct(int $type, EntityManager $em, Entity\AdminUser $adminUser)
     {
         $this->type           = $type;
@@ -48,12 +43,7 @@ class AdvanceSaleForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         if ($this->type === self::TYPE_EDIT) {
             $this->add([
@@ -194,12 +184,9 @@ class AdvanceSaleForm extends BaseForm
     }
 
     /**
-     * pre validator
-     *
-     * @param array $data
-     * @return void
+     * @param array<string, mixed> $data
      */
-    protected function preValidator(array $data)
+    protected function preValidator(array $data): void
     {
         if ($data['not_exist_publishing_expected_date'] === '1') {
             $this->getInputFilter()->get('publishing_expected_date')->setRequired(false);
@@ -207,31 +194,25 @@ class AdvanceSaleForm extends BaseForm
     }
 
     /**
-     * return theater choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTheaterChoices()
+    public function getTheaterChoices(): array
     {
         return $this->theaterChoices;
     }
 
     /**
-     * return ticket type choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTicketTypeChoices()
+    public function getTicketTypeChoices(): array
     {
         return $this->ticketFieldset->getTypeChoices();
     }
 
     /**
-     * return ticket special_gift_stock choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTicketSpecialGiftStockChoices()
+    public function getTicketSpecialGiftStockChoices(): array
     {
         return $this->ticketFieldset->getSpecialGiftStockChoices();
     }

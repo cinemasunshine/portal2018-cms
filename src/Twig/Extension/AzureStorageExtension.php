@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Twig\Extension;
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
@@ -17,24 +19,16 @@ class AzureStorageExtension extends AbstractExtension
     /** @var string|null $publicEndpoint */
     protected $publicEndpoint;
 
-    /**
-     * construct
-     *
-     * @param BlobRestProxy $client
-     * @param string|null   $publicEndpoint
-     */
-    public function __construct(BlobRestProxy $client, $publicEndpoint = null)
+    public function __construct(BlobRestProxy $client, ?string $publicEndpoint = null)
     {
         $this->client         = $client;
         $this->publicEndpoint = $publicEndpoint;
     }
 
     /**
-     * get functions
-     *
-     * @return array
+     * @return TwigFunction[]
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('blob_url', [$this, 'blobUrl']),
@@ -48,9 +42,8 @@ class AzureStorageExtension extends AbstractExtension
      *
      * @param string $container Blob container name
      * @param string $blob      Blob name
-     * @return string
      */
-    public function blobUrl(string $container, string $blob)
+    public function blobUrl(string $container, string $blob): string
     {
         if ($this->publicEndpoint) {
             return sprintf('%s/%s/%s', $this->publicEndpoint, $container, $blob);

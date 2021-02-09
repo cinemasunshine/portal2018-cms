@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Handlers;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,11 +16,6 @@ class NotFound extends BaseHandler
     /** @var Twig */
     protected $view;
 
-    /**
-     * construct
-     *
-     * @param Twig $view
-     */
     public function __construct(Twig $view)
     {
         $this->view = $view;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity\Theater;
@@ -21,18 +23,12 @@ class ScheduleForm extends BaseForm
     /** @var EntityManager */
     protected $em;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $theaterChoices;
 
     /** @var ShowingFormatFieldset */
     protected $showingFormatFieldset;
 
-    /**
-     * construct
-     *
-     * @param int           $type
-     * @param EntityManager $em
-     */
     public function __construct(int $type, EntityManager $em)
     {
         $this->type = $type;
@@ -46,12 +42,7 @@ class ScheduleForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         if ($this->type === self::TYPE_EDIT) {
             $this->add([
@@ -185,21 +176,14 @@ class ScheduleForm extends BaseForm
     }
 
     /**
-     * return theater choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTheaterChoices()
+    public function getTheaterChoices(): array
     {
         return $this->theaterChoices;
     }
 
-    /**
-     * return format Fieldset
-     *
-     * @return ShowingFormatFieldset
-     */
-    public function getShowingFormatFieldset()
+    public function getShowingFormatFieldset(): ShowingFormatFieldset
     {
         return $this->showingFormatFieldset;
     }

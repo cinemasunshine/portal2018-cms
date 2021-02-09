@@ -38,10 +38,8 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
 
     /**
      * Create target reflection
-     *
-     * @return ReflectionClass
      */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(EncryptPasswordCommand::class);
     }
@@ -50,10 +48,8 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
      * test configure
      *
      * @test
-     *
-     * @return void
      */
-    public function testConfigure()
+    public function testConfigure(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock
@@ -81,10 +77,8 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
      * test execute
      *
      * @test
-     *
-     * @return void
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $password          = 'plain_password';
         $encryptedPassword = 'encrypted_password';
@@ -137,10 +131,8 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @test
-     *
-     * @return void
      */
-    public function testEncryptPassword()
+    public function testEncryptPassword(): void
     {
         $password          = 'plain_password';
         $encryptedPassword = 'encrypted_password';

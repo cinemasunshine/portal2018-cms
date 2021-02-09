@@ -27,10 +27,8 @@ class File extends BaseFile
 
     /**
      * get blob container
-     *
-     * @return string
      */
-    public static function getBlobContainer()
+    public static function getBlobContainer(): string
     {
         return self::$blobContainer;
     }
@@ -39,9 +37,8 @@ class File extends BaseFile
      * create name
      *
      * @param string $file original file
-     * @return string
      */
-    public static function createName(string $file)
+    public static function createName(string $file): string
     {
         $info = pathinfo($file);
 

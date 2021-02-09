@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -24,11 +26,9 @@ class OyakoCinemaController extends BaseController
     }
 
     /**
-     * @return void
-     *
      * @throws ForbiddenException
      */
-    protected function authorization()
+    protected function authorization(): void
     {
         $user = $this->auth->getUser();
 
@@ -40,12 +40,9 @@ class OyakoCinemaController extends BaseController
     /**
      * list action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeList(Request $request, Response $response, array $args)
+    public function executeList(Request $request, Response $response, array $args): Response
     {
         $page = (int) $request->getParam('p', 1);
 
@@ -62,12 +59,9 @@ class OyakoCinemaController extends BaseController
     /**
      * new action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeNew(Request $request, Response $response, array $args)
+    public function executeNew(Request $request, Response $response, array $args): Response
     {
         $form =  new Form(Form::TYPE_NEW, $this->em);
 
@@ -75,11 +69,9 @@ class OyakoCinemaController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderNew(Response $response, array $data = [])
+    protected function renderNew(Response $response, array $data = []): Response
     {
         return $this->render($response, 'oyako_cinema/new.html.twig', $data);
     }
@@ -87,12 +79,9 @@ class OyakoCinemaController extends BaseController
     /**
      * create action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeCreate(Request $request, Response $response, $args)
+    public function executeCreate(Request $request, Response $response, array $args): Response
     {
         $form = new Form(Form::TYPE_NEW, $this->em);
         $form->setData($request->getParams());
@@ -130,16 +119,17 @@ class OyakoCinemaController extends BaseController
     /**
      * do cleate
      *
-     * @param array $data
-     * @return Entity\OyakoCinemaTitle
+     * @param array<string, mixed> $data
      */
     protected function doCleate(array $data): Entity\OyakoCinemaTitle
     {
         $oyakoCinemaTitle = new Entity\OyakoCinemaTitle();
         $this->em->persist($oyakoCinemaTitle);
 
-        $title =  $this->em->getRepository(Entity\Title::class)
-            ->findOneById($data['title_id']);
+        $title =  $this->em
+            ->getRepository(Entity\Title::class)
+            ->findOneById((int) $data['title_id']);
+
         $oyakoCinemaTitle->setTitle($title);
         $oyakoCinemaTitle->setTitleUrl($data['title_url']);
         $oyakoCinemaTitle->setCreatedUser($this->auth->getUser());
@@ -172,16 +162,14 @@ class OyakoCinemaController extends BaseController
     /**
      * edit action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeEdit(Request $request, Response $response, array $args)
+    public function executeEdit(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\OyakoCinemaTitle|null $oyakoCinemaTitle */
-        $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
-            ->findOneById($args['id']);
+        $oyakoCinemaTitle = $this->em
+            ->getRepository(Entity\OyakoCinemaTitle::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($oyakoCinemaTitle)) {
             throw new NotFoundException($request, $response);
@@ -220,11 +208,9 @@ class OyakoCinemaController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderEdit(Response $response, array $data = [])
+    protected function renderEdit(Response $response, array $data = []): Response
     {
         return $this->render($response, 'oyako_cinema/edit.html.twig', $data);
     }
@@ -232,16 +218,14 @@ class OyakoCinemaController extends BaseController
     /**
      * update action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeUpdate(Request $request, Response $response, array $args)
+    public function executeUpdate(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\OyakoCinemaTitle|null $oyakoCinemaTitle */
-        $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
-            ->findOneById($args['id']);
+        $oyakoCinemaTitle = $this->em
+            ->getRepository(Entity\OyakoCinemaTitle::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($oyakoCinemaTitle)) {
             throw new NotFoundException($request, $response);
@@ -284,14 +268,14 @@ class OyakoCinemaController extends BaseController
     /**
      * do update
      *
-     * @param Entity\OyakoCinemaTitle $oyakoCinemaTitle
-     * @param array                   $data
-     * @return void
+     * @param array<string, mixed> $data
      */
-    protected function doUpdate(Entity\OyakoCinemaTitle $oyakoCinemaTitle, array $data)
+    protected function doUpdate(Entity\OyakoCinemaTitle $oyakoCinemaTitle, array $data): void
     {
-        $title =  $this->em->getRepository(Entity\Title::class)
-            ->findOneById($data['title_id']);
+        $title =  $this->em
+            ->getRepository(Entity\Title::class)
+            ->findOneById((int) $data['title_id']);
+
         $oyakoCinemaTitle->setTitle($title);
         $oyakoCinemaTitle->setTitleUrl($data['title_url']);
         $oyakoCinemaTitle->setUpdatedUser($this->auth->getUser());
@@ -324,16 +308,14 @@ class OyakoCinemaController extends BaseController
     /**
      * delete action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return void
+     * @param array<string, mixed> $args
      */
-    public function executeDelete(Request $request, Response $response, array $args)
+    public function executeDelete(Request $request, Response $response, array $args): void
     {
         /** @var Entity\OyakoCinemaTitle|null $oyakoCinemaTitle */
-        $oyakoCinemaTitle = $this->em->getRepository(Entity\OyakoCinemaTitle::class)
-            ->findOneById($args['id']);
+        $oyakoCinemaTitle = $this->em
+            ->getRepository(Entity\OyakoCinemaTitle::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($oyakoCinemaTitle)) {
             throw new NotFoundException($request, $response);
@@ -356,11 +338,8 @@ class OyakoCinemaController extends BaseController
 
     /**
      * do delete
-     *
-     * @param Entity\OyakoCinemaTitle $oyakoCinemaTitle
-     * @return void
      */
-    protected function doDelete(Entity\OyakoCinemaTitle $oyakoCinemaTitle)
+    protected function doDelete(Entity\OyakoCinemaTitle $oyakoCinemaTitle): void
     {
         $oyakoCinemaTitle->setIsDeleted(true);
         $oyakoCinemaTitle->setUpdatedUser($this->auth->getUser());
@@ -371,12 +350,9 @@ class OyakoCinemaController extends BaseController
     /**
      * setting action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeSetting(Request $request, Response $response, array $args)
+    public function executeSetting(Request $request, Response $response, array $args): Response
     {
         $theaterMetas = $this->em->getRepository(Entity\TheaterMeta::class)->findActive();
 
@@ -386,15 +362,14 @@ class OyakoCinemaController extends BaseController
     /**
      * setting edit action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeSettingEdit(Request $request, Response $response, array $args)
+    public function executeSettingEdit(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\Theater|null $theater */
-        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
+        $theater = $this->em
+            ->getRepository(Entity\Theater::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($theater)) {
             throw new NotFoundException($request, $response);
@@ -411,11 +386,9 @@ class OyakoCinemaController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderSettingEdit(Response $response, array $data = [])
+    protected function renderSettingEdit(Response $response, array $data = []): Response
     {
         return $this->render($response, 'oyako_cinema/setting/edit.html.twig', $data);
     }
@@ -423,15 +396,14 @@ class OyakoCinemaController extends BaseController
     /**
      * setting update action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeSettingUpdate(Request $request, Response $response, $args)
+    public function executeSettingUpdate(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\Theater|null $theater */
-        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
+        $theater = $this->em
+            ->getRepository(Entity\Theater::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($theater)) {
             throw new NotFoundException($request, $response);
@@ -472,11 +444,9 @@ class OyakoCinemaController extends BaseController
     /**
      * do setting update
      *
-     * @param Entity\TheaterMeta $theaterMeta
-     * @param array              $data
-     * @return void
+     * @param array<string, mixed> $data
      */
-    protected function doSettingUpdate(Entity\TheaterMeta $theaterMeta, array $data)
+    protected function doSettingUpdate(Entity\TheaterMeta $theaterMeta, array $data): void
     {
         $theaterMeta->setOyakoCinemaUrl($data['oyako_cinema_url']);
         $this->em->flush();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;
@@ -9,9 +11,6 @@ use Laminas\InputFilter\InputFilter;
  */
 class OyakoCinemaSettingForm extends BaseForm
 {
-    /**
-     * construct
-     */
     public function __construct()
     {
         parent::__construct();
@@ -19,12 +18,7 @@ class OyakoCinemaSettingForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'oyako_cinema_url',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\Form\ScheduleFindForm;
@@ -13,14 +15,9 @@ use Cinemasunshine\ORM\Repositories\ScheduleRepository as BaseRepository;
 class ScheduleRepository extends BaseRepository
 {
     /**
-     * find for list page
-     *
-     * @param array $params
-     * @param int   $page
-     * @param int   $maxPerPage
-     * @return DoctrinePaginator
+     * @param array<string, mixed> $params
      */
-    public function findForList(array $params, int $page, int $maxPerPage = 10)
+    public function findForList(array $params, int $page, int $maxPerPage = 10): DoctrinePaginator
     {
         $qb = $this->createQueryBuilder('s');
 
@@ -87,11 +84,7 @@ class ScheduleRepository extends BaseRepository
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
 
-    /**
-     * @param int $id
-     * @return Schedule|null
-     */
-    public function findOneById($id): ?Schedule
+    public function findOneById(int $id): ?Schedule
     {
         $qb = $this->createQueryBuilder('s');
         $qb

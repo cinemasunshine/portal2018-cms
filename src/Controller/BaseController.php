@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use Slim\Http\Request;
@@ -10,13 +12,6 @@ use Slim\Http\Response;
  */
 abstract class BaseController extends AbstractController
 {
-    /**
-     * pre execute
-     *
-     * @param Request  $request
-     * @param Response $response
-     * @return void
-     */
     protected function preExecute(Request $request, Response $response): void
     {
         $viewEnvironment = $this->view->getEnvironment();
@@ -26,22 +21,12 @@ abstract class BaseController extends AbstractController
         $viewEnvironment->addGlobal('alerts', $this->flash->getMessage('alerts'));
     }
 
-    /**
-     * post execute
-     *
-     * @param Request  $request
-     * @param Response $response
-     * @return void
-     */
     protected function postExecute(Request $request, Response $response): void
     {
     }
 
     /**
-     * @param Response $response
-     * @param string   $template
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
     protected function render(Response $response, string $template, array $data = []): Response
     {

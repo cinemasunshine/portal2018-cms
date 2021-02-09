@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 use App\ORM\Entity\AdminUser;
@@ -26,12 +28,8 @@ class Auth
 
     /**
      * login
-     *
-     * @param string $name
-     * @param string $password
-     * @return bool
      */
-    public function login($name, $password)
+    public function login(string $name, string $password): bool
     {
         $repository = $this->em->getRepository(AdminUser::class);
 
@@ -57,10 +55,8 @@ class Auth
      * logout
      *
      * @todo Session Container自体をclear、またはremoveする
-     *
-     * @return void
      */
-    public function logout()
+    public function logout(): void
     {
         $this->user = null;
         unset($this->session['user_id']);
@@ -68,20 +64,16 @@ class Auth
 
     /**
      * is authenticated
-     *
-     * @return bool
      */
-    public function isAuthenticated()
+    public function isAuthenticated(): bool
     {
         return isset($this->session['user_id']);
     }
 
     /**
      * get user
-     *
-     * @return AdminUser|null
      */
-    public function getUser()
+    public function getUser(): ?AdminUser
     {
         if (! $this->isAuthenticated()) {
             return null;

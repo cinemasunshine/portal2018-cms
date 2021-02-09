@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Traits;
 
 /**
@@ -14,12 +16,8 @@ trait AzureBlobStorage
      * return Blob URL
      *
      * Blobへのpublicアクセスを許可する必要があります。
-     *
-     * @param string $container
-     * @param string $blob
-     * @return string
      */
-    protected function getBlobUrl(string $container, string $blob)
+    protected function getBlobUrl(string $container, string $blob): string
     {
         $publicEndpoint = $this->settings['storage']['public_endpoint'];
 

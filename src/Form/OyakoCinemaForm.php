@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use Doctrine\ORM\EntityManager;
@@ -19,12 +21,6 @@ class OyakoCinemaForm extends BaseForm
     /** @var OyakoCinemaScheduleFieldset */
     protected $scheduleFieldset;
 
-    /**
-     * construct
-     *
-     * @param int           $type
-     * @param EntityManager $em
-     */
     public function __construct(int $type, EntityManager $em)
     {
         $this->type             = $type;
@@ -35,12 +31,7 @@ class OyakoCinemaForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         if ($this->type === self::TYPE_EDIT) {
             $this->add([
@@ -95,12 +86,7 @@ class OyakoCinemaForm extends BaseForm
         $this->setInputFilter($inputFilter);
     }
 
-    /**
-     * return schedule fiedlset
-     *
-     * @return OyakoCinemaScheduleFieldset
-     */
-    public function getScheduleFieldset()
+    public function getScheduleFieldset(): OyakoCinemaScheduleFieldset
     {
         return $this->scheduleFieldset;
     }

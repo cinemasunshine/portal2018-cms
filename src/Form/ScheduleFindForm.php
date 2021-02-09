@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity\ShowingFormat;
@@ -15,19 +17,16 @@ class ScheduleFindForm extends BaseForm
     public const STATUS_BEFORE  = 2;
     public const STATUS_END     = 3;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $statusChoices = [
         self::STATUS_SHOWING => '上映中',
         self::STATUS_BEFORE  => '上映予定',
         self::STATUS_END     => '上映終了',
     ];
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $formatSystemChoices;
 
-    /**
-     * construct
-     */
     public function __construct()
     {
         parent::__construct();
@@ -37,12 +36,7 @@ class ScheduleFindForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'title_name',
@@ -117,21 +111,17 @@ class ScheduleFindForm extends BaseForm
     }
 
     /**
-     * return status choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getStatusChoices()
+    public function getStatusChoices(): array
     {
         return $this->statusChoices;
     }
 
     /**
-     * return format system choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getFormatSystemChoices()
+    public function getFormatSystemChoices(): array
     {
         return $this->formatSystemChoices;
     }

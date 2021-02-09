@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Trailer;
@@ -12,14 +14,9 @@ use Doctrine\ORM\EntityRepository;
 class TrailerRepository extends EntityRepository
 {
     /**
-     * find for list page
-     *
-     * @param array $params
-     * @param int   $page
-     * @param int   $maxPerPage
-     * @return DoctrinePaginator
+     * @param array<string, mixed> $params
      */
-    public function findForList(array $params, int $page, int $maxPerPage = 10)
+    public function findForList(array $params, int $page, int $maxPerPage = 10): DoctrinePaginator
     {
         $qb = $this->createQueryBuilder('t');
         $qb
@@ -55,13 +52,7 @@ class TrailerRepository extends EntityRepository
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
 
-    /**
-     * find one by id
-     *
-     * @param int $id
-     * @return Trailer|null
-     */
-    public function findOneById($id)
+    public function findOneById(int $id): ?Trailer
     {
         $qb = $this->createQueryBuilder('t');
         $qb

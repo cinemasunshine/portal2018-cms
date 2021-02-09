@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form\API;
 
 use App\Form\BaseForm;
@@ -23,10 +25,8 @@ class EditorUploadForm extends BaseForm
 
     /**
      * setup
-     *
-     * @return void
      */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'file',

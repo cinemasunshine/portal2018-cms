@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Development;
 
 use Doctrine\Common\Cache\Cache;
@@ -20,20 +22,16 @@ class DoctrineController extends BaseController
 {
     /**
      * Gets the cache driver implementation that is used for the query cache (SQL cache).
-     *
-     * @return Cache|null
      */
-    protected function getQueryCacheImpl()
+    protected function getQueryCacheImpl(): ?Cache
     {
         return $this->em->getConfiguration()->getQueryCacheImpl();
     }
 
     /**
      * Gets the cache driver implementation that is used for metadata caching.
-     *
-     * @return Cache|null
      */
-    protected function getMetadataCacheImpl()
+    protected function getMetadataCacheImpl(): ?Cache
     {
         return $this->em->getConfiguration()->getMetadataCacheImpl();
     }
@@ -41,12 +39,9 @@ class DoctrineController extends BaseController
     /**
      * cache stats
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeCacheStats(Request $request, Response $response, array $args)
+    public function executeCacheStats(Request $request, Response $response, array $args): Response
     {
         $queryCacheDriver = $this->getQueryCacheImpl();
         $query            = $queryCacheDriver->getStats();
@@ -67,12 +62,9 @@ class DoctrineController extends BaseController
      *
      * @see Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand::execute()
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeCacheClear(Request $request, Response $response, array $args)
+    public function executeCacheClear(Request $request, Response $response, array $args): Response
     {
         $target = $args['target'];
 

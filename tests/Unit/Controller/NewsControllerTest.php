@@ -20,20 +20,15 @@ final class NewsControllerTest extends BaseTestCase
         return Mockery::mock(NewsController::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(NewsController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderNew()
+    public function testRenderNew(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];
@@ -62,10 +57,8 @@ final class NewsControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderEdit()
+    public function testRenderEdit(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];

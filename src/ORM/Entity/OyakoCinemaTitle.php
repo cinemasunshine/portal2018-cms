@@ -33,10 +33,8 @@ class OyakoCinemaTitle extends BaseOyakoCinemaTitle
 
     /**
      * clear oyako_cinema_schedules
-     *
-     * @return void
      */
-    public function clearOyakoCinemaSchedules()
+    public function clearOyakoCinemaSchedules(): void
     {
         $this->oyakoCinemaSchedules->clear();
     }

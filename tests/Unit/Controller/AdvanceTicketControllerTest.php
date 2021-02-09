@@ -20,20 +20,15 @@ final class AdvanceTicketControllerTest extends BaseTestCase
         return Mockery::mock(AdvanceTicketController::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(AdvanceTicketController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderNew()
+    public function testRenderNew(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = ['foo' => 'bar'];
@@ -62,10 +57,8 @@ final class AdvanceTicketControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderEdit()
+    public function testRenderEdit(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = ['foo' => 'bar'];

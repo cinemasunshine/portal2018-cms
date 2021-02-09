@@ -15,9 +15,10 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class EncryptPasswordCommand extends BaseCommand
 {
+    /** {@inheritDoc} */
     protected static $defaultName = 'admin-user:encrypt-psw';
 
-    protected function configure()
+    protected function configure(): void
     {
         // Description & Help
         $this->setDescription('Password encrypt for admin user.');
@@ -26,7 +27,7 @@ class EncryptPasswordCommand extends BaseCommand
         $this->addArgument('password', InputArgument::REQUIRED, 'Plain text.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $password = $input->getArgument('password');
         $output->writeln('plain: ' . $password);
@@ -38,8 +39,6 @@ class EncryptPasswordCommand extends BaseCommand
     }
 
     /**
-     * encrypt password
-     *
      * @param string $password plain text
      * @return string encrypted password
      */

@@ -42,10 +42,8 @@ final class TheaterRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindActive()
+    public function testFindActive(): void
     {
         $alias = 't';
 
@@ -87,10 +85,8 @@ final class TheaterRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindByIds()
+    public function testFindByIds(): void
     {
         $alias = 't';
 
@@ -144,10 +140,8 @@ final class TheaterRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindOneById()
+    public function testFindOneById(): void
     {
         $alias = 't';
 

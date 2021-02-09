@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -24,11 +26,9 @@ class TrailerController extends BaseController
     }
 
     /**
-     * @return void
-     *
      * @throws ForbiddenException
      */
-    protected function authorization()
+    protected function authorization(): void
     {
         $user = $this->auth->getUser();
 
@@ -40,12 +40,9 @@ class TrailerController extends BaseController
     /**
      * list action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeList(Request $request, Response $response, array $args)
+    public function executeList(Request $request, Response $response, array $args): Response
     {
         $page = (int) $request->getParam('p', 1);
 
@@ -79,12 +76,9 @@ class TrailerController extends BaseController
     /**
      * new action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeNew(Request $request, Response $response, $args)
+    public function executeNew(Request $request, Response $response, array $args): Response
     {
         $form = new Form\TrailerForm(Form\TrailerForm::TYPE_NEW, $this->em);
 
@@ -92,11 +86,9 @@ class TrailerController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderNew(Response $response, array $data = [])
+    protected function renderNew(Response $response, array $data = []): Response
     {
         return $this->render($response, 'trailer/new.html.twig', $data);
     }
@@ -104,12 +96,9 @@ class TrailerController extends BaseController
     /**
      * create action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeCreate(Request $request, Response $response, array $args)
+    public function executeCreate(Request $request, Response $response, array $args): Response
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -155,7 +144,9 @@ class TrailerController extends BaseController
         $title = null;
 
         if ($cleanData['title_id']) {
-            $title =  $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
+            $title =  $this->em
+                ->getRepository(Entity\Title::class)
+                ->findOneById((int) $cleanData['title_id']);
         }
 
         $trailer = new Entity\Trailer();
@@ -170,11 +161,10 @@ class TrailerController extends BaseController
         $trailer->setUpdatedUser($this->auth->getUser());
 
         if ($cleanData['page']) {
+            /** @var Entity\Page[] $pages */
             $pages = $this->em->getRepository(Entity\Page::class)->findByIds($cleanData['page']);
 
             foreach ($pages as $page) {
-                /** @var Entity\Page $page */
-
                 $pageTrailer = new Entity\PageTrailer();
                 $this->em->persist($pageTrailer);
 
@@ -184,11 +174,10 @@ class TrailerController extends BaseController
         }
 
         if ($cleanData['theater']) {
+            /** @var Entity\Theater[] $theaters */
             $theaters = $this->em->getRepository(Entity\Theater::class)->findByIds($cleanData['theater']);
 
             foreach ($theaters as $theater) {
-                /** @var Entity\Theater $theater */
-
                 $theaterTrailer = new Entity\TheaterTrailer();
                 $this->em->persist($theaterTrailer);
 
@@ -198,13 +187,12 @@ class TrailerController extends BaseController
         }
 
         if ($cleanData['special_site']) {
-            $specialSite = $this->em
+            /** @var Entity\SpecialSite[] $specialSites */
+            $specialSites = $this->em
                 ->getRepository(Entity\SpecialSite::class)
                 ->findByIds($cleanData['special_site']);
 
-            foreach ($specialSite as $specialSite) {
-                /** @var Entity\SpecialSite $specialSite */
-
+            foreach ($specialSites as $specialSite) {
                 $specialSiteTrailer = new Entity\SpecialSiteTrailer();
                 $this->em->persist($specialSiteTrailer);
 
@@ -234,15 +222,14 @@ class TrailerController extends BaseController
     /**
      * edit action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeEdit(Request $request, Response $response, array $args)
+    public function executeEdit(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\Trailer|null $trailer */
-        $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
+        $trailer = $this->em
+            ->getRepository(Entity\Trailer::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($trailer)) {
             throw new NotFoundException($request, $response);
@@ -290,11 +277,9 @@ class TrailerController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderEdit(Response $response, array $data = [])
+    protected function renderEdit(Response $response, array $data = []): Response
     {
         return $this->render($response, 'trailer/edit.html.twig', $data);
     }
@@ -302,15 +287,14 @@ class TrailerController extends BaseController
     /**
      * update action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeUpdate(Request $request, Response $response, array $args)
+    public function executeUpdate(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\Trailer|null $trailer */
-        $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
+        $trailer = $this->em
+            ->getRepository(Entity\Trailer::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($trailer)) {
             throw new NotFoundException($request, $response);
@@ -365,7 +349,9 @@ class TrailerController extends BaseController
         $title = null;
 
         if ($cleanData['title_id']) {
-            $title =  $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
+            $title =  $this->em
+                ->getRepository(Entity\Title::class)
+                ->findOneById((int) $cleanData['title_id']);
         }
 
         $trailer->setTitle($title);
@@ -377,11 +363,10 @@ class TrailerController extends BaseController
         $trailer->getPageTrailers()->clear();
 
         if ($cleanData['page']) {
+            /** @var Entity\Page[] $pages */
             $pages = $this->em->getRepository(Entity\Page::class)->findByIds($cleanData['page']);
 
             foreach ($pages as $page) {
-                /** @var Entity\Page $page */
-
                 $pageTrailer = new Entity\PageTrailer();
                 $this->em->persist($pageTrailer);
 
@@ -393,11 +378,10 @@ class TrailerController extends BaseController
         $trailer->getTheaterTrailers()->clear();
 
         if ($cleanData['theater']) {
+            /** @var Entity\Theater[] $theaters */
             $theaters = $this->em->getRepository(Entity\Theater::class)->findByIds($cleanData['theater']);
 
             foreach ($theaters as $theater) {
-                /** @var Entity\Theater $theater */
-
                 $theaterTrailer = new Entity\TheaterTrailer();
                 $this->em->persist($theaterTrailer);
 
@@ -409,13 +393,12 @@ class TrailerController extends BaseController
         $trailer->getSpecialSiteTrailers()->clear();
 
         if ($cleanData['special_site']) {
-            $specialSite = $this->em
+            /** @var Entity\SpecialSite[] $specialSites */
+            $specialSites = $this->em
                 ->getRepository(Entity\SpecialSite::class)
                 ->findByIds($cleanData['special_site']);
 
-            foreach ($specialSite as $specialSite) {
-                /** @var Entity\SpecialSite $specialSite */
-
+            foreach ($specialSites as $specialSite) {
                 $specialSiteTrailer = new Entity\SpecialSiteTrailer();
                 $this->em->persist($specialSiteTrailer);
 
@@ -445,15 +428,14 @@ class TrailerController extends BaseController
     /**
      * delete action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return void
+     * @param array<string, mixed> $args
      */
-    public function executeDelete(Request $request, Response $response, array $args)
+    public function executeDelete(Request $request, Response $response, array $args): void
     {
         /** @var Entity\Trailer|null $trailer */
-        $trailer = $this->em->getRepository(Entity\Trailer::class)->findOneById($args['id']);
+        $trailer = $this->em
+            ->getRepository(Entity\Trailer::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($trailer)) {
             throw new NotFoundException($request, $response);

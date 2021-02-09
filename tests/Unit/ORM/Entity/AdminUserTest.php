@@ -24,20 +24,15 @@ final class AdminUserTest extends TestCase
         return Mockery::mock(AdminUser::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(AdminUser::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetGroupLabel()
+    public function testGetGroupLabel(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();

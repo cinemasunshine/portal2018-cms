@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -26,11 +28,9 @@ class MainBannerController extends BaseController
     }
 
     /**
-     * @return void
-     *
      * @throws ForbiddenException
      */
-    protected function authorization()
+    protected function authorization(): void
     {
         $user = $this->auth->getUser();
 
@@ -42,12 +42,9 @@ class MainBannerController extends BaseController
     /**
      * list action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeList(Request $request, Response $response, array $args)
+    public function executeList(Request $request, Response $response, array $args): Response
     {
         $page = (int) $request->getParam('p', 1);
 
@@ -80,12 +77,9 @@ class MainBannerController extends BaseController
     /**
      * new action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeNew(Request $request, Response $response, array $args)
+    public function executeNew(Request $request, Response $response, array $args): Response
     {
         return $this->renderNew($response, [
             'form' => new Form\MainBannerForm(Form\MainBannerForm::TYPE_NEW),
@@ -93,11 +87,9 @@ class MainBannerController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderNew(Response $response, array $data = [])
+    protected function renderNew(Response $response, array $data = []): Response
     {
         return $this->render($response, 'main_banner/new.html.twig', $data);
     }
@@ -105,12 +97,9 @@ class MainBannerController extends BaseController
     /**
      * create action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeCreate(Request $request, Response $response, array $args)
+    public function executeCreate(Request $request, Response $response, array $args): Response
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -183,15 +172,14 @@ class MainBannerController extends BaseController
     /**
      * edit action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeEdit(Request $request, Response $response, array $args)
+    public function executeEdit(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\MainBanner|null $mainBanner */
-        $mainBanner = $this->em->getRepository(Entity\MainBanner::class)->findOneById($args['id']);
+        $mainBanner = $this->em
+            ->getRepository(Entity\MainBanner::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($mainBanner)) {
             throw new NotFoundException($request, $response);
@@ -212,11 +200,9 @@ class MainBannerController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderEdit(Response $response, array $data = [])
+    protected function renderEdit(Response $response, array $data = []): Response
     {
         return $this->render($response, 'main_banner/edit.html.twig', $data);
     }
@@ -224,15 +210,14 @@ class MainBannerController extends BaseController
     /**
      * update action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeUpdate(Request $request, Response $response, array $args)
+    public function executeUpdate(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\MainBanner|null $mainBanner */
-        $mainBanner = $this->em->getRepository(Entity\MainBanner::class)->findOneById($args['id']);
+        $mainBanner = $this->em
+            ->getRepository(Entity\MainBanner::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($mainBanner)) {
             throw new NotFoundException($request, $response);
@@ -317,15 +302,14 @@ class MainBannerController extends BaseController
     /**
      * delete action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return void
+     * @param array<string, mixed> $args
      */
-    public function executeDelete(Request $request, Response $response, array $args)
+    public function executeDelete(Request $request, Response $response, array $args): void
     {
         /** @var Entity\MainBanner|null $mainBanner */
-        $mainBanner = $this->em->getRepository(Entity\MainBanner::class)->findOneById($args['id']);
+        $mainBanner = $this->em
+            ->getRepository(Entity\MainBanner::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($mainBanner)) {
             throw new NotFoundException($request, $response);
@@ -348,11 +332,8 @@ class MainBannerController extends BaseController
 
     /**
      * do delete
-     *
-     * @param Entity\MainBanner $mainBanner
-     * @return void
      */
-    protected function doDelete(Entity\MainBanner $mainBanner)
+    protected function doDelete(Entity\MainBanner $mainBanner): void
     {
         $this->em->getConnection()->beginTransaction();
 
@@ -395,12 +376,9 @@ class MainBannerController extends BaseController
     /**
      * publication action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executePublication(Request $request, Response $response, array $args)
+    public function executePublication(Request $request, Response $response, array $args): Response
     {
         // @todo ユーザによって取得する情報を変更する
 
@@ -423,12 +401,9 @@ class MainBannerController extends BaseController
     /**
      * publication update action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return void
+     * @param array<string, mixed> $args
      */
-    public function executePublicationUpdate(Request $request, Response $response, array $args)
+    public function executePublicationUpdate(Request $request, Response $response, array $args): void
     {
         $target = $args['target'];
 

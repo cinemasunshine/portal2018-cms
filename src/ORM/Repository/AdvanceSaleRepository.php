@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\AdvanceSale;
@@ -10,13 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class AdvanceSaleRepository extends EntityRepository
 {
-    /**
-     * find one by id
-     *
-     * @param int $id
-     * @return AdvanceSale|null
-     */
-    public function findOneById($id)
+    public function findOneById(int $id): ?AdvanceSale
     {
         $qb = $this->createQueryBuilder('sale');
         $qb

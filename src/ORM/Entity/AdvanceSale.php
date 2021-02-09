@@ -21,10 +21,8 @@ class AdvanceSale extends BaseAdvanceSale
 {
     /**
      * get active advance_tickets
-     *
-     * @return Collection
      */
-    public function getActiveAdvanceTickets()
+    public function getActiveAdvanceTickets(): Collection
     {
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq('isDeleted', false));

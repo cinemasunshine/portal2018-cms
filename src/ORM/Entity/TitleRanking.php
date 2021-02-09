@@ -26,12 +26,9 @@ class TitleRanking extends BaseTitleRanking
     /**
      * get rank
      *
-     * @param int $rank
-     * @return Title|null
-     *
      * @throws InvalidArgumentException
      */
-    public function getRank(int $rank)
+    public function getRank(int $rank): ?Title
     {
         switch ($rank) {
             case 1:
@@ -57,13 +54,9 @@ class TitleRanking extends BaseTitleRanking
     /**
      * set rank
      *
-     * @param int        $rank
-     * @param Title|null $title
-     * @return void
-     *
      * @throws InvalidArgumentException
      */
-    public function setRank(int $rank, $title)
+    public function setRank(int $rank, ?Title $title): void
     {
         switch ($rank) {
             case 1:

@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class News extends BaseNews
 {
-    /** @var array */
+    /** @var array<int, string> */
     public static $categories = [
         self::CATEGORY_NEWS       => 'NEWS',
         self::CATEGORY_INFO       => 'インフォメーション',
@@ -28,22 +28,12 @@ class News extends BaseNews
         self::CATEGORY_4DX_SCREEN => '4DX SCREENニュース',
     ];
 
-    /**
-     * get category label
-     *
-     * @return string|null
-     */
-    public function getCategoryLabel()
+    public function getCategoryLabel(): ?string
     {
         return self::$categories[$this->getCategory()] ?? null;
     }
 
-    /**
-     * get published target
-     *
-     * @return ArrayCollection
-     */
-    public function getPublishedTargets()
+    public function getPublishedTargets(): ArrayCollection
     {
         $publications = new ArrayCollection();
 

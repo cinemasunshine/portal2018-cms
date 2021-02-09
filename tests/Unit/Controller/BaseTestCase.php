@@ -22,10 +22,7 @@ abstract class BaseTestCase extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
-    /**
-     * @return Container
-     */
-    protected function createContainer()
+    protected function createContainer(): Container
     {
         $container = new Container();
 

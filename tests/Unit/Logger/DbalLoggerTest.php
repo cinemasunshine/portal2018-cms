@@ -38,10 +38,8 @@ final class DbalLoggerTest extends TestCase
      * test construct
      *
      * @test
-     *
-     * @return void
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $loggerMock = $this->createLoggerMock();
 
@@ -62,10 +60,8 @@ final class DbalLoggerTest extends TestCase
      * test startQuery
      *
      * @test
-     *
-     * @return void
      */
-    public function testStartQuery()
+    public function testStartQuery(): void
     {
         $sql    = 'SHOW TABLES';
         $params = ['p' => 1];
@@ -87,10 +83,8 @@ final class DbalLoggerTest extends TestCase
      * test log
      *
      * @test
-     *
-     * @return void
      */
-    public function testLog()
+    public function testLog(): void
     {
         $message = 'test';
         $context = ['detail' => 'example'];

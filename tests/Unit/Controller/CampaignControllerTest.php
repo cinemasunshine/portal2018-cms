@@ -16,7 +16,6 @@ use Slim\Container;
 final class CampaignControllerTest extends BaseTestCase
 {
     /**
-     * @param Container $container
      * @return MockInterface&LegacyMockInterface&CampaignController
      */
     protected function createTargetMock(Container $container)
@@ -24,30 +23,23 @@ final class CampaignControllerTest extends BaseTestCase
         return Mockery::mock(CampaignController::class, [$container]);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(CampaignController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorization()
+    public function testAuthorization(): void
     {
         $this->invokeAuthorization(false);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorizationForbidden()
+    public function testAuthorizationForbidden(): void
     {
         $this->expectException(ForbiddenException::class);
 
@@ -94,10 +86,8 @@ final class CampaignControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testExecuteNew()
+    public function testExecuteNew(): void
     {
         $requestMock  = $this->createRequestMock();
         $responseMock = $this->createResponseMock();
@@ -124,10 +114,8 @@ final class CampaignControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderNew()
+    public function testRenderNew(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];
@@ -158,10 +146,8 @@ final class CampaignControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderEdit()
+    public function testRenderEdit(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];

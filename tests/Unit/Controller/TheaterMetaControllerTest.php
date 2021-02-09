@@ -20,20 +20,15 @@ final class TheaterMetaControllerTest extends BaseTestCase
         return Mockery::mock(TheaterMetaController::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(TheaterMetaController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderOpeningHourEdit()
+    public function testRenderOpeningHourEdit(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];

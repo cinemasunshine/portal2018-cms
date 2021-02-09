@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Auth;
@@ -36,11 +38,6 @@ abstract class AbstractController
     /** @var string */
     protected $actionName;
 
-    /**
-     * construct
-     *
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -52,18 +49,14 @@ abstract class AbstractController
      * 前後でpreExecute(),postExecute()処理を自動実行するために実装。
      * __call()からの呼び出しを想定。
      *
-     * @param string   $actionMethod
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
     protected function execute(
         string $actionMethod,
         Request $request,
         Response $response,
         array $args
-    ) {
+    ): Response {
         try {
             $this->logger->debug('Run preExecute().');
             $this->preExecute($request, $response);
@@ -91,10 +84,6 @@ abstract class AbstractController
      *
      * argsはそれぞれの処理固有のパラメータなので渡さない。
      * responseなどをreturnしたいケースがあれば検討する。
-     *
-     * @param Request  $request
-     * @param Response $response
-     * @return void
      */
     abstract protected function preExecute(Request $request, Response $response): void;
 
@@ -103,10 +92,6 @@ abstract class AbstractController
      *
      * argsはそれぞれの処理固有のパラメータなので渡さない。
      * responseなどをreturnしたいケースがあれば検討する。
-     *
-     * @param Request  $request
-     * @param Response $response
-     * @return void
      */
     abstract protected function postExecute(Request $request, Response $response): void;
 
@@ -117,26 +102,20 @@ abstract class AbstractController
      * すぐにリダイレクトさせるためにExceptionを利用している。
      *
      * @param string|UriInterface $url
-     * @param int|null            $status
-     * @return void
      *
      * @throws RedirectException
      */
-    protected function redirect($url, $status = null): void
+    protected function redirect($url, ?int $status = null): void
     {
         throw new RedirectException($url, $status);
     }
 
     /**
-     * call
-     *
-     * @param string $name
-     * @param array  $argments
-     * @return mixed
+     * @param array<int, mixed> $argments
      *
      * @throws LogicException
      */
-    public function __call($name, $argments)
+    public function __call(string $name, array $argments): Response
     {
         $this->logger->debug('Call "{name}" action.', ['name' => $name]);
 
@@ -153,12 +132,9 @@ abstract class AbstractController
     }
 
     /**
-     * __get
-     *
-     * @param string $name
      * @return mixed
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         return $this->container->get($name);
     }

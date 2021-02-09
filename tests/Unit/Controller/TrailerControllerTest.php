@@ -16,7 +16,6 @@ use Slim\Container;
 final class TrailerControllerTest extends BaseTestCase
 {
     /**
-     * @param Container $container
      * @return MockInterface&LegacyMockInterface&TrailerController
      */
     protected function createTargetMock(Container $container)
@@ -24,30 +23,23 @@ final class TrailerControllerTest extends BaseTestCase
         return Mockery::mock(TrailerController::class, [$container]);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(TrailerController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorization()
+    public function testAuthorization(): void
     {
         $this->invokeAuthorization(false);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorizationForbidden()
+    public function testAuthorizationForbidden(): void
     {
         $this->expectException(ForbiddenException::class);
 
@@ -94,10 +86,8 @@ final class TrailerControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderNew()
+    public function testRenderNew(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];
@@ -128,10 +118,8 @@ final class TrailerControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderEdit()
+    public function testRenderEdit(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];

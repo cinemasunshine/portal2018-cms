@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Traits;
 
 use Intervention\Image\ImageManager;
@@ -15,21 +17,11 @@ trait ImageResize
     /** @var ImageManager|null */
     private $imageManager;
 
-    /**
-     * create ImageManager
-     *
-     * @return void
-     */
     private function createImageManager(): void
     {
         $this->imageManager = new ImageManager(['driver' => 'gd']);
     }
 
-    /**
-     * return ImageManager
-     *
-     * @return ImageManager
-     */
     private function getImageManager(): ImageManager
     {
         if (! $this->imageManager) {
@@ -40,21 +32,16 @@ trait ImageResize
     }
 
     /**
-     * resize image
-     *
      * @link http://image.intervention.io/api/make
      *
-     * @param mixed    $data   ファイルパスなど。make()を参照。
-     * @param int|null $width
-     * @param int|null $height
-     * @return StreamInterface
+     * @param mixed $data ファイルパスなど。make()を参照。
      */
-    protected function resizeImage($data, ?int $width, ?int $height = null)
+    protected function resizeImage($data, ?int $width, ?int $height = null): StreamInterface
     {
         $imageManager = $this->getImageManager();
         $image        = $imageManager
             ->make($data)
-            ->resize($width, $height, static function ($constraint) {
+            ->resize($width, $height, static function ($constraint): void {
                 $constraint->aspectRatio(); // アスペクト比を固定
                 $constraint->upsize(); // アップサイズしない
             });

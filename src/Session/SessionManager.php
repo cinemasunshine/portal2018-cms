@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Session;
 
 use Laminas\Session\Config\ConfigInterface;
@@ -16,8 +18,6 @@ class SessionManager extends BaseManager
 
     /**
      * construct
-     *
-     * @param ConfigInterface $config
      */
     public function __construct(ConfigInterface $config)
     {
@@ -28,11 +28,8 @@ class SessionManager extends BaseManager
 
     /**
      * return session container
-     *
-     * @param string $name
-     * @return Container
      */
-    public function getContainer(string $name = 'default')
+    public function getContainer(string $name = 'default'): Container
     {
         if (! isset($this->containers[$name])) {
             $this->containers[$name] = new Container($name);

@@ -16,18 +16,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MainBanner extends BaseMainBanner
 {
-    /** @var array */
+    /** @var array<int, string> */
     protected static $linkTypes = [
         self::LINK_TYPE_NONE => 'リンクなし',
         self::LINK_TYPE_URL  => 'URL',
     ];
 
     /**
-     * return link types
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public static function getLinkTypes()
+    public static function getLinkTypes(): array
     {
         return self::$linkTypes;
     }

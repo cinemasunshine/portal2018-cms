@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\API;
 
 use App\Controller\Traits\AzureBlobStorage;
@@ -17,12 +19,9 @@ class NewsController extends BaseController
     /**
      * list action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeList(Request $request, Response $response, array $args)
+    public function executeList(Request $request, Response $response, array $args): Response
     {
         $headline = $request->getParam('headline');
         $data     = [];

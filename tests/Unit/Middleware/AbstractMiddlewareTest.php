@@ -36,10 +36,8 @@ final class AbstractMiddlewareTest extends TestCase
 
     /**
      * Create target reflection
-     *
-     * @return ReflectionClass
      */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(AbstractMiddleware::class);
     }
@@ -58,10 +56,8 @@ final class AbstractMiddlewareTest extends TestCase
      * test construct
      *
      * @test
-     *
-     * @return void
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $containerMock = $this->createContainerMock();
         $targetMock    = $this->createTargetMock();

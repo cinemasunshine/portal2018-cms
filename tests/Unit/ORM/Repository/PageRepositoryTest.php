@@ -42,10 +42,8 @@ final class PageRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindActive()
+    public function testFindActive(): void
     {
         $alias = 'p';
 
@@ -82,10 +80,8 @@ final class PageRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindByIds()
+    public function testFindByIds(): void
     {
         $ids   = [1, 9];
         $alias = 'p';
@@ -132,10 +128,8 @@ final class PageRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindOneById()
+    public function testFindOneById(): void
     {
         $id    = 2;
         $alias = 'p';

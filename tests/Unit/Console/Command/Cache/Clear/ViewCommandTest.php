@@ -40,10 +40,8 @@ final class ViewCommandTest extends AbstructTestCase
 
     /**
      * Create target reflection
-     *
-     * @return ReflectionClass
      */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(ViewCommand::class);
     }
@@ -62,10 +60,8 @@ final class ViewCommandTest extends AbstructTestCase
      * test construct
      *
      * @test
-     *
-     * @return void
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $targetMock = $this->createTargetMock()
             ->makePartial();
@@ -85,10 +81,8 @@ final class ViewCommandTest extends AbstructTestCase
      * test execute (user FilesystemCache)
      *
      * @test
-     *
-     * @return void
      */
-    public function testExecuteUseFilesystemCache()
+    public function testExecuteUseFilesystemCache(): void
     {
         $filesystemCacheMock = $this->createFilesystemCacheMock();
 
@@ -168,10 +162,8 @@ final class ViewCommandTest extends AbstructTestCase
      * test execute (user NullCahce)
      *
      * @test
-     *
-     * @return void
      */
-    public function testExecuteUseNullCache()
+    public function testExecuteUseNullCache(): void
     {
         $nullCache = $this->createNullCache();
 
@@ -223,10 +215,8 @@ final class ViewCommandTest extends AbstructTestCase
      *
      * finalが指定されたクラスはプロキシパーシャルテストダブルを使うことになるが、
      * instanceofのチェックをパスできないのでモックしない。
-     *
-     * @return NullCache
      */
-    protected function createNullCache()
+    protected function createNullCache(): NullCache
     {
         return new NullCache();
     }
@@ -235,10 +225,8 @@ final class ViewCommandTest extends AbstructTestCase
      * test execute (use other cache)
      *
      * @test
-     *
-     * @return void
      */
-    public function testExecuteUseOtherCache()
+    public function testExecuteUseOtherCache(): void
     {
         $otherCache = $this->createOtherCacheMock();
 
@@ -297,10 +285,8 @@ final class ViewCommandTest extends AbstructTestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @test
-     *
-     * @return void
      */
-    public function testClearFilesystemCache()
+    public function testClearFilesystemCache(): void
     {
         $dir = '/foo/bar/cache';
 

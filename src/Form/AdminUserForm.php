@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity;
@@ -14,17 +16,12 @@ class AdminUserForm extends BaseForm
     /** @var EntityManager */
     protected $em;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $groupChoices;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $theaterChoices;
 
-    /**
-     * construct
-     *
-     * @param EntityManager $em
-     */
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
@@ -37,12 +34,7 @@ class AdminUserForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'name',
@@ -112,21 +104,17 @@ class AdminUserForm extends BaseForm
     }
 
     /**
-     * return group choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getGroupChoices()
+    public function getGroupChoices(): array
     {
         return $this->groupChoices;
     }
 
     /**
-     * return theater choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTheaterChoices()
+    public function getTheaterChoices(): array
     {
         return $this->theaterChoices;
     }

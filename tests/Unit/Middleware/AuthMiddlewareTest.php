@@ -38,10 +38,8 @@ final class AuthMiddlewareTest extends TestCase
 
     /**
      * Create target reflection
-     *
-     * @return ReflectionClass
      */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(AuthMiddleware::class);
     }
@@ -100,10 +98,8 @@ final class AuthMiddlewareTest extends TestCase
      * test __invoke (is not authenticated)
      *
      * @test
-     *
-     * @return void
      */
-    public function testInvokeIsNotAuthenticated()
+    public function testInvokeIsNotAuthenticated(): void
     {
         $authMock = $this->createAuthMock();
         $authMock
@@ -163,10 +159,8 @@ final class AuthMiddlewareTest extends TestCase
      * test __invoke (is authenticated)
      *
      * @test
-     *
-     * @return void
      */
-    public function testInvokeIsAuthenticated()
+    public function testInvokeIsAuthenticated(): void
     {
         $authMock = $this->createAuthMock();
         $authMock

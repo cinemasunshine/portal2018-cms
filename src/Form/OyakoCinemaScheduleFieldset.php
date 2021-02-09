@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity\Theater;
@@ -16,14 +18,9 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
     /** @var EntityManager */
     protected $em;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $theaterChoices;
 
-    /**
-     * construct
-     *
-     * @param EntityManager $em
-     */
     public function __construct(EntityManager $em)
     {
         $this->em             = $em;
@@ -34,12 +31,7 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'date',
@@ -63,11 +55,9 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
     }
 
     /**
-     * return inpu filter specification
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getInputFilterSpecification()
+    public function getInputFilterSpecification(): array
     {
         $specification = [
             'date' => [
@@ -86,11 +76,9 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
     }
 
     /**
-     * return theater choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTheaterChoices()
+    public function getTheaterChoices(): array
     {
         return $this->theaterChoices;
     }
