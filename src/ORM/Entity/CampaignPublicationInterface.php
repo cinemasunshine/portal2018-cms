@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Entity;
 
 use Doctrine\Common\Collections\Collection;
@@ -11,8 +13,6 @@ interface CampaignPublicationInterface
 {
     /**
      * get campaigns
-     *
-     * @return Collection
      */
     public function getCampaigns(): Collection;
 }

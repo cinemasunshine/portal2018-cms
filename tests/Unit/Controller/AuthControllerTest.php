@@ -20,20 +20,15 @@ final class AuthControllerTest extends BaseTestCase
         return Mockery::mock(AuthController::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(AuthController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderLogin()
+    public function testRenderLogin(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = ['foo' => 'bar'];
@@ -62,10 +57,8 @@ final class AuthControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testExecuteLogin()
+    public function testExecuteLogin(): void
     {
         $requestMock  = $this->createRequestMock();
         $responseMock = $this->createResponseMock();

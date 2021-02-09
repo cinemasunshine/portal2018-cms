@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * container.php
- *
  * AbstractControllerのphpdoc更新を推奨。
  *
  * @see App\Controller\AbstractController\__call()

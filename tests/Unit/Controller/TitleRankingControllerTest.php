@@ -16,7 +16,6 @@ use Slim\Container;
 final class TitleRankingControllerTest extends BaseTestCase
 {
     /**
-     * @param Container $container
      * @return MockInterface&LegacyMockInterface&TitleRankingController
      */
     protected function createTargetMock(Container $container)
@@ -24,30 +23,23 @@ final class TitleRankingControllerTest extends BaseTestCase
         return Mockery::mock(TitleRankingController::class, [$container]);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(TitleRankingController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorization()
+    public function testAuthorization(): void
     {
         $this->invokeAuthorization(false);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorizationForbidden()
+    public function testAuthorizationForbidden(): void
     {
         $this->expectException(ForbiddenException::class);
 
@@ -94,10 +86,8 @@ final class TitleRankingControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderEdit()
+    public function testRenderEdit(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity\MainBanner;
@@ -17,14 +19,9 @@ class MainBannerForm extends BaseForm
     /** @var int */
     protected $type;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $linkTypeChoices;
 
-    /**
-     * construct
-     *
-     * @param int $type
-     */
     public function __construct(int $type)
     {
         $this->type            = $type;
@@ -35,12 +32,7 @@ class MainBannerForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         if ($this->type === self::TYPE_EDIT) {
             $this->add([
@@ -127,12 +119,9 @@ class MainBannerForm extends BaseForm
     }
 
     /**
-     * pre validator
-     *
-     * @param array $data
-     * @return void
+     * @param array<string, mixed> $data
      */
-    protected function preValidator(array $data)
+    protected function preValidator(array $data): void
     {
         if (
             isset($data['link_type'])
@@ -143,11 +132,9 @@ class MainBannerForm extends BaseForm
     }
 
     /**
-     * return link_type choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getLinkTypeChoices()
+    public function getLinkTypeChoices(): array
     {
         return $this->linkTypeChoices;
     }

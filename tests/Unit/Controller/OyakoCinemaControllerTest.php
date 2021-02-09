@@ -16,7 +16,6 @@ use Slim\Container;
 final class OyakoCinemaControllerTest extends BaseTestCase
 {
     /**
-     * @param Container $container
      * @return MockInterface&LegacyMockInterface&OyakoCinemaController
      */
     protected function createTargetMock(Container $container)
@@ -24,30 +23,23 @@ final class OyakoCinemaControllerTest extends BaseTestCase
         return Mockery::mock(OyakoCinemaController::class, [$container]);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(OyakoCinemaController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorization()
+    public function testAuthorization(): void
     {
         $this->invokeAuthorization(false);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorizationForbidden()
+    public function testAuthorizationForbidden(): void
     {
         $this->expectException(ForbiddenException::class);
 
@@ -94,10 +86,8 @@ final class OyakoCinemaControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderNew()
+    public function testRenderNew(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];
@@ -128,10 +118,8 @@ final class OyakoCinemaControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderEdit()
+    public function testRenderEdit(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];
@@ -162,10 +150,8 @@ final class OyakoCinemaControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderSettingEdit()
+    public function testRenderSettingEdit(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = [];

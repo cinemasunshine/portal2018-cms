@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Controller;
 
 use App\Controller\BaseController;
+use App\ORM\Entity\AdminUser;
 use Mockery;
 use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
@@ -15,7 +16,6 @@ use Twig\Environment;
 final class BaseControllerTest extends BaseTestCase
 {
     /**
-     * @param Container $container
      * @return MockInterface&LegacyMockInterface&BaseController
      */
     protected function createTargetMock(Container $container)
@@ -23,27 +23,22 @@ final class BaseControllerTest extends BaseTestCase
         return Mockery::mock(BaseController::class, [$container]);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(BaseController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testPreExecute()
+    public function testPreExecute(): void
     {
         $requestMock  = $this->createRequestMock();
         $responseMock = $this->createResponseMock();
 
         $container = $this->createContainer();
 
-        $adminUser = 'admin user';
+        $adminUser = $this->createAdminUserEntityMock();
         $container['auth']
             ->shouldReceive('getUser')
             ->once()
@@ -92,5 +87,13 @@ final class BaseControllerTest extends BaseTestCase
     protected function createViewEnvironmentMock()
     {
         return Mockery::mock(Environment::class);
+    }
+
+    /**
+     * @return MockInterface&LegacyMockInterface&AdminUser
+     */
+    protected function createAdminUserEntityMock()
+    {
+        return Mockery::mock(AdminUser::class);
     }
 }

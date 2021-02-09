@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Campaign;
@@ -10,13 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class PageCampaignRepository extends EntityRepository
 {
-    /**
-     * delete by Campaign
-     *
-     * @param Campaign $campaign
-     * @return int
-     */
-    public function deleteByCampaign(Campaign $campaign)
+    public function deleteByCampaign(Campaign $campaign): int
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 

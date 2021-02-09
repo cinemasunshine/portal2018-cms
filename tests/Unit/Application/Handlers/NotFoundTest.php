@@ -26,10 +26,7 @@ final class NotFoundTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(NotFound::class);
     }
@@ -66,10 +63,8 @@ final class NotFoundTest extends TestCase
      * test construct
      *
      * @test
-     *
-     * @return void
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $viewMock = $this->createViewMock();
 
@@ -93,10 +88,8 @@ final class NotFoundTest extends TestCase
      *
      * @runInSeparateProcess
      * @test
-     *
-     * @return void
      */
-    public function testRenderHtmlNotFoundOutputDebugOn()
+    public function testRenderHtmlNotFoundOutputDebugOn(): void
     {
         define('APP_DEBUG', true);
 
@@ -139,10 +132,8 @@ final class NotFoundTest extends TestCase
      *
      * @runInSeparateProcess
      * @test
-     *
-     * @return void
      */
-    public function testRenderHtmlNotFoundOutputDebugOff()
+    public function testRenderHtmlNotFoundOutputDebugOff(): void
     {
         define('APP_DEBUG', false);
 

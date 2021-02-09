@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\SpecialSite;
@@ -11,11 +13,9 @@ use Doctrine\ORM\EntityRepository;
 class SpecialSiteRepository extends EntityRepository
 {
     /**
-     * find
-     *
      * @return SpecialSite[]
      */
-    public function findActive()
+    public function findActive(): array
     {
         $qb = $this->createQueryBuilder('s');
         $qb->where('s.isDeleted = false');
@@ -24,12 +24,10 @@ class SpecialSiteRepository extends EntityRepository
     }
 
     /**
-     * find by ids
-     *
-     * @param array $ids
+     * @param int[] $ids
      * @return SpecialSite[]
      */
-    public function findByIds(array $ids)
+    public function findByIds(array $ids): array
     {
         $qb = $this->createQueryBuilder('s');
         $qb
@@ -40,13 +38,7 @@ class SpecialSiteRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * find one by id
-     *
-     * @param int $id
-     * @return SpecialSite|null
-     */
-    public function findOneById(int $id)
+    public function findOneById(int $id): ?SpecialSite
     {
         $qb = $this->createQueryBuilder('s');
         $qb

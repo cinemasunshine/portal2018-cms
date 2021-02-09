@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class AdminUser extends BaseAdminUser
 {
-    /** @var array */
+    /** @var array<int, string> */
     protected static $groups = [
         self::GROUP_MASTER  => 'マスター',
         self::GROUP_MANAGER => 'マネージャー',
@@ -24,52 +24,38 @@ class AdminUser extends BaseAdminUser
     ];
 
     /**
-     * return groups
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public static function getGroups()
+    public static function getGroups(): array
     {
         return self::$groups;
     }
 
-    /**
-     * is group
-     *
-     * @param int $group
-     * @return boolean
-     */
-    public function isGroup(int $group)
+    public function isGroup(int $group): bool
     {
         return $this->getGroup() === $group;
     }
 
     /**
      * is master group
-     *
-     * @return boolean
      */
-    public function isMaster()
+    public function isMaster(): bool
     {
         return $this->isGroup(self::GROUP_MASTER);
     }
 
     /**
      * is manager group
-     *
-     * @return boolean
      */
-    public function isManager()
+    public function isManager(): bool
     {
         return $this->isGroup(self::GROUP_MANAGER);
     }
 
     /**
      * is theater group
-     *
-     * @return boolean
      */
-    public function isTheater()
+    public function isTheater(): bool
     {
         return $this->isGroup(self::GROUP_THEATER);
     }

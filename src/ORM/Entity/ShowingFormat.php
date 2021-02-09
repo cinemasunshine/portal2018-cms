@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ShowingFormat extends BaseShowingFormat
 {
-    /** @var array */
+    /** @var array<int, string> */
     protected static $systemList = [
         self::SYSTEM_2D         => '2D',
         self::SYSTEM_3D         => '3D',
@@ -29,7 +29,7 @@ class ShowingFormat extends BaseShowingFormat
         self::SYSTEM_NONE       => 'なし',
     ];
 
-    /** @var array */
+    /** @var array<int, string> */
     protected static $soundList = [
         self::SOUND_BESTIA        => 'BESTIA',
         self::SOUND_DTSX          => 'dts-X',
@@ -38,7 +38,7 @@ class ShowingFormat extends BaseShowingFormat
         self::SOUND_NONE          => 'なし',
     ];
 
-    /** @var array */
+    /** @var array<int, string> */
     protected static $voiceList = [
         self::VOICE_SUBTITLE => '字幕',
         self::VOICE_DUB      => '吹替',
@@ -46,51 +46,35 @@ class ShowingFormat extends BaseShowingFormat
     ];
 
     /**
-     * return system list
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public static function getSystemList()
+    public static function getSystemList(): array
     {
         return self::$systemList;
     }
 
     /**
-     * return sound list
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public static function getSoundList()
+    public static function getSoundList(): array
     {
         return self::$soundList;
     }
 
     /**
-     * return voice list
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public static function getVoiceList()
+    public static function getVoiceList(): array
     {
         return self::$voiceList;
     }
 
-    /**
-     * get system label
-     *
-     * @return string|null
-     */
-    public function getSystemLabel()
+    public function getSystemLabel(): ?string
     {
         return self::$systemList[$this->getSystem()] ?? null;
     }
 
-    /**
-     * get voice label
-     *
-     * @return string|null
-     */
-    public function getVoiceLabel()
+    public function getVoiceLabel(): ?string
     {
         return self::$voiceList[$this->getVoice()] ?? null;
     }

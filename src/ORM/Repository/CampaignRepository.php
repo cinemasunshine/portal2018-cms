@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Campaign;
@@ -13,14 +15,9 @@ use InvalidArgumentException;
 class CampaignRepository extends EntityRepository
 {
     /**
-     * find for list page
-     *
-     * @param array $params
-     * @param int   $page
-     * @param int   $maxPerPage
-     * @return DoctrinePaginator
+     * @param array<string, mixed> $params
      */
-    public function findForList(array $params, int $page, int $maxPerPage = 10)
+    public function findForList(array $params, int $page, int $maxPerPage = 10): DoctrinePaginator
     {
         $qb = $this->createQueryBuilder('c');
         $qb
@@ -68,12 +65,9 @@ class CampaignRepository extends EntityRepository
     }
 
     /**
-     * find for list API
-     *
-     * @param string $name
      * @return Campaign[]
      */
-    public function findForListApi(string $name)
+    public function findForListApi(string $name): array
     {
         if (empty($name)) {
             throw new InvalidArgumentException('invalid "name".');
@@ -90,13 +84,7 @@ class CampaignRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * find one by id
-     *
-     * @param int $id
-     * @return Campaign|null
-     */
-    public function findOneById($id)
+    public function findOneById(int $id): ?Campaign
     {
         $qb = $this->createQueryBuilder('c');
         $qb

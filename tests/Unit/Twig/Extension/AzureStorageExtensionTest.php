@@ -39,10 +39,8 @@ final class AzureStorageExtensionTest extends TestCase
      * test construct
      *
      * @test
-     *
-     * @return void
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $azureStorageExtensionMock = Mockery::mock(AzureStorageExtension::class);
         $blobRestProxyMock         = $this->crateBlobRestProxyMock();
@@ -75,10 +73,8 @@ final class AzureStorageExtensionTest extends TestCase
      * test getFunctions
      *
      * @test
-     *
-     * @return void
      */
-    public function testGetFunctions()
+    public function testGetFunctions(): void
     {
         $azureStorageExtensionMock = Mockery::mock(AzureStorageExtension::class)
             ->makePartial();
@@ -96,10 +92,8 @@ final class AzureStorageExtensionTest extends TestCase
      * test blobUrl has publicEndpoint
      *
      * @test
-     *
-     * @return void
      */
-    public function testBlobUrlHasPublicEndpoint()
+    public function testBlobUrlHasPublicEndpoint(): void
     {
         $azureStorageExtensionMock = Mockery::mock(AzureStorageExtension::class)
             ->makePartial();
@@ -126,10 +120,8 @@ final class AzureStorageExtensionTest extends TestCase
      * test blobUrl do not has publicEndpoint
      *
      * @test
-     *
-     * @return void
      */
-    public function testBlobUrlDoNotHasPublicEndpoint()
+    public function testBlobUrlDoNotHasPublicEndpoint(): void
     {
         $container = 'test';
         $blob      = 'sample.txt';

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\AdminUser;
@@ -12,14 +14,9 @@ use Doctrine\ORM\EntityRepository;
 class AdminUserRepository extends EntityRepository
 {
     /**
-     * find for list page
-     *
-     * @param array $params
-     * @param int   $page
-     * @param int   $maxPerPage
-     * @return DoctrinePaginator
+     * @param array<string, mixed> $params
      */
-    public function findForList(array $params, int $page, int $maxPerPage = 10)
+    public function findForList(array $params, int $page, int $maxPerPage = 10): DoctrinePaginator
     {
         $qb = $this->createQueryBuilder('au');
         $qb
@@ -31,13 +28,7 @@ class AdminUserRepository extends EntityRepository
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
 
-    /**
-     * find one by id
-     *
-     * @param int $id
-     * @return AdminUser|null
-     */
-    public function findOneById($id)
+    public function findOneById(int $id): ?AdminUser
     {
         $qb = $this->createQueryBuilder('au');
         $qb
@@ -48,13 +39,7 @@ class AdminUserRepository extends EntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    /**
-     * find one by name
-     *
-     * @param string $name
-     * @return AdminUser|null
-     */
-    public function findOneByName($name)
+    public function findOneByName(string $name): ?AdminUser
     {
         $qb = $this->createQueryBuilder('au');
         $qb

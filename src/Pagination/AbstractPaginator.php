@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Pagination;
 
 /**
@@ -22,20 +24,18 @@ abstract class AbstractPaginator
     /** @var int */
     protected $currentMaxLink = 1;
 
-    /** @var null|array */
+    /** @var array<mixed>|null */
     protected $resultsInPage = null;
 
     /**
      * Returns the number of itenms in current page
      *
-     * @return array
+     * @return array<mixed>|null
      */
-    abstract public function getResultsInPage();
+    abstract public function getResultsInPage(): ?array;
 
     /**
      * Return the total number of items
-     *
-     * @return int
      */
     abstract public function getNumResults(): int;
 
@@ -43,9 +43,9 @@ abstract class AbstractPaginator
      * Returns an array of page numbers to use in pagination links.
      *
      * @param  int $numLinks The maximum number of page numbers to return
-     * @return array
+     * @return int[]
      */
-    public function getLinks(int $numLinks = 5)
+    public function getLinks(int $numLinks = 5): array
     {
         $links = [];
         $tmp   = $this->page - floor($numLinks / 2);
@@ -66,90 +66,72 @@ abstract class AbstractPaginator
 
     /**
      * Returns the current page.
-     *
-     * @return int
      */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }
 
     /**
      * Returns the first page number.
-     *
-     * @return int
      */
-    public function getFirstPage()
+    public function getFirstPage(): int
     {
         return 1;
     }
 
     /**
      * Returns the last page number.
-     *
-     * @return int
      */
-    public function getLastPage()
+    public function getLastPage(): int
     {
         return $this->lastPage;
     }
 
     /**
      * Returns the next page.
-     *
-     * @return int
      */
-    public function getNextPage()
+    public function getNextPage(): int
     {
         return min($this->getPage() + 1, $this->getLastPage());
     }
 
     /**
      * Returns the previous page.
-     *
-     * @return int
      */
-    public function getPreviousPage()
+    public function getPreviousPage(): int
     {
         return max($this->getPage() - 1, $this->getFirstPage());
     }
 
     /**
      * Returns the maximum number of results per page.
-     *
-     * @return integer
      */
-    public function getMaxPerPage()
+    public function getMaxPerPage(): int
     {
         return $this->maxPerPage;
     }
 
     /**
      * Returns true if on the first page.
-     *
-     * @return bool
      */
-    public function isFirstPage()
+    public function isFirstPage(): bool
     {
         return $this->getPage() === 1;
     }
 
     /**
      * Returns true if on the last page.
-     *
-     * @return bool
      */
-    public function isLastPage()
+    public function isLastPage(): bool
     {
         return $this->getPage() === $this->getLastPage();
     }
 
     /**
      * Returns the first index on the current page.
-     *
-     * @return int
      */
-    public function getFirstIndice()
+    public function getFirstIndice(): int
     {
         if ($this->getPage() === 0) {
             return 1;
@@ -160,10 +142,8 @@ abstract class AbstractPaginator
 
     /**
      * Returns the last index on the current page.
-     *
-     * @return int
      */
-    public function getLastIndice()
+    public function getLastIndice(): int
     {
         if ($this->getPage() === 0) {
             return $this->getNumResults();

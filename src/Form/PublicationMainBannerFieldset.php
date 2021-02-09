@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use Laminas\Form\Fieldset;
@@ -17,12 +19,7 @@ class PublicationMainBannerFieldset extends Fieldset implements InputFilterProvi
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'main_banner_id',
@@ -36,11 +33,9 @@ class PublicationMainBannerFieldset extends Fieldset implements InputFilterProvi
     }
 
     /**
-     * return inpu filter specification
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getInputFilterSpecification()
+    public function getInputFilterSpecification(): array
     {
         return [
             'main_banner_id' => ['required' => true],

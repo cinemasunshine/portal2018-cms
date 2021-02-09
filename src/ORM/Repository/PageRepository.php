@@ -15,7 +15,7 @@ class PageRepository extends BaseRepository
     /**
      * @return Page[]
      */
-    public function findActive()
+    public function findActive(): array
     {
         $alias = 'p';
         $qb    = $this->createQueryBuilder($alias);
@@ -26,10 +26,10 @@ class PageRepository extends BaseRepository
     }
 
     /**
-     * @param array $ids
+     * @param int[] $ids
      * @return Page[]
      */
-    public function findByIds(array $ids)
+    public function findByIds(array $ids): array
     {
         $alias = 'p';
         $qb    = $this->createQueryBuilder($alias);
@@ -43,11 +43,7 @@ class PageRepository extends BaseRepository
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * @param int $id
-     * @return Page|null
-     */
-    public function findOneById(int $id)
+    public function findOneById(int $id): ?Page
     {
         $alias = 'p';
         $qb    = $this->createQueryBuilder($alias);

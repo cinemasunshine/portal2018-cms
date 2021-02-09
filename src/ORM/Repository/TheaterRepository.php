@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\Theater;
@@ -13,7 +15,7 @@ class TheaterRepository extends BaseRepository
     /**
      * @return Theater[]
      */
-    public function findActive()
+    public function findActive(): array
     {
         $alias = 't';
         $qb    = $this->createQueryBuilder($alias);
@@ -26,10 +28,10 @@ class TheaterRepository extends BaseRepository
     }
 
     /**
-     * @param array $ids
+     * @param int[] $ids
      * @return Theater[]
      */
-    public function findByIds(array $ids)
+    public function findByIds(array $ids): array
     {
         $alias = 't';
         $qb    = $this->createQueryBuilder($alias);
@@ -44,11 +46,7 @@ class TheaterRepository extends BaseRepository
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * @param int $id
-     * @return Theater|null
-     */
-    public function findOneById(int $id)
+    public function findOneById(int $id): ?Theater
     {
         $alias = 't';
         $qb    = $this->createQueryBuilder($alias);

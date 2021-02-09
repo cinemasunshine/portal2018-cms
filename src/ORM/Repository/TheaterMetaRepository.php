@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\TheaterMeta;
@@ -11,11 +13,9 @@ use Doctrine\ORM\EntityRepository;
 class TheaterMetaRepository extends EntityRepository
 {
     /**
-     * find
-     *
      * @return TheaterMeta[]
      */
-    public function findActive()
+    public function findActive(): array
     {
         $qb = $this->createQueryBuilder('tm');
         $qb
@@ -26,13 +26,7 @@ class TheaterMetaRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * find one by theater id
-     *
-     * @param int $theaterId
-     * @return TheaterMeta|null
-     */
-    public function findOneByTheaterId($theaterId)
+    public function findOneByTheaterId(int $theaterId): ?TheaterMeta
     {
         $qb = $this->createQueryBuilder('tm');
         $qb

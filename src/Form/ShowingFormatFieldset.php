@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity\ShowingFormat;
@@ -11,18 +13,15 @@ use Laminas\InputFilter\InputFilterProviderInterface;
  */
 class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    /** @var array */
+    /** @var array<int, string> */
     protected $systemChoices;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $soundChoices;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $voiceChoices;
 
-    /**
-     * construct
-     */
     public function __construct()
     {
         parent::__construct('showing');
@@ -34,12 +33,7 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'system',
@@ -70,11 +64,9 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
     }
 
     /**
-     * return inpu filter specification
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getInputFilterSpecification()
+    public function getInputFilterSpecification(): array
     {
         return [
             'system' => ['required' => true],
@@ -84,31 +76,25 @@ class ShowingFormatFieldset extends Fieldset implements InputFilterProviderInter
     }
 
     /**
-     * return system choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getSystemChoices()
+    public function getSystemChoices(): array
     {
         return $this->systemChoices;
     }
 
     /**
-     * return sound choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getSoundChoices()
+    public function getSoundChoices(): array
     {
         return $this->soundChoices;
     }
 
     /**
-     * return voice choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getVoiceChoices()
+    public function getVoiceChoices(): array
     {
         return $this->voiceChoices;
     }

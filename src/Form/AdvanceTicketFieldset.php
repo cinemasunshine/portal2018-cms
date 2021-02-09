@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity\AdvanceTicket;
@@ -12,15 +14,12 @@ use Laminas\Validator;
  */
 class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    /** @var array */
+    /** @var array<int, string> */
     protected $typeChoices;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $specialGiftStockChoices;
 
-    /**
-     * construct
-     */
     public function __construct()
     {
         parent::__construct('advance_ticket');
@@ -31,12 +30,7 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'id',
@@ -106,11 +100,9 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
     }
 
     /**
-     * return inpu filter specification
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getInputFilterSpecification()
+    public function getInputFilterSpecification(): array
     {
         $specification = [
             'id' => ['required' => false],
@@ -161,21 +153,17 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
     }
 
     /**
-     * return type choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTypeChoices()
+    public function getTypeChoices(): array
     {
         return $this->typeChoices;
     }
 
     /**
-     * return special_gift_stock choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getSpecialGiftStockChoices()
+    public function getSpecialGiftStockChoices(): array
     {
         return $this->specialGiftStockChoices;
     }

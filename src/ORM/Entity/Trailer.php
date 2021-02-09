@@ -19,10 +19,8 @@ class Trailer extends BaseTrailer
 {
     /**
      * get published target
-     *
-     * @return ArrayCollection
      */
-    public function getPublishedTargets()
+    public function getPublishedTargets(): ArrayCollection
     {
         $publications = new ArrayCollection();
 

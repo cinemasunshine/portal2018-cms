@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Controller\Traits\ImageResize;
@@ -30,11 +32,9 @@ class TitleController extends BaseController
     }
 
     /**
-     * @return void
-     *
      * @throws ForbiddenException
      */
-    protected function authorization()
+    protected function authorization(): void
     {
         $user = $this->auth->getUser();
 
@@ -46,12 +46,9 @@ class TitleController extends BaseController
     /**
      * list action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeList(Request $request, Response $response, array $args)
+    public function executeList(Request $request, Response $response, array $args): Response
     {
         $page = (int) $request->getParam('p', 1);
 
@@ -84,12 +81,9 @@ class TitleController extends BaseController
     /**
      * new action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeNew(Request $request, Response $response, array $args)
+    public function executeNew(Request $request, Response $response, array $args): Response
     {
         $form = new Form\TitleForm();
 
@@ -97,11 +91,9 @@ class TitleController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderNew(Response $response, array $data = [])
+    protected function renderNew(Response $response, array $data = []): Response
     {
         return $this->render($response, 'title/new.html.twig', $data);
     }
@@ -109,12 +101,9 @@ class TitleController extends BaseController
     /**
      * create action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeCreate(Request $request, Response $response, array $args)
+    public function executeCreate(Request $request, Response $response, array $args): Response
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -149,8 +138,7 @@ class TitleController extends BaseController
     /**
      * do create
      *
-     * @param array $data
-     * @return Entity\Title
+     * @param array<string, mixed> $data
      */
     protected function doCreate(array $data): Entity\Title
     {
@@ -191,13 +179,7 @@ class TitleController extends BaseController
         return $title;
     }
 
-    /**
-     * resize title image
-     *
-     * @param string $path
-     * @return StreamInterface
-     */
-    protected function resizeTitleImage(string $path)
+    protected function resizeTitleImage(string $path): StreamInterface
     {
         // SASAKI-245
         return $this->resizeImage($path, null, 1920);
@@ -206,8 +188,7 @@ class TitleController extends BaseController
     /**
      * upload image
      *
-     * @param array $image
-     * @return Entity\File
+     * @param array<string, mixed> $image
      */
     protected function uploadImage(array $image): Entity\File
     {
@@ -244,15 +225,14 @@ class TitleController extends BaseController
     /**
      * edit action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeEdit(Request $request, Response $response, array $args)
+    public function executeEdit(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\Title|null $title */
-        $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
+        $title = $this->em
+            ->getRepository(Entity\Title::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
@@ -293,11 +273,9 @@ class TitleController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderEdit(Response $response, array $data = [])
+    protected function renderEdit(Response $response, array $data = []): Response
     {
         return $this->render($response, 'title/edit.html.twig', $data);
     }
@@ -305,15 +283,14 @@ class TitleController extends BaseController
     /**
      * update action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeUpdate(Request $request, Response $response, array $args)
+    public function executeUpdate(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\Title|null $title */
-        $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
+        $title = $this->em
+            ->getRepository(Entity\Title::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($title)) {
             throw new NotFoundException($request, $response);
@@ -353,11 +330,9 @@ class TitleController extends BaseController
     /**
      * do update
      *
-     * @param Entity\Title $title
-     * @param array        $data
-     * @return void
+     * @param array<string, mixed> $data
      */
-    protected function doUpdate(Entity\Title $title, array $data)
+    protected function doUpdate(Entity\Title $title, array $data): void
     {
         $image         = $data['image'];
         $isDeleteImage = $data['delete_image'] || $image['name'];
@@ -415,11 +390,8 @@ class TitleController extends BaseController
      *
      * 現状、ストレージのロールバックは出来ないのでDBを優先。
      * 削除エラーは要注意として、ひとまず正常処理に戻す。
-     *
-     * @param Entity\File $image
-     * @return void
      */
-    protected function deleteImage(Entity\File $image)
+    protected function deleteImage(Entity\File $image): void
     {
         try {
             $this->bc->deleteBlob(Entity\File::getBlobContainer(), $image->getName());
@@ -440,15 +412,14 @@ class TitleController extends BaseController
     /**
      * delete action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return void
+     * @param array<string, mixed> $args
      */
-    public function executeDelete(Request $request, Response $response, array $args)
+    public function executeDelete(Request $request, Response $response, array $args): void
     {
         /** @var Entity\Title|null $title */
-        $title = $this->em->getRepository(Entity\Title::class)->findOneById($args['id']);
+        $title = $this->em
+            ->getRepository(Entity\Title::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($title)) {
             throw new NotFoundException($request, $response);

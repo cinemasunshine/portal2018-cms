@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exception;
 
 use Exception;
@@ -10,16 +12,17 @@ use Psr\Http\Message\UriInterface;
  */
 class RedirectException extends Exception
 {
+    /** @var string|UriInterface */
     protected $url;
+
+    /** @var int|null */
     protected $status;
 
     /**
-     * Undocumented function
-     *
      * @param string|UriInterface $url    The redirect destination.
      * @param int|null            $status The redirect HTTP status code.
      */
-    public function __construct($url, $status = null)
+    public function __construct($url, ?int $status = null)
     {
         $this->url    = $url;
         $this->status = $status;
@@ -28,8 +31,6 @@ class RedirectException extends Exception
     }
 
     /**
-     * get url
-     *
      * @return string|UriInterface
      */
     public function getUrl()
@@ -37,12 +38,7 @@ class RedirectException extends Exception
         return $this->url;
     }
 
-    /**
-     * get status
-     *
-     * @return int|null
-     */
-    public function getStatus()
+    public function getStatus(): ?int
     {
         return $this->status;
     }

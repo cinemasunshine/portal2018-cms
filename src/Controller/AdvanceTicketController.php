@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Form;
@@ -20,12 +22,9 @@ class AdvanceTicketController extends BaseController
     /**
      * list action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeList(Request $request, Response $response, array $args)
+    public function executeList(Request $request, Response $response, array $args): Response
     {
         $page = (int) $request->getParam('p', 1);
 
@@ -61,11 +60,8 @@ class AdvanceTicketController extends BaseController
 
     /**
      * return form
-     *
-     * @param int $type
-     * @return Form\AdvanceSaleForm
      */
-    protected function getForm(int $type)
+    protected function getForm(int $type): Form\AdvanceSaleForm
     {
         return new Form\AdvanceSaleForm($type, $this->em, $this->auth->getUser());
     }
@@ -73,12 +69,9 @@ class AdvanceTicketController extends BaseController
     /**
      * new action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeNew(Request $request, Response $response, array $args)
+    public function executeNew(Request $request, Response $response, array $args): Response
     {
         $form = $this->getForm(Form\AdvanceSaleForm::TYPE_NEW);
 
@@ -86,11 +79,9 @@ class AdvanceTicketController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderNew(Response $response, array $data)
+    protected function renderNew(Response $response, array $data): Response
     {
         return $this->render($response, 'advance_ticket/new.html.twig', $data);
     }
@@ -98,12 +89,9 @@ class AdvanceTicketController extends BaseController
     /**
      * create action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeCreate(Request $request, Response $response, array $args)
+    public function executeCreate(Request $request, Response $response, array $args): Response
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
         $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
@@ -125,11 +113,15 @@ class AdvanceTicketController extends BaseController
         $advanceSale = new Entity\AdvanceSale();
 
         /** @var Entity\Theater $theater */
-        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($cleanData['theater']);
+        $theater = $this->em
+            ->getRepository(Entity\Theater::class)
+            ->findOneById((int) $cleanData['theater']);
         $advanceSale->setTheater($theater);
 
         /** @var Entity\Title $title */
-        $title = $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
+        $title = $this->em
+            ->getRepository(Entity\Title::class)
+            ->findOneById((int) $cleanData['title_id']);
         $advanceSale->setTitle($title);
 
         $advanceSale->setPublishingExpectedDate($cleanData['publishing_expected_date']);
@@ -146,10 +138,10 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setReleaseDt($ticket['release_dt']);
             $advanceTicket->setReleaseDtText($ticket['release_dt_text']);
             $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
-            $advanceTicket->setType($ticket['type']);
+            $advanceTicket->setType((int) $ticket['type']);
             $advanceTicket->setPriceText($ticket['price_text']);
             $advanceTicket->setSpecialGift($ticket['special_gift']);
-            $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock'] ?: null);
+            $advanceTicket->setSpecialGiftStock((int) $ticket['special_gift_stock'] ?: null);
 
             $image = $ticket['special_gift_image'];
             $file  = null;
@@ -202,11 +194,9 @@ class AdvanceTicketController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderEdit(Response $response, array $data)
+    protected function renderEdit(Response $response, array $data): Response
     {
         return $this->render($response, 'advance_ticket/edit.html.twig', $data);
     }
@@ -214,15 +204,14 @@ class AdvanceTicketController extends BaseController
     /**
      * edit action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeEdit(Request $request, Response $response, array $args)
+    public function executeEdit(Request $request, Response $response, array $args): Response
     {
-        /**@var Entity\AdvanceSale|null $advanceSale */
-        $advanceSale = $this->em->getRepository(Entity\AdvanceSale::class)->findOneById($args['id']);
+        /** @var Entity\AdvanceSale|null $advanceSale */
+        $advanceSale = $this->em
+            ->getRepository(Entity\AdvanceSale::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($advanceSale)) {
             throw new NotFoundException($request, $response);
@@ -276,15 +265,14 @@ class AdvanceTicketController extends BaseController
     /**
      * update action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeUpdate(Request $request, Response $response, array $args)
+    public function executeUpdate(Request $request, Response $response, array $args): Response
     {
-        /**@var Entity\AdvanceSale|null $advanceSale */
-        $advanceSale = $this->em->getRepository(Entity\AdvanceSale::class)->findOneById($args['id']);
+        /** @var Entity\AdvanceSale|null $advanceSale */
+        $advanceSale = $this->em
+            ->getRepository(Entity\AdvanceSale::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($advanceSale)) {
             throw new NotFoundException($request, $response);
@@ -309,11 +297,15 @@ class AdvanceTicketController extends BaseController
         $cleanData = $form->getData();
 
         /** @var Entity\Theater $theater */
-        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($cleanData['theater']);
+        $theater = $this->em
+            ->getRepository(Entity\Theater::class)
+            ->findOneById((int) $cleanData['theater']);
         $advanceSale->setTheater($theater);
 
         /** @var Entity\Title $title */
-        $title = $this->em->getRepository(Entity\Title::class)->findOneById($cleanData['title_id']);
+        $title = $this->em
+            ->getRepository(Entity\Title::class)
+            ->findOneById((int) $cleanData['title_id']);
         $advanceSale->setTitle($title);
 
         $advanceSale->setPublishingExpectedDate($cleanData['publishing_expected_date']);
@@ -374,10 +366,10 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setReleaseDt($ticket['release_dt']);
             $advanceTicket->setReleaseDtText($ticket['release_dt_text']);
             $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
-            $advanceTicket->setType($ticket['type']);
+            $advanceTicket->setType((int) $ticket['type']);
             $advanceTicket->setPriceText($ticket['price_text']);
             $advanceTicket->setSpecialGift($ticket['special_gift']);
-            $advanceTicket->setSpecialGiftStock($ticket['special_gift_stock'] ?: null);
+            $advanceTicket->setSpecialGiftStock((int) $ticket['special_gift_stock'] ?: null);
 
             $image         = $ticket['special_gift_image'];
             $isDeleteImage = ($ticket['delete_special_gift_image'] === '1') || $image['name'];
@@ -443,15 +435,14 @@ class AdvanceTicketController extends BaseController
     /**
      * delete action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return void
+     * @param array<string, mixed> $args
      */
-    public function executeDelete(Request $request, Response $response, array $args)
+    public function executeDelete(Request $request, Response $response, array $args): void
     {
         /** @var Entity\AdvanceTicket|null $advanceTicket */
-        $advanceTicket = $this->em->getRepository(Entity\AdvanceTicket::class)->findOneById($args['id']);
+        $advanceTicket = $this->em
+            ->getRepository(Entity\AdvanceTicket::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($advanceTicket)) {
             throw new NotFoundException($request, $response);

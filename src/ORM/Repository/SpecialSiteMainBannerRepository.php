@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\MainBanner;
@@ -10,13 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class SpecialSiteMainBannerRepository extends EntityRepository
 {
-    /**
-     * delete by MainBanner
-     *
-     * @param MainBanner $mainBanner
-     * @return int
-     */
-    public function deleteByMainBanner(MainBanner $mainBanner)
+    public function deleteByMainBanner(MainBanner $mainBanner): int
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 

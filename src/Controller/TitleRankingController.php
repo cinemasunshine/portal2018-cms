@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -33,11 +35,9 @@ class TitleRankingController extends BaseController
     }
 
     /**
-     * @return void
-     *
      * @throws ForbiddenException
      */
-    protected function authorization()
+    protected function authorization(): void
     {
         $user = $this->auth->getUser();
 
@@ -49,12 +49,9 @@ class TitleRankingController extends BaseController
     /**
      * edit action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeEdit(Request $request, Response $response, array $args)
+    public function executeEdit(Request $request, Response $response, array $args): Response
     {
         $titleRanking = $this->findEntity();
 
@@ -83,11 +80,9 @@ class TitleRankingController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderEdit(Response $response, array $data = [])
+    protected function renderEdit(Response $response, array $data = []): Response
     {
         return $this->render($response, 'title_ranking/edit.html.twig', $data);
     }
@@ -95,12 +90,9 @@ class TitleRankingController extends BaseController
     /**
      * update action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeUpdate(Request $request, Response $response, array $args)
+    public function executeUpdate(Request $request, Response $response, array $args): Response
     {
         $form = new Form\TitleRankingForm();
         $form->setData($request->getParams());
@@ -126,7 +118,7 @@ class TitleRankingController extends BaseController
             if ($rankValues['title_id']) {
                 $title = $this->em
                     ->getRepository(Entity\Title::class)
-                    ->findOneById($rankValues['title_id']);
+                    ->findOneById((int) $rankValues['title_id']);
             }
 
             $titleRanking->setRank((int) $rank, $title);

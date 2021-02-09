@@ -26,20 +26,15 @@ final class TitleRankingTest extends TestCase
         return Mockery::mock(TitleRanking::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(TitleRanking::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetRank()
+    public function testGetRank(): void
     {
         $maxRank = 5;
 
@@ -66,10 +61,8 @@ final class TitleRankingTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetRankInvalidRank()
+    public function testGetRankInvalidRank(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
@@ -81,10 +74,8 @@ final class TitleRankingTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testSetRank()
+    public function testSetRank(): void
     {
         $maxRank = 5;
 
@@ -110,10 +101,8 @@ final class TitleRankingTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testSetRankInvalidRank()
+    public function testSetRankInvalidRank(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();

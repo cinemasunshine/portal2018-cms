@@ -18,7 +18,6 @@ use Slim\Container;
 final class AdminUserControllerTest extends BaseTestCase
 {
     /**
-     * @param Container $container
      * @return MockInterface&LegacyMockInterface&AdminUserController
      */
     protected function createTargetMock(Container $container)
@@ -26,30 +25,23 @@ final class AdminUserControllerTest extends BaseTestCase
         return Mockery::mock(AdminUserController::class, [$container]);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(AdminUserController::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorization()
+    public function testAuthorization(): void
     {
         $this->invokeAuthorization(true);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testAuthorizationForbidden()
+    public function testAuthorizationForbidden(): void
     {
         $this->expectException(ForbiddenException::class);
 
@@ -96,10 +88,8 @@ final class AdminUserControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testExecuteList()
+    public function testExecuteList(): void
     {
         $page = 2;
 
@@ -171,10 +161,8 @@ final class AdminUserControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testRenderNew()
+    public function testRenderNew(): void
     {
         $responseMock = $this->createResponseMock();
         $data         = ['foo' => 'bar'];

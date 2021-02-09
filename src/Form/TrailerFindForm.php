@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity;
@@ -14,20 +16,15 @@ class TrailerFindForm extends BaseForm
     /** @var EntityManager */
     protected $em;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $pageChoices = [];
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $theaterChoices = [];
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $specialSiteChoices = [];
 
-    /**
-     * construct
-     *
-     * @param EntityManager $em
-     */
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
@@ -37,12 +34,7 @@ class TrailerFindForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'name',
@@ -119,31 +111,25 @@ class TrailerFindForm extends BaseForm
     }
 
     /**
-     * return page choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getPageChoices()
+    public function getPageChoices(): array
     {
         return $this->pageChoices;
     }
 
     /**
-     * return theater choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTheaterChoices()
+    public function getTheaterChoices(): array
     {
         return $this->theaterChoices;
     }
 
     /**
-     * return special_site choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getSpecialSiteChoices()
+    public function getSpecialSiteChoices(): array
     {
         return $this->specialSiteChoices;
     }

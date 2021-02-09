@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use Cinemasunshine\ORM\Entities\TheaterOpeningHour;
@@ -11,15 +13,12 @@ use Laminas\InputFilter\InputFilterProviderInterface;
  */
 class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    /** @var array */
+    /** @var array<int, string> */
     protected $typeChoices = [
         TheaterOpeningHour::TYPE_DATE => '日付',
         TheaterOpeningHour::TYPE_TERM => '期間',
     ];
 
-    /**
-     * construct
-     */
     public function __construct()
     {
         parent::__construct('opening_hour');
@@ -27,12 +26,7 @@ class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterfa
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'type',
@@ -59,11 +53,9 @@ class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterfa
     }
 
     /**
-     * return inpu filter specification
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getInputFilterSpecification()
+    public function getInputFilterSpecification(): array
     {
         return [
             'type' => ['required' => true],
@@ -74,11 +66,9 @@ class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterfa
     }
 
     /**
-     * return type choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTypeChoices()
+    public function getTypeChoices(): array
     {
         return $this->typeChoices;
     }

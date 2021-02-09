@@ -19,10 +19,8 @@ class Campaign extends BaseCampaign
 {
     /**
      * get published target
-     *
-     * @return ArrayCollection
      */
-    public function getPublishedTargets()
+    public function getPublishedTargets(): ArrayCollection
     {
         $publications = new ArrayCollection();
 

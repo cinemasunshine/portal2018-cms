@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\API;
 
 use App\ORM\Entity;
@@ -14,12 +16,9 @@ class TitleController extends BaseController
     /**
      * list action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeList(Request $request, Response $response, array $args)
+    public function executeList(Request $request, Response $response, array $args): Response
     {
         $name = $request->getParam('name');
         $data = [];
@@ -49,12 +48,9 @@ class TitleController extends BaseController
     /**
      * autocomplete action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeAutocomplete(Request $request, Response $response, array $args)
+    public function executeAutocomplete(Request $request, Response $response, array $args): Response
     {
         $titles = $this->em
                 ->getRepository(Entity\Title::class)

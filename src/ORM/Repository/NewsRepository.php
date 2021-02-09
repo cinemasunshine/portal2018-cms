@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\News;
@@ -13,14 +15,9 @@ use InvalidArgumentException;
 class NewsRepository extends EntityRepository
 {
     /**
-     * find for list page
-     *
-     * @param array $params
-     * @param int   $page
-     * @param int   $maxPerPage
-     * @return DoctrinePaginator
+     * @param array<string, mixed> $params
      */
-    public function findForList(array $params, int $page, int $maxPerPage = 10)
+    public function findForList(array $params, int $page, int $maxPerPage = 10): DoctrinePaginator
     {
         $qb = $this->createQueryBuilder('n');
         $qb
@@ -80,12 +77,9 @@ class NewsRepository extends EntityRepository
     }
 
     /**
-     * find for list API
-     *
-     * @param string $headline
      * @return News[]
      */
-    public function findForListApi(string $headline)
+    public function findForListApi(string $headline): array
     {
         if (empty($headline)) {
             throw new InvalidArgumentException('invalid "headline".');
@@ -102,13 +96,7 @@ class NewsRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * find one by id
-     *
-     * @param int $id
-     * @return News|null
-     */
-    public function findOneById($id)
+    public function findOneById(int $id): ?News
     {
         $qb = $this->createQueryBuilder('n');
         $qb

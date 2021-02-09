@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Form;
@@ -17,12 +19,9 @@ class TheaterMetaController extends BaseController
     /**
      * opening hour action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeOpeningHour(Request $request, Response $response, array $args)
+    public function executeOpeningHour(Request $request, Response $response, array $args): Response
     {
         $user       = $this->auth->getUser();
         $repository = $this->em->getRepository(Entity\TheaterMeta::class);
@@ -39,15 +38,14 @@ class TheaterMetaController extends BaseController
     /**
      * opening hour edit action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeOpeningHourEdit(Request $request, Response $response, array $args)
+    public function executeOpeningHourEdit(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\Theater|null $theater */
-        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
+        $theater = $this->em
+            ->getRepository(Entity\Theater::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($theater)) {
             throw new NotFoundException($request, $response);
@@ -77,11 +75,9 @@ class TheaterMetaController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderOpeningHourEdit(Response $response, array $data = [])
+    protected function renderOpeningHourEdit(Response $response, array $data = []): Response
     {
         return $this->render($response, 'theater_meta/opening_hour/edit.html.twig', $data);
     }
@@ -89,15 +85,14 @@ class TheaterMetaController extends BaseController
     /**
      * opening hour update action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeOpeningHourUpdate(Request $request, Response $response, array $args)
+    public function executeOpeningHourUpdate(Request $request, Response $response, array $args): Response
     {
         /** @var Entity\Theater|null $theater */
-        $theater = $this->em->getRepository(Entity\Theater::class)->findOneById($args['id']);
+        $theater = $this->em
+            ->getRepository(Entity\Theater::class)
+            ->findOneById((int) $args['id']);
 
         if (is_null($theater)) {
             throw new NotFoundException($request, $response);

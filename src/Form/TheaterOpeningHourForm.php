@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 /**
@@ -10,9 +12,6 @@ class TheaterOpeningHourForm extends BaseForm
     /** @var OpeningHourFieldset */
     protected $openingHourFieldset;
 
-    /**
-     * construct
-     */
     public function __construct()
     {
         parent::__construct();
@@ -22,12 +21,7 @@ class TheaterOpeningHourForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'hours',
@@ -38,12 +32,7 @@ class TheaterOpeningHourForm extends BaseForm
         ]);
     }
 
-    /**
-     * return opening hour fieldset
-     *
-     * @return OpeningHourFieldset
-     */
-    public function getOpeingHourFieldset()
+    public function getOpeingHourFieldset(): OpeningHourFieldset
     {
         return $this->openingHourFieldset;
     }

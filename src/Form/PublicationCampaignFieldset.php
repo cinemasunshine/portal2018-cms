@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use Laminas\Form\Fieldset;
@@ -17,12 +19,7 @@ class PublicationCampaignFieldset extends Fieldset implements InputFilterProvide
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'campaign_id',
@@ -36,11 +33,9 @@ class PublicationCampaignFieldset extends Fieldset implements InputFilterProvide
     }
 
     /**
-     * return inpu filter specification
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getInputFilterSpecification()
+    public function getInputFilterSpecification(): array
     {
         return [
             'campaign_id' => ['required' => true],

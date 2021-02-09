@@ -100,13 +100,9 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * test construct
-     *
      * @test
-     *
-     * @return void
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $entityManagerMock    = $this->createEntityManagerMock();
         $sessionContainerMock = $this->createSessionContaierMock();
@@ -135,13 +131,10 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * Create container mock
-     *
      * @param mixed $entityMananger
      * @param mixed $sessionContainer
-     * @return ContainerInterface
      */
-    protected function createContainerMockOfTestConstruct($entityMananger, $sessionContainer)
+    protected function createContainerMockOfTestConstruct($entityMananger, $sessionContainer): ContainerInterface
     {
         $mock = $this->createContainerMock();
         $mock
@@ -167,13 +160,9 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * test login invalid user
-     *
      * @test
-     *
-     * @return void
      */
-    public function testLoginInvalidUser()
+    public function testLoginInvalidUser(): void
     {
         $name     = 'username';
         $password = 'password';
@@ -202,13 +191,9 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * test login invalid password
-     *
      * @test
-     *
-     * @return void
      */
-    public function testLoginInvalidPassword()
+    public function testLoginInvalidPassword(): void
     {
         $name     = 'username';
         $password = 'password';
@@ -241,13 +226,9 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * test login invalid password
-     *
      * @test
-     *
-     * @return void
      */
-    public function testLoginValidUser()
+    public function testLoginValidUser(): void
     {
         $id       = 1;
         $name     = 'username';
@@ -303,6 +284,7 @@ final class AuthTest extends TestCase
     /**
      * Create EntityManager mock of testLogin
      *
+     * @param mixed $repository
      * @return MockInterface|LegacyMockInterface
      */
     protected function createEntityManagerMockOfTestLogin($repository)
@@ -318,13 +300,9 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * test logout
-     *
      * @test
-     *
-     * @return void
      */
-    public function testLogout()
+    public function testLogout(): void
     {
         $sessionContainerMock = $this->createSessionContaierMock();
         $sessionContainerMock
@@ -351,11 +329,9 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * test isAuthenticated
-     *
-     * @return void
+     * @test
      */
-    public function testIsAuthenticated()
+    public function testIsAuthenticated(): void
     {
         $sessionContainerMock = $this->createSessionContaierMock();
         $sessionContainerMock->makePartial();
@@ -378,11 +354,9 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * test getUser is not authenticated
-     *
-     * @return void
+     * @test
      */
-    public function testGetUserIsNotAuthenticated()
+    public function testGetUserIsNotAuthenticated(): void
     {
         $authMock = Mockery::mock(Auth::class)->makePartial();
         $authMock
@@ -395,13 +369,9 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * test getUser is authenticated
-     *
      * @test
-     *
-     * @return void
      */
-    public function testGetUserIsAuthenticated()
+    public function testGetUserIsAuthenticated(): void
     {
         $authMock = Mockery::mock(Auth::class)->makePartial();
         $authMock
@@ -452,13 +422,9 @@ final class AuthTest extends TestCase
     }
 
     /**
-     * test getUser lodaded user
-     *
      * @test
-     *
-     * @return void
      */
-    public function testGetUserLoadedUser()
+    public function testGetUserLoadedUser(): void
     {
         $authMock = Mockery::mock(Auth::class)->makePartial();
         $authMock

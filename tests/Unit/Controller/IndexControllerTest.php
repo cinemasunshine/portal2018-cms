@@ -21,10 +21,8 @@ final class IndexControllerTest extends BaseTestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testExecuteIndex()
+    public function testExecuteIndex(): void
     {
         $requestMock  = $this->createRequestMock();
         $responseMock = $this->createResponseMock();

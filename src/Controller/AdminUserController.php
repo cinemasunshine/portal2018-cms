@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
@@ -22,11 +24,9 @@ class AdminUserController extends BaseController
     }
 
     /**
-     * @return void
-     *
      * @throws ForbiddenException
      */
-    protected function authorization()
+    protected function authorization(): void
     {
         $user = $this->auth->getUser();
 
@@ -38,12 +38,9 @@ class AdminUserController extends BaseController
     /**
      * list action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeList(Request $request, Response $response, array $args)
+    public function executeList(Request $request, Response $response, array $args): Response
     {
         $page = (int) $request->getParam('p', 1);
 
@@ -60,11 +57,9 @@ class AdminUserController extends BaseController
     }
 
     /**
-     * @param Response $response
-     * @param array    $data
-     * @return Response
+     * @param array<string, mixed> $data
      */
-    protected function renderNew(Response $response, array $data)
+    protected function renderNew(Response $response, array $data): Response
     {
         return $this->render($response, 'admin_user/new.html.twig', $data);
     }
@@ -72,12 +67,9 @@ class AdminUserController extends BaseController
     /**
      * new action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeNew(Request $request, Response $response, array $args)
+    public function executeNew(Request $request, Response $response, array $args): Response
     {
         $form = new AdminUserForm($this->em);
 
@@ -87,12 +79,9 @@ class AdminUserController extends BaseController
     /**
      * create action
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param array    $args
-     * @return Response
+     * @param array<string, mixed> $args
      */
-    public function executeCreate(Request $request, Response $response, array $args)
+    public function executeCreate(Request $request, Response $response, array $args): Response
     {
         $form = new AdminUserForm($this->em);
         $form->setData($request->getParams());
@@ -119,7 +108,7 @@ class AdminUserController extends BaseController
         if ($adminUser->isTheater()) {
             $theater = $this->em
                 ->getRepository(Entity\Theater::class)
-                ->findOneById($cleanData['theater']);
+                ->findOneById((int) $cleanData['theater']);
 
             $adminUser->setTheater($theater);
         }

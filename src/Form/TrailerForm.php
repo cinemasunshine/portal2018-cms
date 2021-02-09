@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity;
@@ -21,21 +23,15 @@ class TrailerForm extends BaseForm
     /** @var EntityManager */
     protected $em;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $pageChoices;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $theaterChoices;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $specialSiteChoices;
 
-    /**
-     * construct
-     *
-     * @param int           $type
-     * @param EntityManager $em
-     */
     public function __construct(int $type, EntityManager $em)
     {
         $this->type = $type;
@@ -50,12 +46,7 @@ class TrailerForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         if ($this->type === self::TYPE_EDIT) {
             $this->add([
@@ -214,31 +205,25 @@ class TrailerForm extends BaseForm
     }
 
     /**
-     * return page choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getPageChoices()
+    public function getPageChoices(): array
     {
         return $this->pageChoices;
     }
 
     /**
-     * return theater choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTheaterChoices()
+    public function getTheaterChoices(): array
     {
         return $this->theaterChoices;
     }
 
     /**
-     * return special_site choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getSpecialSiteChoices()
+    public function getSpecialSiteChoices(): array
     {
         return $this->specialSiteChoices;
     }

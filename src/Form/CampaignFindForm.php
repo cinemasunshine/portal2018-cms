@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity;
@@ -14,22 +16,21 @@ class CampaignFindForm extends BaseForm
     /** @var EntityManager */
     protected $em;
 
+    /** @var array<int, string> */
     protected $statusChoices = [
         '1' => 'キャンペーン中',
         '2' => 'キャンペーン終了',
     ];
 
+    /** @var array<int, string> */
     protected $pageChoices = [];
 
+    /** @var array<int, string> */
     protected $theaterChoices = [];
 
+    /** @var array<int, string> */
     protected $specialSiteChoices = [];
 
-    /**
-     * construct
-     *
-     * @param EntityManager $em
-     */
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
@@ -39,12 +40,7 @@ class CampaignFindForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'status',
@@ -124,41 +120,33 @@ class CampaignFindForm extends BaseForm
     }
 
     /**
-     * return status choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getStatusChoices()
+    public function getStatusChoices(): array
     {
         return $this->statusChoices;
     }
 
     /**
-     * return page choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getPageChoices()
+    public function getPageChoices(): array
     {
         return $this->pageChoices;
     }
 
     /**
-     * return theater choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getTheaterChoices()
+    public function getTheaterChoices(): array
     {
         return $this->theaterChoices;
     }
 
     /**
-     * retrun special site choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getSpecialSiteChoices()
+    public function getSpecialSiteChoices(): array
     {
         return $this->specialSiteChoices;
     }

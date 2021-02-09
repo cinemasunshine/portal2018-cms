@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Logger\Handler;
 
 use Blue32a\Monolog\Handler\AzureBlobStorageHandler as BaseHandler;
@@ -13,12 +15,7 @@ class AzureBlobStorageHandler extends BaseHandler
     /** @var bool */
     protected $isBlobCreated;
 
-    /**
-     * create blob
-     *
-     * @return void
-     */
-    protected function createBlob()
+    protected function createBlob(): void
     {
         try {
             $this->client->getBlobMetadata($this->container, $this->blob);

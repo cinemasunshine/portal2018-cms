@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\OyakoCinemaTitle;
@@ -11,14 +13,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class OyakoCinemaTitleRepository extends EntityRepository
 {
-    /**
-     * find for list page
-     *
-     * @param int $page
-     * @param int $maxPerPage
-     * @return DoctrinePaginator
-     */
-    public function findForList(int $page, int $maxPerPage = 10)
+    public function findForList(int $page, int $maxPerPage = 10): DoctrinePaginator
     {
         $qb = $this->createQueryBuilder('oct');
         $qb
@@ -30,12 +25,6 @@ class OyakoCinemaTitleRepository extends EntityRepository
         return new DoctrinePaginator($query, $page, $maxPerPage);
     }
 
-    /**
-     * find one by id
-     *
-     * @param int $id
-     * @return OyakoCinemaTitle|null
-     */
     public function findOneById(int $id): ?OyakoCinemaTitle
     {
         $qb = $this->createQueryBuilder('oct');

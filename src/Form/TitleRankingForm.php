@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;
@@ -13,9 +15,6 @@ class TitleRankingForm extends BaseForm
     /** @var RankFieldset */
     protected $rankFieldset;
 
-    /**
-     * construct
-     */
     public function __construct()
     {
         parent::__construct();
@@ -25,12 +24,7 @@ class TitleRankingForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'from_date',

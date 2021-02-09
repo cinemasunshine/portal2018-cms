@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use Laminas\InputFilter\InputFilter;
@@ -16,12 +18,7 @@ class CampaignForm extends BaseForm
     /** @var int */
     protected $type;
 
-    /**
-     * construct
-     *
-     * @param int $type
-     */
-    public function __construct($type)
+    public function __construct(int $type)
     {
         $this->type = $type;
 
@@ -30,12 +27,7 @@ class CampaignForm extends BaseForm
         $this->setup();
     }
 
-    /**
-     * setup
-     *
-     * @return void
-     */
-    protected function setup()
+    protected function setup(): void
     {
         $this->add([
             'name' => 'name',

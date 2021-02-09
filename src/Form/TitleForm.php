@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\ORM\Entity\Title;
@@ -11,9 +13,6 @@ use Laminas\Validator;
  */
 class TitleForm extends BaseForm
 {
-    /**
-     * construct
-     */
     public function __construct()
     {
         parent::__construct();
@@ -209,12 +208,9 @@ class TitleForm extends BaseForm
     }
 
     /**
-     * pre validator
-     *
-     * @param array $data
-     * @return void
+     * @param array<string, mixed> $data
      */
-    protected function preValidator(array $data)
+    protected function preValidator(array $data): void
     {
         if (isset($data['not_exist_publishing_expected_date'])) {
             $this->getInputFilter()->get('publishing_expected_date')->setRequired(false);
@@ -222,21 +218,17 @@ class TitleForm extends BaseForm
     }
 
     /**
-     * get rating choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getRatingChoices()
+    public function getRatingChoices(): array
     {
         return Title::getRatingTypes();
     }
 
     /**
-     * get universal choices
-     *
-     * @return array
+     * @return array<int, string>
      */
-    public function getUniversalChoices()
+    public function getUniversalChoices(): array
     {
         return Title::getUniversalTypes();
     }
