@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b50771476881f1aea26508a854ff427f",
+    "content-hash": "eac981b530ec51ffd6aa0a093134088c",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -4160,22 +4160,22 @@
     "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "v0.7.0",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer.git",
-                "reference": "e8d808670b8f882188368faaf1144448c169c0b7"
+                "reference": "fe390591e0241955f22eb9ba327d137e501c771c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/e8d808670b8f882188368faaf1144448c169c0b7",
-                "reference": "e8d808670b8f882188368faaf1144448c169c0b7",
+                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/fe390591e0241955f22eb9ba327d137e501c771c",
+                "reference": "fe390591e0241955f22eb9ba327d137e501c771c",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0 || ^2.0",
                 "php": ">=5.3",
-                "squizlabs/php_codesniffer": "^2 || ^3 || 4.0.x-dev"
+                "squizlabs/php_codesniffer": "^2.0 || ^3.0 || ^4.0"
             },
             "require-dev": {
                 "composer/composer": "*",
@@ -4222,7 +4222,11 @@
                 "stylecheck",
                 "tests"
             ],
-            "time": "2020-06-25T14:57:39+00:00"
+            "support": {
+                "issues": "https://github.com/dealerdirect/phpcodesniffer-composer-installer/issues",
+                "source": "https://github.com/dealerdirect/phpcodesniffer-composer-installer"
+            },
+            "time": "2020-12-07T18:04:37+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -4341,16 +4345,16 @@
         },
         {
             "name": "mp-okui/php-coding-standard",
-            "version": "v0.8.0-alpha",
+            "version": "v0.9.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MP-okui/php-coding-standard.git",
-                "reference": "2c8effdae24b55a6732c0794b2ed1765e48d0c1a"
+                "reference": "1ba324aa9f71dab320da2680bf5e0c91365d2391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/2c8effdae24b55a6732c0794b2ed1765e48d0c1a",
-                "reference": "2c8effdae24b55a6732c0794b2ed1765e48d0c1a",
+                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/1ba324aa9f71dab320da2680bf5e0c91365d2391",
+                "reference": "1ba324aa9f71dab320da2680bf5e0c91365d2391",
                 "shasum": ""
             },
             "require": {
@@ -4367,9 +4371,9 @@
             "description": "The PHP coding standard of the Motionpicture projects. (temporary)",
             "support": {
                 "issues": "https://github.com/MP-okui/php-coding-standard/issues",
-                "source": "https://github.com/MP-okui/php-coding-standard/tree/v0.8.0-alpha"
+                "source": "https://github.com/MP-okui/php-coding-standard/tree/v0.9.0-alpha"
             },
-            "time": "2021-02-05T07:09:01+00:00"
+            "time": "2021-02-23T06:36:13+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -6658,6 +6662,11 @@
                 "phpcs",
                 "standards"
             ],
+            "support": {
+                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
+                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
+                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
+            },
             "time": "2020-10-23T02:01:07+00:00"
         },
         {
