@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b50771476881f1aea26508a854ff427f",
+    "content-hash": "abaa9f8487d7280df0ac752308fe749a",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -4160,22 +4160,22 @@
     "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "v0.7.0",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer.git",
-                "reference": "e8d808670b8f882188368faaf1144448c169c0b7"
+                "reference": "fe390591e0241955f22eb9ba327d137e501c771c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/e8d808670b8f882188368faaf1144448c169c0b7",
-                "reference": "e8d808670b8f882188368faaf1144448c169c0b7",
+                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/fe390591e0241955f22eb9ba327d137e501c771c",
+                "reference": "fe390591e0241955f22eb9ba327d137e501c771c",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0 || ^2.0",
                 "php": ">=5.3",
-                "squizlabs/php_codesniffer": "^2 || ^3 || 4.0.x-dev"
+                "squizlabs/php_codesniffer": "^2.0 || ^3.0 || ^4.0"
             },
             "require-dev": {
                 "composer/composer": "*",
@@ -4222,7 +4222,11 @@
                 "stylecheck",
                 "tests"
             ],
-            "time": "2020-06-25T14:57:39+00:00"
+            "support": {
+                "issues": "https://github.com/dealerdirect/phpcodesniffer-composer-installer/issues",
+                "source": "https://github.com/dealerdirect/phpcodesniffer-composer-installer"
+            },
+            "time": "2020-12-07T18:04:37+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -4341,16 +4345,16 @@
         },
         {
             "name": "mp-okui/php-coding-standard",
-            "version": "v0.8.0-alpha",
+            "version": "v0.9.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MP-okui/php-coding-standard.git",
-                "reference": "2c8effdae24b55a6732c0794b2ed1765e48d0c1a"
+                "reference": "1ba324aa9f71dab320da2680bf5e0c91365d2391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/2c8effdae24b55a6732c0794b2ed1765e48d0c1a",
-                "reference": "2c8effdae24b55a6732c0794b2ed1765e48d0c1a",
+                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/1ba324aa9f71dab320da2680bf5e0c91365d2391",
+                "reference": "1ba324aa9f71dab320da2680bf5e0c91365d2391",
                 "shasum": ""
             },
             "require": {
@@ -4367,9 +4371,9 @@
             "description": "The PHP coding standard of the Motionpicture projects. (temporary)",
             "support": {
                 "issues": "https://github.com/MP-okui/php-coding-standard/issues",
-                "source": "https://github.com/MP-okui/php-coding-standard/tree/v0.8.0-alpha"
+                "source": "https://github.com/MP-okui/php-coding-standard/tree/v0.9.0-alpha"
             },
-            "time": "2021-02-05T07:09:01+00:00"
+            "time": "2021-02-23T06:36:13+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4929,16 +4933,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.74",
+            "version": "0.12.78",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "bc5f9483c8f461c86653dcbd040cf0d2778c91a2"
+                "reference": "eecce8d2ee3cac6769f37b4cb1998b2715f82984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/bc5f9483c8f461c86653dcbd040cf0d2778c91a2",
-                "reference": "bc5f9483c8f461c86653dcbd040cf0d2778c91a2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/eecce8d2ee3cac6769f37b4cb1998b2715f82984",
+                "reference": "eecce8d2ee3cac6769f37b4cb1998b2715f82984",
                 "shasum": ""
             },
             "require": {
@@ -4969,7 +4973,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.74"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.78"
             },
             "funding": [
                 {
@@ -4985,20 +4989,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-08T15:00:25+00:00"
+            "time": "2021-02-20T13:24:36+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "0.12.30",
+            "version": "0.12.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "c4b910638ef416ad336aca596b4551a2db10b5f7"
+                "reference": "815dd47ade8120c6850c5a3805649c96fbadbdca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/c4b910638ef416ad336aca596b4551a2db10b5f7",
-                "reference": "c4b910638ef416ad336aca596b4551a2db10b5f7",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/815dd47ade8120c6850c5a3805649c96fbadbdca",
+                "reference": "815dd47ade8120c6850c5a3805649c96fbadbdca",
                 "shasum": ""
             },
             "require": {
@@ -5014,7 +5018,7 @@
             },
             "require-dev": {
                 "doctrine/annotations": "^1.11.0",
-                "doctrine/collections": "^1.0",
+                "doctrine/collections": "^1.6",
                 "doctrine/common": "^2.7 || ^3.0",
                 "doctrine/dbal": "^2.11.0",
                 "doctrine/mongodb-odm": "^1.3 || ^2.1",
@@ -5051,9 +5055,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/0.12.30"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/0.12.32"
             },
-            "time": "2021-01-18T13:00:10+00:00"
+            "time": "2021-02-09T19:07:47+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
@@ -6658,6 +6662,11 @@
                 "phpcs",
                 "standards"
             ],
+            "support": {
+                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
+                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
+                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
+            },
             "time": "2020-10-23T02:01:07+00:00"
         },
         {

@@ -59,7 +59,7 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
      */
     public function getInputFilterSpecification(): array
     {
-        $specification = [
+        return [
             'date' => [
                 'required' => true,
                 'validators' => [
@@ -71,8 +71,6 @@ class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProvide
             ],
             'theaters' => ['required' => true],
         ];
-
-        return $specification;
     }
 
     /**

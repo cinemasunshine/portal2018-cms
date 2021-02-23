@@ -104,7 +104,7 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
      */
     public function getInputFilterSpecification(): array
     {
-        $specification = [
+        return [
             'id' => ['required' => false],
             'publishing_start_dt' => [
                 'required' => true,
@@ -148,8 +148,6 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
             ],
             'delete_special_gift_image' => ['required' => false],
         ];
-
-        return $specification;
     }
 
     /**
