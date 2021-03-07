@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "abaa9f8487d7280df0ac752308fe749a",
+    "content-hash": "d71906cacf9592b275bfe393e489e213",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -4345,16 +4345,16 @@
         },
         {
             "name": "mp-okui/php-coding-standard",
-            "version": "v0.9.0-alpha",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MP-okui/php-coding-standard.git",
-                "reference": "1ba324aa9f71dab320da2680bf5e0c91365d2391"
+                "reference": "5fca8bb83ae04dd34d007cd77fda0cd8852e57fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/1ba324aa9f71dab320da2680bf5e0c91365d2391",
-                "reference": "1ba324aa9f71dab320da2680bf5e0c91365d2391",
+                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/5fca8bb83ae04dd34d007cd77fda0cd8852e57fa",
+                "reference": "5fca8bb83ae04dd34d007cd77fda0cd8852e57fa",
                 "shasum": ""
             },
             "require": {
@@ -4371,9 +4371,9 @@
             "description": "The PHP coding standard of the Motionpicture projects. (temporary)",
             "support": {
                 "issues": "https://github.com/MP-okui/php-coding-standard/issues",
-                "source": "https://github.com/MP-okui/php-coding-standard/tree/v0.9.0-alpha"
+                "source": "https://github.com/MP-okui/php-coding-standard/tree/v1.0.0"
             },
-            "time": "2021-02-23T06:36:13+00:00"
+            "time": "2021-03-07T04:39:13+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -6775,9 +6775,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "mp-okui/php-coding-standard": 15
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
