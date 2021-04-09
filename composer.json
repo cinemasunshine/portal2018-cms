@@ -23,7 +23,7 @@
     "require": {
         "php": "~7.3",
         "blue32a/monolog-azure-blob": "^0.2",
-        "cinemasunshine/portal2018-orm": "^1.3",
+        "cinemasunshine/portal2018-orm": "^1.4",
         "doctrine/orm": "^2.7.4",
         "intervention/image": "^2.5",
         "laminas/laminas-form": "^2.14",
