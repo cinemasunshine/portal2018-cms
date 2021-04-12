@@ -282,8 +282,8 @@ final class ViewCommandTest extends AbstructTestCase
     /**
      * test clearFilesystemCache
      *
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @runInSeparateProcess
      * @test
      */
     public function testClearFilesystemCache(): void

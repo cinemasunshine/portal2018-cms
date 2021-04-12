@@ -128,8 +128,8 @@ final class EncryptPasswordCommandTest extends AbstructTestCase
     /**
      * test encryptPassword
      *
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @runInSeparateProcess
      * @test
      */
     public function testEncryptPassword(): void

@@ -5,20 +5,22 @@ declare(strict_types=1);
 namespace App\ORM\Repository;
 
 use App\ORM\Entity\SpecialSite;
-use Doctrine\ORM\EntityRepository;
+use Cinemasunshine\ORM\Repositories\SpecialSiteRepository as BaseRepository;
 
 /**
- * SpecialSite repository class
+ * @extends BaseRepository<SpecialSite>
  */
-class SpecialSiteRepository extends EntityRepository
+class SpecialSiteRepository extends BaseRepository
 {
     /**
      * @return SpecialSite[]
      */
     public function findActive(): array
     {
-        $qb = $this->createQueryBuilder('s');
-        $qb->where('s.isDeleted = false');
+        $alias = 's';
+        $qb    = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
 
         return $qb->getQuery()->getResult();
     }
@@ -29,10 +31,13 @@ class SpecialSiteRepository extends EntityRepository
      */
     public function findByIds(array $ids): array
     {
-        $qb = $this->createQueryBuilder('s');
+        $alias = 's';
+        $qb    = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
+
         $qb
-            ->where('s.isDeleted = false')
-            ->andWhere('s.id IN (:ids)')
+            ->andWhere($alias . '.id IN (:ids)')
             ->setParameter('ids', $ids);
 
         return $qb->getQuery()->getResult();
@@ -40,10 +45,13 @@ class SpecialSiteRepository extends EntityRepository
 
     public function findOneById(int $id): ?SpecialSite
     {
-        $qb = $this->createQueryBuilder('s');
+        $alias = 's';
+        $qb    = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
+
         $qb
-            ->where('s.id = :id')
-            ->andWhere('s.isDeleted = false')
+            ->andWhere($alias . '.id = :id')
             ->setParameter('id', $id);
 
         return $qb->getQuery()->getOneOrNullResult();

@@ -37,9 +37,36 @@
                 <element value="@ORM\"/>
 
                 <element value="
-                    @runInSeparateProcess,
+                    @after,
+                    @afterClass,
+                    @backupGlobals,
+                    @backupStaticAttributes,
+                    @before,
+                    @beforeClass,
+                    @codeCoverageIgnore,
+                    @covers,
+                    @coversDefaultClass,
+                    @coversNothing,
+                    @dataProvider,
+                    @depends,
+                    @doesNotPerformAssertions,
+                    @expectedException,
+                    @expectedExceptionCode,
+                    @expectedExceptionMessage,
+                    @expectedExceptionMessageRegExp,
+                    @group,
+                    @large,
+                    @medium,
                     @preserveGlobalState,
+                    @requires
+                    @runTestsInSeparateProcesses,
+                    @runInSeparateProcess,
+                    @small,
                     @test,
+                    @testdox,
+                    @testWith,
+                    @ticket,
+                    @uses,
                 "/>
 
                 <element value="
@@ -50,8 +77,4 @@
             </property>
         </properties>
     </rule>
-    <!-- Forbid duplicated variables assignments -->
-    <rule ref="SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable"/>
-    <!-- Forbid useless variables -->
-    <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
 </ruleset>
