@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e58a8e97354f2700eafeb9f8d652d1e4",
+    "content-hash": "7fc5b407da8248e6df3e1eb1b5ed094c",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -4933,16 +4933,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.78",
+            "version": "0.12.83",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "eecce8d2ee3cac6769f37b4cb1998b2715f82984"
+                "reference": "4a967cec6efb46b500dd6d768657336a3ffe699f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/eecce8d2ee3cac6769f37b4cb1998b2715f82984",
-                "reference": "eecce8d2ee3cac6769f37b4cb1998b2715f82984",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4a967cec6efb46b500dd6d768657336a3ffe699f",
+                "reference": "4a967cec6efb46b500dd6d768657336a3ffe699f",
                 "shasum": ""
             },
             "require": {
@@ -4973,7 +4973,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.78"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.83"
             },
             "funding": [
                 {
@@ -4989,20 +4989,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-20T13:24:36+00:00"
+            "time": "2021-04-03T15:35:45+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "0.12.32",
+            "version": "0.12.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "815dd47ade8120c6850c5a3805649c96fbadbdca"
+                "reference": "b76c21e7b85498399ba4a0147920ff413503e77a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/815dd47ade8120c6850c5a3805649c96fbadbdca",
-                "reference": "815dd47ade8120c6850c5a3805649c96fbadbdca",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/b76c21e7b85498399ba4a0147920ff413503e77a",
+                "reference": "b76c21e7b85498399ba4a0147920ff413503e77a",
                 "shasum": ""
             },
             "require": {
@@ -5055,22 +5055,22 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/0.12.32"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/0.12.33"
             },
-            "time": "2021-02-09T19:07:47+00:00"
+            "time": "2021-03-07T12:28:23+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
-            "version": "0.12.12",
+            "version": "0.12.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-mockery.git",
-                "reference": "053bf9e3ffc4ff906e411636a43d440bace5b914"
+                "reference": "a45fee47fe86a2a4992953fb7037cb2620c4d7ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-mockery/zipball/053bf9e3ffc4ff906e411636a43d440bace5b914",
-                "reference": "053bf9e3ffc4ff906e411636a43d440bace5b914",
+                "url": "https://api.github.com/repos/phpstan/phpstan-mockery/zipball/a45fee47fe86a2a4992953fb7037cb2620c4d7ea",
+                "reference": "a45fee47fe86a2a4992953fb7037cb2620c4d7ea",
                 "shasum": ""
             },
             "require": {
@@ -5108,22 +5108,22 @@
             "description": "PHPStan Mockery extension",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-mockery/issues",
-                "source": "https://github.com/phpstan/phpstan-mockery/tree/0.12.12"
+                "source": "https://github.com/phpstan/phpstan-mockery/tree/0.12.13"
             },
-            "time": "2021-02-05T12:12:41+00:00"
+            "time": "2021-03-05T12:36:50+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
-            "version": "0.12.17",
+            "version": "0.12.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-phpunit.git",
-                "reference": "432575b41cf2d4f44e460234acaf56119ed97d36"
+                "reference": "ab44aec7cfb5cb267b8bc30a8caea86dd50d1f72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/432575b41cf2d4f44e460234acaf56119ed97d36",
-                "reference": "432575b41cf2d4f44e460234acaf56119ed97d36",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/ab44aec7cfb5cb267b8bc30a8caea86dd50d1f72",
+                "reference": "ab44aec7cfb5cb267b8bc30a8caea86dd50d1f72",
                 "shasum": ""
             },
             "require": {
@@ -5163,9 +5163,9 @@
             "description": "PHPUnit extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-phpunit/issues",
-                "source": "https://github.com/phpstan/phpstan-phpunit/tree/0.12.17"
+                "source": "https://github.com/phpstan/phpstan-phpunit/tree/0.12.18"
             },
-            "time": "2020-12-13T12:12:51+00:00"
+            "time": "2021-03-06T11:51:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
