@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62bc801c1516561b5d7984d9a3d74e85",
+    "content-hash": "ea5d20f0aa068bf3d43aecbb6089d4ce",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -51,16 +51,16 @@
         },
         {
             "name": "cinemasunshine/portal2018-orm",
-            "version": "v1.4.0",
+            "version": "dev-feature/SASAKI-627",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cinemasunshine/portal2018-orm.git",
-                "reference": "c7764d7b90211fc47b38e4d06b9565de547de2a1"
+                "reference": "b3f2b090f377bd3bf4e568999a2bdace5d8b6df7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/c7764d7b90211fc47b38e4d06b9565de547de2a1",
-                "reference": "c7764d7b90211fc47b38e4d06b9565de547de2a1",
+                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/b3f2b090f377bd3bf4e568999a2bdace5d8b6df7",
+                "reference": "b3f2b090f377bd3bf4e568999a2bdace5d8b6df7",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,7 @@
                     "vendor/bin/phpstan analyse -n --no-progress -c phpstan.neon"
                 ],
                 "phpunit": [
-                    "vendor/bin/phpunit"
+                    "vendor/bin/phpunit --testdox-html ./reports/phpunit/testdox.html"
                 ]
             },
             "license": [
@@ -108,10 +108,10 @@
             ],
             "description": "Cinemasunshine Portal2018 ORM",
             "support": {
-                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v1.4.0",
+                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/feature/SASAKI-627",
                 "issues": "https://github.com/cinemasunshine/portal2018-orm/issues"
             },
-            "time": "2021-03-12T02:38:43+00:00"
+            "time": "2021-05-10T12:51:54+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -6779,7 +6779,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "cinemasunshine/portal2018-orm": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

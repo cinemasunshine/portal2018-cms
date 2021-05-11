@@ -158,6 +158,7 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
             $advanceTicket->setType((int) $ticket['type']);
             $advanceTicket->setPriceText($ticket['price_text']);
+            $advanceTicket->setDetailUrl($ticket['detail_url']);
             $advanceTicket->setSpecialGift($ticket['special_gift']);
             $advanceTicket->setSpecialGiftStock((int) $ticket['special_gift_stock'] ?: null);
 
@@ -264,6 +265,7 @@ class AdvanceTicketController extends BaseController
                 'is_sales_end'        => $advanceTicket->getIsSalesEnd() ? '1' : '0',
                 'type'                => $advanceTicket->getType(),
                 'price_text'          => $advanceTicket->getPriceText(),
+                'detail_url'          => $advanceTicket->getDetailUrl(),
                 'special_gift'        => $advanceTicket->getSpecialGift(),
                 'special_gift_stock'  => $advanceTicket->getSpecialGiftStock(),
             ];
@@ -378,6 +380,7 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
             $advanceTicket->setType((int) $ticket['type']);
             $advanceTicket->setPriceText($ticket['price_text']);
+            $advanceTicket->setDetailUrl($ticket['detail_url']);
             $advanceTicket->setSpecialGift($ticket['special_gift']);
             $advanceTicket->setSpecialGiftStock((int) $ticket['special_gift_stock'] ?: null);
 
