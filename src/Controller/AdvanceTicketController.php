@@ -4,9 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Form;
-use App\ORM\Entity;
-use App\Pagination\DoctrinePaginator;
+use App\Form\AdvanceSaleForm;
+use App\Form\AdvanceTicketFindForm;
+use App\ORM\Entity\AdvanceSale;
+use App\ORM\Entity\AdvanceTicket;
+use App\ORM\Entity\File;
+use App\ORM\Entity\Theater;
+use App\ORM\Entity\Title;
+use App\ORM\Repository\AdvanceSaleRepository;
+use App\ORM\Repository\AdvanceTicketRepository;
+use App\ORM\Repository\TheaterRepository;
+use App\ORM\Repository\TitleRepository;
 use DateTime;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use RuntimeException;
@@ -14,11 +22,28 @@ use Slim\Exception\NotFoundException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-/**
- * AdvanceTicket controller
- */
 class AdvanceTicketController extends BaseController
 {
+    protected function getAdvanceTicketRepository(): AdvanceTicketRepository
+    {
+        return $this->em->getRepository(AdvanceTicket::class);
+    }
+
+    protected function getAdvanceSaleRepository(): AdvanceSaleRepository
+    {
+        return $this->em->getRepository(AdvanceSale::class);
+    }
+
+    protected function getTheaterRepository(): TheaterRepository
+    {
+        return $this->em->getRepository(Theater::class);
+    }
+
+    protected function getTitleRepository(): TitleRepository
+    {
+        return $this->em->getRepository(Title::class);
+    }
+
     /**
      * list action
      *
@@ -28,7 +53,7 @@ class AdvanceTicketController extends BaseController
     {
         $page = (int) $request->getParam('p', 1);
 
-        $form = new Form\AdvanceTicketFindForm();
+        $form = new AdvanceTicketFindForm();
         $form->setData($request->getParams());
         $cleanValues = [];
 
@@ -46,8 +71,8 @@ class AdvanceTicketController extends BaseController
             $cleanValues['theater'] = [$user->getTheater()->getId()];
         }
 
-        /** @var DoctrinePaginator $pagenater */
-        $pagenater = $this->em->getRepository(Entity\AdvanceTicket::class)->findForList($cleanValues, $page);
+        $pagenater = $this->getAdvanceTicketRepository()
+            ->findForList($cleanValues, $page);
 
         return $this->render($response, 'advance_ticket/list.html.twig', [
             'form' => $form,
@@ -58,12 +83,9 @@ class AdvanceTicketController extends BaseController
         ]);
     }
 
-    /**
-     * return form
-     */
-    protected function getForm(int $type): Form\AdvanceSaleForm
+    protected function getForm(int $type): AdvanceSaleForm
     {
-        return new Form\AdvanceSaleForm($type, $this->em, $this->auth->getUser());
+        return new AdvanceSaleForm($type, $this->em, $this->auth->getUser());
     }
 
     /**
@@ -73,7 +95,7 @@ class AdvanceTicketController extends BaseController
      */
     public function executeNew(Request $request, Response $response, array $args): Response
     {
-        $form = $this->getForm(Form\AdvanceSaleForm::TYPE_NEW);
+        $form = $this->getForm(AdvanceSaleForm::TYPE_NEW);
 
         return $this->renderNew($response, ['form' => $form]);
     }
@@ -94,9 +116,9 @@ class AdvanceTicketController extends BaseController
     public function executeCreate(Request $request, Response $response, array $args): Response
     {
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
-        $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
+        $params = AdvanceSaleForm::buildData($request->getParams(), $_FILES);
 
-        $form = $this->getForm(Form\AdvanceSaleForm::TYPE_NEW);
+        $form = $this->getForm(AdvanceSaleForm::TYPE_NEW);
         $form->setData($params);
 
         if (! $form->isValid()) {
@@ -110,17 +132,13 @@ class AdvanceTicketController extends BaseController
 
         $cleanData = $form->getData();
 
-        $advanceSale = new Entity\AdvanceSale();
+        $advanceSale = new AdvanceSale();
 
-        /** @var Entity\Theater $theater */
-        $theater = $this->em
-            ->getRepository(Entity\Theater::class)
+        $theater = $this->getTheaterRepository()
             ->findOneById((int) $cleanData['theater']);
         $advanceSale->setTheater($theater);
 
-        /** @var Entity\Title $title */
-        $title = $this->em
-            ->getRepository(Entity\Title::class)
+        $title = $this->getTitleRepository()
             ->findOneById((int) $cleanData['title_id']);
         $advanceSale->setTitle($title);
 
@@ -132,7 +150,7 @@ class AdvanceTicketController extends BaseController
         $this->em->persist($advanceSale);
 
         foreach ($cleanData['tickets'] as $ticket) {
-            $advanceTicket = new Entity\AdvanceTicket();
+            $advanceTicket = new AdvanceTicket();
             $advanceTicket->setAdvanceSale($advanceSale);
             $advanceTicket->setPublishingStartDt($ticket['publishing_start_dt']);
             $advanceTicket->setReleaseDt($ticket['release_dt']);
@@ -140,6 +158,7 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
             $advanceTicket->setType((int) $ticket['type']);
             $advanceTicket->setPriceText($ticket['price_text']);
+            $advanceTicket->setDetailUrl($ticket['detail_url']);
             $advanceTicket->setSpecialGift($ticket['special_gift']);
             $advanceTicket->setSpecialGiftStock((int) $ticket['special_gift_stock'] ?: null);
 
@@ -148,20 +167,20 @@ class AdvanceTicketController extends BaseController
 
             if ($image['name']) {
                 // rename
-                $newName = Entity\File::createName($image['name']);
+                $newName = File::createName($image['name']);
 
                 // upload storage
                 // @todo storageと同期するような仕組みをFileへ
                 $options = new CreateBlockBlobOptions();
                 $options->setContentType($image['type']);
                 $this->bc->createBlockBlob(
-                    Entity\File::getBlobContainer(),
+                    File::getBlobContainer(),
                     $newName,
                     fopen($image['tmp_name'], 'r'),
                     $options
                 );
 
-                $file = new Entity\File();
+                $file = new File();
                 $file->setName($newName);
                 $file->setOriginalName($image['name']);
                 $file->setMimeType($image['type']);
@@ -208,16 +227,14 @@ class AdvanceTicketController extends BaseController
      */
     public function executeEdit(Request $request, Response $response, array $args): Response
     {
-        /** @var Entity\AdvanceSale|null $advanceSale */
-        $advanceSale = $this->em
-            ->getRepository(Entity\AdvanceSale::class)
+        $advanceSale = $this->getAdvanceSaleRepository()
             ->findOneById((int) $args['id']);
 
         if (is_null($advanceSale)) {
             throw new NotFoundException($request, $response);
         }
 
-        $form = $this->getForm(Form\AdvanceSaleForm::TYPE_EDIT);
+        $form = $this->getForm(AdvanceSaleForm::TYPE_EDIT);
 
         $values = [
             'id'         => $advanceSale->getId(),
@@ -239,7 +256,7 @@ class AdvanceTicketController extends BaseController
         }
 
         foreach ($advanceSale->getActiveAdvanceTickets() as $advanceTicket) {
-            /** @var Entity\AdvanceTicket $advanceTicket */
+            /** @var AdvanceTicket $advanceTicket */
             $ticket = [
                 'id'                  => $advanceTicket->getId(),
                 'publishing_start_dt' => $advanceTicket->getPublishingStartDt()->format('Y/m/d H:i'),
@@ -248,6 +265,7 @@ class AdvanceTicketController extends BaseController
                 'is_sales_end'        => $advanceTicket->getIsSalesEnd() ? '1' : '0',
                 'type'                => $advanceTicket->getType(),
                 'price_text'          => $advanceTicket->getPriceText(),
+                'detail_url'          => $advanceTicket->getDetailUrl(),
                 'special_gift'        => $advanceTicket->getSpecialGift(),
                 'special_gift_stock'  => $advanceTicket->getSpecialGiftStock(),
             ];
@@ -269,9 +287,7 @@ class AdvanceTicketController extends BaseController
      */
     public function executeUpdate(Request $request, Response $response, array $args): Response
     {
-        /** @var Entity\AdvanceSale|null $advanceSale */
-        $advanceSale = $this->em
-            ->getRepository(Entity\AdvanceSale::class)
+        $advanceSale = $this->getAdvanceSaleRepository()
             ->findOneById((int) $args['id']);
 
         if (is_null($advanceSale)) {
@@ -279,9 +295,9 @@ class AdvanceTicketController extends BaseController
         }
 
         // Laminas_Formの都合で$request->getUploadedFiles()ではなく$_FILESを使用する
-        $params = Form\BaseForm::buildData($request->getParams(), $_FILES);
+        $params = AdvanceSaleForm::buildData($request->getParams(), $_FILES);
 
-        $form = $this->getForm(Form\AdvanceSaleForm::TYPE_EDIT);
+        $form = $this->getForm(AdvanceSaleForm::TYPE_EDIT);
         $form->setData($params);
 
         if (! $form->isValid()) {
@@ -296,15 +312,11 @@ class AdvanceTicketController extends BaseController
 
         $cleanData = $form->getData();
 
-        /** @var Entity\Theater $theater */
-        $theater = $this->em
-            ->getRepository(Entity\Theater::class)
+        $theater = $this->getTheaterRepository()
             ->findOneById((int) $cleanData['theater']);
         $advanceSale->setTheater($theater);
 
-        /** @var Entity\Title $title */
-        $title = $this->em
-            ->getRepository(Entity\Title::class)
+        $title = $this->getTitleRepository()
             ->findOneById((int) $cleanData['title_id']);
         $advanceSale->setTitle($title);
 
@@ -321,7 +333,7 @@ class AdvanceTicketController extends BaseController
                 /**
                  * indexByでidをindexにしている
                  *
-                 * @var Entity\AdvanceTicket|null $advanceTicket
+                 * @var AdvanceTicket|null $advanceTicket
                  */
                 $advanceTicket = $advanceTickets->get($advanceTicketId);
 
@@ -343,7 +355,7 @@ class AdvanceTicketController extends BaseController
                 /**
                  * indexByでidをindexにしている
                  *
-                 * @var Entity\AdvanceTicket|null $advanceTicket
+                 * @var AdvanceTicket|null $advanceTicket
                  */
                 $advanceTicket = $advanceTickets->get($ticket['id']);
 
@@ -356,7 +368,7 @@ class AdvanceTicketController extends BaseController
             } else {
                 // 前売券登録
 
-                $advanceTicket = new Entity\AdvanceTicket();
+                $advanceTicket = new AdvanceTicket();
                 $this->em->persist($advanceTicket);
 
                 $advanceTicket->setAdvanceSale($advanceSale);
@@ -368,6 +380,7 @@ class AdvanceTicketController extends BaseController
             $advanceTicket->setIsSalesEnd($ticket['is_sales_end'] === '1');
             $advanceTicket->setType((int) $ticket['type']);
             $advanceTicket->setPriceText($ticket['price_text']);
+            $advanceTicket->setDetailUrl($ticket['detail_url']);
             $advanceTicket->setSpecialGift($ticket['special_gift']);
             $advanceTicket->setSpecialGiftStock((int) $ticket['special_gift_stock'] ?: null);
 
@@ -380,7 +393,7 @@ class AdvanceTicketController extends BaseController
                 $this->em->remove($oldImage);
 
                 // @todo postRemoveイベントへ
-                $this->bc->deleteBlob(Entity\File::getBlobContainer(), $oldImage->getName());
+                $this->bc->deleteBlob(File::getBlobContainer(), $oldImage->getName());
 
                 $advanceTicket->setSpecialGiftImage(null);
             }
@@ -390,20 +403,20 @@ class AdvanceTicketController extends BaseController
             }
 
             // rename
-            $newName = Entity\File::createName($image['name']);
+            $newName = File::createName($image['name']);
 
             // upload storage
             // @todo storageと同期するような仕組みをFileへ
             $options = new CreateBlockBlobOptions();
             $options->setContentType($image['type']);
             $this->bc->createBlockBlob(
-                Entity\File::getBlobContainer(),
+                File::getBlobContainer(),
                 $newName,
                 fopen($image['tmp_name'], 'r'),
                 $options
             );
 
-            $file = new Entity\File();
+            $file = new File();
             $file->setName($newName);
             $file->setOriginalName($image['name']);
             $file->setMimeType($image['type']);
@@ -439,9 +452,7 @@ class AdvanceTicketController extends BaseController
      */
     public function executeDelete(Request $request, Response $response, array $args): void
     {
-        /** @var Entity\AdvanceTicket|null $advanceTicket */
-        $advanceTicket = $this->em
-            ->getRepository(Entity\AdvanceTicket::class)
+        $advanceTicket = $this->getAdvanceTicketRepository()
             ->findOneById((int) $args['id']);
 
         if (is_null($advanceTicket)) {

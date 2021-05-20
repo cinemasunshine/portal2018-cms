@@ -80,6 +80,11 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
         ]);
 
         $this->add([
+            'name' => 'detail_url',
+            'type' => 'Url',
+        ]);
+
+        $this->add([
             'name' => 'special_gift',
             'type' => 'Text',
         ]);
@@ -128,6 +133,7 @@ class AdvanceTicketFieldset extends Fieldset implements InputFilterProviderInter
             'is_sales_end' => ['required' => false],
             'type' => ['required' => true],
             'price_text' => ['required' => true],
+            'detail_url' => ['required' => false],
             'special_gift' => ['required' => false],
             'special_gift_stock' => ['required' => false],
             'special_gift_image' => [

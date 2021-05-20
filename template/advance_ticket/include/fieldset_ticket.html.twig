@@ -13,7 +13,7 @@
 <div class="card ticket">
     <div class="card-header">
         前売券情報
-        
+
         <div class="card-header-actions">
             <a href="#" class="card-header-action btn-delete">
                 <i class="icon-trash"></i>
@@ -132,6 +132,25 @@
                         {{ message }}
                         {% if not loop.last %}<br />{% endif %}
                     {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">詳細URL</label>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="icon-link"></i>
+                        </span>
+                    </div>
+                    <input type="text" name="tickets[{{ index }}][detail_url]" class="form-control{% if errors.detail_url %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.detail_url }}">
+                    <div class="invalid-feedback">
+                        {% for message in errors.detail_url %}
+                            {{ message }}
+                            {% if not loop.last %}<br />{% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
