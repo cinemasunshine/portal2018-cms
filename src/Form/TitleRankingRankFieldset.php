@@ -7,10 +7,7 @@ namespace App\Form;
 use Laminas\Form\Fieldset;
 use Laminas\InputFilter\InputFilterProviderInterface;
 
-/**
- * Rank fieldset class
- */
-class RankFieldset extends Fieldset implements InputFilterProviderInterface
+class TitleRankingRankFieldset extends Fieldset implements InputFilterProviderInterface
 {
     public function __construct()
     {
@@ -31,6 +28,11 @@ class RankFieldset extends Fieldset implements InputFilterProviderInterface
             'name' => 'title_name',
             'type' => 'Hidden',
         ]);
+
+        $this->add([
+            'name' => 'detail_url',
+            'type' => 'Url',
+        ]);
     }
 
     /**
@@ -41,6 +43,7 @@ class RankFieldset extends Fieldset implements InputFilterProviderInterface
         return [
             'title_id' => ['required' => false],
             'title_name' => ['required' => false],
+            'detail_url' => ['required' => false],
         ];
     }
 }

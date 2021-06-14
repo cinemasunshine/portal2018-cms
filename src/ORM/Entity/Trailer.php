@@ -6,6 +6,7 @@ namespace App\ORM\Entity;
 
 use Cinemasunshine\ORM\Entities\Trailer as BaseTrailer;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,6 +15,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\ORM\Repository\TrailerRepository")
  * @ORM\Table(name="trailer", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
+ *
+ * @method Collection<int, PageTrailer> getPages()
+ * @method Collection<int, TheaterTrailer> getTheater()
+ * @method Collection<int, SpecialSiteTrailer> getSpecialSites()
  */
 class Trailer extends BaseTrailer
 {
@@ -24,18 +29,15 @@ class Trailer extends BaseTrailer
     {
         $publications = new ArrayCollection();
 
-        foreach ($this->getPageTrailers() as $pageTrailer) {
-            /** @var PageTrailer $pageTrailer */
+        foreach ($this->getPages() as $pageTrailer) {
             $publications->add($pageTrailer->getPage());
         }
 
-        foreach ($this->getTheaterTrailers() as $theaterTrailer) {
-            /** @var TheaterTrailer $theaterTrailer */
+        foreach ($this->getTheater() as $theaterTrailer) {
             $publications->add($theaterTrailer->getTheater());
         }
 
-        foreach ($this->getSpecialSiteTrailers() as $specialSiteTrailer) {
-            /** @var SpecialSiteTrailer $specialSiteTrailer */
+        foreach ($this->getSpecialSites() as $specialSiteTrailer) {
             $publications->add($specialSiteTrailer->getSpecialSite());
         }
 

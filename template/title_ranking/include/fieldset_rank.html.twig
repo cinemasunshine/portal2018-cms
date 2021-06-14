@@ -8,19 +8,44 @@
 <div class="card rank">
     <div class="card-body">
         <div class="form-group row field-title">
+            <input type="hidden" name="ranks[{{ rank }}][id]" value="{{ values.id }}">
             <label class="col-md-2 col-form-label">{{ rank }}位</label>
             <div class="col-md-10">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="form-control-static title-name">{{ values.title_name }}</p>
-                        <input type="hidden" name="ranks[{{ rank }}][title_name]" value="{{ values.title_name }}">
-                        <input type="hidden" name="ranks[{{ rank }}][title_id]" class="form-control" value="{{ values.title_id }}">
-                        <div class="invalid-feedback">
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">作品</label>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="form-control-static title-name">{{ values.title_name }}</p>
+                                <input type="hidden" name="ranks[{{ rank }}][title_name]" value="{{ values.title_name }}">
+                                <input type="hidden" name="ranks[{{ rank }}][title_id]" value="{{ values.title_id }}">
+                                <div class="invalid-feedback">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
+                                <button type="button" class="btn btn-danger btn-clear">選択解除</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#selectTitleModal">作品選択</button>
-                        <button type="button" class="btn btn-danger btn-clear">選択解除</button>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">詳細URL</label>
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="icon-link"></i>
+                                </span>
+                            </div>
+                            <input type="text" name="ranks[{{ rank }}][detail_url]" class="form-control{% if errors.detail_url %} is-invalid{% elseif is_validated %} is-valid{% endif %}" value="{{ values.detail_url }}">
+                            <div class="invalid-feedback">
+                                {% for message in errors.detail_url %}
+                                    {{ message }}
+                                    {% if not loop.last %}<br />{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
