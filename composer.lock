@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e85aa32bcdd6a1bcf219dbd1ee6a93d6",
+    "content-hash": "6f95d69e3bcba5b656666676f58e5ab5",
     "packages": [
         {
             "name": "blue32a/monolog-azure-blob",
@@ -51,16 +51,16 @@
         },
         {
             "name": "cinemasunshine/portal2018-orm",
-            "version": "dev-feature/v2",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cinemasunshine/portal2018-orm.git",
-                "reference": "1bfdf9ec96b5c5bc96c7bb28e86f30bc97f41bd2"
+                "reference": "4b0af8b889e65d84a4429e7a3d0bb6dedb160403"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/1bfdf9ec96b5c5bc96c7bb28e86f30bc97f41bd2",
-                "reference": "1bfdf9ec96b5c5bc96c7bb28e86f30bc97f41bd2",
+                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/4b0af8b889e65d84a4429e7a3d0bb6dedb160403",
+                "reference": "4b0af8b889e65d84a4429e7a3d0bb6dedb160403",
                 "shasum": ""
             },
             "require": {
@@ -108,10 +108,10 @@
             ],
             "description": "Cinemasunshine Portal2018 ORM",
             "support": {
-                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/feature/v2",
+                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v2.0.0",
                 "issues": "https://github.com/cinemasunshine/portal2018-orm/issues"
             },
-            "time": "2021-06-14T09:09:24+00:00"
+            "time": "2021-06-18T04:43:01+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -6778,9 +6778,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "cinemasunshine/portal2018-orm": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
