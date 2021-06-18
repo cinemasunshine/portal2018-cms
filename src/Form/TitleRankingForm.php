@@ -7,19 +7,16 @@ namespace App\Form;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator;
 
-/**
- * TitleRanking form class
- */
 class TitleRankingForm extends BaseForm
 {
-    /** @var RankFieldset */
+    /** @var TitleRankingRankFieldset */
     protected $rankFieldset;
 
     public function __construct()
     {
         parent::__construct();
 
-        $this->rankFieldset = new RankFieldset();
+        $this->rankFieldset = new TitleRankingRankFieldset();
 
         $this->setup();
     }

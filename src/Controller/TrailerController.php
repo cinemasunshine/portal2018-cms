@@ -13,9 +13,6 @@ use Slim\Exception\NotFoundException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-/**
- * Trailer controller
- */
 class TrailerController extends BaseController
 {
     protected function preExecute(Request $request, Response $response): void
@@ -252,18 +249,15 @@ class TrailerController extends BaseController
             $values['title_name'] = $trailer->getTitle()->getName();
         }
 
-        foreach ($trailer->getPageTrailers() as $pageTrailer) {
-            /** @var Entity\PageTrailer $pageTrailer */
+        foreach ($trailer->getPages() as $pageTrailer) {
             $values['page'][] = $pageTrailer->getPage()->getId();
         }
 
-        foreach ($trailer->getTheaterTrailers() as $theaterTrailer) {
-            /** @var Entity\TheaterTrailer $theaterTrailer */
+        foreach ($trailer->getTheaters() as $theaterTrailer) {
             $values['theater'][] = $theaterTrailer->getTheater()->getId();
         }
 
-        foreach ($trailer->getSpecialSiteTrailers() as $specialSiteTrailer) {
-            /** @var Entity\SpecialSiteTrailer $specialSiteTrailer */
+        foreach ($trailer->getSpecialSites() as $specialSiteTrailer) {
             $values['special_site'][] = $specialSiteTrailer->getSpecialSite()->getId();
         }
 
@@ -360,11 +354,13 @@ class TrailerController extends BaseController
         $trailer->setBannerLinkUrl($cleanData['banner_link_url']);
         $trailer->setUpdatedUser($this->auth->getUser());
 
-        $trailer->getPageTrailers()->clear();
+        $trailer->getPages()->clear();
 
         if ($cleanData['page']) {
             /** @var Entity\Page[] $pages */
-            $pages = $this->em->getRepository(Entity\Page::class)->findByIds($cleanData['page']);
+            $pages = $this->em
+                ->getRepository(Entity\Page::class)
+                ->findByIds($cleanData['page']);
 
             foreach ($pages as $page) {
                 $pageTrailer = new Entity\PageTrailer();
@@ -375,11 +371,13 @@ class TrailerController extends BaseController
             }
         }
 
-        $trailer->getTheaterTrailers()->clear();
+        $trailer->getTheaters()->clear();
 
         if ($cleanData['theater']) {
             /** @var Entity\Theater[] $theaters */
-            $theaters = $this->em->getRepository(Entity\Theater::class)->findByIds($cleanData['theater']);
+            $theaters = $this->em
+                ->getRepository(Entity\Theater::class)
+                ->findByIds($cleanData['theater']);
 
             foreach ($theaters as $theater) {
                 $theaterTrailer = new Entity\TheaterTrailer();
@@ -390,7 +388,7 @@ class TrailerController extends BaseController
             }
         }
 
-        $trailer->getSpecialSiteTrailers()->clear();
+        $trailer->getSpecialSites()->clear();
 
         if ($cleanData['special_site']) {
             /** @var Entity\SpecialSite[] $specialSites */

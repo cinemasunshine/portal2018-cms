@@ -71,10 +71,12 @@
                         <label class="col-md-3 col-form-label">ランキング</label>
                         <div id="ranks" class="col-md-9">
 
-                        {% for rank in 1..5 %}
+                        {% for titleRank in title_ranking.getRanks() %}
+                            {% set rank = titleRank.getRank() %}
                             {% include 'title_ranking/include/fieldset_rank.html.twig' with {
                                 rank: rank,
                                 values: values.ranks[rank],
+                                errors: errors.ranks[rank],
                             } only %}
                         {% endfor %}
 

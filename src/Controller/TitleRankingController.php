@@ -5,20 +5,18 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Exception\ForbiddenException;
-use App\Form;
-use App\ORM\Entity;
+use App\Form\TitleRankingForm;
+use App\ORM\Entity\Title;
+use App\ORM\Entity\TitleRanking;
 use LogicException;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-/**
- * TitleRanking controller
- */
 class TitleRankingController extends BaseController
 {
-    protected function findEntity(): Entity\TitleRanking
+    protected function findOneEntity(): TitleRanking
     {
-        $entity = $this->em->find(Entity\TitleRanking::class, 1);
+        $entity = $this->em->find(TitleRanking::class, 1);
 
         if (! $entity) {
             throw new LogicException('TitleRanking does not exist.');
@@ -53,7 +51,7 @@ class TitleRankingController extends BaseController
      */
     public function executeEdit(Request $request, Response $response, array $args): Response
     {
-        $titleRanking = $this->findEntity();
+        $titleRanking = $this->findOneEntity();
 
         $fromDate = $titleRanking->getFromDate();
         $toDate   = $titleRanking->getToDate();
@@ -64,19 +62,31 @@ class TitleRankingController extends BaseController
             'ranks'     => [],
         ];
 
-        for ($rank = 1; $rank <= 5; $rank++) {
-            /** @var Entity\Title|null $title */
-            $title = $titleRanking->getRank($rank);
+        $ranks = $titleRanking->getRanks();
 
-            if (! $title) {
-                continue;
+        foreach ($ranks as $rank) {
+            $rankValues = [
+                'id' => $rank->getId(),
+                'rank' => $rank->getRank(),
+                'title_id' => null,
+                'title_name' => null,
+                'detail_url' => $rank->getDetailUrl(),
+            ];
+
+            $title = $rank->getTitle();
+
+            if ($title) {
+                $rankValues['title_id']   = $title->getId();
+                $rankValues['title_name'] = $title->getName();
             }
 
-            $values['ranks'][$rank]['title_id']   = $title->getId();
-            $values['ranks'][$rank]['title_name'] = $title->getName();
+            $values['ranks'][$rank->getRank()] = $rankValues;
         }
 
-        return $this->renderEdit($response, ['values' => $values]);
+        return $this->renderEdit($response, [
+            'values' => $values,
+            'title_ranking' => $titleRanking,
+        ]);
     }
 
     /**
@@ -94,11 +104,14 @@ class TitleRankingController extends BaseController
      */
     public function executeUpdate(Request $request, Response $response, array $args): Response
     {
-        $form = new Form\TitleRankingForm();
+        $titleRanking = $this->findOneEntity();
+
+        $form = new TitleRankingForm();
         $form->setData($request->getParams());
 
         if (! $form->isValid()) {
             return $this->renderEdit($response, [
+                'title_ranking' => $titleRanking,
                 'form' => $form,
                 'values' => $request->getParams(),
                 'errors' => $form->getMessages(),
@@ -108,20 +121,25 @@ class TitleRankingController extends BaseController
 
         $cleanData = $form->getData();
 
-        $titleRanking = $this->findEntity();
         $titleRanking->setFromDate($cleanData['from_date']);
         $titleRanking->setToDate($cleanData['to_date']);
 
-        foreach ($cleanData['ranks'] as $rank => $rankValues) {
+        $ranks = $titleRanking->getRanks();
+
+        foreach ($ranks as $rank) {
+            $rankValues = $cleanData['ranks'][$rank->getRank()];
+
+            $rank->setDetailUrl($rankValues['detail_url']);
+
             $title = null;
 
             if ($rankValues['title_id']) {
                 $title = $this->em
-                    ->getRepository(Entity\Title::class)
+                    ->getRepository(Title::class)
                     ->findOneById((int) $rankValues['title_id']);
             }
 
-            $titleRanking->setRank((int) $rank, $title);
+            $rank->setTitle($title);
         }
 
         $this->em->flush();
