@@ -31,20 +31,20 @@ class TrailerRepository extends EntityRepository
 
         if (isset($params['page']) && count($params['page']) > 0) {
             $qb
-                ->join('t.pageTrailers', 'pt')
-                ->andWhere($qb->expr()->in('pt.page', $params['page']));
+                ->join('t.pages', 'tp')
+                ->andWhere($qb->expr()->in('tp.page', $params['page']));
         }
 
         if (isset($params['theater']) && count($params['theater']) > 0) {
             $qb
-                ->join('t.theaterTrailers', 'tt')
+                ->join('t.theaters', 'tt')
                 ->andWhere($qb->expr()->in('tt.theater', $params['theater']));
         }
 
         if (isset($params['special_site']) && count($params['special_site']) > 0) {
             $qb
-                ->join('t.specialSiteTrailers', 'st')
-                ->andWhere($qb->expr()->in('st.specialSite', $params['special_site']));
+                ->join('t.specialSites', 'ts')
+                ->andWhere($qb->expr()->in('ts.specialSite', $params['special_site']));
         }
 
         $query = $qb->getQuery();
