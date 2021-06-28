@@ -17,14 +17,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks
  *
  * @method Collection<int, PageTrailer> getPages()
- * @method Collection<int, TheaterTrailer> getTheater()
+ * @method Collection<int, TheaterTrailer> getTheaters()
  * @method Collection<int, SpecialSiteTrailer> getSpecialSites()
  */
 class Trailer extends BaseTrailer
 {
-    /**
-     * get published target
-     */
     public function getPublishedTargets(): ArrayCollection
     {
         $publications = new ArrayCollection();
@@ -33,7 +30,7 @@ class Trailer extends BaseTrailer
             $publications->add($pageTrailer->getPage());
         }
 
-        foreach ($this->getTheater() as $theaterTrailer) {
+        foreach ($this->getTheaters() as $theaterTrailer) {
             $publications->add($theaterTrailer->getTheater());
         }
 
