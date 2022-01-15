@@ -51,16 +51,16 @@
         },
         {
             "name": "cinemasunshine/portal2018-orm",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cinemasunshine/portal2018-orm.git",
-                "reference": "4b0af8b889e65d84a4429e7a3d0bb6dedb160403"
+                "reference": "1f4e467795b0581a2b18109ba7dcd399b515a8df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/4b0af8b889e65d84a4429e7a3d0bb6dedb160403",
-                "reference": "4b0af8b889e65d84a4429e7a3d0bb6dedb160403",
+                "url": "https://api.github.com/repos/cinemasunshine/portal2018-orm/zipball/1f4e467795b0581a2b18109ba7dcd399b515a8df",
+                "reference": "1f4e467795b0581a2b18109ba7dcd399b515a8df",
                 "shasum": ""
             },
             "require": {
@@ -108,10 +108,10 @@
             ],
             "description": "Cinemasunshine Portal2018 ORM",
             "support": {
-                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v2.0.0",
+                "source": "https://github.com/cinemasunshine/portal2018-orm/tree/v2.0.1",
                 "issues": "https://github.com/cinemasunshine/portal2018-orm/issues"
             },
-            "time": "2021-06-18T04:43:01+00:00"
+            "time": "2022-01-15T04:53:18+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -4345,21 +4345,21 @@
         },
         {
             "name": "mp-okui/php-coding-standard",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MP-okui/php-coding-standard.git",
-                "reference": "5fca8bb83ae04dd34d007cd77fda0cd8852e57fa"
+                "reference": "1280ddd1b8ad71508b39597f8078e6f0b064e0ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/5fca8bb83ae04dd34d007cd77fda0cd8852e57fa",
-                "reference": "5fca8bb83ae04dd34d007cd77fda0cd8852e57fa",
+                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/1280ddd1b8ad71508b39597f8078e6f0b064e0ec",
+                "reference": "1280ddd1b8ad71508b39597f8078e6f0b064e0ec",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-                "php": "^7.2",
+                "php": "^7.2|^8.0",
                 "slevomat/coding-standard": "^6.4",
                 "squizlabs/php_codesniffer": "^3.5"
             },
@@ -4371,9 +4371,9 @@
             "description": "The PHP coding standard of the Motionpicture projects. (temporary)",
             "support": {
                 "issues": "https://github.com/MP-okui/php-coding-standard/issues",
-                "source": "https://github.com/MP-okui/php-coding-standard/tree/v1.0.0"
+                "source": "https://github.com/MP-okui/php-coding-standard/tree/v1.0.1"
             },
-            "time": "2021-03-07T04:39:13+00:00"
+            "time": "2022-01-15T04:24:00+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -6788,5 +6788,5 @@
         "php": "~7.3"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
