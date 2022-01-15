@@ -42,7 +42,7 @@ RUN docker-php-ext-install \
         -j$(nproc) gd
 
 # https://hub.docker.com/_/composer
-COPY --from=composer:2.1 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
 # サーバ証明書に関する一時的な対応
 RUN git config --global http.sslverify false
