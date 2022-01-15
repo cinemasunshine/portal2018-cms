@@ -52,7 +52,11 @@
         "phpunit/phpunit": "^9.5"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "scripts": {
         "phplint": "vendor/bin/parallel-lint --no-progress --exclude vendor --exclude cache .",
