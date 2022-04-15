@@ -11,7 +11,7 @@ cinemasunshine (Organizations) > Organization Settings > Contexts
 | Name | Value |
 |:---|:---|
 |DOCKERHUB_ID |Docker Hub ユーザ |
-|DOCKERHUB_PASSWORD |Docker Hub ユーザのパスワード |
+|DOCKERHUB_ACCESS_TOKEN |Docker Hub アクセストークン |
 
 ## Environment Variables
 

@@ -11,7 +11,7 @@ references:
   docker_hub_authentication: &docker_hub_authentication
     auth:
       username: $DOCKERHUB_ID
-      password: $DOCKERHUB_PASSWORD
+      password: $DOCKERHUB_ACCESS_TOKEN
 
   job_setup: &job_setup
     context: docker-hub-creds
