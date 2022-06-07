@@ -177,7 +177,10 @@ $container['flash'] = static function ($container) {
  * @return Auth
  */
 $container['auth'] = static function ($container) {
-    return new Auth($container);
+    return new Auth(
+        $container->get('em'),
+        $container->get('sm')->getContainer('auth')
+    );
 };
 
 /**
