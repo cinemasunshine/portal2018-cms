@@ -7,7 +7,6 @@ namespace App;
 use App\ORM\Entity\AdminUser;
 use Doctrine\ORM\EntityManager;
 use Laminas\Session\Container;
-use Psr\Container\ContainerInterface;
 
 class Auth
 {
@@ -17,10 +16,10 @@ class Auth
 
     protected ?AdminUser $user = null;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(EntityManager $em, Container $session)
     {
-        $this->em      = $container->get('em');
-        $this->session = $container->get('sm')->getContainer('auth');
+        $this->em      = $em;
+        $this->session = $session;
     }
 
     /**
