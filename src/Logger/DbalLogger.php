@@ -12,11 +12,9 @@ use Monolog\Logger;
  */
 class DbalLogger implements SQLLogger
 {
-    /** @var Logger */
-    protected $logger;
+    protected Logger $logger;
 
-    /** @var int */
-    protected $count;
+    protected int $count;
 
     public function __construct(Logger $logger)
     {

@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ShowingFormat extends BaseShowingFormat
 {
     /** @var array<int, string> */
-    protected static $systemList = [
+    protected static array $systemList = [
         self::SYSTEM_2D         => '2D',
         self::SYSTEM_3D         => '3D',
         self::SYSTEM_4DX        => '4DX',
@@ -30,7 +30,7 @@ class ShowingFormat extends BaseShowingFormat
     ];
 
     /** @var array<int, string> */
-    protected static $soundList = [
+    protected static array $soundList = [
         self::SOUND_BESTIA        => 'BESTIA',
         self::SOUND_DTSX          => 'dts-X',
         self::SOUND_DOLBY_ATMOS   => 'dolbyatmos',
@@ -39,7 +39,7 @@ class ShowingFormat extends BaseShowingFormat
     ];
 
     /** @var array<int, string> */
-    protected static $voiceList = [
+    protected static array $voiceList = [
         self::VOICE_SUBTITLE => '字幕',
         self::VOICE_DUB      => '吹替',
         self::VOICE_NONE     => 'なし', // SASAKI-297

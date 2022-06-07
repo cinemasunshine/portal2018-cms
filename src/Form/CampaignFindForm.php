@@ -13,23 +13,22 @@ use Laminas\InputFilter\InputFilter;
  */
 class CampaignFindForm extends BaseForm
 {
-    /** @var EntityManager */
-    protected $em;
+    protected EntityManager $em;
 
     /** @var array<int, string> */
-    protected $statusChoices = [
+    protected array $statusChoices = [
         '1' => 'キャンペーン中',
         '2' => 'キャンペーン終了',
     ];
 
     /** @var array<int, string> */
-    protected $pageChoices = [];
+    protected array $pageChoices = [];
 
     /** @var array<int, string> */
-    protected $theaterChoices = [];
+    protected array $theaterChoices = [];
 
     /** @var array<int, string> */
-    protected $specialSiteChoices = [];
+    protected array $specialSiteChoices = [];
 
     public function __construct(EntityManager $em)
     {

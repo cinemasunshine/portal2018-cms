@@ -17,7 +17,7 @@ class AdvanceTicketFindForm extends BaseForm
     public const STATUS_SALE_END = 3;
 
     /** @var array<int, string> */
-    protected $statusChoices = [
+    protected array $statusChoices = [
         self::STATUS_SALE     => '販売中',
         self::STATUS_PRE_SALE => '販売予定',
         self::STATUS_SALE_END => '販売終了',

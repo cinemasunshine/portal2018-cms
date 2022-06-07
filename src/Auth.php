@@ -11,14 +11,11 @@ use Psr\Container\ContainerInterface;
 
 class Auth
 {
-    /** @var EntityManager */
-    protected $em;
+    protected EntityManager $em;
 
-    /** @var Container */
-    protected $session;
+    protected Container $session;
 
-    /** @var AdminUser|null */
-    protected $user;
+    protected ?AdminUser $user = null;
 
     public function __construct(ContainerInterface $container)
     {

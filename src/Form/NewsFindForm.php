@@ -13,26 +13,25 @@ use Laminas\InputFilter\InputFilter;
  */
 class NewsFindForm extends BaseForm
 {
-    /** @var EntityManager */
-    protected $em;
+    protected EntityManager $em;
 
     /** @var array<int, string> */
-    protected $termChoices = [
+    protected array $termChoices = [
         '1' => '掲出中',
         '2' => '掲出終了',
     ];
 
     /** @var array<int, string> */
-    protected $categoryChoices;
+    protected array $categoryChoices;
 
     /** @var array<int, string> */
-    protected $pageChoices = [];
+    protected array $pageChoices = [];
 
     /** @var array<int, string> */
-    protected $theaterChoices = [];
+    protected array $theaterChoices = [];
 
     /** @var array<int, string> */
-    protected $specialSiteChoices = [];
+    protected array $specialSiteChoices = [];
 
     public function __construct(EntityManager $em)
     {

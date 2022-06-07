@@ -13,14 +13,13 @@ use Laminas\InputFilter\InputFilter;
  */
 class AdminUserForm extends BaseForm
 {
-    /** @var EntityManager */
-    protected $em;
+    protected EntityManager $em;
 
     /** @var array<int, string> */
-    protected $groupChoices;
+    protected array $groupChoices;
 
     /** @var array<int, string> */
-    protected $theaterChoices;
+    protected array $theaterChoices;
 
     public function __construct(EntityManager $em)
     {

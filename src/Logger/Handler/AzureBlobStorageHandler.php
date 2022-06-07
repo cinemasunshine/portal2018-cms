@@ -12,8 +12,7 @@ use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
  */
 class AzureBlobStorageHandler extends BaseHandler
 {
-    /** @var bool */
-    protected $isBlobCreated;
+    protected bool $isBlobCreated;
 
     protected function createBlob(): void
     {

@@ -15,7 +15,7 @@ use Laminas\Validator\AbstractValidator;
 class BaseForm extends Form
 {
     /** @var string[] */
-    public static $imageMimeTypes = [
+    public static array $imageMimeTypes = [
         'image/jpeg',
         'image/png',
         'image/gif',

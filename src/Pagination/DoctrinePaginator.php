@@ -12,8 +12,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator as WrapPaginator;
  */
 class DoctrinePaginator extends AbstractPaginator
 {
-    /** @var WrapPaginator */
-    protected $wrapPaginator;
+    protected WrapPaginator $wrapPaginator;
 
     /**
      * @param Query $query               A Doctrine ORM query or query builder.

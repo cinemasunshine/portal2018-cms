@@ -14,8 +14,7 @@ use Psr\Http\Message\StreamInterface;
  */
 trait ImageResize
 {
-    /** @var ImageManager|null */
-    private $imageManager;
+    private ?ImageManager $imageManager = null;
 
     private function createImageManager(): void
     {

@@ -14,8 +14,7 @@ use Throwable;
  */
 class Error extends BaseHandler
 {
-    /** @var Logger */
-    protected $logger;
+    protected Logger $logger;
 
     public function __construct(Logger $logger, bool $displayErrorDetails = false)
     {

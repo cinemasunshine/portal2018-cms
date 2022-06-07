@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 class News extends BaseNews
 {
     /** @var array<int, string> */
-    public static $categories = [
+    public static array $categories = [
         self::CATEGORY_NEWS       => 'NEWS',
         self::CATEGORY_INFO       => 'インフォメーション',
         self::CATEGORY_IMAX       => 'IMAXニュース',

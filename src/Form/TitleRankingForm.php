@@ -9,8 +9,7 @@ use Laminas\Validator;
 
 class TitleRankingForm extends BaseForm
 {
-    /** @var TitleRankingRankFieldset */
-    protected $rankFieldset;
+    protected TitleRankingRankFieldset $rankFieldset;
 
     public function __construct()
     {
