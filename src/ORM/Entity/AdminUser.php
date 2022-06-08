@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 class AdminUser extends BaseAdminUser
 {
     /** @var array<int, string> */
-    protected static $groups = [
+    protected static array $groups = [
         self::GROUP_MASTER  => 'マスター',
         self::GROUP_MANAGER => 'マネージャー',
         self::GROUP_THEATER => '劇場',

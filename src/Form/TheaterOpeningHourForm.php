@@ -9,8 +9,7 @@ namespace App\Form;
  */
 class TheaterOpeningHourForm extends BaseForm
 {
-    /** @var OpeningHourFieldset */
-    protected $openingHourFieldset;
+    protected OpeningHourFieldset $openingHourFieldset;
 
     public function __construct()
     {

@@ -15,8 +15,7 @@ class RedirectException extends Exception
     /** @var string|UriInterface */
     protected $url;
 
-    /** @var int|null */
-    protected $status;
+    protected ?int $status = null;
 
     /**
      * @param string|UriInterface $url    The redirect destination.

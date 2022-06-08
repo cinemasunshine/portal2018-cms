@@ -17,20 +17,18 @@ class TrailerForm extends BaseForm
     public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
-    /** @var int */
-    protected $type;
+    protected int $type;
 
-    /** @var EntityManager */
-    protected $em;
+    protected EntityManager $em;
 
     /** @var array<int, string> */
-    protected $pageChoices;
+    protected array $pageChoices;
 
     /** @var array<int, string> */
-    protected $theaterChoices;
+    protected array $theaterChoices;
 
     /** @var array<int, string> */
-    protected $specialSiteChoices;
+    protected array $specialSiteChoices;
 
     public function __construct(int $type, EntityManager $em)
     {

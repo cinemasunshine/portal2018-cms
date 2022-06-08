@@ -20,20 +20,20 @@ use Doctrine\ORM\Mapping as ORM;
 class AdvanceTicket extends BaseAdvanceTicket
 {
     /** @var array<int, string> */
-    protected static $types = [
+    protected static array $types = [
         self::TYPE_MVTK  => 'ムビチケカード',
         self::TYPE_PAPER => '紙券',
     ];
 
     /** @var array<int, string> */
-    protected static $specialGiftStockList = [
+    protected static array $specialGiftStockList = [
         self::SPECIAL_GIFT_STOCK_IN     => '有り',
         self::SPECIAL_GIFT_STOCK_FEW    => '残り僅か',
         self::SPECIAL_GIFT_STOCK_NOT_IN => '特典終了',
     ];
 
     /** @var array<int, string> */
-    protected static $statusList = [
+    protected static array $statusList = [
         self::STATUS_PRE_SALE => '販売予定',
         self::STATUS_SALE     => '販売中',
         self::STATUS_SALE_END => '販売終了',

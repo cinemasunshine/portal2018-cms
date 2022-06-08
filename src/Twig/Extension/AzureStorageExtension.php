@@ -13,11 +13,9 @@ use Twig\TwigFunction;
  */
 class AzureStorageExtension extends AbstractExtension
 {
-    /** @var BlobRestProxy $client */
-    protected $client;
+    protected BlobRestProxy $client;
 
-    /** @var string|null $publicEndpoint */
-    protected $publicEndpoint;
+    protected ?string $publicEndpoint = null;
 
     public function __construct(BlobRestProxy $client, ?string $publicEndpoint = null)
     {

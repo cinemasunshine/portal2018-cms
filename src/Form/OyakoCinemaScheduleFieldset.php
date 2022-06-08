@@ -15,11 +15,10 @@ use Laminas\Validator;
  */
 class OyakoCinemaScheduleFieldset extends Fieldset implements InputFilterProviderInterface
 {
-    /** @var EntityManager */
-    protected $em;
+    protected EntityManager $em;
 
     /** @var array<int, string> */
-    protected $theaterChoices;
+    protected array $theaterChoices;
 
     public function __construct(EntityManager $em)
     {

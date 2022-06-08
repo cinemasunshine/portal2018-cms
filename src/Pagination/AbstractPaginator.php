@@ -9,23 +9,18 @@ namespace App\Pagination;
  */
 abstract class AbstractPaginator
 {
-    /** @var int */
-    protected $page = 1;
+    protected int $page = 1;
 
-    /** @var int */
-    protected $maxPerPage = 0;
+    protected int $maxPerPage = 0;
 
-    /** @var int */
-    protected $lastPage = 1;
+    protected int $lastPage = 1;
 
-    /** @var int */
-    protected $numResults = 0;
+    protected int $numResults = 0;
 
-    /** @var int */
-    protected $currentMaxLink = 1;
+    protected int $currentMaxLink = 1;
 
     /** @var array<mixed>|null */
-    protected $resultsInPage = null;
+    protected ?array $resultsInPage = null;
 
     /**
      * Returns the number of itenms in current page

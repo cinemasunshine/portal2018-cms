@@ -12,8 +12,7 @@ use Slim\Views\Twig;
  */
 class NotAllowed extends BaseHandler
 {
-    /** @var Twig */
-    protected $view;
+    protected Twig $view;
 
     public function __construct(Twig $view)
     {

@@ -14,7 +14,7 @@ use Laminas\Session\SessionManager as BaseManager;
 class SessionManager extends BaseManager
 {
     /** @var Container[] */
-    protected $containers = [];
+    protected array $containers = [];
 
     /**
      * construct

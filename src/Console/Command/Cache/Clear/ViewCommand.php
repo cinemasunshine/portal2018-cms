@@ -22,8 +22,7 @@ class ViewCommand extends BaseCommand
     /** {@inheritDoc} */
     protected static $defaultName = 'cache:clear:view';
 
-    /** @var Twig */
-    protected $view;
+    protected Twig $view;
 
     public function __construct(Twig $view)
     {

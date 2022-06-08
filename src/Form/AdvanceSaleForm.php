@@ -16,20 +16,16 @@ class AdvanceSaleForm extends BaseForm
     public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
-    /** @var int */
-    protected $type;
+    protected int $type;
 
-    /** @var EntityManager */
-    protected $em;
+    protected EntityManager $em;
 
-    /** @var Entity\AdminUser */
-    protected $adminUser;
+    protected Entity\AdminUser $adminUser;
 
-    /** @var AdvanceTicketFieldset */
-    protected $ticketFieldset;
+    protected AdvanceTicketFieldset $ticketFieldset;
 
     /** @var array<int, string> */
-    protected $theaterChoices = [];
+    protected array $theaterChoices = [];
 
     public function __construct(int $type, EntityManager $em, Entity\AdminUser $adminUser)
     {

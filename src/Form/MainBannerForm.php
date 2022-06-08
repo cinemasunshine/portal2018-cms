@@ -16,11 +16,10 @@ class MainBannerForm extends BaseForm
     public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
-    /** @var int */
-    protected $type;
+    protected int $type;
 
     /** @var array<int, string> */
-    protected $linkTypeChoices;
+    protected array $linkTypeChoices;
 
     public function __construct(int $type)
     {

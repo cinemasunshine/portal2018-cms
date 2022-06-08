@@ -18,14 +18,14 @@ class ScheduleFindForm extends BaseForm
     public const STATUS_END     = 3;
 
     /** @var array<int, string> */
-    protected $statusChoices = [
+    protected array $statusChoices = [
         self::STATUS_SHOWING => '上映中',
         self::STATUS_BEFORE  => '上映予定',
         self::STATUS_END     => '上映終了',
     ];
 
     /** @var array<int, string> */
-    protected $formatSystemChoices;
+    protected array $formatSystemChoices;
 
     public function __construct()
     {

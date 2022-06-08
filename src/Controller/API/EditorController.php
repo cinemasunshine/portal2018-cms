@@ -20,10 +20,8 @@ class EditorController extends BaseController
 
     /**
      * Blob Container name
-     *
-     * @var string
      */
-    protected $blobContainer = 'editor';
+    protected string $blobContainer = 'editor';
 
     /**
      * upload action

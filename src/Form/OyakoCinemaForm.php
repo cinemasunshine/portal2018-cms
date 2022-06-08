@@ -15,11 +15,9 @@ class OyakoCinemaForm extends BaseForm
     public const TYPE_NEW  = 1;
     public const TYPE_EDIT = 2;
 
-    /** @var int */
-    protected $type;
+    protected int $type;
 
-    /** @var OyakoCinemaScheduleFieldset */
-    protected $scheduleFieldset;
+    protected OyakoCinemaScheduleFieldset $scheduleFieldset;
 
     public function __construct(int $type, EntityManager $em)
     {

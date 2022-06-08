@@ -14,7 +14,7 @@ use Laminas\InputFilter\InputFilterProviderInterface;
 class OpeningHourFieldset extends Fieldset implements InputFilterProviderInterface
 {
     /** @var array<int, string> */
-    protected $typeChoices = [
+    protected array $typeChoices = [
         TheaterOpeningHour::TYPE_DATE => '日付',
         TheaterOpeningHour::TYPE_TERM => '期間',
     ];

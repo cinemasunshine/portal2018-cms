@@ -19,11 +19,9 @@ class CampaignPublicationForm extends BaseForm
     public const TARGET_TEATER        = 'theater';
     public const TARGET_SPESICAL_SITE = 'special_site';
 
-    /** @var string */
-    protected $target;
+    protected string $target;
 
-    /** @var EntityManager */
-    protected $em;
+    protected EntityManager $em;
 
     public function __construct(string $target, EntityManager $em)
     {

@@ -11,8 +11,7 @@ use Psr\Container\ContainerInterface;
  */
 abstract class AbstractMiddleware
 {
-    /** @var ContainerInterface */
-    protected $container;
+    protected ContainerInterface $container;
 
     /**
      * construct
