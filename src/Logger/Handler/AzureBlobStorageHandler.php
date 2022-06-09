@@ -7,12 +7,9 @@ namespace App\Logger\Handler;
 use Blue32a\Monolog\Handler\AzureBlobStorageHandler as BaseHandler;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 
-/**
- * Azure Blob Storage handler
- */
 class AzureBlobStorageHandler extends BaseHandler
 {
-    protected bool $isBlobCreated;
+    protected bool $isBlobCreated = false;
 
     protected function createBlob(): void
     {
