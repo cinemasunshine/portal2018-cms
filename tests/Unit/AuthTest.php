@@ -13,7 +13,6 @@ use App\ORM\Entity\AdminUser;
 use App\Session\SessionManager;
 use Doctrine\ORM\EntityManager;
 use Laminas\Session\Config\StandardConfig;
-use Laminas\Stdlib\ArrayObject;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\LegacyMockInterface;
@@ -61,33 +60,6 @@ final class AuthTest extends TestCase
     protected function createEntityManagerMock()
     {
         return Mockery::mock(EntityManager::class);
-    }
-
-    /**
-     * Create SessionManager mock
-     *
-     * 実際のセッション（$_SESSION）は利用しない形にする。
-     * ひとまず仮のクラスで実装する。
-     *
-     * @return MockInterface|LegacyMockInterface
-     */
-    protected function createSessionManagerMock()
-    {
-        return Mockery::mock('SessionManager');
-    }
-
-    /**
-     * Create SessionContaier mock
-     *
-     * 実際のセッション（$_SESSION）は利用しない形にする。
-     * 現状ではoffsetGet()、offsetSet()が利用できれば良いので、
-     * 元になっているArrayObjectを利用する。
-     *
-     * @return MockInterface|LegacyMockInterface
-     */
-    protected function createSessionContaierMock()
-    {
-        return Mockery::mock(ArrayObject::class);
     }
 
     /**
