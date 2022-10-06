@@ -3,15 +3,15 @@
 .git
 .gitignore
 
-.circleci/
-./gcp/env.example.yaml
-./gcp/README.md
-cache/
-docker/
-public/.htaccess.example
-report/
-tests/
-vendor/
+/.circleci/
+/.gcp/env.example.yaml
+/.gcp/README.md
+/cache/
+/docker/
+/public/.htaccess.example
+/report/
+/tests/
+/vendor/
 .editorconfig
 .env
 .env.example
