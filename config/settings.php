@@ -19,7 +19,7 @@ $settings['view'] = [
     'template_path' => APP_ROOT . '/template',
     'settings' => [
         'debug' => APP_DEBUG,
-        'cache' => APP_ROOT . '/cache/view',
+        'cache' => getenv('APPSETTING_VIEW_CACHE_DIR') ?: APP_ROOT . '/cache/view',
     ],
 ];
 
