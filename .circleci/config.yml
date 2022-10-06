@@ -122,7 +122,8 @@ jobs:
           google-compute-region: GOOGLE_COMPUTE_REGION_DEVELOPMENT
           google-project-id: GOOGLE_PROJECT_ID_DEVELOPMENT
 
-      - run: gcloud --quiet app deploy
+      # composerのコマンドイベントを使いたいのでキャッシュを無効にする
+      - run: gcloud --quiet app deploy --no-cache
 
 workflows:
   version: 2

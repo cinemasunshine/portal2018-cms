@@ -63,6 +63,9 @@
         "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
         "phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml",
         "phpstan": "vendor/bin/phpstan analyse -n --no-progress -c phpstan.neon --memory-limit=256M",
-        "phpunit": "vendor/bin/phpunit --testdox-html ./report/phpunit/testdox.html"
+        "phpunit": "vendor/bin/phpunit --testdox-html ./report/phpunit/testdox.html",
+        "post-autoload-dump": [
+            "vendor/bin/doctrine orm:generate-proxies"
+        ]
     }
 }
