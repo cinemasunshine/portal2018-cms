@@ -4,6 +4,8 @@
 .gitignore
 
 .circleci/
+./gcp/env.example.yaml
+./gcp/README.md
 cache/
 docker/
 report/
