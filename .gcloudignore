@@ -8,6 +8,7 @@
 ./gcp/README.md
 cache/
 docker/
+public/.htaccess.example
 report/
 tests/
 vendor/
