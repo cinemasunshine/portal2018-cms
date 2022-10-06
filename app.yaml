@@ -1,0 +1,21 @@
+runtime: php74
+
+runtime_config:
+  document_root: ./public
+
+handlers:
+  - url: /css
+    static_dir: public/css
+
+  - url: /images
+    static_dir: public/images
+
+  - url: /js
+    static_dir: public/js
+
+  - url: /robots.txt
+    static_files: public/robots.txt
+    upload: public/robots\.txt
+
+  - url: .*
+    script: auto

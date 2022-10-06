@@ -42,7 +42,7 @@ commands:
             fi
 
 orbs:
-  azure-cli: circleci/azure-cli@1.2.0
+  gcp-cli: circleci/gcp-cli@2.4.1
 
 executors:
   build:
@@ -51,8 +51,8 @@ executors:
         <<: *docker_hub_authentication
 
 jobs:
-  build_development:
-    working_directory: ~/development
+  test:
+    working_directory: ~/test
     executor: build
 
     steps:
@@ -73,107 +73,6 @@ jobs:
           key: composer-dev-{{ checksum "composer.lock" }}
           paths:
             - ./vendor
-
-      - run:
-          name: Create .env file
-          command: cp .env.test .env
-
-      - run:
-          name: Generate ORM proxies
-          command: vendor/bin/doctrine orm:generate-proxies
-
-      - run:
-          name: Remove .env file
-          command: rm -v ./.env
-
-      - run:
-          name: Create version file
-          command: echo "${CIRCLE_SHA1}.${CIRCLE_BUILD_NUM}" | tee version.txt
-
-      - run:
-          name: ZIP archive (dev)
-          command: >-
-            zip -r development_app.zip
-            azure bin cert config error public src template vendor cli-config.php INSTALL.md README.md version.txt
-            -x public/.htaccess.example public/Web.config.example public/Web.config.prod
-
-      - store_artifacts:
-          path: ./development_app.zip
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  build_production:
-    working_directory: ~/production
-    executor: build
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - composer-{{ checksum "composer.lock" }}
-            - composer-
-
-      - fix_composer_version
-
-      - run:
-          name: Composer install
-          command: composer install --no-dev -n --prefer-dist --optimize-autoloader
-
-      - save_cache:
-          key: composer-{{ checksum "composer.lock" }}
-          paths:
-            - ./vendor
-
-      - run:
-          name: Create Web.config file
-          command: cp ./public/Web.config.prod ./public/Web.config
-
-      - run:
-          name: Create PHP configuration file (for Azure)
-          command: cp ./azure/ini/settings.ini-prod ./azure/ini/settings.ini
-
-      - run:
-          name: Create .env file
-          command: cp .env.test .env
-
-      - run:
-          name: Generate ORM proxies
-          command: vendor/bin/doctrine orm:generate-proxies
-
-      - run:
-          name: Remove .env file
-          command: rm -v ./.env
-
-      - run:
-          name: Create version file
-          command: echo "${CIRCLE_SHA1}.${CIRCLE_BUILD_NUM}" | tee version.txt
-
-      - run:
-          name: ZIP archive
-          command: >-
-            zip -r production_app.zip
-            azure bin cert config error public src template vendor cli-config.php INSTALL.md README.md version.txt
-            -x public/.htaccess.example public/Web.config.example public/Web.config.prod
-
-      - store_artifacts:
-          path: ./production_app.zip
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  test:
-    working_directory: ~/development
-    executor: build
-
-    steps:
-      - attach_workspace:
-          at: .
 
       - run:
           name: Create .env file
@@ -202,165 +101,35 @@ jobs:
           name: Remove .env file
           command: rm -v ./.env
 
-  deploy_to_dev:
-    working_directory: ~/development
-    executor: azure-cli/azure-docker
+  deploy_to_development:
+    working_directory: ~/deployment
+    executor: gcp-cli/default
 
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
 
-      - file_exists:
-          file: development_app.zip
+      - gcp-cli/install
 
-      - azure-cli/login-with-user:
-          alternate-tenant: true
+      - gcp-cli/initialize:
+          gcloud-service-key: GCLOUD_SERVICE_KEY_DEVELOPMENT
+          google-compute-region: GOOGLE_COMPUTE_REGION_DEVELOPMENT
+          google-project-id: GOOGLE_PROJECT_ID_DEVELOPMENT
 
-      - run:
-          name: Deploy
-          command: >-
-            az webapp deployment source config-zip \
-              -g ssk-portal-win-dev \
-              -n ssk-portal2018-admin-win-dev \
-              --src development_app.zip
-
-  deploy_to_test:
-    working_directory: ~/development
-    executor: azure-cli/azure-docker
-
-    steps:
-      - attach_workspace:
-          at: .
-
-      - file_exists:
-          file: development_app.zip
-
-      - azure-cli/login-with-user:
-          alternate-tenant: true
-
-      - run:
-          name: Deploy
-          command: >-
-            az webapp deployment source config-zip \
-              -g ssk-portal-win-test \
-              -n ssk-portal2018-admin-win-test \
-              --src development_app.zip
-
-  deploy_to_prod_release:
-    working_directory: ~/production
-    executor: azure-cli/azure-docker
-
-    steps:
-      - attach_workspace:
-          at: .
-
-      - file_exists:
-          file: production_app.zip
-
-      - azure-cli/login-with-user:
-          alternate-tenant: true
-
-      - run:
-          name: Deploy
-          command: >-
-            az webapp deployment source config-zip \
-              -g ssk-portal-win-prod \
-              -n ssk-portal2018-admin-win-prod \
-              -s release \
-              --src production_app.zip
-
-  swap_prod_release_to_production:
-    working_directory: ~/production
-    executor: azure-cli/azure-docker
-
-    steps:
-      - azure-cli/login-with-user:
-          alternate-tenant: true
-
-      - run:
-          name: Slot swap
-          command: az webapp deployment slot swap -g ssk-portal-win-prod -n ssk-portal2018-admin-win-prod --slot release --target-slot production
+      - run: gcloud --quiet app deploy
 
 workflows:
   version: 2
 
   deploy_development:
     jobs:
-      - build_development:
+      - test:
           <<: *job_setup
           filters:
             branches:
-              only: develop
+              only: feature/SASAKI-647
 
-      - test:
-          <<: *job_setup
-          requires:
-            - build_development
-
-      - deploy_to_dev:
-          <<: *job_setup
-          requires:
-            - build_development
-
-  deploy_development_feature:
-    jobs:
-      - build_development:
+      - deploy_to_development:
           <<: *job_setup
           filters:
             branches:
-              ignore:
-                - develop
-                - master
-
-      - test:
-          <<: *job_setup
-          requires:
-            - build_development
-
-      - deploy_approval:
-          type: approval
-          requires:
-            - build_development
-
-      - deploy_to_test:
-          <<: *job_setup
-          requires:
-            - deploy_approval
-
-  deploy_production:
-    jobs:
-      - build_development:
-          <<: *job_setup
-          filters:
-            branches:
-              only: master
-
-      - test:
-          <<: *job_setup
-          requires:
-            - build_development
-
-      - build_production:
-          <<: *job_setup
-          requires:
-            - test
-
-      - deploy_approval:
-          type: approval
-          requires:
-            - build_production
-
-      - deploy_to_prod_release:
-          <<: *job_setup
-          requires:
-            - deploy_approval
-
-      - swap_approval:
-          type: approval
-          requires:
-            - deploy_to_prod_release
-
-      - swap_prod_release_to_production:
-          <<: *job_setup
-          requires:
-            - swap_approval
+              only: feature/SASAKI-647
