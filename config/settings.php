@@ -114,9 +114,17 @@ $settings['doctrine'] = $getDoctrineSetting();
 
 // storage
 $getStorageSettings = static function () {
+    /**
+     * デフォルトとしてエミュレーターの接続情報を設定する
+     * 設定されていないとビルドできないので
+     * doctrine orm:generate-proxies でエラーになる（loggerで使用しているのが原因と思われる）
+     */
+    $defaultName = 'devstoreaccount1';
+    $defaultKey  = 'Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq';
+
     $settings = [
-        'account_name' => getenv('CUSTOMCONNSTR_STORAGE_NAME'),
-        'account_key' => getenv('CUSTOMCONNSTR_STORAGE_KEY'),
+        'account_name' => getenv('CUSTOMCONNSTR_STORAGE_NAME') ?: $defaultName,
+        'account_key' => getenv('CUSTOMCONNSTR_STORAGE_KEY') ?: $defaultKey,
     ];
 
     $settings['secure'] = (getenv('CUSTOMCONNSTR_STORAGE_SECURE') !== 'false');
