@@ -47,13 +47,17 @@ $getLoggerSetting = static function () {
         ];
     }
 
-    $settings['buffer'] = ['limit' => 0]; // ひとまず無制限とする
+    if (in_array(APP_ENV, ['dev', 'prod'])) {
+        $settings['google_cloud_logging'] = [
+            'name' => 'app',
+            'level' => Logger::INFO,
+            'client_options' => [
+                'projectId' => getenv('GOOGLE_CLOUD_PROJECT'),
+            ],
+        ];
 
-    $settings['azure_blob_storage'] = [
-        'level' => Logger::INFO,
-        'container' => 'admin-log',
-        'blob' => date('Ymd') . '.log',
-    ];
+        $settings['buffer'] = ['limit' => 0]; // ひとまず無制限とする
+    }
 
     return $settings;
 };

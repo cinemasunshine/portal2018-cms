@@ -22,9 +22,9 @@
     },
     "require": {
         "php": "~7.4",
-        "blue32a/monolog-azure-blob": "^0.2",
         "cinemasunshine/portal2018-orm": "^2.0",
         "doctrine/orm": "~2.7.4",
+        "google/cloud-logging": "^1.24",
         "intervention/image": "^2.5",
         "laminas/laminas-form": "^2.14",
         "laminas/laminas-i18n": "^2.10",

@@ -14,13 +14,14 @@ use App\Application\Handlers\NotFound;
 use App\Application\Handlers\PhpError;
 use App\Auth;
 use App\Logger\DbalLogger;
-use App\Logger\Handler\AzureBlobStorageHandler;
+use App\Logger\Handler\GoogleCloudLoggingHandler;
 use App\Session\SessionManager;
 use App\Twig\Extension\AzureStorageExtension;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\WinCacheCache;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use Google\Cloud\Logging\LoggingClient;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use Monolog\Handler\BrowserConsoleHandler;
 use Monolog\Handler\BufferHandler;
@@ -93,19 +94,21 @@ $container['logger'] = static function ($container) {
         ));
     }
 
-    $azureBlobStorageSettings = $settings['azure_blob_storage'];
-    $azureBlobStorageHandler  = new AzureBlobStorageHandler(
-        $container->get('bc'),
-        $azureBlobStorageSettings['container'],
-        $azureBlobStorageSettings['blob'],
-        $azureBlobStorageSettings['level']
-    );
+    if (isset($settings['google_cloud_logging'])) {
+        $googleCloudLoggingSettings = $settings['google_cloud_logging'];
+        $googleCloudLoggingClient   = new LoggingClient($googleCloudLoggingSettings['client_options']);
+        $googleCloudLoggingHandler  = new GoogleCloudLoggingHandler(
+            $googleCloudLoggingSettings['name'],
+            $googleCloudLoggingClient,
+            $googleCloudLoggingSettings['level']
+        );
 
-    $bufferSettings = $settings['buffer'];
-    $logger->pushHandler(new BufferHandler(
-        $azureBlobStorageHandler,
-        $bufferSettings['limit']
-    ));
+        $bufferSettings = $settings['buffer'];
+        $logger->pushHandler(new BufferHandler(
+            $googleCloudLoggingHandler,
+            $bufferSettings['limit']
+        ));
+    }
 
     return $logger;
 };
