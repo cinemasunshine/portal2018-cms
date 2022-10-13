@@ -18,7 +18,7 @@ use App\Logger\Handler\GoogleCloudLoggingHandler;
 use App\Session\SessionManager;
 use App\Twig\Extension\AzureStorageExtension;
 use Doctrine\Common\Cache\ArrayCache;
-use Doctrine\Common\Cache\WinCacheCache;
+use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Google\Cloud\Logging\LoggingClient;
@@ -122,8 +122,8 @@ $container['em'] = static function ($container) {
     $settings = $container->get('settings')['doctrine'];
     $proxyDir = APP_ROOT . '/src/ORM/Proxy';
 
-    if ($settings['cache'] === 'wincache') {
-        $cache = new WinCacheCache();
+    if ($settings['cache'] === 'filesystem') {
+        $cache = new FilesystemCache($settings['filesystem_cache_dir']);
     } else {
         $cache = new ArrayCache();
     }
