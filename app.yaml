@@ -1,5 +1,7 @@
 runtime: php74
 
+instance_class: F1
+
 vpc_access_connector:
   name: projects/cs-portal-admin-development/locations/asia-northeast1/connectors/connector01
   egress_setting: all-traffic
