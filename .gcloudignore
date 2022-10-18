@@ -4,7 +4,10 @@
 .gitignore
 
 /.circleci/
+/.gcp/app.yaml
 /.gcp/env.example.yaml
+/.gcp/php.development.ini
+/.gcp/php.production.ini
 /.gcp/README.md
 /cache/
 /docker/

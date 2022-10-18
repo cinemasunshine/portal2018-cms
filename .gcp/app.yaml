@@ -2,8 +2,9 @@ runtime: php74
 
 instance_class: F1
 
+# includesに分離できないのでCIで書き換える
 vpc_access_connector:
-  name: projects/cs-portal-admin-development/locations/asia-northeast1/connectors/connector01
+  name: projects/:PROJECT_ID:/locations/asia-northeast1/connectors/connector01
   egress_setting: all-traffic
 
 runtime_config:
@@ -11,6 +12,12 @@ runtime_config:
 
 includes:
 - .gcp/env.yaml
+
+env_variables:
+  APPSETTING_VIEW_CACHE_DIR: /tmp/view
+
+  APPSETTING_DOCTRINE_CACHE: filesystem
+  APPSETTING_DOCTRINE_FILESYSTEM_CACHE_DIR: /tmp/doctrine
 
 handlers:
   - url: /css

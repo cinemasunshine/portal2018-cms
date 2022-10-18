@@ -21,7 +21,7 @@ cinemasunshine (Organizations) > portal2018-cms (Projects) > Project Settings > 
 
 | Name | Value |
 |:---|:---|
-| ENV_VARIABLES_DEVELOPMENT | 環境変数を設定したyaml形式データをBase64エンコード （development用） |
-| GCLOUD_SERVICE_KEY_DEVELOPMENT | Googleプロジェクトのフルサービス・キーJSONファイル （development用） |
-| GOOGLE_COMPUTE_REGION_DEVELOPMENT | gcloud CLI のデフォルトとして設定する Google compute region （development用） |
-| GOOGLE_PROJECT_ID_DEVELOPMENT | gcloud CLIのデフォルトとして設定するGoogleプロジェクトID （development用） |
+| ENV_VARIABLES_**\<ENVIRONMENT\>** | 環境変数を設定したyaml形式データをBase64エンコード |
+| GCLOUD_SERVICE_KEY_**\<ENVIRONMENT\>** | Googleプロジェクトのフルサービス・キーJSONファイル |
+| GOOGLE_COMPUTE_REGION_**\<ENVIRONMENT\>** | gcloud CLI のデフォルトとして設定する Google compute region |
+| GOOGLE_PROJECT_ID_**\<ENVIRONMENT\>** | gcloud CLIのデフォルトとして設定するGoogleプロジェクトID |

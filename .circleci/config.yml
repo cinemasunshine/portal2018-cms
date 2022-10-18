@@ -102,11 +102,22 @@ jobs:
           command: rm -v ./.env
 
   deploy_to_development:
-    working_directory: ~/deployment
+    working_directory: ~/deployment-dev
     executor: gcp-cli/default
 
     steps:
       - checkout
+
+      - run:
+          name: Create app.yaml
+          command: sed s/:PROJECT_ID:/$GOOGLE_PROJECT_ID_DEVELOPMENT/ ./.gcp/app.yaml > app.yaml
+
+      - store_artifacts:
+          path: ./app.yaml
+
+      - run:
+          name: Copy php.ini
+          command: cp ./.gcp/php.development.ini php.ini
 
       - run:
           name: Create includes env yaml
@@ -121,6 +132,41 @@ jobs:
           gcloud-service-key: GCLOUD_SERVICE_KEY_DEVELOPMENT
           google-compute-region: GOOGLE_COMPUTE_REGION_DEVELOPMENT
           google-project-id: GOOGLE_PROJECT_ID_DEVELOPMENT
+
+      # composerのコマンドイベントを使いたいのでキャッシュを無効にする
+      - run: gcloud --quiet app deploy --no-cache
+
+  deploy_to_production:
+    working_directory: ~/deployment-prod
+    executor: gcp-cli/default
+
+    steps:
+      - checkout
+
+      - run:
+          name: Create app.yaml
+          command: sed s/:PROJECT_ID:/$GOOGLE_PROJECT_ID_PRODUCTION/ ./.gcp/app.yaml > app.yaml
+
+      - store_artifacts:
+          path: ./app.yaml
+
+      - run:
+          name: Copy php.ini
+          command: cp ./.gcp/php.production.ini php.ini
+
+      - run:
+          name: Create includes env yaml
+          command: echo $ENV_VARIABLES_PRODUCTION | base64 --decode > ./.gcp/env.yaml
+
+      - store_artifacts:
+          path: ./.gcp/env.yaml
+
+      - gcp-cli/install
+
+      - gcp-cli/initialize:
+          gcloud-service-key: GCLOUD_SERVICE_KEY_PRODUCTION
+          google-compute-region: GOOGLE_COMPUTE_REGION_PRODUCTION
+          google-project-id: GOOGLE_PROJECT_ID_PRODUCTION
 
       # composerのコマンドイベントを使いたいのでキャッシュを無効にする
       - run: gcloud --quiet app deploy --no-cache
@@ -141,3 +187,8 @@ workflows:
           filters:
             branches:
               only: feature/SASAKI-647
+
+      - deploy_to_production:
+          <<: *job_setup
+          requires:
+            - test
