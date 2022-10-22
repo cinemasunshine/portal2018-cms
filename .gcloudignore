@@ -9,6 +9,7 @@
 /.gcp/php.development.ini
 /.gcp/php.production.ini
 /.gcp/README.md
+/bin/
 /cache/
 /docker/
 /public/.htaccess.example
