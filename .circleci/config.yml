@@ -24,23 +24,6 @@ commands:
           name: Using Composer version 2
           command: sudo composer self-update --2
 
-  file_exists:
-    description: "Checks whether a file exists"
-    parameters:
-      file:
-        type: string
-    steps:
-      - run:
-          name: Checks whether "<< parameters.file >>" exists
-          command: |
-            if [ -e << parameters.file >> ]; then
-              echo "File exists."
-              exit 0
-            else
-              echo "File not exists."
-              exit 1
-            fi
-
 orbs:
   gcp-cli: circleci/gcp-cli@2.4.1
 
