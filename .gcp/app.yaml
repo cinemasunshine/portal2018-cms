@@ -20,6 +20,10 @@ env_variables:
   APPSETTING_DOCTRINE_FILESYSTEM_CACHE_DIR: /tmp/doctrine
 
 handlers:
+  - url: /dev/(.*)
+    script: auto
+    login: admin
+
   - url: /css
     static_dir: public/css
 
