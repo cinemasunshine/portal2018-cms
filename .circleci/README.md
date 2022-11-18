@@ -21,6 +21,7 @@ cinemasunshine (Organizations) > portal2018-cms (Projects) > Project Settings > 
 
 | Name | Value |
 |:---|:---|
-|AZURE_TENANT |Azure テナントID [circleci/azure-cli orb](https://circleci.com/developer/orbs/orb/circleci/azure-cli) |
-|AZURE_USERNAME |Azure ユーザ名 [circleci/azure-cli orb](https://circleci.com/developer/orbs/orb/circleci/azure-cli) |
-|AZURE_PASSWORD |Azure パスワード [circleci/azure-cli orb](https://circleci.com/developer/orbs/orb/circleci/azure-cli) |
+| ENV_VARIABLES_**\<ENVIRONMENT\>** | 環境変数を設定したyaml形式データをBase64エンコード |
+| GCLOUD_SERVICE_KEY_**\<ENVIRONMENT\>** | Googleプロジェクトのフルサービス・キーJSONファイル |
+| GOOGLE_COMPUTE_REGION_**\<ENVIRONMENT\>** | gcloud CLI のデフォルトとして設定する Google compute region |
+| GOOGLE_PROJECT_ID_**\<ENVIRONMENT\>** | gcloud CLIのデフォルトとして設定するGoogleプロジェクトID |

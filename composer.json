@@ -22,7 +22,7 @@
     },
     "require": {
         "php": "~7.4",
-        "blue32a/monolog-azure-blob": "^0.2",
+        "blue32a/monolog-google-cloud-logging": "^1.0",
         "cinemasunshine/portal2018-orm": "^2.0",
         "doctrine/orm": "~2.7.4",
         "intervention/image": "^2.5",
@@ -63,6 +63,9 @@
         "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
         "phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml",
         "phpstan": "vendor/bin/phpstan analyse -n --no-progress -c phpstan.neon --memory-limit=256M",
-        "phpunit": "vendor/bin/phpunit --testdox-html ./report/phpunit/testdox.html"
+        "phpunit": "vendor/bin/phpunit --testdox-html ./report/phpunit/testdox.html",
+        "post-autoload-dump": [
+            "vendor/bin/doctrine orm:generate-proxies"
+        ]
     }
 }

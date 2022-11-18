@@ -19,7 +19,7 @@ $settings['view'] = [
     'template_path' => APP_ROOT . '/template',
     'settings' => [
         'debug' => APP_DEBUG,
-        'cache' => APP_ROOT . '/cache/view',
+        'cache' => getenv('APPSETTING_VIEW_CACHE_DIR') ?: APP_ROOT . '/cache/view',
     ],
 ];
 
@@ -47,13 +47,17 @@ $getLoggerSetting = static function () {
         ];
     }
 
-    $settings['buffer'] = ['limit' => 0]; // ひとまず無制限とする
+    if (in_array(APP_ENV, ['dev', 'prod'])) {
+        $settings['google_cloud_logging'] = [
+            'name' => 'app',
+            'level' => Logger::INFO,
+            'client_options' => [
+                'projectId' => getenv('GOOGLE_CLOUD_PROJECT'),
+            ],
+        ];
 
-    $settings['azure_blob_storage'] = [
-        'level' => Logger::INFO,
-        'container' => 'admin-log',
-        'blob' => date('Ymd') . '.log',
-    ];
+        $settings['buffer'] = ['limit' => 0]; // ひとまず無制限とする
+    }
 
     return $settings;
 };
@@ -83,6 +87,8 @@ $getDoctrineSetting = static function () {
         'dev_mode' => (APP_ENV === 'local'),
 
         'cache' => getenv('APPSETTING_DOCTRINE_CACHE') ?: 'array',
+        'filesystem_cache_dir' => getenv('APPSETTING_DOCTRINE_FILESYSTEM_CACHE_DIR') ?: APP_ROOT . '/cache/doctrine',
+
         'metadata_dirs' => [APP_ROOT . '/src/ORM/Entity'],
 
         'connection' => [
@@ -114,9 +120,17 @@ $settings['doctrine'] = $getDoctrineSetting();
 
 // storage
 $getStorageSettings = static function () {
+    /**
+     * デフォルトとしてエミュレーターの接続情報を設定する
+     * 設定されていないとビルドできないので
+     * doctrine orm:generate-proxies でエラーになる（loggerで使用しているのが原因と思われる）
+     */
+    $defaultName = 'devstoreaccount1';
+    $defaultKey  = 'Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq';
+
     $settings = [
-        'account_name' => getenv('CUSTOMCONNSTR_STORAGE_NAME'),
-        'account_key' => getenv('CUSTOMCONNSTR_STORAGE_KEY'),
+        'account_name' => getenv('CUSTOMCONNSTR_STORAGE_NAME') ?: $defaultName,
+        'account_key' => getenv('CUSTOMCONNSTR_STORAGE_KEY') ?: $defaultKey,
     ];
 
     $settings['secure'] = (getenv('CUSTOMCONNSTR_STORAGE_SECURE') !== 'false');

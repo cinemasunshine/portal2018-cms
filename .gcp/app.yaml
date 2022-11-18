@@ -1,0 +1,43 @@
+runtime: php74
+
+# 複数インスタンスには対応していない
+instance_class: B1
+
+# シャットダウンしてセッションが途切れないよう常に起動させておく
+manual_scaling:
+  instances: 1
+
+# includesに分離できないのでCIで書き換える
+vpc_access_connector:
+  name: projects/:PROJECT_ID:/locations/asia-northeast1/connectors/connector01
+  egress_setting: all-traffic
+
+runtime_config:
+  document_root: ./public
+
+includes:
+- .gcp/env.yaml
+
+env_variables:
+  APPSETTING_VIEW_CACHE_DIR: /tmp/view
+
+  APPSETTING_DOCTRINE_CACHE: filesystem
+  APPSETTING_DOCTRINE_FILESYSTEM_CACHE_DIR: /tmp/doctrine
+
+handlers:
+  - url: /dev/(.*)
+    script: auto
+    login: admin
+
+  - url: /css
+    static_dir: public/css
+
+  - url: /images
+    static_dir: public/images
+
+  - url: /js
+    static_dir: public/js
+
+  - url: /robots.txt
+    static_files: public/robots.txt
+    upload: public/robots\.txt

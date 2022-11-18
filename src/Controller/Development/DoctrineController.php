@@ -14,9 +14,9 @@ use Slim\Http\Response;
 /**
  * Doctrine controller
  *
- * Webからキャッシュ操作する機能を提供する。
- * WinCacheのキャッシュはWebとCLIが別になっていて、コンソールからはクリアできないらしい。
- * よってその代替として実装。
+ * 主にWebからキャッシュ操作する機能を提供する。
+ * 元々はAzure (Windows)＋スワップ運用のための機能。
+ * GCP環境で必要なのかは不明。
  */
 class DoctrineController extends BaseController
 {
