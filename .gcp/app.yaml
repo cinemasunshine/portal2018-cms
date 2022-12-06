@@ -41,3 +41,8 @@ handlers:
   - url: /robots.txt
     static_files: public/robots.txt
     upload: public/robots\.txt
+
+  - url: .*
+    script: auto
+    secure: always
+    redirect_http_response_code: 301
