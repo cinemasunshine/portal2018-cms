@@ -8,9 +8,9 @@
 
 ## システム要件
 
-- PHP: 7.3
+- PHP: 7.4
 - MySQL: 5.7
-- Azure App Service (Windows)
+- Google App Engine
 - Azure Blob Storage
 
 ## EditorConfig
@@ -32,8 +32,6 @@ CIツールとして [CircleCI](https://circleci.com) を導入してます。
 ※ [Docker](https://www.docker.com/)をインストールしてください。
 
 ※ 現状では開発環境としての利用のみを想定してます。
-
-※ AzureはWindowsサーバですが、こちらはLinuxサーバです。
 
 ※ Storageエミュレーターはpreview版です。必要に応じてAzureプラットフォームで別途作成してください。
 
