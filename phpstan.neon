@@ -10,7 +10,7 @@ parameters:
 	paths:
 		- %currentWorkingDirectory%/src
 		- %currentWorkingDirectory%/tests
-	excludes_analyse:
+	excludePaths:
 		- %currentWorkingDirectory%/src/ORM/Proxy/*
 		- %currentWorkingDirectory%/tests/entity-manager.php
 
@@ -31,3 +31,9 @@ parameters:
 			message: "#^Method App\\\\Controller\\\\BaseController\\:\\:render\\(\\) should return Slim\\\\Http\\\\Response but returns Psr\\\\Http\\\\Message\\\\ResponseInterface\\.$#"
 			count: 1
 			path: src/Controller/BaseController.php
+
+		# baseline
+		-
+			message: "#^Unsafe call to private method App\\\\Form\\\\BaseForm\\:\\:parseUploadedFiles\\(\\) through static\\:\\:\\.$#"
+			count: 2
+			path: src/Form/BaseForm.php
